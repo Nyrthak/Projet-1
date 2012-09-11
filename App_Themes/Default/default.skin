@@ -1,0 +1,3 @@
+﻿<asp:Label runat="server" SkinId="lbAccueil" ForeColor="red" ></asp:Label>
+<asp:Label runat="server" SkinId="lbHeureOuverture" ForeColor="Orange" ></asp:Label>
+<asp:Label runat="server" SkinId="lbHoraire" ForeColor="Black"></asp:Label>

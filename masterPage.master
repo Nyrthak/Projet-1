@@ -13,21 +13,31 @@
     <form id="form1" runat="server">
     <div>
         
-        <div id="header"></div>
+        <div id="header">
+            <div class="ddlLangue">
+                <asp:DropDownList ID="ddlLangue" runat="server">
+                <asp:ListItem>Français</asp:ListItem>
+                <asp:ListItem>English</asp:ListItem>
+            </asp:DropDownList></div>
+        </div>
         <div id="menu">
-            <p>gsjdjfhsdjfskf</p>
+            <p>gsjdjfhsdjfskfvxcvxcvxccccccvv</p>
         </div>
         <div id="corps">
             <asp:ContentPlaceHolder id="contentPlaceMasterPage" runat="server">
+                <asp:LinkButton ID="LinkButton1" runat="server">LinkButton</asp:LinkButton>
             </asp:ContentPlaceHolder>
         </div>
         <div id="heureOuverture">
             <div id="topHeureOuverture">
-            <h2>Heure ouverture</h2></div>
-            <li>Lundi au vendredi</li> <p>8h00 à 23h00</p>
-
+            <h2><asp:Label SkinID="lbHeureOuverture" ID="lbHeureOuverture" runat="server" Text="Heure ouverture"></asp:Label></h2>
+            </div>
+               <li><asp:Label ID="lbHoraire1" SkinId="lbHoraire" runat="server" Text="Lundi au vendredi"></asp:Label></li> 
+                <p><asp:Label ID="lbHoraire1_2" SkinID="lbHoraire" runat="server" Text="8h00 à 23h00"></asp:Label></p>
+               <li><asp:Label ID="lbHoraire2_1" SkinId="lbHoraire" runat="server" Text="Samedi et Dimanche"></asp:Label></li> 
+                <p><asp:Label ID="lbHoraie2_2" SkinID="lbHoraire" runat="server" Text="5h30 à 23h00"></asp:Label></p>
         </div>
-        
+        <div id="footer"></div>
         
     </div>
     </form>
