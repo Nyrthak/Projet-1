@@ -16,7 +16,7 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("7e28eb96-0ca9-4a3d-a699-b32986c8ec12")>
+<Assembly: EdmSchemaAttribute("e78a36ac-f59f-4416-bec2-d4822975e60b")>
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("Model", "CompteProvince", "Compte", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Compte), "Province", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Province))>
 <Assembly: EdmRelationshipAttribute("Model", "PaysCompte", "Pays", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Pays), "Compte", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Compte))>
@@ -32,6 +32,7 @@ Imports System.Runtime.Serialization
 <Assembly: EdmRelationshipAttribute("Model", "AnimateurGroupe", "Animateur", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Animateur), "Groupe", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Groupe))>
 <Assembly: EdmRelationshipAttribute("Model", "HoraireGroupe", "Horaire", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Horaire), "Groupe", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Groupe))>
 <Assembly: EdmRelationshipAttribute("Model", "PrérequisCours", "Prérequis", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Prérequis), "Cours", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Cours))>
+<Assembly: EdmRelationshipAttribute("Model", "AnimateurProvince", "Animateur", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Animateur), "Province", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Province))>
 
 #End Region
 Namespace Model
@@ -446,12 +447,20 @@ Namespace Model
         ''' <param name="nom">Initial value of the Nom property.</param>
         ''' <param name="prénom">Initial value of the Prénom property.</param>
         ''' <param name="dateNaissance">Initial value of the DateNaissance property.</param>
-        Public Shared Function CreateAnimateur(noAnimateur As Global.System.Int32, nom As Global.System.String, prénom As Global.System.String, dateNaissance As Global.System.DateTime) As Animateur
+        ''' <param name="adresse">Initial value of the Adresse property.</param>
+        ''' <param name="ville">Initial value of the Ville property.</param>
+        ''' <param name="codePostal">Initial value of the CodePostal property.</param>
+        ''' <param name="noTéléphone">Initial value of the noTéléphone property.</param>
+        Public Shared Function CreateAnimateur(noAnimateur As Global.System.Int32, nom As Global.System.String, prénom As Global.System.String, dateNaissance As Global.System.DateTime, adresse As Global.System.String, ville As Global.System.String, codePostal As Global.System.String, noTéléphone As Global.System.Int32) As Animateur
             Dim animateur as Animateur = New Animateur
             animateur.noAnimateur = noAnimateur
             animateur.Nom = nom
             animateur.Prénom = prénom
             animateur.DateNaissance = dateNaissance
+            animateur.Adresse = adresse
+            animateur.Ville = ville
+            animateur.CodePostal = codePostal
+            animateur.noTéléphone = noTéléphone
             Return animateur
         End Function
 
@@ -559,6 +568,106 @@ Namespace Model
     
         Private Partial Sub OnDateNaissanceChanged()
         End Sub
+    
+        ''' <summary>
+        ''' No Metadata Documentation available.
+        ''' </summary>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+        <DataMemberAttribute()>
+        Public Property Adresse() As Global.System.String
+            Get
+                Return _Adresse
+            End Get
+            Set
+                OnAdresseChanging(value)
+                ReportPropertyChanging("Adresse")
+                _Adresse = StructuralObject.SetValidValue(value, false)
+                ReportPropertyChanged("Adresse")
+                OnAdresseChanged()
+            End Set
+        End Property
+    
+        Private _Adresse As Global.System.String
+        Private Partial Sub OnAdresseChanging(value As Global.System.String)
+        End Sub
+    
+        Private Partial Sub OnAdresseChanged()
+        End Sub
+    
+        ''' <summary>
+        ''' No Metadata Documentation available.
+        ''' </summary>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+        <DataMemberAttribute()>
+        Public Property Ville() As Global.System.String
+            Get
+                Return _Ville
+            End Get
+            Set
+                OnVilleChanging(value)
+                ReportPropertyChanging("Ville")
+                _Ville = StructuralObject.SetValidValue(value, false)
+                ReportPropertyChanged("Ville")
+                OnVilleChanged()
+            End Set
+        End Property
+    
+        Private _Ville As Global.System.String
+        Private Partial Sub OnVilleChanging(value As Global.System.String)
+        End Sub
+    
+        Private Partial Sub OnVilleChanged()
+        End Sub
+    
+        ''' <summary>
+        ''' No Metadata Documentation available.
+        ''' </summary>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+        <DataMemberAttribute()>
+        Public Property CodePostal() As Global.System.String
+            Get
+                Return _CodePostal
+            End Get
+            Set
+                OnCodePostalChanging(value)
+                ReportPropertyChanging("CodePostal")
+                _CodePostal = StructuralObject.SetValidValue(value, false)
+                ReportPropertyChanged("CodePostal")
+                OnCodePostalChanged()
+            End Set
+        End Property
+    
+        Private _CodePostal As Global.System.String
+        Private Partial Sub OnCodePostalChanging(value As Global.System.String)
+        End Sub
+    
+        Private Partial Sub OnCodePostalChanged()
+        End Sub
+    
+        ''' <summary>
+        ''' No Metadata Documentation available.
+        ''' </summary>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+        <DataMemberAttribute()>
+        Public Property noTéléphone() As Global.System.Int32
+            Get
+                Return _noTéléphone
+            End Get
+            Set
+                OnnoTéléphoneChanging(value)
+                ReportPropertyChanging("noTéléphone")
+                _noTéléphone = StructuralObject.SetValidValue(value)
+                ReportPropertyChanged("noTéléphone")
+                OnnoTéléphoneChanged()
+            End Set
+        End Property
+    
+        Private _noTéléphone As Global.System.Int32
+        Private Partial Sub OnnoTéléphoneChanging(value As Global.System.Int32)
+        End Sub
+    
+        Private Partial Sub OnnoTéléphoneChanged()
+        End Sub
 
         #End Region
         #Region "Navigation Properties"
@@ -577,6 +686,37 @@ Namespace Model
             Set
                 If (Not value Is Nothing)
                     CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of Groupe)("Model.AnimateurGroupe", "Groupe", value)
+                End If
+            End Set
+        End Property
+    
+        ''' <summary>
+        ''' No Metadata Documentation available.
+        ''' </summary>
+        <XmlIgnoreAttribute()>
+        <SoapIgnoreAttribute()>
+        <DataMemberAttribute()>
+        <EdmRelationshipNavigationPropertyAttribute("Model", "AnimateurProvince", "Province")>
+        Public Property Province() As Province
+            Get
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Province)("Model.AnimateurProvince", "Province").Value
+            End Get
+            Set
+                CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Province)("Model.AnimateurProvince", "Province").Value = value
+            End Set
+        End Property
+        ''' <summary>
+        ''' No Metadata Documentation available.
+        ''' </summary>
+        <BrowsableAttribute(False)>
+        <DataMemberAttribute()>
+        Public Property ProvinceReference() As EntityReference(Of Province)
+            Get
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Province)("Model.AnimateurProvince", "Province")
+            End Get
+            Set
+                If (Not value Is Nothing)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of Province)("Model.AnimateurProvince", "Province", value)
                 End If
             End Set
         End Property
@@ -2952,6 +3092,24 @@ Namespace Model
             Set
                 If (Not value Is Nothing)
                     CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of Compte)("Model.CompteProvince", "Compte", value)
+                End If
+            End Set
+        End Property
+    
+        ''' <summary>
+        ''' No Metadata Documentation available.
+        ''' </summary>
+        <XmlIgnoreAttribute()>
+        <SoapIgnoreAttribute()>
+        <DataMemberAttribute()>
+        <EdmRelationshipNavigationPropertyAttribute("Model", "AnimateurProvince", "Animateur")>
+         Public Property Animateur() As EntityCollection(Of Animateur)
+            Get
+                Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of Animateur)("Model.AnimateurProvince", "Animateur")
+            End Get
+            Set
+                If (Not value Is Nothing)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of Animateur)("Model.AnimateurProvince", "Animateur", value)
                 End If
             End Set
         End Property

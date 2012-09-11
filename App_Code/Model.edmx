@@ -85,6 +85,10 @@
             <End Role="Prérequis" EntitySet="PrérequisSet" />
             <End Role="Cours" EntitySet="CoursSet" />
           </AssociationSet>
+          <AssociationSet Name="AnimateurProvince" Association="Model.AnimateurProvince">
+            <End Role="Animateur" EntitySet="AnimateurSet" />
+            <End Role="Province" EntitySet="ProvinceSet" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Province">
           <Key>
@@ -93,6 +97,7 @@
           <Property Type="Int32" Name="noProvince" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Nom" Nullable="false" />
           <NavigationProperty Name="Compte" Relationship="Model.CompteProvince" FromRole="Province" ToRole="Compte" />
+          <NavigationProperty Name="Animateur" Relationship="Model.AnimateurProvince" FromRole="Province" ToRole="Animateur" />
         </EntityType>
         <EntityType Name="Pays">
           <Key>
@@ -239,6 +244,11 @@
           <Property Type="String" Name="Prénom" Nullable="false" />
           <Property Type="DateTime" Name="DateNaissance" Nullable="false" />
           <NavigationProperty Name="Groupe" Relationship="Model.AnimateurGroupe" FromRole="Animateur" ToRole="Groupe" />
+          <Property Type="String" Name="Adresse" Nullable="false" />
+          <Property Type="String" Name="Ville" Nullable="false" />
+          <Property Type="String" Name="CodePostal" Nullable="false" />
+          <Property Type="Int32" Name="noTéléphone" Nullable="false" />
+          <NavigationProperty Name="Province" Relationship="Model.AnimateurProvince" FromRole="Animateur" ToRole="Province" />
         </EntityType>
         <EntityType Name="Forfait">
           <Key>
@@ -312,6 +322,10 @@
           <End Type="Model.Prérequis" Role="Prérequis" Multiplicity="*" />
           <End Type="Model.Cours" Role="Cours" Multiplicity="*" />
         </Association>
+        <Association Name="AnimateurProvince">
+          <End Type="Model.Animateur" Role="Animateur" Multiplicity="*" />
+          <End Type="Model.Province" Role="Province" Multiplicity="1" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -353,14 +367,18 @@
         <EntityTypeShape EntityType="Model.GroupeDAge" Width="1.5" PointX="1.125" PointY="7.25" Height="1.4033821614583335" />
         <EntityTypeShape EntityType="Model.Jour" Width="1.5" PointX="5.125" PointY="9.25" Height="1.4033821614583335" />
         <EntityTypeShape EntityType="Model.Horaire" Width="1.5" PointX="5.125" PointY="7" Height="2.3648893229166674" />
-        <EntityTypeShape EntityType="Model.Animateur" Width="1.5" PointX="7" PointY="7" Height="1.7879850260416657" />
+        <EntityTypeShape EntityType="Model.Animateur" Width="1.5" PointX="7" PointY="7" Height="2.7494921874999996" />
         <EntityTypeShape EntityType="Model.Forfait" Width="1.5" PointX="8.75" PointY="0.5" Height="1.4033821614583331" />
         <AssociationConnector Association="Model.CompteProvince">
-          <ConnectorPoint PointX="3.125" PointY="1.297841796875" />
-          <ConnectorPoint PointX="2.625" PointY="1.297841796875" />
+          <ConnectorPoint PointX="3.125" PointY="1.8554134114583332" />
+          <ConnectorPoint PointX="2.8020833333333335" PointY="1.8554134114583325" />
+          <ConnectorPoint PointX="2.6354166666666665" PointY="1.8554134114583332" />
+          <ConnectorPoint PointX="2.625" PointY="1.8554134114583332" />
         </AssociationConnector>
         <AssociationConnector Association="Model.PaysCompte">
           <ConnectorPoint PointX="2.625" PointY="2.9083968098958333" />
+          <ConnectorPoint PointX="2.6354166666666665" PointY="2.9083968098958328" />
+          <ConnectorPoint PointX="2.8020833333333335" PointY="2.9083968098958333" />
           <ConnectorPoint PointX="3.125" PointY="2.9083968098958333" />
         </AssociationConnector>
         <AssociationConnector Association="Model.CompteMembre">
@@ -377,10 +395,14 @@
         </AssociationConnector>
         <AssociationConnector Association="Model.CatégorieCours">
           <ConnectorPoint PointX="2.625" PointY="4.922841796875" />
+          <ConnectorPoint PointX="2.6354166666666665" PointY="4.9228417968749989" />
+          <ConnectorPoint PointX="2.8020833333333335" PointY="4.922841796875" />
           <ConnectorPoint PointX="3.125" PointY="4.922841796875" />
         </AssociationConnector>
         <AssociationConnector Association="Model.SessionCours">
           <ConnectorPoint PointX="2.625" PointY="6.0285953776041659" />
+          <ConnectorPoint PointX="2.6354166666666665" PointY="6.028595377604165" />
+          <ConnectorPoint PointX="2.8020833333333335" PointY="6.0285953776041659" />
           <ConnectorPoint PointX="3.125" PointY="6.0285953776041659" />
         </AssociationConnector>
         <AssociationConnector Association="Model.ListeDAttenteMembre">
@@ -392,11 +414,11 @@
           <ConnectorPoint PointX="7" PointY="4.8362939453125" />
         </AssociationConnector>
         <AssociationConnector Association="Model.GroupeDAgeCours">
-          <ConnectorPoint PointX="2.625" PointY="7.9516910807291676" />
-          <ConnectorPoint PointX="2.875" PointY="7.9516910807291676" />
+          <ConnectorPoint PointX="2.625" PointY="7.9516910807291659" />
+          <ConnectorPoint PointX="2.875" PointY="7.9516910807291659" />
           <ConnectorPoint PointX="2.875" PointY="6.75" />
-          <ConnectorPoint PointX="3.48437425" PointY="6.75" />
-          <ConnectorPoint PointX="3.48437425" PointY="6.3071907552083326" />
+          <ConnectorPoint PointX="3.6210940625" PointY="6.75" />
+          <ConnectorPoint PointX="3.6210940625" PointY="6.3071907552083326" />
         </AssociationConnector>
         <AssociationConnector Association="Model.JourHoraire">
           <ConnectorPoint PointX="6.625" PointY="9.9516910807291659" />
@@ -416,6 +438,17 @@
         <AssociationConnector Association="Model.PrérequisCours">
           <ConnectorPoint PointX="4.117187125" PointY="7" />
           <ConnectorPoint PointX="4.117187125" PointY="6.3071907552083326" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.AnimateurProvince">
+          <ConnectorPoint PointX="7.460935" PointY="7" />
+          <ConnectorPoint PointX="7.460935" PointY="6.9375000000000018" />
+          <ConnectorPoint PointX="6.9105464434832991" PointY="6.9375000000000009" />
+          <ConnectorPoint PointX="6.743879776816633" PointY="6.9375000000000018" />
+          <ConnectorPoint PointX="2.9583333333333335" PointY="6.9375000000000009" />
+          <ConnectorPoint PointX="2.7916666666666665" PointY="6.9375000000000018" />
+          <ConnectorPoint PointX="2.71875" PointY="6.9375000000000018" />
+          <ConnectorPoint PointX="2.71875" PointY="1.1464547057291665" />
+          <ConnectorPoint PointX="2.625" PointY="1.1464547057291665" />
         </AssociationConnector>
       </Diagram>
     </edmx:Diagrams>
