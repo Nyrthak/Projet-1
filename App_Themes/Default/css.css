@@ -1,6 +1,6 @@
 ﻿*{ border:0px; margin:0px; padding:0px;}
 body{ width:1024px; margin:auto;}
-#header{ height:95px; background-color:#6b8bc7;}
+#header{ height:95px; background-color:#537EFF;}
 #menu{ height:100px;}
 #corps{float:left; background-color:blue; width: 800px;}
 #heureOuverture{float:right; background-color:Red; width: 210px; height:250px; border:2px solid black;} #heureOuverture p{margin:0 0 0 40px;}
