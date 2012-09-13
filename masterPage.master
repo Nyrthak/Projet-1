@@ -11,33 +11,35 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
+    <div id="bigDiv">
         
         <div id="header">
-            <div class="ddlLangue">
-                <asp:DropDownList ID="ddlLangue" runat="server">
-                <asp:ListItem>Français</asp:ListItem>
-                <asp:ListItem>English</asp:ListItem>
-            </asp:DropDownList></div>
         </div>
         <div id="menu">
-            <p>gsjdjfhsdjfskfvxcvxcvxccccccvv</p>
+            <ul>
+                <li><a>Accueil</a></li>
+                <li><a>Cours</a></li>
+                <li><a>Forfaits</a></li>
+                <li><a>Informations générales</a></li>
+                <li><a>Mon compte</a></li>
+                <li><a>Se connecter / S'inscrire</a></li>
+            </ul>
         </div>
         <div id="corps">
             <asp:ContentPlaceHolder id="contentPlaceMasterPage" runat="server">
-                <asp:LinkButton ID="LinkButton1" runat="server">LinkButton</asp:LinkButton>
             </asp:ContentPlaceHolder>
         </div>
         <div id="heureOuverture">
             <div id="topHeureOuverture">
-            <h2><asp:Label SkinID="lbHeureOuverture" ID="lbHeureOuverture" runat="server" Text="Heure ouverture"></asp:Label></h2>
+            <h2><asp:Label SkinID="lbHeureOuverture" ID="lbHeureOuverture" runat="server" Text="Heures d'ouverture"></asp:Label></h2>
             </div>
-               <li><asp:Label ID="lbHoraire1" SkinId="lbHoraire" runat="server" Text="Lundi au vendredi"></asp:Label></li> 
-                <p><asp:Label ID="lbHoraire1_2" SkinID="lbHoraire" runat="server" Text="8h00 à 23h00"></asp:Label></p>
-               <li><asp:Label ID="lbHoraire2_1" SkinId="lbHoraire" runat="server" Text="Samedi et Dimanche"></asp:Label></li> 
-                <p><asp:Label ID="lbHoraie2_2" SkinID="lbHoraire" runat="server" Text="5h30 à 23h00"></asp:Label></p>
+            <li>Lundi au vendredi <br /> <span class="heure">8h00 à 23h00</span></li> 
+            <li>Samedi et Dimanche <br /> <span class="heure">5h30 à 23h00</span></li> 
         </div>
-        <div id="footer"></div>
+        <div id="footer">
+            <p class="left">Copyright KeL</p>
+            <p class="right"><a href="">English</a></p>
+        </div>
         
     </div>
     </form>
