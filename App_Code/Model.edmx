@@ -365,7 +365,7 @@
         <EntityTypeShape EntityType="Model.ListeDAttente" Width="1.5" PointX="5" PointY="3.75" Height="2.1725878906249996" />
         <EntityTypeShape EntityType="Model.Session" Width="1.5" PointX="1.125" PointY="5.75" Height="1.4033821614583335" />
         <EntityTypeShape EntityType="Model.GroupeDAge" Width="1.5" PointX="1.125" PointY="7.25" Height="1.4033821614583335" />
-        <EntityTypeShape EntityType="Model.Jour" Width="1.5" PointX="5.125" PointY="9.25" Height="1.4033821614583335" />
+        <EntityTypeShape EntityType="Model.Jour" Width="1.5" PointX="5.125" PointY="10" Height="1.4033821614583335" />
         <EntityTypeShape EntityType="Model.Horaire" Width="1.5" PointX="5.125" PointY="7" Height="2.3648893229166674" />
         <EntityTypeShape EntityType="Model.Animateur" Width="1.5" PointX="7" PointY="7" Height="2.7494921874999996" />
         <EntityTypeShape EntityType="Model.Forfait" Width="1.5" PointX="8.75" PointY="0.5" Height="1.4033821614583331" />
@@ -421,10 +421,8 @@
           <ConnectorPoint PointX="3.6210940625" PointY="6.3071907552083326" />
         </AssociationConnector>
         <AssociationConnector Association="Model.JourHoraire">
-          <ConnectorPoint PointX="6.625" PointY="9.9516910807291659" />
-          <ConnectorPoint PointX="6.817" PointY="9.9516910807291659" />
-          <ConnectorPoint PointX="6.817" PointY="8.1824446614583337" />
-          <ConnectorPoint PointX="6.625" PointY="8.1824446614583337" />
+          <ConnectorPoint PointX="5.875" PointY="10" />
+          <ConnectorPoint PointX="5.875" PointY="9.3648893229166674" />
         </AssociationConnector>
         <AssociationConnector Association="Model.AnimateurGroupe">
           <ConnectorPoint PointX="7.75" PointY="7" />
