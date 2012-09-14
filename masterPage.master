@@ -17,12 +17,12 @@
         </div>
         <div id="menu">
             <ul>
-                <li><a>Accueil</a></li>
-                <li><a>Cours</a></li>
-                <li><a>Forfaits</a></li>
-                <li><a>Informations générales</a></li>
-                <li><a>Mon compte</a></li>
-                <li><a>Se connecter / S'inscrire</a></li>
+                <li id="premierMenuGauche"><a href="">Accueil</a></li>
+                <li><a href="">Cours</a></li>
+                <li><a href="">Forfaits</a></li>
+                <li><a href="">Informations générales</a></li>
+                <li><a href="">Mon compte</a></li>
+                <li><a href="">Se connecter / S'inscrire</a></li>
             </ul>
         </div>
         <div id="corps">
@@ -37,7 +37,7 @@
             <li>Samedi et Dimanche <br /> <span class="heure">5h30 à 23h00</span></li> 
         </div>
         <div id="footer">
-            <p class="left">Copyright KeL</p>
+            <p class="left">Copyright KeL © 2012</p>
             <p class="right"><a href="">English</a></p>
         </div>
         
