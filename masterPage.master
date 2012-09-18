@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head id="Head1" runat="server">
     <link href="App_Themes/Default/css.css" rel="stylesheet" type="text/css" />
     <title></title>
     <asp:ContentPlaceHolder id="head" runat="server">
@@ -11,35 +11,38 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
+    <div id="bigDiv">
         
         <div id="header">
-            <div class="ddlLangue">
-                <asp:DropDownList ID="ddlLangue" runat="server">
-                <asp:ListItem>Français</asp:ListItem>
-                <asp:ListItem>English</asp:ListItem>
-            </asp:DropDownList></div>
         </div>
         <div id="menu">
-            <p>gsjdjfhsdjfskfvxcvxcvxccccccvv</p>
+            <asp:Menu ID="menuTop" runat="server" DataSourceID="siteMapDataSource" Orientation="Horizontal">
+            <StaticHoverStyle Width="166px"/>
+            <StaticSelectedStyle Width="166px" BackColor="#537EFF" ForeColor="White" /> 
+            </asp:Menu>   
+                
         </div>
         <div id="corps">
             <asp:ContentPlaceHolder id="contentPlaceMasterPage" runat="server">
-                <asp:LinkButton ID="LinkButton1" runat="server">LinkButton</asp:LinkButton>
             </asp:ContentPlaceHolder>
         </div>
         <div id="heureOuverture">
             <div id="topHeureOuverture">
-            <h2><asp:Label SkinID="lbHeureOuverture" ID="lbHeureOuverture" runat="server" Text="Heure ouverture"></asp:Label></h2>
+            <h2><asp:Label SkinID="lbHeureOuverture" ID="lbHeureOuverture" runat="server" Text="Heures d'ouverture"></asp:Label></h2>
             </div>
-               <li><asp:Label ID="lbHoraire1" SkinId="lbHoraire" runat="server" Text="Lundi au vendredi"></asp:Label></li> 
-                <p><asp:Label ID="lbHoraire1_2" SkinID="lbHoraire" runat="server" Text="8h00 à 23h00"></asp:Label></p>
-               <li><asp:Label ID="lbHoraire2_1" SkinId="lbHoraire" runat="server" Text="Samedi et Dimanche"></asp:Label></li> 
-                <p><asp:Label ID="lbHoraie2_2" SkinID="lbHoraire" runat="server" Text="5h30 à 23h00"></asp:Label></p>
+            <li><asp:Label SkinId="lbHoraire" ID="lbLundiVendredi" runat="server" Text="Lundi au vendredi"></asp:Label> <br />
+                <p><asp:Label SkinId="lbHoraire" ID="lbSemaine" runat="server" Text="8h00 à 23h00"></asp:Label></p> </li> 
+            <li><asp:Label SkinId="lbHoraire" ID="lbSamediDimanche" runat="server" Text="Samedi et Dimanche"></asp:Label> <br /> 
+                <p><asp:Label SkinId="lbHoraire" ID="lbFDS" runat="server" Text="5h30 à 23h00"></asp:Label></p></li> 
         </div>
-        <div id="footer"></div>
+        <div id="footer">
+            <p class="left">Copyright KeL © 2012</p>
+            <p class="right">
+                <asp:LinkButton ID="lnkBtLangue" Text="English" runat="server"></asp:LinkButton></p>
+        </div>
         
     </div>
+    <asp:SiteMapDataSource ID="siteMapDataSource" runat="server" ShowStartingNode="false"/>
     </form>
 </body>
 </html>
