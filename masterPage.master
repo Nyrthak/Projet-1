@@ -16,14 +16,11 @@
         <div id="header">
         </div>
         <div id="menu">
-            <ul>
-                <li id="premierMenuGauche"><a href="">Accueil</a></li>
-                <li><a href="">Cours</a></li>
-                <li><a href="">Forfaits</a></li>
-                <li><a href="">Informations générales</a></li>
-                <li><a href="">Mon compte</a></li>
-                <li><a href="">Se connecter / S'inscrire</a></li>
-            </ul>
+            <asp:Menu ID="menuTop" runat="server" DataSourceID="siteMapDataSource" Orientation="Horizontal">
+            <StaticHoverStyle Width="166px"/>
+            <StaticSelectedStyle Width="166px" BackColor="#537EFF" ForeColor="White" /> 
+            </asp:Menu>   
+                
         </div>
         <div id="corps">
             <asp:ContentPlaceHolder id="contentPlaceMasterPage" runat="server">
@@ -33,8 +30,10 @@
             <div id="topHeureOuverture">
             <h2><asp:Label SkinID="lbHeureOuverture" ID="lbHeureOuverture" runat="server" Text="Heures d'ouverture"></asp:Label></h2>
             </div>
-            <li>Lundi au vendredi <br /> <span class="heure">8h00 à 23h00</span></li> 
-            <li>Samedi et Dimanche <br /> <span class="heure">5h30 à 23h00</span></li> 
+            <li><asp:Label SkinId="lbHoraire" ID="lbLundiVendredi" runat="server" Text="Lundi au vendredi"></asp:Label> <br />
+                <p><asp:Label SkinId="lbHoraire" ID="lbSemaine" runat="server" Text="8h00 à 23h00"></asp:Label></p> </li> 
+            <li><asp:Label SkinId="lbHoraire" ID="lbSamediDimanche" runat="server" Text="Samedi et Dimanche"></asp:Label> <br /> 
+                <p><asp:Label SkinId="lbHoraire" ID="lbFDS" runat="server" Text="5h30 à 23h00"></asp:Label></p></li> 
         </div>
         <div id="footer">
             <p class="left">Copyright KeL © 2012</p>
@@ -43,6 +42,7 @@
         </div>
         
     </div>
+    <asp:SiteMapDataSource ID="siteMapDataSource" runat="server" ShowStartingNode="false"/>
     </form>
 </body>
 </html>
