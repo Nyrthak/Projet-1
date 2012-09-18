@@ -15,11 +15,14 @@ body{ width:1023px; margin:auto; background-color:#c5c5c5;}
     #heureOuverture p{margin:0 0 0 40px;}
     #heureOuverture li{margin:5px 0 0 20px;}
     .heure{margin-left: 40px;}   
-#content{padding:10px; padding-left:20px;}
+#content{padding:20px; padding-left:35px;}
+    #content h1{margin-bottom:10px; margin-right:250px;}
     #content #imageAccueil{float:right; margin-right:30px;}
-    #content #texteAccueil{float:left}
+    #content #texteAccueil{float:left;}
+#contentLeft{float:left; width:370px; } 
+#contentRight{float:right; width:370px;}   
 #footer{ background-color:#293F7F; width:1021px; height:50px; clear:both; color:White; border-left:1px solid black; border-right:1px solid black; border-bottom:1px solid black; line-height:50px;}
     .right{float:right; margin-right:50px;}
     .left{float:left; margin-left:50px;}
     #footer a{color: White;}
-    
+#login{       }

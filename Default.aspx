@@ -1,9 +1,9 @@
 ﻿<%@ Page Title="" Language="VB" MasterPageFile="~/masterPage.master" AutoEventWireup="false" CodeFile="Default.aspx.vb" Inherits="_Default" Theme="Default" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
+<asp:Content ID="contentAccueil" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
 
 <div id="content">
-<asp:Label SkinID="lbTitrePage" ID="lbAccueil" runat="server" Text="Accueil" ></asp:Label><br />
+<h1><asp:Label SkinID="lbTitrePage" ID="lbAccueil" runat="server" Text="Accueil" ></asp:Label></h1>
     <div id="texteAccueil">
         <asp:Label ID="lbTexte" runat="server" Width="450px"
         Text="Nous sommes une entreprise d'inscription à des sports, des cours et des activitées de loisirs."></asp:Label><br />
