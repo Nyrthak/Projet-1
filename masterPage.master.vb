@@ -1,4 +1,5 @@
 ﻿
+
 Partial Class masterPage
     Inherits System.Web.UI.MasterPage
 
@@ -21,4 +22,3 @@ Partial Class masterPage
         End If
     End Sub
 End Class
-

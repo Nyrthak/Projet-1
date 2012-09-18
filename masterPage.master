@@ -1,0 +1,48 @@
+﻿<%@ Master Language="VB" CodeFile="masterPage.master.vb" Inherits="masterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <link href="App_Themes/Default/css.css" rel="stylesheet" type="text/css" />
+    <title></title>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div id="bigDiv">
+        
+        <div id="header">
+        </div>
+        <div id="menu">
+            <ul>
+                <li id="premierMenuGauche"><a href="">Accueil</a></li>
+                <li><a href="">Cours</a></li>
+                <li><a href="">Forfaits</a></li>
+                <li><a href="">Informations générales</a></li>
+                <li><a href="">Mon compte</a></li>
+                <li><a href="">Se connecter / S'inscrire</a></li>
+            </ul>
+        </div>
+        <div id="corps">
+            <asp:ContentPlaceHolder id="contentPlaceMasterPage" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <div id="heureOuverture">
+            <div id="topHeureOuverture">
+            <h2><asp:Label SkinID="lbHeureOuverture" ID="lbHeureOuverture" runat="server" Text="Heures d'ouverture"></asp:Label></h2>
+            </div>
+            <li>Lundi au vendredi <br /> <span class="heure">8h00 à 23h00</span></li> 
+            <li>Samedi et Dimanche <br /> <span class="heure">5h30 à 23h00</span></li> 
+        </div>
+        <div id="footer">
+            <p class="left">Copyright KeL © 2012</p>
+            <p class="right">
+                <asp:LinkButton ID="lnkBtLangue" Text="English" runat="server"></asp:LinkButton></p>
+        </div>
+        
+    </div>
+    </form>
+</body>
+</html>
