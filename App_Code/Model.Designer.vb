@@ -16,7 +16,7 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("6e6752c2-a783-400c-aedc-dbce236c2d44")>
+<Assembly: EdmSchemaAttribute("e5e38a6c-946d-4a72-8470-6fda43cb5a5c")>
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("Model", "CompteProvince", "Compte", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Compte), "Province", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Province))>
 <Assembly: EdmRelationshipAttribute("Model", "PaysCompte", "Pays", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Pays), "Compte", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Compte))>
@@ -843,13 +843,17 @@ Namespace Model
         ''' <param name="adresse">Initial value of the Adresse property.</param>
         ''' <param name="ville">Initial value of the Ville property.</param>
         ''' <param name="codePostal">Initial value of the CodePostal property.</param>
-        Public Shared Function CreateCompte(noCompte As Global.System.Int32, préposé As Global.System.Boolean, adresse As Global.System.String, ville As Global.System.String, codePostal As Global.System.String) As Compte
+        ''' <param name="motDePasseCrypté">Initial value of the motDePasseCrypté property.</param>
+        ''' <param name="email">Initial value of the Email property.</param>
+        Public Shared Function CreateCompte(noCompte As Global.System.Int32, préposé As Global.System.Boolean, adresse As Global.System.String, ville As Global.System.String, codePostal As Global.System.String, motDePasseCrypté As Global.System.String, email As Global.System.String) As Compte
             Dim compte as Compte = New Compte
             compte.noCompte = noCompte
             compte.Préposé = préposé
             compte.Adresse = adresse
             compte.Ville = ville
             compte.CodePostal = codePostal
+            compte.motDePasseCrypté = motDePasseCrypté
+            compte.Email = email
             Return compte
         End Function
 
@@ -1031,6 +1035,56 @@ Namespace Model
         End Sub
     
         Private Partial Sub OnModePaiementChanged()
+        End Sub
+    
+        ''' <summary>
+        ''' No Metadata Documentation available.
+        ''' </summary>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+        <DataMemberAttribute()>
+        Public Property motDePasseCrypté() As Global.System.String
+            Get
+                Return _motDePasseCrypté
+            End Get
+            Set
+                OnmotDePasseCryptéChanging(value)
+                ReportPropertyChanging("motDePasseCrypté")
+                _motDePasseCrypté = StructuralObject.SetValidValue(value, false)
+                ReportPropertyChanged("motDePasseCrypté")
+                OnmotDePasseCryptéChanged()
+            End Set
+        End Property
+    
+        Private _motDePasseCrypté As Global.System.String
+        Private Partial Sub OnmotDePasseCryptéChanging(value As Global.System.String)
+        End Sub
+    
+        Private Partial Sub OnmotDePasseCryptéChanged()
+        End Sub
+    
+        ''' <summary>
+        ''' No Metadata Documentation available.
+        ''' </summary>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+        <DataMemberAttribute()>
+        Public Property Email() As Global.System.String
+            Get
+                Return _Email
+            End Get
+            Set
+                OnEmailChanging(value)
+                ReportPropertyChanging("Email")
+                _Email = StructuralObject.SetValidValue(value, false)
+                ReportPropertyChanged("Email")
+                OnEmailChanged()
+            End Set
+        End Property
+    
+        Private _Email As Global.System.String
+        Private Partial Sub OnEmailChanging(value As Global.System.String)
+        End Sub
+    
+        Private Partial Sub OnEmailChanged()
         End Sub
 
         #End Region
@@ -2582,13 +2636,15 @@ Namespace Model
         ''' <param name="noCours">Initial value of the noCours property.</param>
         ''' <param name="noGroupe">Initial value of the noGroupe property.</param>
         ''' <param name="noMembre">Initial value of the noMembre property.</param>
-        Public Shared Function CreatePaiement(modePaiement As Global.System.String, prix As Global.System.Double, noCours As Global.System.Int32, noGroupe As Global.System.Int32, noMembre As Global.System.Int32) As Paiement
+        ''' <param name="noPaypal">Initial value of the noPaypal property.</param>
+        Public Shared Function CreatePaiement(modePaiement As Global.System.String, prix As Global.System.Double, noCours As Global.System.Int32, noGroupe As Global.System.Int32, noMembre As Global.System.Int32, noPaypal As Global.System.Int32) As Paiement
             Dim paiement as Paiement = New Paiement
             paiement.ModePaiement = modePaiement
             paiement.Prix = prix
             paiement.noCours = noCours
             paiement.noGroupe = noGroupe
             paiement.noMembre = noMembre
+            paiement.noPaypal = noPaypal
             Return paiement
         End Function
 
@@ -2724,6 +2780,31 @@ Namespace Model
         End Sub
     
         Private Partial Sub OnnoMembreChanged()
+        End Sub
+    
+        ''' <summary>
+        ''' No Metadata Documentation available.
+        ''' </summary>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+        <DataMemberAttribute()>
+        Public Property noPaypal() As Global.System.Int32
+            Get
+                Return _noPaypal
+            End Get
+            Set
+                OnnoPaypalChanging(value)
+                ReportPropertyChanging("noPaypal")
+                _noPaypal = StructuralObject.SetValidValue(value)
+                ReportPropertyChanged("noPaypal")
+                OnnoPaypalChanged()
+            End Set
+        End Property
+    
+        Private _noPaypal As Global.System.Int32
+        Private Partial Sub OnnoPaypalChanging(value As Global.System.Int32)
+        End Sub
+    
+        Private Partial Sub OnnoPaypalChanged()
         End Sub
 
         #End Region
