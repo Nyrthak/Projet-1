@@ -1,5 +1,5 @@
 ﻿
-Partial Class loginETInscription
+Partial Class inscription
     Inherits System.Web.UI.Page
 
 End Class

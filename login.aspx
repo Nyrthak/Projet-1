@@ -1,4 +1,4 @@
-﻿<%@ Page Language="VB" MasterPageFile="~/masterPage.master" AutoEventWireup="false"  CodeFile="loginETInscription.aspx.vb" Inherits="loginETInscription" %>
+﻿<%@ Page Language="VB" MasterPageFile="~/masterPage.master" AutoEventWireup="false"  CodeFile="login.aspx.vb" Inherits="login" %>
 
 <asp:Content ID="contentLogin" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
     <div id="content">
@@ -12,14 +12,12 @@
             <TextBoxStyle Height="20px" Font-Size="16px" ForeColor="Black" />
             <LoginButtonStyle BackColor="#293F7F" ForeColor="White" Font-size="16px" Font-Bold="true" Width="100px" BorderColor="Black"    
              BorderStyle="Solid" BorderWidth="1px"/>
-            <ValidatorTextStyle Forecolor="Red" />   
+            <ValidatorTextStyle Forecolor="Red" />  
+ 
         </asp:Login>
         </div>
 
-        <div id="contentRight">
-            <h1><asp:Label runat="server" id="lbInscription" Text="S'inscrire" SkinID="lbTitrePage"></asp:Label></h1> 
-            <asp:Label ID="lbNom" runat="server" Text="Nom:"></asp:Label><asp:TextBox ID="TextBox1"runat="server"></asp:TextBox>
-        </div>
+        
     </div>
 
 
