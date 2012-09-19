@@ -1,2 +1,5 @@
 ﻿<asp:Label runat="server" SkinId="lbTitrePage" ForeColor="Black" Font-Size="24px" Font-Bold="true" ></asp:Label>
 <asp:Label runat="server" SkinId="lbHoraire" ForeColor="Black" Font-Size="20px"></asp:Label>
+<asp:Label runat="server" SkinId="lbInscription" ForeColor="Black" Font-Size="20px"></asp:Label>
+
+<asp:TextBox runat="server" SkinID="tbInscription" Width="200px" Font-Size="20px" BorderColor="Black" BorderStyle="Solid" BorderWidth="1px" ></asp:TextBox>

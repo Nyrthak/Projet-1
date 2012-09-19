@@ -25,4 +25,5 @@ body{ width:1023px; margin:auto; background-color:#c5c5c5;}
     .right{float:right; margin-right:50px;}
     .left{float:left; margin-left:50px;}
     #footer a{color: White;}
-#login{       }
+.longeurPremiereColonne{width:260px; text-align:right;}
+.tableau{ }
