@@ -1293,13 +1293,9 @@
           <ConnectorPoint PointX="7" PointY="4.8362939453125" />
         </AssociationConnector>
         <AssociationConnector Association="Model.GroupeDAgeCours">
-          <ConnectorPoint PointX="2.625" PointY="8.547841796875" />
-          <ConnectorPoint PointX="2.875" PointY="8.547841796875" />
-          <ConnectorPoint PointX="2.875" PointY="6.75" />
-          <ConnectorPoint PointX="2.8854166666666665" PointY="6.7499999999999991" />
-          <ConnectorPoint PointX="3.0520833333333335" PointY="6.75" />
-          <ConnectorPoint PointX="3.875" PointY="6.75" />
-          <ConnectorPoint PointX="3.875" PointY="6.5571907552083326" />
+          <ConnectorPoint PointX="2.625" PointY="9.06443359375" />
+          <ConnectorPoint PointX="3.15625" PointY="9.06443359375" />
+          <ConnectorPoint PointX="3.15625" PointY="6.5571907552083326" />
         </AssociationConnector>
         <AssociationConnector Association="Model.JourHoraire">
           <ConnectorPoint PointX="5.875" PointY="10" />
@@ -1313,16 +1309,20 @@
           <ConnectorPoint PointX="6.625" PointY="7" />
           <ConnectorPoint PointX="7" PointY="6.8840950520833317" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="Model.Prérequis" Width="1.5" PointX="3.125" PointY="7" Height="1.5956835937499996" />
+        <EntityTypeShape EntityType="Model.Prérequis" Width="1.5" PointX="3.25" PointY="7.125" Height="1.5956835937499996" />
         <AssociationConnector Association="Model.PrérequisCours">
-          <ConnectorPoint PointX="3.9062525" PointY="7" />
-          <ConnectorPoint PointX="3.9062525" PointY="6.5571907552083326" />
+          <ConnectorPoint PointX="3.9375" PointY="7.125" />
+          <ConnectorPoint PointX="3.9375" PointY="6.5571907552083326" />
         </AssociationConnector>
         <AssociationConnector Association="Model.AnimateurProvince">
-          <ConnectorPoint PointX="7.460935" PointY="7.125" />
-          <ConnectorPoint PointX="7.460935" PointY="6.9465950520833317" />
+          <ConnectorPoint PointX="7.4902317499999995" PointY="7.125" />
+          <ConnectorPoint PointX="7.4902317499999995" PointY="6.9465950520833317" />
           <ConnectorPoint PointX="6.8811202231833608" PointY="6.9465950520833308" />
           <ConnectorPoint PointX="6.7144535565166947" PointY="6.9465950520833317" />
+          <ConnectorPoint PointX="4.020833333333333" PointY="6.9465950520833308" />
+          <ConnectorPoint PointX="3.8541666666666665" PointY="6.9465950520833317" />
+          <ConnectorPoint PointX="3.2395833333333335" PointY="6.9465950520833308" />
+          <ConnectorPoint PointX="3.0729166666666665" PointY="6.9465950520833317" />
           <ConnectorPoint PointX="2.96875" PointY="6.9465950520833317" />
           <ConnectorPoint PointX="2.96875" PointY="1.3939925130208333" />
           <ConnectorPoint PointX="2.875" PointY="1.3939925130208333" />
