@@ -8,7 +8,9 @@ body{ width:1023px; margin:auto; background-color:#c5c5c5;}
         .premierMenuGauche{background-image:none;}
             #menu a{ line-height:60px; text-decoration:none; font-weight:bold; color:#537EFF; background-image: url('images/bordureMenu.png'); background-repeat:no-repeat;}
             #menu li:hover a{background-color:#537EFF; color:White;}                              
-#corps{float:left; background:url('images/backgroundcorps.jpg') repeat-x bottom center; width: 798px; min-height:400px; border-top:1px solid black; border-left:1px solid black; border-right:1px solid black; margin-top:20px;}
+#corps{float:left; background:url('images/backgroundcorps.jpg') repeat-x bottom center; width: 728px; min-height:360px; padding:20px; padding-left:50px; border-top:1px solid black; border-left:1px solid black; border-right:1px solid black; margin-top:20px;}
+    #corps table{width:690px;}
+    #corps td{width:230px; vertical-align:top;}
 #heureOuverture{float:right; background:url('images/backgroundcorps.jpg') repeat-x bottom center; width: 208px; height:400px; border-left:1px solid black; border-right:1px solid black; border-top:1px solid black;margin-top:20px;} 
     #topHeureOuverture{width:208px; height:55px; background-color:#293F7F; text-align:center;}
         #heureOuverture h2{font-size:1.2em; line-height:55px; color:White;}

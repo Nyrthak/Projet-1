@@ -1,2 +1,7 @@
-﻿<asp:Label runat="server" SkinId="lbTitrePage" ForeColor="Black" Font-Size="24px" Font-Bold="true" ></asp:Label>
+﻿<asp:Label runat="server" SkinId="lbTitrePage" ForeColor="Black" Font-Size="32px" Font-Bold="true"></asp:Label>
 <asp:Label runat="server" SkinId="lbHoraire" ForeColor="Black" Font-Size="20px"></asp:Label>
+<asp:Label runat="server" SkinId="lbChampsFormulaire" ForeColor="Black" Font-Size="18px" Font-bold="True"></asp:Label>
+<asp:TextBox runat="server" SkinId="TextBoxFormulaire" BorderColor="Black" BorderWidth="1px" Width="148px"></asp:TextBox>
+<asp:TextBox runat="server" SkinId="TextBoxDescription" Width="378px" Height="100px" BorderColor="Black" BorderWidth="1px"/>
+<asp:Button runat="server" SkinId="btnConfirmation" Font-Size="18px" Width="100px" BorderColor="Black" BorderWidth="1px"/>
+<asp:DropDownList runat="server" SkinId="dDListFormulaire" Width="150px" BorderColor="Black" BorderWidth="1px"></asp:DropDownList>

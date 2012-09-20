@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 09/18/2012 09:40:31
+-- Date Created: 09/20/2012 13:03:08
 -- Generated from EDMX file: C:\Users\Katherine\Documents\A2012\Projet I\Projet-1\App_Code\Model.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [test];
+USE [ProjetRegulier2012_05];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -65,6 +65,12 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_AnimateurProvince]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[AnimateurSet] DROP CONSTRAINT [FK_AnimateurProvince];
 GO
+IF OBJECT_ID(N'[dbo].[FK_AnimateurSpécialitéAnimateur]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SpécialitéAnimateurSet] DROP CONSTRAINT [FK_AnimateurSpécialitéAnimateur];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SpécialitéSpécialitéAnimateur]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SpécialitéAnimateurSet] DROP CONSTRAINT [FK_SpécialitéSpécialitéAnimateur];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -118,6 +124,12 @@ GO
 IF OBJECT_ID(N'[dbo].[PrérequisSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[PrérequisSet];
 GO
+IF OBJECT_ID(N'[dbo].[SpécialitéSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SpécialitéSet];
+GO
+IF OBJECT_ID(N'[dbo].[SpécialitéAnimateurSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SpécialitéAnimateurSet];
+GO
 IF OBJECT_ID(N'[dbo].[PrérequisCours]', 'U') IS NOT NULL
     DROP TABLE [dbo].[PrérequisCours];
 GO
@@ -147,7 +159,7 @@ CREATE TABLE [dbo].[CompteSet] (
     [Adresse] nvarchar(max)  NOT NULL,
     [Ville] nvarchar(max)  NOT NULL,
     [CodePostal] nvarchar(max)  NOT NULL,
-    [Abonnement] nvarchar(max)  NULL,
+    [Abonnement] bit  NULL,
     [ModePaiement] nvarchar(max)  NULL,
     [motDePasseCrypté] nvarchar(max)  NOT NULL,
     [Email] nvarchar(max)  NOT NULL,
@@ -174,7 +186,7 @@ CREATE TABLE [dbo].[PaiementSet] (
     [noCours] int  NOT NULL,
     [noGroupe] int  NOT NULL,
     [noMembre] int  NOT NULL,
-    [noPaypal] int  NOT NULL,
+    [noPaypal] nvarchar(max)  NOT NULL,
     [Membre_noMembre] int  NOT NULL,
     [Groupe_noGroupe] int  NOT NULL,
     [Groupe_noCours] int  NOT NULL
@@ -227,19 +239,22 @@ GO
 
 -- Creating table 'SessionSet'
 CREATE TABLE [dbo].[SessionSet] (
-    [noSession] int IDENTITY(1,1) NOT NULL
+    [noSession] int IDENTITY(1,1) NOT NULL,
+    [NomSession] nvarchar(max)  NOT NULL
 );
 GO
 
 -- Creating table 'GroupeDAgeSet'
 CREATE TABLE [dbo].[GroupeDAgeSet] (
-    [noGroupeDAge] int IDENTITY(1,1) NOT NULL
+    [noGroupeDAge] int IDENTITY(1,1) NOT NULL,
+    [NomGroupeDAge] nvarchar(max)  NOT NULL
 );
 GO
 
 -- Creating table 'JourSet'
 CREATE TABLE [dbo].[JourSet] (
-    [noJour] int IDENTITY(1,1) NOT NULL
+    [noJour] int IDENTITY(1,1) NOT NULL,
+    [nomJour] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -281,6 +296,22 @@ GO
 CREATE TABLE [dbo].[PrérequisSet] (
     [noCoursRequis] int IDENTITY(1,1) NOT NULL,
     [noCours] int  NOT NULL
+);
+GO
+
+-- Creating table 'SpécialitéSet'
+CREATE TABLE [dbo].[SpécialitéSet] (
+    [noSpécialité] int IDENTITY(1,1) NOT NULL,
+    [nomSpécialité] nvarchar(max)  NOT NULL
+);
+GO
+
+-- Creating table 'SpécialitéAnimateurSet'
+CREATE TABLE [dbo].[SpécialitéAnimateurSet] (
+    [noSpécialité] int IDENTITY(1,1) NOT NULL,
+    [noAnimateur] int  NOT NULL,
+    [Animateur_noAnimateur] int  NOT NULL,
+    [Spécialité_noSpécialité] int  NOT NULL
 );
 GO
 
@@ -390,6 +421,18 @@ GO
 ALTER TABLE [dbo].[PrérequisSet]
 ADD CONSTRAINT [PK_PrérequisSet]
     PRIMARY KEY CLUSTERED ([noCoursRequis], [noCours] ASC);
+GO
+
+-- Creating primary key on [noSpécialité] in table 'SpécialitéSet'
+ALTER TABLE [dbo].[SpécialitéSet]
+ADD CONSTRAINT [PK_SpécialitéSet]
+    PRIMARY KEY CLUSTERED ([noSpécialité] ASC);
+GO
+
+-- Creating primary key on [noSpécialité], [noAnimateur] in table 'SpécialitéAnimateurSet'
+ALTER TABLE [dbo].[SpécialitéAnimateurSet]
+ADD CONSTRAINT [PK_SpécialitéAnimateurSet]
+    PRIMARY KEY CLUSTERED ([noSpécialité], [noAnimateur] ASC);
 GO
 
 -- Creating primary key on [Prérequis_noCoursRequis], [Prérequis_noCours], [Cours_noCours] in table 'PrérequisCours'
@@ -619,6 +662,34 @@ ADD CONSTRAINT [FK_AnimateurProvince]
 CREATE INDEX [IX_FK_AnimateurProvince]
 ON [dbo].[AnimateurSet]
     ([Province_noProvince]);
+GO
+
+-- Creating foreign key on [Animateur_noAnimateur] in table 'SpécialitéAnimateurSet'
+ALTER TABLE [dbo].[SpécialitéAnimateurSet]
+ADD CONSTRAINT [FK_AnimateurSpécialitéAnimateur]
+    FOREIGN KEY ([Animateur_noAnimateur])
+    REFERENCES [dbo].[AnimateurSet]
+        ([noAnimateur])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_AnimateurSpécialitéAnimateur'
+CREATE INDEX [IX_FK_AnimateurSpécialitéAnimateur]
+ON [dbo].[SpécialitéAnimateurSet]
+    ([Animateur_noAnimateur]);
+GO
+
+-- Creating foreign key on [Spécialité_noSpécialité] in table 'SpécialitéAnimateurSet'
+ALTER TABLE [dbo].[SpécialitéAnimateurSet]
+ADD CONSTRAINT [FK_SpécialitéSpécialitéAnimateur]
+    FOREIGN KEY ([Spécialité_noSpécialité])
+    REFERENCES [dbo].[SpécialitéSet]
+        ([noSpécialité])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SpécialitéSpécialitéAnimateur'
+CREATE INDEX [IX_FK_SpécialitéSpécialitéAnimateur]
+ON [dbo].[SpécialitéAnimateurSet]
+    ([Spécialité_noSpécialité]);
 GO
 
 -- --------------------------------------------------
