@@ -8,18 +8,32 @@ body{ width:1023px; margin:auto; background-color:#c5c5c5;}
         .premierMenuGauche{background-image:none;}
             #menu a{ line-height:60px; text-decoration:none; font-weight:bold; color:#537EFF; background-image: url('images/bordureMenu.png'); background-repeat:no-repeat;}
             #menu li:hover a{background-color:#537EFF; color:White;}                              
-#corps{float:left; background:url('images/backgroundcorps.jpg') repeat-x bottom center; width: 798px; min-height:400px; border-top:1px solid black; border-left:1px solid black; border-right:1px solid black; margin-top:20px;}
+#corps{float:left; background:url('images/backgroundcorps.jpg') repeat-x bottom center; background-color:White; width: 798px; min-height:400px; border-top:1px solid black; border-left:1px solid black; border-right:1px solid black; margin-top:20px;}
 #heureOuverture{float:right; background:url('images/backgroundcorps.jpg') repeat-x bottom center; width: 208px; height:400px; border-left:1px solid black; border-right:1px solid black; border-top:1px solid black;margin-top:20px;} 
     #topHeureOuverture{width:208px; height:55px; background-color:#293F7F; text-align:center;}
         #heureOuverture h2{font-size:1.2em; line-height:55px; color:White;}
     #heureOuverture p{margin:0 0 0 40px;}
     #heureOuverture li{margin:5px 0 0 20px;}
     .heure{margin-left: 40px;}   
-#content{padding:10px; padding-left:20px;}
+#content{padding:20px; padding-left:35px;}
+    #content h1{margin-bottom:10px; margin-right:250px;}
     #content #imageAccueil{float:right; margin-right:30px;}
-    #content #texteAccueil{float:left}
+    #content #texteAccueil{float:left;}
+#contentLeft{float:left; width:370px; } 
+#contentRight{float:right; width:370px;}   
 #footer{ background-color:#293F7F; width:1021px; height:50px; clear:both; color:White; border-left:1px solid black; border-right:1px solid black; border-bottom:1px solid black; line-height:50px;}
     .right{float:right; margin-right:50px;}
     .left{float:left; margin-left:50px;}
     #footer a{color: White;}
-    
+.longeurPremiereColonne{width:260px; text-align:right;}
+.labelInline{ display:inline;}
+.labelInline2{ display:inline;}
+.MyCalendar .ajax__calendar_container{background-color:#293F7F; border:1px solid black;}
+.MyCalendar .ajax__calendar_header{ text-decoration:underline; font-size:16px; color:white; background-color:#293F7F; font-weight:bold;}
+.MyCalendar .ajax__calendar_body{ background-color:#e8ebfa;} 
+.MyCalendar .ajax__calendar_days { color:#537EFF; font-size:14px; font-weight:bold; border:2px solid black;}
+.MyCalendar .ajax__calendar_day {}
+.MyCalendar .ajax__calendar_footer{background-color:#537EFF; visibility:hidden;}
+.MyCalendar .ajax__calendar_other{ color:black;}
+.MyCalendar .ajax__calendar_active{ background-color:white; }
+.MyCalendar .ajax__calendar_hover{background-color:White; color:#537EFF;}                      
