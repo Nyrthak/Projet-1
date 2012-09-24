@@ -18,22 +18,28 @@
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
         EntitySetName="CoursSet" Select="it.[noCours], it.[Nom]">
     </asp:EntityDataSource>
-    <asp:EntityDataSource ID="EntityDataSourceCours" runat="server" 
-        ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-        EnableInsert="True" EntitySetName="CoursSet">
-    </asp:EntityDataSource>
 
     <asp:Label ID="lblTitreAjoutCours" runat="server" Text="Ajouter un cours" SkinID="lbTitrePage"></asp:Label>
+    <asp:ValidationSummary ID="ValidationSummaryAjouterCours" runat="server" CssClass="validationSummary" ViewStateMode="Inherit" Height="50px" />
     <table>
-        <tr>
-            <td><asp:Label ID="lblNoCours" runat="server" Text="NoCours" SkinID="lbChampsFormulaire"></asp:Label></td>
-            <td ><asp:Label ID="lblNomDuCours" runat="server" Text="Nom du cours" SkinID="lbChampsFormulaire"></asp:Label></td>
+        <tr>            
+            <td>
+                <asp:Label ID="lblNomDuCours" runat="server" Text="Nom du cours" SkinID="lbChampsFormulaire"></asp:Label>
+            </td>
             <td><asp:Label ID="lblPrix" runat="server" Text="Prix" SkinID="lbChampsFormulaire"></asp:Label></td>
+            <td></td>
         </tr>
         <tr>
-            <td><asp:TextBox ID="txtNoCours" runat="server" SkinID="TextBoxFormulaire"></asp:TextBox></td>
-            <td><asp:TextBox ID="txtNomDuCours" runat="server" SkinID="TextBoxFormulaire"></asp:TextBox></td>
-            <td><asp:TextBox ID="txtPrix" runat="server" SkinID="TextBoxFormulaire"></asp:TextBox></td>           
+            <td>
+                <asp:TextBox ID="txtNomDuCours" runat="server" SkinID="TextBoxFormulaire"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvNomDuCours" runat="server" ErrorMessage="Le nom du cours est requis." ControlToValidate="txtNomDuCours" Text="*" />
+            </td>
+            <td>
+                <asp:TextBox ID="txtPrix" runat="server" SkinID="TextBoxFormulaire"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvPrix" runat="server" ErrorMessage="Le prix est requis." ControlToValidate="txtPrix" Text="*" />
+                <asp:CompareValidator ID="cvPrix" runat="server" ErrorMessage="Le prix doit être écrit sous le format 0,00" ControlToValidate="txtPrix" Type="Double" Text="*" />
+            </td> 
+            <td></td>          
         </tr>
         <tr>
             <td><asp:Label ID="lblGroupeDAge" runat="server" Text="Groupe d'âge" SkinID="lbChampsFormulaire"></asp:Label></td>
@@ -57,8 +63,9 @@
         </tr>
         <tr>
             <td><asp:DropDownList ID="dDListPrerequis" runat="server" SkinID="dDListFormulaire" 
-                    DataSourceID="EntityDataSourcePrerequis" DataTextField="Nom" 
-                    DataValueField="noCours"></asp:DropDownList></td>
+                    DataSourceID="EntityDataSourcePrerequis" DataTextField="Nom" DataValueField="noCours">
+                      
+                </asp:DropDownList></td>
             <td colspan="2"><asp:TextBox ID="txtDescription" runat="server" SkinID="TextBoxDescription" TextMode="MultiLine"></asp:TextBox></td>
         </tr>
         <tr>

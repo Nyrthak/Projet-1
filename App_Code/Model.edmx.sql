@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 09/20/2012 13:03:08
+-- Date Created: 09/24/2012 14:07:08
 -- Generated from EDMX file: C:\Users\Katherine\Documents\A2012\Projet I\Projet-1\App_Code\Model.edmx
 -- --------------------------------------------------
 
@@ -56,12 +56,6 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_HoraireGroupe]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[HoraireSet] DROP CONSTRAINT [FK_HoraireGroupe];
 GO
-IF OBJECT_ID(N'[dbo].[FK_PrérequisCours_Prérequis]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[PrérequisCours] DROP CONSTRAINT [FK_PrérequisCours_Prérequis];
-GO
-IF OBJECT_ID(N'[dbo].[FK_PrérequisCours_Cours]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[PrérequisCours] DROP CONSTRAINT [FK_PrérequisCours_Cours];
-GO
 IF OBJECT_ID(N'[dbo].[FK_AnimateurProvince]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[AnimateurSet] DROP CONSTRAINT [FK_AnimateurProvince];
 GO
@@ -70,6 +64,9 @@ IF OBJECT_ID(N'[dbo].[FK_AnimateurSpécialitéAnimateur]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_SpécialitéSpécialitéAnimateur]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[SpécialitéAnimateurSet] DROP CONSTRAINT [FK_SpécialitéSpécialitéAnimateur];
+GO
+IF OBJECT_ID(N'[dbo].[FK_GroupeCours]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CoursSet] DROP CONSTRAINT [FK_GroupeCours];
 GO
 
 -- --------------------------------------------------
@@ -121,17 +118,11 @@ GO
 IF OBJECT_ID(N'[dbo].[ForfaitSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ForfaitSet];
 GO
-IF OBJECT_ID(N'[dbo].[PrérequisSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[PrérequisSet];
-GO
 IF OBJECT_ID(N'[dbo].[SpécialitéSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[SpécialitéSet];
 GO
 IF OBJECT_ID(N'[dbo].[SpécialitéAnimateurSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[SpécialitéAnimateurSet];
-GO
-IF OBJECT_ID(N'[dbo].[PrérequisCours]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[PrérequisCours];
 GO
 
 -- --------------------------------------------------
@@ -141,14 +132,14 @@ GO
 -- Creating table 'ProvinceSet'
 CREATE TABLE [dbo].[ProvinceSet] (
     [noProvince] int IDENTITY(1,1) NOT NULL,
-    [Nom] nvarchar(max)  NOT NULL
+    [Nom] nvarchar(25)  NOT NULL
 );
 GO
 
 -- Creating table 'PaysSet'
 CREATE TABLE [dbo].[PaysSet] (
     [noPays] int IDENTITY(1,1) NOT NULL,
-    [Nom] nvarchar(max)  NOT NULL
+    [Nom] nvarchar(15)  NOT NULL
 );
 GO
 
@@ -156,13 +147,14 @@ GO
 CREATE TABLE [dbo].[CompteSet] (
     [noCompte] int IDENTITY(1,1) NOT NULL,
     [Préposé] bit  NOT NULL,
-    [Adresse] nvarchar(max)  NOT NULL,
-    [Ville] nvarchar(max)  NOT NULL,
-    [CodePostal] nvarchar(max)  NOT NULL,
+    [Adresse] nvarchar(50)  NOT NULL,
+    [Ville] nvarchar(30)  NOT NULL,
+    [CodePostal] nvarchar(6)  NOT NULL,
     [Abonnement] bit  NULL,
-    [ModePaiement] nvarchar(max)  NULL,
-    [motDePasseCrypté] nvarchar(max)  NOT NULL,
-    [Email] nvarchar(max)  NOT NULL,
+    [ModePaiement] nvarchar(15)  NULL,
+    [motDePasseCrypté] nvarchar(100)  NOT NULL,
+    [Email] nvarchar(30)  NOT NULL,
+    [noTelephone] nvarchar(12)  NOT NULL,
     [Province_noProvince] int  NOT NULL,
     [Pays_noPays] int  NOT NULL
 );
@@ -171,8 +163,8 @@ GO
 -- Creating table 'MembreSet'
 CREATE TABLE [dbo].[MembreSet] (
     [noMembre] int IDENTITY(1,1) NOT NULL,
-    [Nom] nvarchar(max)  NOT NULL,
-    [Prénom] nvarchar(max)  NOT NULL,
+    [Nom] nvarchar(25)  NOT NULL,
+    [Prénom] nvarchar(25)  NOT NULL,
     [DateNaissance] datetime  NOT NULL,
     [Propriétaire] bit  NOT NULL,
     [Compte_noCompte] int  NOT NULL
@@ -181,12 +173,12 @@ GO
 
 -- Creating table 'PaiementSet'
 CREATE TABLE [dbo].[PaiementSet] (
-    [ModePaiement] nvarchar(max)  NOT NULL,
+    [ModePaiement] nvarchar(15)  NOT NULL,
     [Prix] float  NOT NULL,
     [noCours] int  NOT NULL,
     [noGroupe] int  NOT NULL,
     [noMembre] int  NOT NULL,
-    [noPaypal] nvarchar(max)  NOT NULL,
+    [noPaypal] nvarchar(30)  NOT NULL,
     [Membre_noMembre] int  NOT NULL,
     [Groupe_noGroupe] int  NOT NULL,
     [Groupe_noCours] int  NOT NULL
@@ -196,16 +188,17 @@ GO
 -- Creating table 'CatégorieSet'
 CREATE TABLE [dbo].[CatégorieSet] (
     [noCatégorie] int IDENTITY(1,1) NOT NULL,
-    [Nom] nvarchar(max)  NOT NULL
+    [Nom] nvarchar(15)  NOT NULL
 );
 GO
 
 -- Creating table 'CoursSet'
 CREATE TABLE [dbo].[CoursSet] (
     [noCours] int IDENTITY(1,1) NOT NULL,
-    [Nom] nvarchar(max)  NOT NULL,
+    [Nom] nvarchar(25)  NOT NULL,
     [Prix] float  NOT NULL,
-    [Description] nvarchar(max)  NOT NULL,
+    [Description] nvarchar(250)  NOT NULL,
+    [noCoursRequis] int  NOT NULL,
     [Catégorie_noCatégorie] int  NOT NULL,
     [Session_noSession] int  NOT NULL,
     [GroupeDAge_noGroupeDAge] int  NOT NULL
@@ -215,13 +208,14 @@ GO
 -- Creating table 'GroupeSet'
 CREATE TABLE [dbo].[GroupeSet] (
     [noGroupe] int IDENTITY(1,1) NOT NULL,
-    [Local] nvarchar(max)  NOT NULL,
+    [Local] nvarchar(10)  NOT NULL,
     [DateDébut] datetime  NOT NULL,
     [DateFin] datetime  NOT NULL,
     [DateLimiteInscription] datetime  NOT NULL,
     [noCours] int  NOT NULL,
     [Âge] int  NOT NULL,
-    [Animateur_noAnimateur] int  NOT NULL
+    [Animateur_noAnimateur] int  NOT NULL,
+    [Cours_noCours] int  NOT NULL
 );
 GO
 
@@ -240,21 +234,21 @@ GO
 -- Creating table 'SessionSet'
 CREATE TABLE [dbo].[SessionSet] (
     [noSession] int IDENTITY(1,1) NOT NULL,
-    [NomSession] nvarchar(max)  NOT NULL
+    [NomSession] nvarchar(25)  NOT NULL
 );
 GO
 
 -- Creating table 'GroupeDAgeSet'
 CREATE TABLE [dbo].[GroupeDAgeSet] (
     [noGroupeDAge] int IDENTITY(1,1) NOT NULL,
-    [NomGroupeDAge] nvarchar(max)  NOT NULL
+    [NomGroupeDAge] nvarchar(25)  NOT NULL
 );
 GO
 
 -- Creating table 'JourSet'
 CREATE TABLE [dbo].[JourSet] (
     [noJour] int IDENTITY(1,1) NOT NULL,
-    [nomJour] nvarchar(max)  NOT NULL
+    [nomJour] nvarchar(10)  NOT NULL
 );
 GO
 
@@ -274,13 +268,13 @@ GO
 -- Creating table 'AnimateurSet'
 CREATE TABLE [dbo].[AnimateurSet] (
     [noAnimateur] int IDENTITY(1,1) NOT NULL,
-    [Nom] nvarchar(max)  NOT NULL,
-    [Prénom] nvarchar(max)  NOT NULL,
+    [Nom] nvarchar(25)  NOT NULL,
+    [Prénom] nvarchar(25)  NOT NULL,
     [DateNaissance] datetime  NOT NULL,
-    [Adresse] nvarchar(max)  NOT NULL,
-    [Ville] nvarchar(max)  NOT NULL,
-    [CodePostal] nvarchar(max)  NOT NULL,
-    [noTéléphone] int  NOT NULL,
+    [Adresse] nvarchar(50)  NOT NULL,
+    [Ville] nvarchar(30)  NOT NULL,
+    [CodePostal] nvarchar(6)  NOT NULL,
+    [noTéléphone] nvarchar(12)  NOT NULL,
     [Province_noProvince] int  NOT NULL
 );
 GO
@@ -292,17 +286,10 @@ CREATE TABLE [dbo].[ForfaitSet] (
 );
 GO
 
--- Creating table 'PrérequisSet'
-CREATE TABLE [dbo].[PrérequisSet] (
-    [noCoursRequis] int IDENTITY(1,1) NOT NULL,
-    [noCours] int  NOT NULL
-);
-GO
-
 -- Creating table 'SpécialitéSet'
 CREATE TABLE [dbo].[SpécialitéSet] (
     [noSpécialité] int IDENTITY(1,1) NOT NULL,
-    [nomSpécialité] nvarchar(max)  NOT NULL
+    [nomSpécialité] nvarchar(25)  NOT NULL
 );
 GO
 
@@ -312,14 +299,6 @@ CREATE TABLE [dbo].[SpécialitéAnimateurSet] (
     [noAnimateur] int  NOT NULL,
     [Animateur_noAnimateur] int  NOT NULL,
     [Spécialité_noSpécialité] int  NOT NULL
-);
-GO
-
--- Creating table 'PrérequisCours'
-CREATE TABLE [dbo].[PrérequisCours] (
-    [Prérequis_noCoursRequis] int  NOT NULL,
-    [Prérequis_noCours] int  NOT NULL,
-    [Cours_noCours] int  NOT NULL
 );
 GO
 
@@ -417,12 +396,6 @@ ADD CONSTRAINT [PK_ForfaitSet]
     PRIMARY KEY CLUSTERED ([nbInscrits] ASC);
 GO
 
--- Creating primary key on [noCoursRequis], [noCours] in table 'PrérequisSet'
-ALTER TABLE [dbo].[PrérequisSet]
-ADD CONSTRAINT [PK_PrérequisSet]
-    PRIMARY KEY CLUSTERED ([noCoursRequis], [noCours] ASC);
-GO
-
 -- Creating primary key on [noSpécialité] in table 'SpécialitéSet'
 ALTER TABLE [dbo].[SpécialitéSet]
 ADD CONSTRAINT [PK_SpécialitéSet]
@@ -433,12 +406,6 @@ GO
 ALTER TABLE [dbo].[SpécialitéAnimateurSet]
 ADD CONSTRAINT [PK_SpécialitéAnimateurSet]
     PRIMARY KEY CLUSTERED ([noSpécialité], [noAnimateur] ASC);
-GO
-
--- Creating primary key on [Prérequis_noCoursRequis], [Prérequis_noCours], [Cours_noCours] in table 'PrérequisCours'
-ALTER TABLE [dbo].[PrérequisCours]
-ADD CONSTRAINT [PK_PrérequisCours]
-    PRIMARY KEY NONCLUSTERED ([Prérequis_noCoursRequis], [Prérequis_noCours], [Cours_noCours] ASC);
 GO
 
 -- --------------------------------------------------
@@ -627,29 +594,6 @@ ON [dbo].[HoraireSet]
     ([Groupe_noGroupe], [Groupe_noCours]);
 GO
 
--- Creating foreign key on [Prérequis_noCoursRequis], [Prérequis_noCours] in table 'PrérequisCours'
-ALTER TABLE [dbo].[PrérequisCours]
-ADD CONSTRAINT [FK_PrérequisCours_Prérequis]
-    FOREIGN KEY ([Prérequis_noCoursRequis], [Prérequis_noCours])
-    REFERENCES [dbo].[PrérequisSet]
-        ([noCoursRequis], [noCours])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating foreign key on [Cours_noCours] in table 'PrérequisCours'
-ALTER TABLE [dbo].[PrérequisCours]
-ADD CONSTRAINT [FK_PrérequisCours_Cours]
-    FOREIGN KEY ([Cours_noCours])
-    REFERENCES [dbo].[CoursSet]
-        ([noCours])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- Creating non-clustered index for FOREIGN KEY 'FK_PrérequisCours_Cours'
-CREATE INDEX [IX_FK_PrérequisCours_Cours]
-ON [dbo].[PrérequisCours]
-    ([Cours_noCours]);
-GO
-
 -- Creating foreign key on [Province_noProvince] in table 'AnimateurSet'
 ALTER TABLE [dbo].[AnimateurSet]
 ADD CONSTRAINT [FK_AnimateurProvince]
@@ -690,6 +634,20 @@ ADD CONSTRAINT [FK_SpécialitéSpécialitéAnimateur]
 CREATE INDEX [IX_FK_SpécialitéSpécialitéAnimateur]
 ON [dbo].[SpécialitéAnimateurSet]
     ([Spécialité_noSpécialité]);
+GO
+
+-- Creating foreign key on [Cours_noCours] in table 'GroupeSet'
+ALTER TABLE [dbo].[GroupeSet]
+ADD CONSTRAINT [FK_GroupeCours]
+    FOREIGN KEY ([Cours_noCours])
+    REFERENCES [dbo].[CoursSet]
+        ([noCours])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_GroupeCours'
+CREATE INDEX [IX_FK_GroupeCours]
+ON [dbo].[GroupeSet]
+    ([Cours_noCours]);
 GO
 
 -- --------------------------------------------------

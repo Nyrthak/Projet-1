@@ -16,7 +16,7 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("0146ac90-d018-4a8c-b9ac-504f9b0b923a")>
+<Assembly: EdmSchemaAttribute("fdb38ee1-c42d-4e63-90b2-79d61eb58340")>
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("Model", "CompteProvince", "Compte", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Compte), "Province", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Province))>
 <Assembly: EdmRelationshipAttribute("Model", "PaysCompte", "Pays", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Pays), "Compte", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Compte))>
@@ -31,10 +31,10 @@ Imports System.Runtime.Serialization
 <Assembly: EdmRelationshipAttribute("Model", "JourHoraire", "Jour", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Jour), "Horaire", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Horaire))>
 <Assembly: EdmRelationshipAttribute("Model", "AnimateurGroupe", "Animateur", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Animateur), "Groupe", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Groupe))>
 <Assembly: EdmRelationshipAttribute("Model", "HoraireGroupe", "Horaire", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Horaire), "Groupe", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Groupe))>
-<Assembly: EdmRelationshipAttribute("Model", "PrérequisCours", "Prérequis", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Prérequis), "Cours", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Cours))>
 <Assembly: EdmRelationshipAttribute("Model", "AnimateurProvince", "Animateur", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Animateur), "Province", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Province))>
 <Assembly: EdmRelationshipAttribute("Model", "AnimateurSpécialitéAnimateur", "Animateur", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Animateur), "SpécialitéAnimateur", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.SpécialitéAnimateur))>
 <Assembly: EdmRelationshipAttribute("Model", "SpécialitéSpécialitéAnimateur", "Spécialité", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Spécialité), "SpécialitéAnimateur", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.SpécialitéAnimateur))>
+<Assembly: EdmRelationshipAttribute("Model", "GroupeCours", "Groupe", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Groupe), "Cours", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Cours))>
 
 #End Region
 Namespace Model
@@ -300,20 +300,6 @@ Namespace Model
         ''' <summary>
         ''' No Metadata Documentation available.
         ''' </summary>
-        Public ReadOnly Property PrérequisSet() As ObjectSet(Of Prérequis)
-            Get
-                If (_PrérequisSet Is Nothing) Then
-                    _PrérequisSet = MyBase.CreateObjectSet(Of Prérequis)("PrérequisSet")
-                End If
-                Return _PrérequisSet
-            End Get
-        End Property
-    
-        Private _PrérequisSet As ObjectSet(Of Prérequis)
-    
-        ''' <summary>
-        ''' No Metadata Documentation available.
-        ''' </summary>
         Public ReadOnly Property SpécialitéSet() As ObjectSet(Of Spécialité)
             Get
                 If (_SpécialitéSet Is Nothing) Then
@@ -448,13 +434,6 @@ Namespace Model
         End Sub
     
         ''' <summary>
-        ''' Deprecated Method for adding a new object to the PrérequisSet EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
-        ''' </summary>
-        Public Sub AddToPrérequisSet(ByVal prérequis As Prérequis)
-            MyBase.AddObject("PrérequisSet", prérequis)
-        End Sub
-    
-        ''' <summary>
         ''' Deprecated Method for adding a new object to the SpécialitéSet EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
         ''' </summary>
         Public Sub AddToSpécialitéSet(ByVal spécialité As Spécialité)
@@ -495,7 +474,7 @@ Namespace Model
         ''' <param name="ville">Initial value of the Ville property.</param>
         ''' <param name="codePostal">Initial value of the CodePostal property.</param>
         ''' <param name="noTéléphone">Initial value of the noTéléphone property.</param>
-        Public Shared Function CreateAnimateur(noAnimateur As Global.System.Int32, nom As Global.System.String, prénom As Global.System.String, dateNaissance As Global.System.DateTime, adresse As Global.System.String, ville As Global.System.String, codePostal As Global.System.String, noTéléphone As Global.System.Int32) As Animateur
+        Public Shared Function CreateAnimateur(noAnimateur As Global.System.Int32, nom As Global.System.String, prénom As Global.System.String, dateNaissance As Global.System.DateTime, adresse As Global.System.String, ville As Global.System.String, codePostal As Global.System.String, noTéléphone As Global.System.String) As Animateur
             Dim animateur as Animateur = New Animateur
             animateur.noAnimateur = noAnimateur
             animateur.Nom = nom
@@ -693,21 +672,21 @@ Namespace Model
         ''' </summary>
         <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
         <DataMemberAttribute()>
-        Public Property noTéléphone() As Global.System.Int32
+        Public Property noTéléphone() As Global.System.String
             Get
                 Return _noTéléphone
             End Get
             Set
                 OnnoTéléphoneChanging(value)
                 ReportPropertyChanging("noTéléphone")
-                _noTéléphone = StructuralObject.SetValidValue(value)
+                _noTéléphone = StructuralObject.SetValidValue(value, false)
                 ReportPropertyChanged("noTéléphone")
                 OnnoTéléphoneChanged()
             End Set
         End Property
     
-        Private _noTéléphone As Global.System.Int32
-        Private Partial Sub OnnoTéléphoneChanging(value As Global.System.Int32)
+        Private _noTéléphone As Global.System.String
+        Private Partial Sub OnnoTéléphoneChanging(value As Global.System.String)
         End Sub
     
         Private Partial Sub OnnoTéléphoneChanged()
@@ -907,7 +886,8 @@ Namespace Model
         ''' <param name="codePostal">Initial value of the CodePostal property.</param>
         ''' <param name="motDePasseCrypté">Initial value of the motDePasseCrypté property.</param>
         ''' <param name="email">Initial value of the Email property.</param>
-        Public Shared Function CreateCompte(noCompte As Global.System.Int32, préposé As Global.System.Boolean, adresse As Global.System.String, ville As Global.System.String, codePostal As Global.System.String, motDePasseCrypté As Global.System.String, email As Global.System.String) As Compte
+        ''' <param name="noTelephone">Initial value of the noTelephone property.</param>
+        Public Shared Function CreateCompte(noCompte As Global.System.Int32, préposé As Global.System.Boolean, adresse As Global.System.String, ville As Global.System.String, codePostal As Global.System.String, motDePasseCrypté As Global.System.String, email As Global.System.String, noTelephone As Global.System.String) As Compte
             Dim compte as Compte = New Compte
             compte.noCompte = noCompte
             compte.Préposé = préposé
@@ -916,6 +896,7 @@ Namespace Model
             compte.CodePostal = codePostal
             compte.motDePasseCrypté = motDePasseCrypté
             compte.Email = email
+            compte.noTelephone = noTelephone
             Return compte
         End Function
 
@@ -1148,6 +1129,31 @@ Namespace Model
     
         Private Partial Sub OnEmailChanged()
         End Sub
+    
+        ''' <summary>
+        ''' No Metadata Documentation available.
+        ''' </summary>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+        <DataMemberAttribute()>
+        Public Property noTelephone() As Global.System.String
+            Get
+                Return _noTelephone
+            End Get
+            Set
+                OnnoTelephoneChanging(value)
+                ReportPropertyChanging("noTelephone")
+                _noTelephone = StructuralObject.SetValidValue(value, false)
+                ReportPropertyChanged("noTelephone")
+                OnnoTelephoneChanged()
+            End Set
+        End Property
+    
+        Private _noTelephone As Global.System.String
+        Private Partial Sub OnnoTelephoneChanging(value As Global.System.String)
+        End Sub
+    
+        Private Partial Sub OnnoTelephoneChanged()
+        End Sub
 
         #End Region
         #Region "Navigation Properties"
@@ -1252,12 +1258,14 @@ Namespace Model
         ''' <param name="nom">Initial value of the Nom property.</param>
         ''' <param name="prix">Initial value of the Prix property.</param>
         ''' <param name="description">Initial value of the Description property.</param>
-        Public Shared Function CreateCours(noCours As Global.System.Int32, nom As Global.System.String, prix As Global.System.Double, description As Global.System.String) As Cours
+        ''' <param name="noCoursRequis">Initial value of the noCoursRequis property.</param>
+        Public Shared Function CreateCours(noCours As Global.System.Int32, nom As Global.System.String, prix As Global.System.Double, description As Global.System.String, noCoursRequis As Global.System.Int32) As Cours
             Dim cours as Cours = New Cours
             cours.noCours = noCours
             cours.Nom = nom
             cours.Prix = prix
             cours.Description = description
+            cours.noCoursRequis = noCoursRequis
             Return cours
         End Function
 
@@ -1365,6 +1373,31 @@ Namespace Model
     
         Private Partial Sub OnDescriptionChanged()
         End Sub
+    
+        ''' <summary>
+        ''' No Metadata Documentation available.
+        ''' </summary>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+        <DataMemberAttribute()>
+        Public Property noCoursRequis() As Global.System.Int32
+            Get
+                Return _noCoursRequis
+            End Get
+            Set
+                OnnoCoursRequisChanging(value)
+                ReportPropertyChanging("noCoursRequis")
+                _noCoursRequis = StructuralObject.SetValidValue(value)
+                ReportPropertyChanged("noCoursRequis")
+                OnnoCoursRequisChanged()
+            End Set
+        End Property
+    
+        Private _noCoursRequis As Global.System.Int32
+        Private Partial Sub OnnoCoursRequisChanging(value As Global.System.Int32)
+        End Sub
+    
+        Private Partial Sub OnnoCoursRequisChanged()
+        End Sub
 
         #End Region
         #Region "Navigation Properties"
@@ -1468,14 +1501,14 @@ Namespace Model
         <XmlIgnoreAttribute()>
         <SoapIgnoreAttribute()>
         <DataMemberAttribute()>
-        <EdmRelationshipNavigationPropertyAttribute("Model", "PrérequisCours", "Prérequis")>
-         Public Property Prérequis() As EntityCollection(Of Prérequis)
+        <EdmRelationshipNavigationPropertyAttribute("Model", "GroupeCours", "Groupe")>
+         Public Property Groupe() As EntityCollection(Of Groupe)
             Get
-                Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of Prérequis)("Model.PrérequisCours", "Prérequis")
+                Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of Groupe)("Model.GroupeCours", "Groupe")
             End Get
             Set
                 If (Not value Is Nothing)
-                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of Prérequis)("Model.PrérequisCours", "Prérequis", value)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of Groupe)("Model.GroupeCours", "Groupe", value)
                 End If
             End Set
         End Property
@@ -1861,6 +1894,37 @@ Namespace Model
             Set
                 If (Not value Is Nothing)
                     CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of Horaire)("Model.HoraireGroupe", "Horaire", value)
+                End If
+            End Set
+        End Property
+    
+        ''' <summary>
+        ''' No Metadata Documentation available.
+        ''' </summary>
+        <XmlIgnoreAttribute()>
+        <SoapIgnoreAttribute()>
+        <DataMemberAttribute()>
+        <EdmRelationshipNavigationPropertyAttribute("Model", "GroupeCours", "Cours")>
+        Public Property Cours() As Cours
+            Get
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Cours)("Model.GroupeCours", "Cours").Value
+            End Get
+            Set
+                CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Cours)("Model.GroupeCours", "Cours").Value = value
+            End Set
+        End Property
+        ''' <summary>
+        ''' No Metadata Documentation available.
+        ''' </summary>
+        <BrowsableAttribute(False)>
+        <DataMemberAttribute()>
+        Public Property CoursReference() As EntityReference(Of Cours)
+            Get
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Cours)("Model.GroupeCours", "Cours")
+            End Get
+            Set
+                If (Not value Is Nothing)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of Cours)("Model.GroupeCours", "Cours", value)
                 End If
             End Set
         End Property
@@ -3085,109 +3149,6 @@ Namespace Model
             Set
                 If (Not value Is Nothing)
                     CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of Compte)("Model.PaysCompte", "Compte", value)
-                End If
-            End Set
-        End Property
-
-        #End Region
-    End Class
-    
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <EdmEntityTypeAttribute(NamespaceName:="Model", Name:="Prérequis")>
-    <Serializable()>
-    <DataContractAttribute(IsReference:=True)>
-    Public Partial Class Prérequis
-        Inherits EntityObject
-        #Region "Factory Method"
-    
-        ''' <summary>
-        ''' Create a new Prérequis object.
-        ''' </summary>
-        ''' <param name="noCoursRequis">Initial value of the noCoursRequis property.</param>
-        ''' <param name="noCours">Initial value of the noCours property.</param>
-        Public Shared Function CreatePrérequis(noCoursRequis As Global.System.Int32, noCours As Global.System.Int32) As Prérequis
-            Dim prérequis as Prérequis = New Prérequis
-            prérequis.noCoursRequis = noCoursRequis
-            prérequis.noCours = noCours
-            Return prérequis
-        End Function
-
-        #End Region
-        #Region "Primitive Properties"
-    
-        ''' <summary>
-        ''' No Metadata Documentation available.
-        ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
-        <DataMemberAttribute()>
-        Public Property noCoursRequis() As Global.System.Int32
-            Get
-                Return _noCoursRequis
-            End Get
-            Set
-                If (_noCoursRequis <> Value) Then
-                    OnnoCoursRequisChanging(value)
-                    ReportPropertyChanging("noCoursRequis")
-                    _noCoursRequis = StructuralObject.SetValidValue(value)
-                    ReportPropertyChanged("noCoursRequis")
-                    OnnoCoursRequisChanged()
-                End If
-            End Set
-        End Property
-    
-        Private _noCoursRequis As Global.System.Int32
-        Private Partial Sub OnnoCoursRequisChanging(value As Global.System.Int32)
-        End Sub
-    
-        Private Partial Sub OnnoCoursRequisChanged()
-        End Sub
-    
-        ''' <summary>
-        ''' No Metadata Documentation available.
-        ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
-        <DataMemberAttribute()>
-        Public Property noCours() As Global.System.Int32
-            Get
-                Return _noCours
-            End Get
-            Set
-                If (_noCours <> Value) Then
-                    OnnoCoursChanging(value)
-                    ReportPropertyChanging("noCours")
-                    _noCours = StructuralObject.SetValidValue(value)
-                    ReportPropertyChanged("noCours")
-                    OnnoCoursChanged()
-                End If
-            End Set
-        End Property
-    
-        Private _noCours As Global.System.Int32
-        Private Partial Sub OnnoCoursChanging(value As Global.System.Int32)
-        End Sub
-    
-        Private Partial Sub OnnoCoursChanged()
-        End Sub
-
-        #End Region
-        #Region "Navigation Properties"
-    
-        ''' <summary>
-        ''' No Metadata Documentation available.
-        ''' </summary>
-        <XmlIgnoreAttribute()>
-        <SoapIgnoreAttribute()>
-        <DataMemberAttribute()>
-        <EdmRelationshipNavigationPropertyAttribute("Model", "PrérequisCours", "Cours")>
-         Public Property Cours() As EntityCollection(Of Cours)
-            Get
-                Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of Cours)("Model.PrérequisCours", "Cours")
-            End Get
-            Set
-                If (Not value Is Nothing)
-                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of Cours)("Model.PrérequisCours", "Cours", value)
                 End If
             End Set
         End Property
