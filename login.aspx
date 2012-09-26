@@ -9,14 +9,13 @@
                 BorderColor="black" BorderStyle="Solid" BorderWidth="1px" 
                 Font-Names="Verdana" Font-Size="16px" Font-Bold="True">
             <TitleTextStyle BackColor="#505C7F" Font-Bold="True" ForeColor="#FFFFFF" Font-Size="18px" />
-            <TextBoxStyle Height="20px" Font-Size="16px" ForeColor="Black" />
+            <TextBoxStyle Height="20px" Font-Size="16px" ForeColor="Black" BorderColor="Black" BorderStyle="Solid" BorderWidth="1px" />
             <LoginButtonStyle BackColor="#293F7F" ForeColor="White" Font-size="16px" Font-Bold="true" Width="100px" BorderColor="Black"    
              BorderStyle="Solid" BorderWidth="1px"/>
-            <ValidatorTextStyle Forecolor="Red" />  
-            
+            <ValidatorTextStyle Forecolor="Red" />         
         </asp:Login>
         </div>
-
+        <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
         
     </div>
 
