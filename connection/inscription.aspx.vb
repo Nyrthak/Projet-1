@@ -4,11 +4,16 @@
 Imports System.Reflection
 Imports System.Drawing
 Imports Model
+Imports System.Windows.Forms
 
 Partial Class inscription
     Inherits page
     Private Shared lecontext As ModelContainer = Nothing
     Protected Sub page_load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        If Not Session("userOnline") = "" Then
+            Page.Response.Redirect("~/Default.aspx")
+        End If
+
         lecontext = New ModelContainer()
 
         'Remplissage du dropdownlist annee
@@ -41,14 +46,14 @@ Partial Class inscription
     Protected Sub btnEnregistrerInscription_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnregistrerInscription.Click
         Dim compteur As Integer = 0
         Dim salt As String = ""
-
+        'Dim aCookie As New HttpCookie("online")
         For Each courriel As String In (From dl In lecontext.CompteSet Select dl.Email)
             If tbCourriel.Text = courriel Then
                 Dim validatorEmail As CustomValidator = New CustomValidator
                 validatorEmail.ErrorMessage = "Votre email est déja utilisé."
                 validatorEmail.IsValid = False
                 Me.Validators.Add(validatorEmail)
-            else 
+            Else
                 salt = tbCourriel.Text.Substring(0, 3)
             End If
         Next
@@ -86,6 +91,10 @@ Partial Class inscription
             compteAjoute.Membre.Add(membreAjoute)
             lecontext.AddObject("CompteSet", compteAjoute)
             lecontext.SaveChanges()
+            'aCookie("online") = "oui"
+            'Response.Cookies.Add(aCookie)
+            Page.Response.Redirect("~/connection/inscriptionReusi.aspx")
+            
         End If
     End Sub
 

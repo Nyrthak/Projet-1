@@ -14,13 +14,8 @@
              BorderStyle="Solid" BorderWidth="1px"/>
             <ValidatorTextStyle Forecolor="Red" />         
         </asp:Login>
-        </div>
-        <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
-        
+        </div>        
     </div>
-
-
-
-</asp:Content>
+   </asp:Content>
 
 

@@ -86,7 +86,7 @@
             <tr>
                 <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbNumeroTelephone" runat="server" Text="Numéro de téléphone:"></asp:Label>
                     </td>
-                <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" ID="tbNumeroTelephone" runat="server" MaxLength="12" ></asp:TextBox>
+                <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" ID="tbNumeroTelephone" runat="server" MaxLength="10" ></asp:TextBox>
                     <asp:RequiredFieldValidator SkinID="requisValidation" 
                         ID="requisValidationNumeroTelephone" runat="server" 
                         ErrorMessage="Votre numéro de téléphone doit être spécifié." 
