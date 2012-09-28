@@ -19,7 +19,6 @@
     End Sub
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        'Ajout du texte en fonction du type de l'utilisateur connecter
         If Session("userType") = 1 Then
             lnkButtonPagePreposeAdmin.Text = ""
             lnkButtonPagePreposeAdmin.Visible = False
@@ -36,7 +35,7 @@
             lnkButtonPagePreposeAdmin.PostBackUrl = "~/admin/default.aspx"
         End If
 
-        If Session("userType") IsNot Nothing Then
+        If Session.Contents("userType") IsNot Nothing Then
             siteMapDataSource.SiteMapProvider = "siteMapLogged"
         Else
             siteMapDataSource.SiteMapProvider = "siteMapDefault"
@@ -53,11 +52,14 @@
 
 
     Protected Sub menuTop_MenuItemDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.MenuEventArgs) Handles menuTop.MenuItemDataBound
-        'Teste si le user est un préposé ou un admin, si oui, il ne peut pas cliquer sur le menu "monCompte"
+        'Text si le user est un préposé ou un admin, si oui, il ne peut pas cliquer sur le menu "monCompte"
         If Session("userType") = 2 Or Session("userType") = 3 Then
             If e.Item.Text = "Mon compte" Then
                 e.Item.Selectable = False
             End If
+        End If
+        If e.Item.Text = "Mon compte" Then
+            e.Item.Selected = True
         End If
     End Sub
 End Class

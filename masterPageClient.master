@@ -1,4 +1,4 @@
-﻿<%@ Master Language="VB" CodeFile="masterPage.master.vb" Inherits="masterPage" %>
+﻿<%@ Master Language="VB" CodeFile="masterPageClient.master.vb" Inherits="masterPage" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -26,6 +26,8 @@
             </asp:Menu>                  
         </div>
         <div id="corps">
+          <asp:Menu ID="menuLeft" runat="server" DataSourceID="siteMapDataSourceMenu">
+        </asp:Menu>
             <asp:ContentPlaceHolder id="contentPlaceMasterPage" runat="server">
             </asp:ContentPlaceHolder>
         </div>
@@ -44,8 +46,8 @@
                 <asp:LinkButton ID="lnkBtLangue" Text="English" runat="server"></asp:LinkButton></p>
         </div>       
     </div>
-    <asp:SiteMapDataSource ID="siteMapDataSource" runat="server" ShowStartingNode="false"  SiteMapProvider="siteMapLogged"/>
-
+    <asp:SiteMapDataSource ID="siteMapDataSource" runat="server" ShowStartingNode="false" SiteMapProvider="siteMapLogged"/>
+    <asp:SiteMapDataSource ID="siteMapDataSourceMenu" runat="server" ShowStartingNode="false" SiteMapProvider="siteMapMenu"/>
     </form>
 </body>
 </html>
