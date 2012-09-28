@@ -15,6 +15,9 @@ body{ width:1023px; margin:auto; background-color:#c5c5c5;}
         #corps .TableauAdmin td{ height:50px;}
         #corps .txtRechercher{float:right; margin-right:20px;}
         #corps .lbRechercher{float:right;margin-right:10px; font-weight:bold;}
+        #corps .listeSansPoints{list-style-type:none; margin-left:100px; font-size:1.5em; font-weight:bold; margin-top:50px;}
+            #corps .listeSansPoints li{margin-top: 20px;}
+        #corps a{ color:#537EFF; text-decoration:none;}
     #heureOuverture{float:right; background:url('images/backgroundcorps.jpg') repeat-x bottom center; width: 208px; height:400px; border-left:1px solid black; border-right:1px solid black; border-top:1px solid black;} 
         #topHeureOuverture{width:208px; height:55px; background-color:#293F7F; text-align:center;}
             #heureOuverture h2{font-size:1.2em; line-height:55px; color:White;}
