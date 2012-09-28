@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 09/24/2012 14:07:08
+-- Date Created: 09/27/2012 15:21:30
 -- Generated from EDMX file: C:\Users\Katherine\Documents\A2012\Projet I\Projet-1\App_Code\Model.edmx
 -- --------------------------------------------------
 
@@ -19,9 +19,6 @@ GO
 
 IF OBJECT_ID(N'[dbo].[FK_CompteProvince]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[CompteSet] DROP CONSTRAINT [FK_CompteProvince];
-GO
-IF OBJECT_ID(N'[dbo].[FK_PaysCompte]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[CompteSet] DROP CONSTRAINT [FK_PaysCompte];
 GO
 IF OBJECT_ID(N'[dbo].[FK_CompteMembre]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[MembreSet] DROP CONSTRAINT [FK_CompteMembre];
@@ -66,7 +63,7 @@ IF OBJECT_ID(N'[dbo].[FK_SpécialitéSpécialitéAnimateur]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[SpécialitéAnimateurSet] DROP CONSTRAINT [FK_SpécialitéSpécialitéAnimateur];
 GO
 IF OBJECT_ID(N'[dbo].[FK_GroupeCours]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[CoursSet] DROP CONSTRAINT [FK_GroupeCours];
+    ALTER TABLE [dbo].[GroupeSet] DROP CONSTRAINT [FK_GroupeCours];
 GO
 
 -- --------------------------------------------------
@@ -75,9 +72,6 @@ GO
 
 IF OBJECT_ID(N'[dbo].[ProvinceSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ProvinceSet];
-GO
-IF OBJECT_ID(N'[dbo].[PaysSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[PaysSet];
 GO
 IF OBJECT_ID(N'[dbo].[CompteSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[CompteSet];
@@ -136,27 +130,20 @@ CREATE TABLE [dbo].[ProvinceSet] (
 );
 GO
 
--- Creating table 'PaysSet'
-CREATE TABLE [dbo].[PaysSet] (
-    [noPays] int IDENTITY(1,1) NOT NULL,
-    [Nom] nvarchar(15)  NOT NULL
-);
-GO
-
 -- Creating table 'CompteSet'
 CREATE TABLE [dbo].[CompteSet] (
     [noCompte] int IDENTITY(1,1) NOT NULL,
-    [Préposé] bit  NOT NULL,
+    [Type] int  NOT NULL,
     [Adresse] nvarchar(50)  NOT NULL,
     [Ville] nvarchar(30)  NOT NULL,
     [CodePostal] nvarchar(6)  NOT NULL,
     [Abonnement] bit  NULL,
-    [ModePaiement] nvarchar(15)  NULL,
+    [ModePaiement] nvarchar(20)  NULL,
     [motDePasseCrypté] nvarchar(100)  NOT NULL,
     [Email] nvarchar(30)  NOT NULL,
     [noTelephone] nvarchar(12)  NOT NULL,
-    [Province_noProvince] int  NOT NULL,
-    [Pays_noPays] int  NOT NULL
+    [Pays] nvarchar(20)  NOT NULL,
+    [Province_noProvince] int  NOT NULL
 );
 GO
 
@@ -180,8 +167,7 @@ CREATE TABLE [dbo].[PaiementSet] (
     [noMembre] int  NOT NULL,
     [noPaypal] nvarchar(30)  NOT NULL,
     [Membre_noMembre] int  NOT NULL,
-    [Groupe_noGroupe] int  NOT NULL,
-    [Groupe_noCours] int  NOT NULL
+    [Groupe_noGroupe] int  NOT NULL
 );
 GO
 
@@ -197,7 +183,7 @@ CREATE TABLE [dbo].[CoursSet] (
     [noCours] int IDENTITY(1,1) NOT NULL,
     [Nom] nvarchar(25)  NOT NULL,
     [Prix] float  NOT NULL,
-    [Description] nvarchar(250)  NOT NULL,
+    [Description] nvarchar(250)  NULL,
     [noCoursRequis] int  NOT NULL,
     [Catégorie_noCatégorie] int  NOT NULL,
     [Session_noSession] int  NOT NULL,
@@ -212,7 +198,6 @@ CREATE TABLE [dbo].[GroupeSet] (
     [DateDébut] datetime  NOT NULL,
     [DateFin] datetime  NOT NULL,
     [DateLimiteInscription] datetime  NOT NULL,
-    [noCours] int  NOT NULL,
     [Âge] int  NOT NULL,
     [Animateur_noAnimateur] int  NOT NULL,
     [Cours_noCours] int  NOT NULL
@@ -226,8 +211,7 @@ CREATE TABLE [dbo].[ListeDAttenteSet] (
     [noGroupe] int  NOT NULL,
     [noMembre] int  NOT NULL,
     [Membre_noMembre] int  NOT NULL,
-    [Groupe_noGroupe] int  NOT NULL,
-    [Groupe_noCours] int  NOT NULL
+    [Groupe_noGroupe] int  NOT NULL
 );
 GO
 
@@ -256,12 +240,10 @@ GO
 CREATE TABLE [dbo].[HoraireSet] (
     [HeureDébut] datetime  NOT NULL,
     [HeureFin] datetime  NOT NULL,
-    [noCours] int  NOT NULL,
     [noGroupe] int  NOT NULL,
     [noJour] int  NOT NULL,
     [Jour_noJour] int  NOT NULL,
-    [Groupe_noGroupe] int  NOT NULL,
-    [Groupe_noCours] int  NOT NULL
+    [Groupe_noGroupe] int  NOT NULL
 );
 GO
 
@@ -312,12 +294,6 @@ ADD CONSTRAINT [PK_ProvinceSet]
     PRIMARY KEY CLUSTERED ([noProvince] ASC);
 GO
 
--- Creating primary key on [noPays] in table 'PaysSet'
-ALTER TABLE [dbo].[PaysSet]
-ADD CONSTRAINT [PK_PaysSet]
-    PRIMARY KEY CLUSTERED ([noPays] ASC);
-GO
-
 -- Creating primary key on [noCompte] in table 'CompteSet'
 ALTER TABLE [dbo].[CompteSet]
 ADD CONSTRAINT [PK_CompteSet]
@@ -348,10 +324,10 @@ ADD CONSTRAINT [PK_CoursSet]
     PRIMARY KEY CLUSTERED ([noCours] ASC);
 GO
 
--- Creating primary key on [noGroupe], [noCours] in table 'GroupeSet'
+-- Creating primary key on [noGroupe] in table 'GroupeSet'
 ALTER TABLE [dbo].[GroupeSet]
 ADD CONSTRAINT [PK_GroupeSet]
-    PRIMARY KEY CLUSTERED ([noGroupe], [noCours] ASC);
+    PRIMARY KEY CLUSTERED ([noGroupe] ASC);
 GO
 
 -- Creating primary key on [noCours], [noGroupe], [noMembre] in table 'ListeDAttenteSet'
@@ -378,10 +354,10 @@ ADD CONSTRAINT [PK_JourSet]
     PRIMARY KEY CLUSTERED ([noJour] ASC);
 GO
 
--- Creating primary key on [noCours], [noGroupe], [noJour] in table 'HoraireSet'
+-- Creating primary key on [noGroupe], [noJour] in table 'HoraireSet'
 ALTER TABLE [dbo].[HoraireSet]
 ADD CONSTRAINT [PK_HoraireSet]
-    PRIMARY KEY CLUSTERED ([noCours], [noGroupe], [noJour] ASC);
+    PRIMARY KEY CLUSTERED ([noGroupe], [noJour] ASC);
 GO
 
 -- Creating primary key on [noAnimateur] in table 'AnimateurSet'
@@ -426,20 +402,6 @@ ON [dbo].[CompteSet]
     ([Province_noProvince]);
 GO
 
--- Creating foreign key on [Pays_noPays] in table 'CompteSet'
-ALTER TABLE [dbo].[CompteSet]
-ADD CONSTRAINT [FK_PaysCompte]
-    FOREIGN KEY ([Pays_noPays])
-    REFERENCES [dbo].[PaysSet]
-        ([noPays])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- Creating non-clustered index for FOREIGN KEY 'FK_PaysCompte'
-CREATE INDEX [IX_FK_PaysCompte]
-ON [dbo].[CompteSet]
-    ([Pays_noPays]);
-GO
-
 -- Creating foreign key on [Compte_noCompte] in table 'MembreSet'
 ALTER TABLE [dbo].[MembreSet]
 ADD CONSTRAINT [FK_CompteMembre]
@@ -468,18 +430,18 @@ ON [dbo].[PaiementSet]
     ([Membre_noMembre]);
 GO
 
--- Creating foreign key on [Groupe_noGroupe], [Groupe_noCours] in table 'PaiementSet'
+-- Creating foreign key on [Groupe_noGroupe] in table 'PaiementSet'
 ALTER TABLE [dbo].[PaiementSet]
 ADD CONSTRAINT [FK_GroupePaiement]
-    FOREIGN KEY ([Groupe_noGroupe], [Groupe_noCours])
+    FOREIGN KEY ([Groupe_noGroupe])
     REFERENCES [dbo].[GroupeSet]
-        ([noGroupe], [noCours])
+        ([noGroupe])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_GroupePaiement'
 CREATE INDEX [IX_FK_GroupePaiement]
 ON [dbo].[PaiementSet]
-    ([Groupe_noGroupe], [Groupe_noCours]);
+    ([Groupe_noGroupe]);
 GO
 
 -- Creating foreign key on [Catégorie_noCatégorie] in table 'CoursSet'
@@ -524,18 +486,18 @@ ON [dbo].[ListeDAttenteSet]
     ([Membre_noMembre]);
 GO
 
--- Creating foreign key on [Groupe_noGroupe], [Groupe_noCours] in table 'ListeDAttenteSet'
+-- Creating foreign key on [Groupe_noGroupe] in table 'ListeDAttenteSet'
 ALTER TABLE [dbo].[ListeDAttenteSet]
 ADD CONSTRAINT [FK_ListeDAttenteGroupe]
-    FOREIGN KEY ([Groupe_noGroupe], [Groupe_noCours])
+    FOREIGN KEY ([Groupe_noGroupe])
     REFERENCES [dbo].[GroupeSet]
-        ([noGroupe], [noCours])
+        ([noGroupe])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_ListeDAttenteGroupe'
 CREATE INDEX [IX_FK_ListeDAttenteGroupe]
 ON [dbo].[ListeDAttenteSet]
-    ([Groupe_noGroupe], [Groupe_noCours]);
+    ([Groupe_noGroupe]);
 GO
 
 -- Creating foreign key on [GroupeDAge_noGroupeDAge] in table 'CoursSet'
@@ -580,18 +542,18 @@ ON [dbo].[GroupeSet]
     ([Animateur_noAnimateur]);
 GO
 
--- Creating foreign key on [Groupe_noGroupe], [Groupe_noCours] in table 'HoraireSet'
+-- Creating foreign key on [Groupe_noGroupe] in table 'HoraireSet'
 ALTER TABLE [dbo].[HoraireSet]
 ADD CONSTRAINT [FK_HoraireGroupe]
-    FOREIGN KEY ([Groupe_noGroupe], [Groupe_noCours])
+    FOREIGN KEY ([Groupe_noGroupe])
     REFERENCES [dbo].[GroupeSet]
-        ([noGroupe], [noCours])
+        ([noGroupe])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_HoraireGroupe'
 CREATE INDEX [IX_FK_HoraireGroupe]
 ON [dbo].[HoraireSet]
-    ([Groupe_noGroupe], [Groupe_noCours]);
+    ([Groupe_noGroupe]);
 GO
 
 -- Creating foreign key on [Province_noProvince] in table 'AnimateurSet'

@@ -16,10 +16,9 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("fdb38ee1-c42d-4e63-90b2-79d61eb58340")>
+<Assembly: EdmSchemaAttribute("2c495080-afe1-4c9f-834e-fa9e4d956b77")>
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("Model", "CompteProvince", "Compte", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Compte), "Province", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Province))>
-<Assembly: EdmRelationshipAttribute("Model", "PaysCompte", "Pays", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Pays), "Compte", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Compte))>
 <Assembly: EdmRelationshipAttribute("Model", "CompteMembre", "Compte", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Compte), "Membre", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Membre))>
 <Assembly: EdmRelationshipAttribute("Model", "MembrePaiement", "Membre", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Membre), "Paiement", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Paiement))>
 <Assembly: EdmRelationshipAttribute("Model", "GroupePaiement", "Groupe", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Groupe), "Paiement", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Paiement))>
@@ -100,20 +99,6 @@ Namespace Model
         End Property
     
         Private _ProvinceSet As ObjectSet(Of Province)
-    
-        ''' <summary>
-        ''' No Metadata Documentation available.
-        ''' </summary>
-        Public ReadOnly Property PaysSet() As ObjectSet(Of Pays)
-            Get
-                If (_PaysSet Is Nothing) Then
-                    _PaysSet = MyBase.CreateObjectSet(Of Pays)("PaysSet")
-                End If
-                Return _PaysSet
-            End Get
-        End Property
-    
-        Private _PaysSet As ObjectSet(Of Pays)
     
         ''' <summary>
         ''' No Metadata Documentation available.
@@ -333,13 +318,6 @@ Namespace Model
         ''' </summary>
         Public Sub AddToProvinceSet(ByVal province As Province)
             MyBase.AddObject("ProvinceSet", province)
-        End Sub
-    
-        ''' <summary>
-        ''' Deprecated Method for adding a new object to the PaysSet EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
-        ''' </summary>
-        Public Sub AddToPaysSet(ByVal pays As Pays)
-            MyBase.AddObject("PaysSet", pays)
         End Sub
     
         ''' <summary>
@@ -880,23 +858,25 @@ Namespace Model
         ''' Create a new Compte object.
         ''' </summary>
         ''' <param name="noCompte">Initial value of the noCompte property.</param>
-        ''' <param name="préposé">Initial value of the Préposé property.</param>
+        ''' <param name="type">Initial value of the Type property.</param>
         ''' <param name="adresse">Initial value of the Adresse property.</param>
         ''' <param name="ville">Initial value of the Ville property.</param>
         ''' <param name="codePostal">Initial value of the CodePostal property.</param>
         ''' <param name="motDePasseCrypté">Initial value of the motDePasseCrypté property.</param>
         ''' <param name="email">Initial value of the Email property.</param>
         ''' <param name="noTelephone">Initial value of the noTelephone property.</param>
-        Public Shared Function CreateCompte(noCompte As Global.System.Int32, préposé As Global.System.Boolean, adresse As Global.System.String, ville As Global.System.String, codePostal As Global.System.String, motDePasseCrypté As Global.System.String, email As Global.System.String, noTelephone As Global.System.String) As Compte
+        ''' <param name="pays">Initial value of the Pays property.</param>
+        Public Shared Function CreateCompte(noCompte As Global.System.Int32, type As Global.System.Int32, adresse As Global.System.String, ville As Global.System.String, codePostal As Global.System.String, motDePasseCrypté As Global.System.String, email As Global.System.String, noTelephone As Global.System.String, pays As Global.System.String) As Compte
             Dim compte as Compte = New Compte
             compte.noCompte = noCompte
-            compte.Préposé = préposé
+            compte.Type = type
             compte.Adresse = adresse
             compte.Ville = ville
             compte.CodePostal = codePostal
             compte.motDePasseCrypté = motDePasseCrypté
             compte.Email = email
             compte.noTelephone = noTelephone
+            compte.Pays = pays
             Return compte
         End Function
 
@@ -935,24 +915,24 @@ Namespace Model
         ''' </summary>
         <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
         <DataMemberAttribute()>
-        Public Property Préposé() As Global.System.Boolean
+        Public Property Type() As Global.System.Int32
             Get
-                Return _Préposé
+                Return _Type
             End Get
             Set
-                OnPréposéChanging(value)
-                ReportPropertyChanging("Préposé")
-                _Préposé = StructuralObject.SetValidValue(value)
-                ReportPropertyChanged("Préposé")
-                OnPréposéChanged()
+                OnTypeChanging(value)
+                ReportPropertyChanging("Type")
+                _Type = StructuralObject.SetValidValue(value)
+                ReportPropertyChanged("Type")
+                OnTypeChanged()
             End Set
         End Property
     
-        Private _Préposé As Global.System.Boolean
-        Private Partial Sub OnPréposéChanging(value As Global.System.Boolean)
+        Private _Type As Global.System.Int32
+        Private Partial Sub OnTypeChanging(value As Global.System.Int32)
         End Sub
     
-        Private Partial Sub OnPréposéChanged()
+        Private Partial Sub OnTypeChanged()
         End Sub
     
         ''' <summary>
@@ -1154,6 +1134,31 @@ Namespace Model
     
         Private Partial Sub OnnoTelephoneChanged()
         End Sub
+    
+        ''' <summary>
+        ''' No Metadata Documentation available.
+        ''' </summary>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+        <DataMemberAttribute()>
+        Public Property Pays() As Global.System.String
+            Get
+                Return _Pays
+            End Get
+            Set
+                OnPaysChanging(value)
+                ReportPropertyChanging("Pays")
+                _Pays = StructuralObject.SetValidValue(value, false)
+                ReportPropertyChanged("Pays")
+                OnPaysChanged()
+            End Set
+        End Property
+    
+        Private _Pays As Global.System.String
+        Private Partial Sub OnPaysChanging(value As Global.System.String)
+        End Sub
+    
+        Private Partial Sub OnPaysChanged()
+        End Sub
 
         #End Region
         #Region "Navigation Properties"
@@ -1195,37 +1200,6 @@ Namespace Model
         <XmlIgnoreAttribute()>
         <SoapIgnoreAttribute()>
         <DataMemberAttribute()>
-        <EdmRelationshipNavigationPropertyAttribute("Model", "PaysCompte", "Pays")>
-        Public Property Pays() As Pays
-            Get
-                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Pays)("Model.PaysCompte", "Pays").Value
-            End Get
-            Set
-                CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Pays)("Model.PaysCompte", "Pays").Value = value
-            End Set
-        End Property
-        ''' <summary>
-        ''' No Metadata Documentation available.
-        ''' </summary>
-        <BrowsableAttribute(False)>
-        <DataMemberAttribute()>
-        Public Property PaysReference() As EntityReference(Of Pays)
-            Get
-                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Pays)("Model.PaysCompte", "Pays")
-            End Get
-            Set
-                If (Not value Is Nothing)
-                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of Pays)("Model.PaysCompte", "Pays", value)
-                End If
-            End Set
-        End Property
-    
-        ''' <summary>
-        ''' No Metadata Documentation available.
-        ''' </summary>
-        <XmlIgnoreAttribute()>
-        <SoapIgnoreAttribute()>
-        <DataMemberAttribute()>
         <EdmRelationshipNavigationPropertyAttribute("Model", "CompteMembre", "Membre")>
          Public Property Membre() As EntityCollection(Of Membre)
             Get
@@ -1257,14 +1231,12 @@ Namespace Model
         ''' <param name="noCours">Initial value of the noCours property.</param>
         ''' <param name="nom">Initial value of the Nom property.</param>
         ''' <param name="prix">Initial value of the Prix property.</param>
-        ''' <param name="description">Initial value of the Description property.</param>
         ''' <param name="noCoursRequis">Initial value of the noCoursRequis property.</param>
-        Public Shared Function CreateCours(noCours As Global.System.Int32, nom As Global.System.String, prix As Global.System.Double, description As Global.System.String, noCoursRequis As Global.System.Int32) As Cours
+        Public Shared Function CreateCours(noCours As Global.System.Int32, nom As Global.System.String, prix As Global.System.Double, noCoursRequis As Global.System.Int32) As Cours
             Dim cours as Cours = New Cours
             cours.noCours = noCours
             cours.Nom = nom
             cours.Prix = prix
-            cours.Description = description
             cours.noCoursRequis = noCoursRequis
             Return cours
         End Function
@@ -1352,7 +1324,7 @@ Namespace Model
         ''' <summary>
         ''' No Metadata Documentation available.
         ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=true)>
         <DataMemberAttribute()>
         Public Property Description() As Global.System.String
             Get
@@ -1361,7 +1333,7 @@ Namespace Model
             Set
                 OnDescriptionChanging(value)
                 ReportPropertyChanging("Description")
-                _Description = StructuralObject.SetValidValue(value, false)
+                _Description = StructuralObject.SetValidValue(value, true)
                 ReportPropertyChanged("Description")
                 OnDescriptionChanged()
             End Set
@@ -1614,16 +1586,14 @@ Namespace Model
         ''' <param name="dateDébut">Initial value of the DateDébut property.</param>
         ''' <param name="dateFin">Initial value of the DateFin property.</param>
         ''' <param name="dateLimiteInscription">Initial value of the DateLimiteInscription property.</param>
-        ''' <param name="noCours">Initial value of the noCours property.</param>
         ''' <param name="âge">Initial value of the Âge property.</param>
-        Public Shared Function CreateGroupe(noGroupe As Global.System.Int32, local As Global.System.String, dateDébut As Global.System.DateTime, dateFin As Global.System.DateTime, dateLimiteInscription As Global.System.DateTime, noCours As Global.System.Int32, âge As Global.System.Int32) As Groupe
+        Public Shared Function CreateGroupe(noGroupe As Global.System.Int32, local As Global.System.String, dateDébut As Global.System.DateTime, dateFin As Global.System.DateTime, dateLimiteInscription As Global.System.DateTime, âge As Global.System.Int32) As Groupe
             Dim groupe as Groupe = New Groupe
             groupe.noGroupe = noGroupe
             groupe.Local = local
             groupe.DateDébut = dateDébut
             groupe.DateFin = dateFin
             groupe.DateLimiteInscription = dateLimiteInscription
-            groupe.noCours = noCours
             groupe.Âge = âge
             Return groupe
         End Function
@@ -1756,33 +1726,6 @@ Namespace Model
         End Sub
     
         Private Partial Sub OnDateLimiteInscriptionChanged()
-        End Sub
-    
-        ''' <summary>
-        ''' No Metadata Documentation available.
-        ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
-        <DataMemberAttribute()>
-        Public Property noCours() As Global.System.Int32
-            Get
-                Return _noCours
-            End Get
-            Set
-                If (_noCours <> Value) Then
-                    OnnoCoursChanging(value)
-                    ReportPropertyChanging("noCours")
-                    _noCours = StructuralObject.SetValidValue(value)
-                    ReportPropertyChanged("noCours")
-                    OnnoCoursChanged()
-                End If
-            End Set
-        End Property
-    
-        Private _noCours As Global.System.Int32
-        Private Partial Sub OnnoCoursChanging(value As Global.System.Int32)
-        End Sub
-    
-        Private Partial Sub OnnoCoursChanged()
         End Sub
     
         ''' <summary>
@@ -2048,14 +1991,12 @@ Namespace Model
         ''' </summary>
         ''' <param name="heureDébut">Initial value of the HeureDébut property.</param>
         ''' <param name="heureFin">Initial value of the HeureFin property.</param>
-        ''' <param name="noCours">Initial value of the noCours property.</param>
         ''' <param name="noGroupe">Initial value of the noGroupe property.</param>
         ''' <param name="noJour">Initial value of the noJour property.</param>
-        Public Shared Function CreateHoraire(heureDébut As Global.System.DateTime, heureFin As Global.System.DateTime, noCours As Global.System.Int32, noGroupe As Global.System.Int32, noJour As Global.System.Int32) As Horaire
+        Public Shared Function CreateHoraire(heureDébut As Global.System.DateTime, heureFin As Global.System.DateTime, noGroupe As Global.System.Int32, noJour As Global.System.Int32) As Horaire
             Dim horaire as Horaire = New Horaire
             horaire.HeureDébut = heureDébut
             horaire.HeureFin = heureFin
-            horaire.noCours = noCours
             horaire.noGroupe = noGroupe
             horaire.noJour = noJour
             Return horaire
@@ -2112,33 +2053,6 @@ Namespace Model
         End Sub
     
         Private Partial Sub OnHeureFinChanged()
-        End Sub
-    
-        ''' <summary>
-        ''' No Metadata Documentation available.
-        ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
-        <DataMemberAttribute()>
-        Public Property noCours() As Global.System.Int32
-            Get
-                Return _noCours
-            End Get
-            Set
-                If (_noCours <> Value) Then
-                    OnnoCoursChanging(value)
-                    ReportPropertyChanging("noCours")
-                    _noCours = StructuralObject.SetValidValue(value)
-                    ReportPropertyChanged("noCours")
-                    OnnoCoursChanged()
-                End If
-            End Set
-        End Property
-    
-        Private _noCours As Global.System.Int32
-        Private Partial Sub OnnoCoursChanging(value As Global.System.Int32)
-        End Sub
-    
-        Private Partial Sub OnnoCoursChanged()
         End Sub
     
         ''' <summary>
@@ -3048,107 +2962,6 @@ Namespace Model
             Set
                 If (Not value Is Nothing)
                     CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of Groupe)("Model.GroupePaiement", "Groupe", value)
-                End If
-            End Set
-        End Property
-
-        #End Region
-    End Class
-    
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <EdmEntityTypeAttribute(NamespaceName:="Model", Name:="Pays")>
-    <Serializable()>
-    <DataContractAttribute(IsReference:=True)>
-    Public Partial Class Pays
-        Inherits EntityObject
-        #Region "Factory Method"
-    
-        ''' <summary>
-        ''' Create a new Pays object.
-        ''' </summary>
-        ''' <param name="noPays">Initial value of the noPays property.</param>
-        ''' <param name="nom">Initial value of the Nom property.</param>
-        Public Shared Function CreatePays(noPays As Global.System.Int32, nom As Global.System.String) As Pays
-            Dim pays as Pays = New Pays
-            pays.noPays = noPays
-            pays.Nom = nom
-            Return pays
-        End Function
-
-        #End Region
-        #Region "Primitive Properties"
-    
-        ''' <summary>
-        ''' No Metadata Documentation available.
-        ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
-        <DataMemberAttribute()>
-        Public Property noPays() As Global.System.Int32
-            Get
-                Return _noPays
-            End Get
-            Set
-                If (_noPays <> Value) Then
-                    OnnoPaysChanging(value)
-                    ReportPropertyChanging("noPays")
-                    _noPays = StructuralObject.SetValidValue(value)
-                    ReportPropertyChanged("noPays")
-                    OnnoPaysChanged()
-                End If
-            End Set
-        End Property
-    
-        Private _noPays As Global.System.Int32
-        Private Partial Sub OnnoPaysChanging(value As Global.System.Int32)
-        End Sub
-    
-        Private Partial Sub OnnoPaysChanged()
-        End Sub
-    
-        ''' <summary>
-        ''' No Metadata Documentation available.
-        ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
-        <DataMemberAttribute()>
-        Public Property Nom() As Global.System.String
-            Get
-                Return _Nom
-            End Get
-            Set
-                OnNomChanging(value)
-                ReportPropertyChanging("Nom")
-                _Nom = StructuralObject.SetValidValue(value, false)
-                ReportPropertyChanged("Nom")
-                OnNomChanged()
-            End Set
-        End Property
-    
-        Private _Nom As Global.System.String
-        Private Partial Sub OnNomChanging(value As Global.System.String)
-        End Sub
-    
-        Private Partial Sub OnNomChanged()
-        End Sub
-
-        #End Region
-        #Region "Navigation Properties"
-    
-        ''' <summary>
-        ''' No Metadata Documentation available.
-        ''' </summary>
-        <XmlIgnoreAttribute()>
-        <SoapIgnoreAttribute()>
-        <DataMemberAttribute()>
-        <EdmRelationshipNavigationPropertyAttribute("Model", "PaysCompte", "Compte")>
-         Public Property Compte() As EntityCollection(Of Compte)
-            Get
-                Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of Compte)("Model.PaysCompte", "Compte")
-            End Get
-            Set
-                If (Not value Is Nothing)
-                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of Compte)("Model.PaysCompte", "Compte", value)
                 End If
             End Set
         End Property

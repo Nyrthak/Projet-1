@@ -21,4 +21,8 @@ Partial Class masterPage
 
         End If
     End Sub
+
+    Protected Sub menuTop_MenuItemClick(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.MenuEventArgs) Handles menuTop.MenuItemClick
+        Dim assdsad As String = "blabla"
+    End Sub
 End Class
