@@ -27,4 +27,15 @@ Public Class page
         Dim hashedPwd As String = FormsAuthentication.HashPasswordForStoringInConfigFile(saltAndPwd, "sha1")
         Return hashedPwd
     End Function
+
+
+    Protected Friend Function verificationTypeUser(ByVal type As Integer) As Boolean
+        Dim bonType As Boolean = False
+        If Session("userType") = type Then
+            bonType = True          
+        Else
+            Response.Redirect("~/pageError.aspx")
+        End If
+        Return bonType
+    End Function
 End Class

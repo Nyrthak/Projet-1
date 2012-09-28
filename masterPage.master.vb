@@ -19,6 +19,22 @@
     End Sub
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        If Session("userType") = 1 Then
+            lnkButtonPagePreposeAdmin.Text = ""
+            lnkButtonPagePreposeAdmin.Visible = False
+            lnkButtonPagePreposeAdmin.PostBackUrl = ""
+        End If
+        If Session("userType") = 2 Then
+            lnkButtonPagePreposeAdmin.Text = "Page Préposé"
+            lnkButtonPagePreposeAdmin.Visible = True
+            lnkButtonPagePreposeAdmin.PostBackUrl = "~/prepose/pagePrepose.aspx"
+        End If
+        If Session("userType") = 3 Then
+            lnkButtonPagePreposeAdmin.Text = "Page Admin"
+            lnkButtonPagePreposeAdmin.Visible = True
+            lnkButtonPagePreposeAdmin.PostBackUrl = "~/admin/default.aspx"
+        End If
+
         If Session.Contents("userType") IsNot Nothing Then
             siteMapDataSource.SiteMapProvider = "siteMapLogged"
         Else
@@ -26,8 +42,21 @@
         End If
     End Sub
 
+    Protected Sub laginStatus_LoggedOut(ByVal sender As Object, ByVal e As System.EventArgs) Handles laginStatus.LoggedOut
+        Response.Redirect("~/default.aspx")
+    End Sub
+
     Protected Sub laginStatus_LoggingOut(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.LoginCancelEventArgs) Handles laginStatus.LoggingOut
         Session.Abandon()
     End Sub
 
+
+    Protected Sub menuTop_MenuItemDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.MenuEventArgs) Handles menuTop.MenuItemDataBound
+        'Text si le user est un préposé ou un admin, si oui, il ne peut pas cliquer sur le menu "monCompte"
+        If Session("userType") = 2 Or Session("userType") = 3 Then
+            If e.Item.Text = "Mon compte" Then
+                e.Item.Selectable = False
+            End If
+        End If
+    End Sub
 End Class

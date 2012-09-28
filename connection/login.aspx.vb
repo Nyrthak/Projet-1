@@ -8,7 +8,6 @@ Partial Class login
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         lecontext = New ModelContainer()
-
         loginCtrl.UserNameLabelText = "Adresse courriel:"
     End Sub
 
@@ -30,6 +29,16 @@ Partial Class login
 
 
     Protected Sub loginCtrl_LoggedIn(ByVal sender As Object, ByVal e As System.EventArgs) Handles loginCtrl.LoggedIn
-        Page.Response.Redirect("~/Default.aspx")
+        If Session("userType") = 1 Then
+            Page.Response.Redirect("~/Default.aspx")
+        End If
+        If Session("userType") = 2 Then
+            Response.Redirect("~/prepose/pagePrepose.aspx")
+        End If
+        If Session("userType") = 3 Then
+            Response.Redirect("~/admin/default.aspx")
+        End If
+
+
     End Sub
 End Class

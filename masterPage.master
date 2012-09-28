@@ -15,7 +15,9 @@
     <div id="bigDiv">
         
         <div id="header">
+            
             <asp:LoginStatus ID="laginStatus" runat="server" LogoutPageUrl="Default.aspx" forecolor="Red"/>
+            <asp:LinkButton ID="lnkButtonPagePreposeAdmin" runat="server" Text="" Visible="false"></asp:LinkButton>
         </div>
         <div id="menu">
             <asp:Menu ID="menuTop" runat="server" Orientation="Horizontal" DataSourceID="siteMapDataSource" >
