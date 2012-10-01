@@ -1,9 +1,6 @@
 ﻿<%@ Page Language="VB" MasterPageFile="~/masterPage.master" AutoEventWireup="false"  CodeFile="login.aspx.vb" Inherits="login" %>
 
 <asp:Content ID="contentLogin" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
-    <div id="content">
-
-        <div id="contentLeft">
         <h1><asp:Label runat="server" id="lbConnection" Text="Connection" SkinID="lbTitrePage"></asp:Label></h1>        
         <asp:Login ID="loginCtrl" runat="server" BackColor="#9FB8FF" Width="350px" Height="170px" 
                 BorderColor="black" BorderStyle="Solid" BorderWidth="1px" 
@@ -14,8 +11,6 @@
              BorderStyle="Solid" BorderWidth="1px"/>
             <ValidatorTextStyle Forecolor="Red" />         
         </asp:Login>
-        </div>        
-    </div>
    </asp:Content>
 
 

@@ -7,15 +7,8 @@
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="Server" />
     <asp:CalendarExtender ID="calendarExtenderDateNaissance" runat="server" TargetControlID="tbDateNaissance" PopupButtonID="imgBtnCalendrier" 
      CssClass="MyCalendar" PopupPosition="Right" Format="d/MM/yyyy" >
-    </asp:CalendarExtender>
-    <asp:EntityDataSource ID="entityDataSourceProvince" runat="server" 
-        ConnectionString="name=ModelContainer" 
-        DefaultContainerName="ModelContainer" EntitySetName="ProvinceSet" 
-        EnableFlattening="False">
-    </asp:EntityDataSource>
-    <div id="content">             
-        <asp:Label SkinID="lbTitrePage" ID="lbInscription" runat="server" Text="Inscription"></asp:Label>
-
+    </asp:CalendarExtender>               
+        <h1><asp:Label SkinID="lbTitrePage" ID="lbInscription" runat="server" Text="Inscription"></asp:Label></h1>
         <asp:ValidationSummary SkinID="valiSummary" ID="valiSummaryInscription" runat="server" />
         <table class="tableau">
             <tr>
@@ -93,7 +86,6 @@
                         ControlToValidate="tbNumeroTelephone" Display="Dynamic">*</asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="reguExpressionNumeroTele" runat="server" ErrorMessage="Le numéro de téléphone ne peut comporter que des chiffres (4502473882)." 
                     ControlToValidate="tbNumeroTelephone" Display="Dynamic" ValidationExpression="^[0-9]{10}$" ForeColor="Red">*</asp:RegularExpressionValidator>
-
                     </td>
             </tr>
             <tr>
@@ -158,8 +150,7 @@
             <asp:ListItem>Visa</asp:ListItem>
             <asp:ListItem>American Express</asp:ListItem>
             <asp:ListItem>Discover</asp:ListItem>
-        </asp:RadioButtonList>
-           
+        </asp:RadioButtonList>           
         <table class="style1">
             <tr>
                 <td class="longeurPremiereColonne"><asp:Label skinid="lbInscription" ID="lbNumeroCartePaiement" runat="server" Text="Numéro de la carte:"></asp:Label>
@@ -217,6 +208,11 @@
         <asp:Label ID="LbNote2" runat="server" Text="**: Ce numéro de 3 chiffres se situe au dos de votre carte."></asp:Label>
         <br />
         <asp:Button SkinID="btnEnregistrer" ID="btnEnregistrerInscription" runat="server" Text="S'inscrire et payer" />
-    </div>
+    <asp:EntityDataSource ID="entityDataSourceProvince" runat="server" 
+        ConnectionString="name=ModelContainer" 
+        DefaultContainerName="ModelContainer" EntitySetName="ProvinceSet" 
+        EnableFlattening="False">
+    </asp:EntityDataSource>
 </asp:Content>
+
 
