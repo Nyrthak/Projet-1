@@ -15,13 +15,15 @@
     <div id="bigDiv">
         
         <div id="header">
+            
+            <asp:LoginStatus ID="laginStatus" runat="server" LogoutPageUrl="Default.aspx" forecolor="Red"/>
+            <asp:LinkButton ID="lnkButtonPagePreposeAdmin" runat="server" Text="" Visible="false"></asp:LinkButton>
         </div>
         <div id="menu">
-            <asp:Menu ID="menuTop" runat="server" DataSourceID="siteMapDataSource" Orientation="Horizontal">
-            <StaticHoverStyle Width="166px"/>
-            <StaticSelectedStyle Width="166px" BackColor="#537EFF" ForeColor="White" /> 
-            </asp:Menu>   
-                
+            <asp:Menu ID="menuTop" runat="server" Orientation="Horizontal" DataSourceID="siteMapDataSource" >
+            <StaticHoverStyle Width="200px"/>
+            <StaticSelectedStyle Width="200px" BackColor="#537EFF" ForeColor="White" /> 
+            </asp:Menu>                  
         </div>
         <div id="centre">
             <div id="corps">
@@ -42,10 +44,10 @@
             <p class="left">Copyright KeL © 2012</p>
             <p class="right">
                 <asp:LinkButton ID="lnkBtLangue" Text="English" runat="server"></asp:LinkButton></p>
-        </div>
-        
+        </div>       
     </div>
-    <asp:SiteMapDataSource ID="siteMapDataSource" runat="server" ShowStartingNode="false"/>
+    <asp:SiteMapDataSource ID="siteMapDataSource" runat="server" ShowStartingNode="false"  SiteMapProvider="siteMapLogged"/>
+
     </form>
 </body>
 </html>

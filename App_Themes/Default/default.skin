@@ -11,4 +11,7 @@
 <asp:Button runat="server" SkinId="btnAdmin" Font-Size="18px" Width="280px" BorderColor="Black" BorderWidth="1px" />
 <asp:DropDownList SkinID="dropDownlistMois" runat="server" Width="85px" BorderColor="Black" BorderStyle="Solid" BorderWidth="1px" Font-Size="18px" />
 <asp:DropDownList runat="server" SkinId="dDListFormulaire" Width="150px" BorderColor="Black" BorderWidth="1px"></asp:DropDownList>
+<asp:DropDownList SkinID="dropDownListProvince" runat="server" Width="200px" BorderColor="Black" BorderStyle="Solid" BorderWidth="1px" Font-Size="20px" />
+<asp:DropDownList SkinID="dropDownListDateExpiration" runat="server" Width="98px" BorderColor="Black" BorderStyle="Solid" BorderWidth="1px" Font-Size="20px" />
 <asp:ValidationSummary SkinID="valiSummary" runat="server" ForeColor="red" />        
+<asp:RequiredFieldValidator SkinId="requisValidation" ForeColor="Red" runat="server"  ></asp:RequiredFieldValidator>    
