@@ -13,7 +13,7 @@ body{ width:1023px; margin:auto; background-color:#c5c5c5;}
         #corps table{width:690px;}
         #corps td{width:230px; vertical-align:top;}
         #corps .TableauAdmin td{ height:50px;}
-        #corps .txtRechercher{float:right; margin-right:20px;}
+        #corps .rechercher{float:right; margin-right:20px;}
         #corps .lbRechercher{float:right;margin-right:10px; font-weight:bold;}
         #corps .listeSansPoints{list-style-type:none; margin-left:100px; font-size:1.5em; font-weight:bold; margin-top:50px;}
             #corps .listeSansPoints li{margin-top: 20px;}
