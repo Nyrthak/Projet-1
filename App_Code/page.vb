@@ -32,7 +32,7 @@ Public Class page
     Protected Friend Function verificationTypeUser(ByVal type As Integer) As Boolean
         Dim bonType As Boolean = False
         If Session("userType") = type Then
-            bonType = True          
+            bonType = True
         Else
             Response.Redirect("~/pageError.aspx")
         End If
