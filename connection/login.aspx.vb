@@ -16,13 +16,14 @@ Partial Class login
     End Sub
 
     Protected Sub loginCtrl_Authenticate(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.AuthenticateEventArgs) Handles loginCtrl.Authenticate
-        For Each username As Compte In (From dl In lecontext.CompteSet Where dl.Email = loginCtrl.UserName)
+        For Each compte As Compte In (From dl In lecontext.CompteSet Where dl.Email = loginCtrl.UserName)
             Dim salt = loginCtrl.UserName.Substring(0, 3)
 
-            If username.motDePasseCrypté = CreatePasswordHash(loginCtrl.Password, salt) Then
+            If compte.motDePasseCrypté = CreatePasswordHash(loginCtrl.Password, salt) Then
                 e.Authenticated = True
                 Session.Add("userOnline", loginCtrl.UserName)
-                Session.Add("userType", username.Type)
+                Session.Add("userType", compte.Type)
+                Session.Add("noCompte", compte.noCompte)
             End If
         Next
     End Sub

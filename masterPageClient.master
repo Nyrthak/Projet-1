@@ -24,13 +24,18 @@
             <StaticSelectedStyle Width="200px" BackColor="#537EFF" ForeColor="White" /> 
             </asp:Menu>                  
         </div>
-        <div id="corps">
+        <div id="centre">
+      <div id="corps">
+          <div id="menuFloat">
           <asp:Menu ID="menuLeft" runat="server" DataSourceID="siteMapDataSourceMenu">
-        </asp:Menu>
+            </asp:Menu></div>
+        <div id="contentRight">
             <asp:ContentPlaceHolder id="contentPlaceMasterPage" runat="server">
             </asp:ContentPlaceHolder>
-        </div>
-        <div id="heureOuverture">
+            </div>
+        </div>  
+
+           <div id="heureOuverture">
             <div id="topHeureOuverture">
             <h2><asp:Label SkinID="lbHeureOuverture" ID="lbHeureOuverture" runat="server" Text="Heures d'ouverture"></asp:Label></h2>
             </div>
@@ -38,6 +43,7 @@
                 <p><asp:Label SkinId="lbHoraire" ID="lbSemaine" runat="server" Text="8h00 à 23h00"></asp:Label></p> </li> 
             <li><asp:Label SkinId="lbHoraire" ID="lbSamediDimanche" runat="server" Text="Samedi et Dimanche"></asp:Label> <br /> 
                 <p><asp:Label SkinId="lbHoraire" ID="lbFDS" runat="server" Text="5h30 à 23h00"></asp:Label></p></li> 
+        </div>
         </div>
         <div id="footer">
             <p class="left">Copyright KeL © 2012</p>
