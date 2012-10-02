@@ -32,12 +32,12 @@
                         <asp:Label SkinID="lbInfoMembre" id="lbDateNaissance" runat="server" Text='<%#Eval("DateNaissance", "{0:dd/MM/yyyy}") %>'></asp:Label>
                     </td>
                      <td>
-                            <asp:Button SkinID="btnAjoutSupprimer" ID="btnSupprimer" runat="server" Text="-" Width="40px" CommandName="Delete" />
-                            <asp:Button SkinID="btnAjoutSupprimer" ID="btnAjout" runat="server" Text="+" Width="40px" CommandName="Ajout"/>
+                            <asp:Button SkinID="btnAjoutSupprimer" ID="btnSupprimer" runat="server" Text="Supprimer"    CommandName="Delete" />               
                     </td>  
                 </tr>
             </ItemTemplate>         
         </asp:ListView>
+        <asp:Button SkinID="btnAjoutSupprimer" ID="btnAjouter" runat="server" Text="Ajouter" Width="80px" CommandName="Ajout"/>
         <asp:Label ID="lbErreur" runat="server" Text="" Font-Size="18px" ForeColor="Red"></asp:Label>
     </asp:View>
     
@@ -65,8 +65,9 @@
                     </td>  
                     <tr>                      
                     <td style="width:200px;">
+                        <asp:textbox SkinID="tbinscription" id="lbDateNaissance" runat="server" Text='<%#Bind("DateNaissance") %>'></asp:textBox><br />
                         <asp:Label SkinID="lbTitreInfoMembre" id="lbDate" runat="server" Text="Date de naissance:"></asp:Label>
-                        <asp:textbox SkinID="tbinscription" id="lbDateNaissance" runat="server" Text='<%#Bind("DateNaissance") %>'></asp:textBox>
+                        
                     </td>
                      </tr>    
                 </tr>

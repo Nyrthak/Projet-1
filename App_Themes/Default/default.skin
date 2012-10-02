@@ -10,7 +10,7 @@
 <asp:TextBox runat="server" SkinId="TextBoxFormulaire" BorderColor="Black" BorderWidth="1px" Width="148px"></asp:TextBox>
 <asp:TextBox runat="server" SkinId="TextBoxDescription" Width="378px" Height="100px" BorderColor="Black" BorderWidth="1px"/>
 
-<asp:Button runat="server" SkinID="btnAjoutSupprimer" width="20px" BorderColor="Black" BorderStyle="Solid" BorderWidth="1px" Font-Size="15px" />
+<asp:Button runat="server" SkinID="btnAjoutSupprimer" width="80px" BorderColor="Black" BorderStyle="Solid" BorderWidth="1px" Font-Size="15px" />
 <asp:Button runat="server" SkinID="btnEnregistrer" width="150px" BorderColor="Black" BorderStyle="Solid" BorderWidth="1px" Font-Size="18px" />
 <asp:Button runat="server" SkinId="btnConfirmation" Font-Size="18px" Width="100px" BorderColor="Black" BorderWidth="1px"/>
 <asp:Button runat="server" SkinId="btnAdmin" Font-Size="18px" Width="280px" BorderColor="Black" BorderWidth="1px" />
