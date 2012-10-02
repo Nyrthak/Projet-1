@@ -19,6 +19,7 @@ body{ width:1023px; margin:auto; background-color:#c5c5c5;}
             #corps #texteAccueil{float:left;}
             #corps h1{margin-bottom:10px; margin-right:250px;}                  
         #corps a{ color:#537EFF; text-decoration:none;}
+        #tableauListeCours{width:700px; text-align:center;}
     #heureOuverture{float:right; background:url('images/backgroundcorps.jpg') repeat-x top center; width: 208px; height:400px; border-left:1px solid black; border-right:1px solid black; border-top:1px solid black;} 
         #topHeureOuverture{width:208px; height:55px; background-color:#293F7F; text-align:center;}
             #heureOuverture h2{font-size:1.2em; line-height:55px; color:White;}
