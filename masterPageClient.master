@@ -28,6 +28,8 @@
       <div id="corps">
           <div id="menuFloat">
           <asp:Menu ID="menuLeft" runat="server" DataSourceID="siteMapDataSourceMenu">
+            <StaticHoverStyle BackColor="#537EFF" ForeColor="White" />
+            <StaticSelectedStyle BackColor="#537EFF" ForeColor="White" />
             </asp:Menu></div>
         <div id="contentRight">
             <asp:ContentPlaceHolder id="contentPlaceMasterPage" runat="server">

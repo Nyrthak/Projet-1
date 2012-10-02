@@ -4,8 +4,8 @@
     <asp:Label ID="lblTitrePageAdmin" runat="server" Text="Liste d'actions possibles" SkinID="lbTitrePage"></asp:Label>
     <table class="TableauAdmin">
         <tr>
-            <td><asp:Button ID="btnAjoutCompteClient" runat="server" SkinID="btnAdmin" Text="Ajouter un compte client" /></td>
-            <td><asp:Button ID="btnAjoutComptePrépose" runat="server" SkinID="btnAdmin" Text="Ajouter un compte préposé" /></td>
+            <td><asp:Button ID="btnAjoutCompteClient" runat="server" SkinID="btnAdmin" Text="Ajouter un compte client"  /></td>
+            <td><asp:Button ID="btnAjoutComptePrépose" runat="server" SkinID="btnAdmin" Text="Ajouter un compte préposé" PostBackUrl="~/Admin/ajouterComptePrepose.aspx" /></td>
         </tr>
         <tr>
             <td><asp:Button ID="btnGererComptes" runat="server" SkinID="btnAdmin" Text="Gérer les comptes" /></td>

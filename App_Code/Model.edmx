@@ -210,16 +210,12 @@
         </EntityType>
         <EntityType Name="PaiementSet">
           <Key>
-            <PropertyRef Name="noCours" />
-            <PropertyRef Name="noGroupe" />
-            <PropertyRef Name="noMembre" />
+            <PropertyRef Name="noPaiement" />
           </Key>
           <Property Name="ModePaiement" Type="nvarchar" Nullable="false" MaxLength="15" />
           <Property Name="Prix" Type="float" Nullable="false" />
-          <Property Name="noCours" Type="int" Nullable="false" />
-          <Property Name="noGroupe" Type="int" Nullable="false" />
-          <Property Name="noMembre" Type="int" Nullable="false" />
           <Property Name="noPaypal" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="noPaiement" Type="int" Nullable="false" />
           <Property Name="Membre_noMembre" Type="int" Nullable="false" />
           <Property Name="Groupe_noGroupe" Type="int" Nullable="false" />
         </EntityType>
@@ -574,18 +570,14 @@
         </EntityType>
         <EntityType Name="Paiement" >
           <Key>
-            <PropertyRef Name="noCours" />
-            <PropertyRef Name="noGroupe" />
-            <PropertyRef Name="noMembre" />
+            <PropertyRef Name="noPaiement" />
           </Key>
           <Property Type="String" Name="ModePaiement" Nullable="false" MaxLength="15" />
           <Property Type="Double" Name="Prix" Nullable="false" />
           <NavigationProperty Name="Membre" Relationship="Model.MembrePaiement" FromRole="Paiement" ToRole="Membre" />
           <NavigationProperty Name="Groupe" Relationship="Model.GroupePaiement" FromRole="Paiement" ToRole="Groupe" />
-          <Property Type="Int32" Name="noCours" Nullable="false" />
-          <Property Type="Int32" Name="noGroupe" Nullable="false" />
-          <Property Type="Int32" Name="noMembre" Nullable="false" />
           <Property Type="String" Name="noPaypal" Nullable="false" MaxLength="30" />
+          <Property Type="Int32" Name="noPaiement" Nullable="false" />
         </EntityType>
         <EntityType Name="Catégorie">
           <Key>
@@ -824,9 +816,7 @@
     <EntitySetMapping Name="PaiementSet">
       <EntityTypeMapping TypeName="IsTypeOf(Model.Paiement)">
         <MappingFragment StoreEntitySet="PaiementSet">
-          <ScalarProperty Name="noCours" ColumnName="noCours" />
-          <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
-          <ScalarProperty Name="noMembre" ColumnName="noMembre" />
+          <ScalarProperty Name="noPaiement" ColumnName="noPaiement" />
           <ScalarProperty Name="ModePaiement" ColumnName="ModePaiement" />
           <ScalarProperty Name="Prix" ColumnName="Prix" />
           <ScalarProperty Name="noPaypal" ColumnName="noPaypal" />
@@ -967,9 +957,7 @@
         <ScalarProperty Name="noMembre" ColumnName="Membre_noMembre" />
       </EndProperty>
       <EndProperty Name="Paiement">
-        <ScalarProperty Name="noCours" ColumnName="noCours" />
-        <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
-        <ScalarProperty Name="noMembre" ColumnName="noMembre" />
+        <ScalarProperty Name="noPaiement" ColumnName="noPaiement" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="GroupePaiement" TypeName="Model.GroupePaiement" StoreEntitySet="PaiementSet">
@@ -977,9 +965,7 @@
         <ScalarProperty Name="noGroupe" ColumnName="Groupe_noGroupe" />
       </EndProperty>
       <EndProperty Name="Paiement">
-        <ScalarProperty Name="noCours" ColumnName="noCours" />
-        <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
-        <ScalarProperty Name="noMembre" ColumnName="noMembre" />
+        <ScalarProperty Name="noPaiement" ColumnName="noPaiement" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="CatégorieCours" TypeName="Model.CatégorieCours" StoreEntitySet="CoursSet">
@@ -1107,9 +1093,9 @@
     <edmx:Diagrams>
       <Diagram Name="Model" >
         <EntityTypeShape EntityType="Model.Province" Width="1.5" PointX="0.875" PointY="0.5" Height="1.7879850260416665" />
-        <EntityTypeShape EntityType="Model.Compte" Width="1.5" PointX="3" PointY="0.5" Height="3.5186979166666656" />
+        <EntityTypeShape EntityType="Model.Compte" Width="1.5" PointX="2.875" PointY="0.5" Height="3.7109993489583326" />
         <EntityTypeShape EntityType="Model.Membre" Width="1.5" PointX="5" PointY="0.5" Height="1.9802864583333331" />
-        <EntityTypeShape EntityType="Model.Paiement" Width="1.5" PointX="6.875" PointY="0.5" Height="2.5571907552083331" />
+        <EntityTypeShape EntityType="Model.Paiement" Width="1.5" PointX="7.125" PointY="0.5" Height="2.172587890625" />
         <EntityTypeShape EntityType="Model.Catégorie" Width="1.5" PointX="1.125" PointY="4.125" Height="1.5956835937499996" />
         <EntityTypeShape EntityType="Model.Cours" Width="1.5" PointX="3.25" PointY="4.25" Height="2.7494921874999996" />
         <EntityTypeShape EntityType="Model.Groupe" Width="1.5" PointX="7" PointY="3.75" Height="3.1340950520833335" />
@@ -1121,20 +1107,20 @@
         <EntityTypeShape EntityType="Model.Animateur" Width="1.5" PointX="7" PointY="7.125" Height="2.9417936197916656" />
         <EntityTypeShape EntityType="Model.Forfait" Width="1.5" PointX="8.75" PointY="0.5" Height="1.4033821614583331" />
         <AssociationConnector Association="Model.CompteProvince">
-          <ConnectorPoint PointX="3" PointY="1.3939925130208333" />
+          <ConnectorPoint PointX="2.875" PointY="1.3939925130208333" />
           <ConnectorPoint PointX="2.375" PointY="1.3939925130208333" />
         </AssociationConnector>
         <AssociationConnector Association="Model.CompteMembre">
-          <ConnectorPoint PointX="4.5" PointY="1.7785953776041663" />
+          <ConnectorPoint PointX="4.375" PointY="1.7785953776041663" />
           <ConnectorPoint PointX="5" PointY="1.7785953776041663" />
         </AssociationConnector>
         <AssociationConnector Association="Model.MembrePaiement">
-          <ConnectorPoint PointX="6.5" PointY="1.7785953776041663" />
-          <ConnectorPoint PointX="6.875" PointY="1.7785953776041663" />
+          <ConnectorPoint PointX="6.5" PointY="1.5862939453124998" />
+          <ConnectorPoint PointX="7.125" PointY="1.5862939453124998" />
         </AssociationConnector>
         <AssociationConnector Association="Model.GroupePaiement">
-          <ConnectorPoint PointX="7.6875" PointY="3.75" />
-          <ConnectorPoint PointX="7.6875" PointY="3.0571907552083331" />
+          <ConnectorPoint PointX="7.8125" PointY="3.75" />
+          <ConnectorPoint PointX="7.8125" PointY="2.864889322916667" />
         </AssociationConnector>
         <AssociationConnector Association="Model.CatégorieCours">
           <ConnectorPoint PointX="2.625" PointY="4.985341796875" />

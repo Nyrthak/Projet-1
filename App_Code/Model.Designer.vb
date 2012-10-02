@@ -16,7 +16,7 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("33c1a4e7-f9bc-4239-84cd-a195db333fd6")>
+<Assembly: EdmSchemaAttribute("5a3db344-fe4f-42a8-9a9f-08520481b5ee")>
 #Region "Métadonnées de relation EDM"
 <Assembly: EdmRelationshipAttribute("Model", "CompteProvince", "Compte", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Compte), "Province", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Province))>
 <Assembly: EdmRelationshipAttribute("Model", "CompteMembre", "Compte", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Compte), "Membre", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Membre))>
@@ -2727,18 +2727,14 @@ Namespace Model
         ''' </summary>
         ''' <param name="modePaiement">Valeur initiale de la propriété ModePaiement.</param>
         ''' <param name="prix">Valeur initiale de la propriété Prix.</param>
-        ''' <param name="noCours">Valeur initiale de la propriété noCours.</param>
-        ''' <param name="noGroupe">Valeur initiale de la propriété noGroupe.</param>
-        ''' <param name="noMembre">Valeur initiale de la propriété noMembre.</param>
         ''' <param name="noPaypal">Valeur initiale de la propriété noPaypal.</param>
-        Public Shared Function CreatePaiement(modePaiement As Global.System.String, prix As Global.System.Double, noCours As Global.System.Int32, noGroupe As Global.System.Int32, noMembre As Global.System.Int32, noPaypal As Global.System.String) As Paiement
+        ''' <param name="noPaiement">Valeur initiale de la propriété noPaiement.</param>
+        Public Shared Function CreatePaiement(modePaiement As Global.System.String, prix As Global.System.Double, noPaypal As Global.System.String, noPaiement As Global.System.Int32) As Paiement
             Dim paiement as Paiement = New Paiement
             paiement.ModePaiement = modePaiement
             paiement.Prix = prix
-            paiement.noCours = noCours
-            paiement.noGroupe = noGroupe
-            paiement.noMembre = noMembre
             paiement.noPaypal = noPaypal
+            paiement.noPaiement = noPaiement
             Return paiement
         End Function
 
@@ -2798,87 +2794,6 @@ Namespace Model
         ''' <summary>
         ''' Aucune documentation sur les métadonnées n'est disponible.
         ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
-        <DataMemberAttribute()>
-        Public Property noCours() As Global.System.Int32
-            Get
-                Return _noCours
-            End Get
-            Set
-                If (_noCours <> Value) Then
-                    OnnoCoursChanging(value)
-                    ReportPropertyChanging("noCours")
-                    _noCours = StructuralObject.SetValidValue(value)
-                    ReportPropertyChanged("noCours")
-                    OnnoCoursChanged()
-                End If
-            End Set
-        End Property
-    
-        Private _noCours As Global.System.Int32
-        Private Partial Sub OnnoCoursChanging(value As Global.System.Int32)
-        End Sub
-    
-        Private Partial Sub OnnoCoursChanged()
-        End Sub
-    
-        ''' <summary>
-        ''' Aucune documentation sur les métadonnées n'est disponible.
-        ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
-        <DataMemberAttribute()>
-        Public Property noGroupe() As Global.System.Int32
-            Get
-                Return _noGroupe
-            End Get
-            Set
-                If (_noGroupe <> Value) Then
-                    OnnoGroupeChanging(value)
-                    ReportPropertyChanging("noGroupe")
-                    _noGroupe = StructuralObject.SetValidValue(value)
-                    ReportPropertyChanged("noGroupe")
-                    OnnoGroupeChanged()
-                End If
-            End Set
-        End Property
-    
-        Private _noGroupe As Global.System.Int32
-        Private Partial Sub OnnoGroupeChanging(value As Global.System.Int32)
-        End Sub
-    
-        Private Partial Sub OnnoGroupeChanged()
-        End Sub
-    
-        ''' <summary>
-        ''' Aucune documentation sur les métadonnées n'est disponible.
-        ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
-        <DataMemberAttribute()>
-        Public Property noMembre() As Global.System.Int32
-            Get
-                Return _noMembre
-            End Get
-            Set
-                If (_noMembre <> Value) Then
-                    OnnoMembreChanging(value)
-                    ReportPropertyChanging("noMembre")
-                    _noMembre = StructuralObject.SetValidValue(value)
-                    ReportPropertyChanged("noMembre")
-                    OnnoMembreChanged()
-                End If
-            End Set
-        End Property
-    
-        Private _noMembre As Global.System.Int32
-        Private Partial Sub OnnoMembreChanging(value As Global.System.Int32)
-        End Sub
-    
-        Private Partial Sub OnnoMembreChanged()
-        End Sub
-    
-        ''' <summary>
-        ''' Aucune documentation sur les métadonnées n'est disponible.
-        ''' </summary>
         <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
         <DataMemberAttribute()>
         Public Property noPaypal() As Global.System.String
@@ -2899,6 +2814,33 @@ Namespace Model
         End Sub
     
         Private Partial Sub OnnoPaypalChanged()
+        End Sub
+    
+        ''' <summary>
+        ''' Aucune documentation sur les métadonnées n'est disponible.
+        ''' </summary>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
+        <DataMemberAttribute()>
+        Public Property noPaiement() As Global.System.Int32
+            Get
+                Return _noPaiement
+            End Get
+            Set
+                If (_noPaiement <> Value) Then
+                    OnnoPaiementChanging(value)
+                    ReportPropertyChanging("noPaiement")
+                    _noPaiement = StructuralObject.SetValidValue(value)
+                    ReportPropertyChanged("noPaiement")
+                    OnnoPaiementChanged()
+                End If
+            End Set
+        End Property
+    
+        Private _noPaiement As Global.System.Int32
+        Private Partial Sub OnnoPaiementChanging(value As Global.System.Int32)
+        End Sub
+    
+        Private Partial Sub OnnoPaiementChanged()
         End Sub
 
         #End Region

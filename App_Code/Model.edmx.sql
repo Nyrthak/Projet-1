@@ -1,9 +1,9 @@
-﻿
+
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 09/27/2012 15:21:30
--- Generated from EDMX file: C:\Users\Katherine\Documents\A2012\Projet I\Projet-1\App_Code\Model.edmx
+-- Date Created: 10/02/2012 14:50:20
+-- Generated from EDMX file: C:\Users\Lolo\Documents\GitHub\Projet-1\App_Code\Model.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -162,10 +162,8 @@ GO
 CREATE TABLE [dbo].[PaiementSet] (
     [ModePaiement] nvarchar(15)  NOT NULL,
     [Prix] float  NOT NULL,
-    [noCours] int  NOT NULL,
-    [noGroupe] int  NOT NULL,
-    [noMembre] int  NOT NULL,
     [noPaypal] nvarchar(30)  NOT NULL,
+    [noPaiement] int  NOT NULL,
     [Membre_noMembre] int  NOT NULL,
     [Groupe_noGroupe] int  NOT NULL
 );
@@ -306,10 +304,10 @@ ADD CONSTRAINT [PK_MembreSet]
     PRIMARY KEY CLUSTERED ([noMembre] ASC);
 GO
 
--- Creating primary key on [noCours], [noGroupe], [noMembre] in table 'PaiementSet'
+-- Creating primary key on [noPaiement] in table 'PaiementSet'
 ALTER TABLE [dbo].[PaiementSet]
 ADD CONSTRAINT [PK_PaiementSet]
-    PRIMARY KEY CLUSTERED ([noCours], [noGroupe], [noMembre] ASC);
+    PRIMARY KEY CLUSTERED ([noPaiement] ASC);
 GO
 
 -- Creating primary key on [noCatégorie] in table 'CatégorieSet'

@@ -26,9 +26,10 @@ body{ width:1023px; margin:auto; background-color:#c5c5c5;}
         #heureOuverture li{margin:5px 0 0 20px;}
         .heure{margin-left: 40px;}   
 #contentLeft{float:left; width:370px; } 
-#menuFloat{float:left; width:220px;}
+#menuFloat{float:left; width:220px; border-right: 1px solid black; height: 360px;}
+    #menuFloat ul li{line-height: 40px; border-bottom:1px solid black; text-align:center; width:180px;}
 #contentRight{float:right; width:508px;}
-    #contentRight #itemTemplate{width:228px; border-collapse:collapse; height:20px;}   
+    #contentRight .itemTemplate{width:235px; border-collapse:collapse; height:20px;}   
 #footer{ background-color:#293F7F; width:1021px; height:50px; clear:both; color:White; border-left:1px solid black; border-right:1px solid black; border-bottom:1px solid black; line-height:50px;}
     .right{float:right; margin-right:50px;}
     .left{float:left; margin-left:50px;}

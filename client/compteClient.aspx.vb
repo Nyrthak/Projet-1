@@ -2,11 +2,10 @@
 
 Partial Class monCompteClient
     Inherits page
-
     Private Shared lecontext As ModelContainer = Nothing
 
     Protected Sub dsContextCreating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextCreatingEventArgs) _
-    Handles entiDataSourceCompte.ContextCreating, entiDataSourceMembre.ContextCreating
+    Handles entiDataSourceCompte.ContextCreating, entiDataSourceMembre.ContextCreating, entiDataSourceAjouterMembre.ContextCreating
 
         'RÉCUPÈRE LE CONTEXTE DE FACON À N'EN AVOIR QU'UN
         If Not lecontext Is Nothing Then
@@ -15,8 +14,13 @@ Partial Class monCompteClient
     End Sub
 
     Protected Sub dsContextDisposing(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextDisposingEventArgs) _
-    Handles entiDataSourceCompte.ContextDisposing, entiDataSourceMembre.ContextDisposing
+    Handles entiDataSourceCompte.ContextDisposing, entiDataSourceMembre.ContextDisposing, entiDataSourceAjouterMembre.ContextDisposing
         e.Cancel = True
+    End Sub
+
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        lbErreur.Text = ""
+        lecontext = New ModelContainer()
     End Sub
 
     Protected Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Unload
@@ -27,19 +31,73 @@ Partial Class monCompteClient
     End Sub
 
     Protected Sub listViewMembres_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles listViewMembres.ItemCommand
-        If e.CommandName = "Ajout" Then
-                multiViewMembre.ActiveViewIndex = 1
-        End If
-
-        If e.CommandName = "Enregistrer" Then
-            listViewAjout.EditIndex = 0
+        If e.CommandName = "supprime" Then
+            Dim noMembre As Integer = e.CommandArgument
+            Dim present As Boolean = False
+            For Each membreDeleter As Membre In lecontext.MembreSet
+                If membreDeleter.noMembre = noMembre Then
+                    present = True
+                End If
+            Next
+            If present = True Then
+                'Supprime le membre qui dont le nom est "Entrez un nom"
+                Dim leMembreADeleter As Membre = (From monMembre In lecontext.MembreSet Where monMembre.noMembre = noMembre Select monMembre).First
+                If leMembreADeleter.Propriétaire = False Then
+                    lecontext.MembreSet.DeleteObject(leMembreADeleter)
+                    lecontext.SaveChanges()
+                    Response.Redirect("~/client/compteClient.aspx")
+                Else
+                    lbErreur.Text = "Vous ne pouvez pas supprimer le propriétaire du compte."
+                End If
+            End If
         End If
     End Sub
 
-    Protected Sub listViewMembres_ItemDeleting(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewDeleteEventArgs) Handles listViewMembres.ItemDeleting
-        If e.ItemIndex = 0 Then
-            e.Cancel = True
-            lbErreur.Text = "Vous ne pouvez pas supprimer le propriétaire du compte."
+    Protected Sub btnAjouter_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAjouter.Click
+        Dim ajouterMembre As Membre = New Membre()
+        Dim noCompte As Integer = Session("noCompte")
+
+        ajouterMembre.Nom = "Entrez un nom"
+        ajouterMembre.Prénom = "Entrez un prénom"
+        ajouterMembre.DateNaissance = Date.Now
+        ajouterMembre.Propriétaire = False
+        ajouterMembre.Compte = (From dl In lecontext.CompteSet Where dl.noCompte = noCompte Select dl).First
+
+        lecontext.AddObject("MembreSet", ajouterMembre)
+        lecontext.SaveChanges()
+        multiViewMembre.ActiveViewIndex = 1
+        listViewAjoutMembre.EditIndex = 0
+        hiddenFieldNoMembre.Value = ajouterMembre.noMembre
+    End Sub
+
+    Protected Sub listViewAjoutMembre_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles listViewAjoutMembre.ItemCommand
+        If e.CommandName = "Cancel" Then
+            'Teste si le membre a déleter est bien dans la base de donnée.
+            Dim noMembre As String = hiddenFieldNoMembre.Value
+            Dim present As Boolean = False
+            For Each membreDeleter As Membre In lecontext.MembreSet
+                If membreDeleter.noMembre = noMembre Then
+                    present = True
+                Else
+                    present = False
+                End If
+            Next
+            If present = True Then
+                'Supprime le membre qui dont le nom est "Entrez un nom"
+                Dim leMembreADeleter As Membre = (From monMembre In lecontext.MembreSet Where monMembre.noMembre = noMembre Select monMembre).First
+                If leMembreADeleter.Nom = "Entrez un nom" Then
+                    lecontext.MembreSet.DeleteObject(leMembreADeleter)
+                    lecontext.SaveChanges()
+                End If
+            End If
+            multiViewMembre.ActiveViewIndex = 0
         End If
     End Sub
+
+    Protected Sub listViewAjoutMembre_ItemUpdated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewUpdatedEventArgs) Handles listViewAjoutMembre.ItemUpdated
+        multiViewMembre.ActiveViewIndex = 0
+        listViewMembres.DataBind()
+    End Sub
+
+
 End Class

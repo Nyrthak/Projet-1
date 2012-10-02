@@ -2,7 +2,7 @@
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
     <siteMapNode url="" title=""  description="">
       <siteMapNode url="~/client/compteClient.aspx" title="Accueil compte client" description="Accueil compte client"/>
-      <siteMapNode url="~/client/modifClient.aspx" title="Modification du compte principal" description="Modification du compte principal"/>
+      <siteMapNode url="~/client/modifClient.aspx" title="Modification du compte" description="Modification du compte principal"/>
       <siteMapNode url="~/client/inscriptionClient.aspx" title="Mes inscriptions" description="Mes inscriptions"/>
       <siteMapNode url="~/client/histoInscriptionClient.aspx" title="Historique des inscriptions" description="Historique des inscriptions"/>
       <siteMapNode url="~/client/infoPaiement.aspx" title="Informations de paiement"  description="Informations de paiement" />        

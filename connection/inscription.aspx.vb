@@ -9,6 +9,7 @@ Imports System.Windows.Forms
 Partial Class inscription
     Inherits page
     Private Shared lecontext As ModelContainer = Nothing
+
     Protected Sub page_load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Session("userOnline") = "" Then
             Page.Response.Redirect("~/Default.aspx")
@@ -91,8 +92,7 @@ Partial Class inscription
             compteAjoute.Membre.Add(membreAjoute)
             lecontext.AddObject("CompteSet", compteAjoute)
             lecontext.SaveChanges()
-            'aCookie("online") = "oui"
-            'Response.Cookies.Add(aCookie)
+
             Page.Response.Redirect("~/connection/inscriptionReusi.aspx")
             
         End If
