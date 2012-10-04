@@ -14,7 +14,7 @@
             <tr>
                 <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbNom" runat="server" Text="Nom:"></asp:Label>
                     </td>
-                <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" ID="tbNom" runat="server" MaxLength="25"></asp:TextBox>               
+                <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" ID="tbNom" runat="server" MaxLength="25" Width="25px"></asp:TextBox>               
                     <asp:RequiredFieldValidator SkinID="requisValidation" ID="requisValidationNom" 
                         runat="server" ErrorMessage="Votre nom doit être spécifié." 
                         ControlToValidate="tbNom" Display="Dynamic">*</asp:RequiredFieldValidator>

@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 10/02/2012 14:50:20
--- Generated from EDMX file: C:\Users\Lolo\Documents\GitHub\Projet-1\App_Code\Model.edmx
+-- Date Created: 10/02/2012 17:48:27
+-- Generated from EDMX file: C:\Users\Katherine\Documents\A2012\Projet I\Projet-1\App_Code\Model.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -64,6 +64,9 @@ IF OBJECT_ID(N'[dbo].[FK_SpécialitéSpécialitéAnimateur]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_GroupeCours]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[GroupeSet] DROP CONSTRAINT [FK_GroupeCours];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CoursCours]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CoursSet] DROP CONSTRAINT [FK_CoursCours];
 GO
 
 -- --------------------------------------------------
@@ -182,10 +185,10 @@ CREATE TABLE [dbo].[CoursSet] (
     [Nom] nvarchar(25)  NOT NULL,
     [Prix] float  NOT NULL,
     [Description] nvarchar(250)  NULL,
-    [noCoursRequis] int  NOT NULL,
     [Catégorie_noCatégorie] int  NOT NULL,
     [Session_noSession] int  NOT NULL,
-    [GroupeDAge_noGroupeDAge] int  NOT NULL
+    [GroupeDAge_noGroupeDAge] int  NOT NULL,
+    [Prerequis_noCours] int  NULL
 );
 GO
 
@@ -205,9 +208,7 @@ GO
 -- Creating table 'ListeDAttenteSet'
 CREATE TABLE [dbo].[ListeDAttenteSet] (
     [DateAjout] datetime  NOT NULL,
-    [noCours] int  NOT NULL,
-    [noGroupe] int  NOT NULL,
-    [noMembre] int  NOT NULL,
+    [noListeDAttente] int  NOT NULL,
     [Membre_noMembre] int  NOT NULL,
     [Groupe_noGroupe] int  NOT NULL
 );
@@ -328,10 +329,10 @@ ADD CONSTRAINT [PK_GroupeSet]
     PRIMARY KEY CLUSTERED ([noGroupe] ASC);
 GO
 
--- Creating primary key on [noCours], [noGroupe], [noMembre] in table 'ListeDAttenteSet'
+-- Creating primary key on [noListeDAttente] in table 'ListeDAttenteSet'
 ALTER TABLE [dbo].[ListeDAttenteSet]
 ADD CONSTRAINT [PK_ListeDAttenteSet]
-    PRIMARY KEY CLUSTERED ([noCours], [noGroupe], [noMembre] ASC);
+    PRIMARY KEY CLUSTERED ([noListeDAttente] ASC);
 GO
 
 -- Creating primary key on [noSession] in table 'SessionSet'
@@ -608,6 +609,20 @@ ADD CONSTRAINT [FK_GroupeCours]
 CREATE INDEX [IX_FK_GroupeCours]
 ON [dbo].[GroupeSet]
     ([Cours_noCours]);
+GO
+
+-- Creating foreign key on [Prerequis_noCours] in table 'CoursSet'
+ALTER TABLE [dbo].[CoursSet]
+ADD CONSTRAINT [FK_CoursCours]
+    FOREIGN KEY ([Prerequis_noCours])
+    REFERENCES [dbo].[CoursSet]
+        ([noCours])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CoursCours'
+CREATE INDEX [IX_FK_CoursCours]
+ON [dbo].[CoursSet]
+    ([Prerequis_noCours]);
 GO
 
 -- --------------------------------------------------

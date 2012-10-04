@@ -39,7 +39,7 @@ Partial Class Admin_GérerLesCours
         leCoursAjouté.Session = (From dl In lecontext.SessionSet
                                          Where dl.noSession = 1
                                          Select dl).First
-        leCoursAjouté.noCoursRequis = 0
+        leCoursAjouté.Prerequis = Nothing
         lecontext.AddObject("CoursSet", leCoursAjouté)
         lecontext.SaveChanges()
         hFieldNoCours.Value = leCoursAjouté.noCours
