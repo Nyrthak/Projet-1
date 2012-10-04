@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="VB" AutoEventWireup="false" MasterPageFile="~/masterPage.master" CodeFile="GérerLesCours.aspx.vb" Inherits="Admin_GérerLesCours" %>
-
 <asp:Content ID="ContentCours" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
     <asp:MultiView ID="mViewCours" runat="server" ActiveViewIndex="0">
         <asp:View ID="viewGererCours" runat="server">
@@ -10,11 +9,11 @@
             <asp:Label ID="lblRechercher" runat="server" Text="Rechercher : " CssClass="lbRechercher"></asp:Label> 
             <asp:ListView ID="lViewCours" runat="server" DataSourceID="LinqDataSourceCours" DataKeyNames="noCours">
                 <LayoutTemplate>
-                    <table>
+                    <table id="tableauListeCours">
                         <tr>
-                            <td><asp:Label ID="lblTitreNomCours" runat="server" Text="Nom"></asp:Label></td>
-                            <td><asp:Label ID="lblTitreNbGroupes" runat="server" Text="Nb. de groupes"></asp:Label></td>
-                            <td><asp:Label ID="lblTitreCategorie" runat="server" Text="Catégorie"></asp:Label></td>
+                            <td><asp:Label ID="lblTitreNomCours" runat="server" SkinID="lbTitreInfoMembre" Text="Nom"></asp:Label></td>
+                            <td><asp:Label ID="lblTitreNbGroupes" runat="server" SkinID="lbTitreInfoMembre" Text="Nb. de groupes"></asp:Label></td>
+                            <td><asp:Label ID="lblTitreCategorie" runat="server" SkinID="lbTitreInfoMembre" Text="Catégorie"></asp:Label></td>
                         </tr>
                         <asp:PlaceHolder id="GroupPlaceHolder" runat="server" />
                     </table>
@@ -69,12 +68,14 @@
                     <tr>            
                         <td><asp:Label ID="lblNomDuCours" runat="server" Text="Nom du cours" SkinID="lbChampsFormulaire"></asp:Label></td>
                         <td><asp:Label ID="lblPrix" runat="server" Text="Prix" SkinID="lbChampsFormulaire"></asp:Label></td>
-                        <td></td>
+                        <td><asp:HiddenField ID="hFieldNoCours" runat="server" Value='<%#Eval("noCours") %>' /></td>
                     </tr>
                     <tr>
                         <td>
                             <asp:TextBox ID="txtNomDuCours" runat="server" SkinID="TextBoxFormulaire" Text='<%#Bind("Nom")%>'></asp:TextBox>
                             <asp:RequiredFieldValidator ID="rfvNomDuCours" runat="server" ErrorMessage="Le nom du cours est requis." ControlToValidate="txtNomDuCours" Text="*" />
+                            <asp:CompareValidator ID="cValidatorNomDuCours" runat="server" controlToValidate="txtNomDuCours" ErrorMessage="Veuillez entrer un nom." 
+                            ValueToCompare="Entrez un nom" Display="Dynamic" Operator="NotEqual" ForeColor="Red">*</asp:CompareValidator>
                         </td>
                         <td>
                             <asp:TextBox ID="txtPrix" runat="server" SkinID="TextBoxFormulaire" Text='<%#Bind("Prix")%>'></asp:TextBox>
@@ -105,15 +106,15 @@
                     </tr>
                     <tr>
                         <td><asp:DropDownList ID="dDListPrerequis" runat="server" SkinID="dDListFormulaire" AppendDataBoundItems="true" 
-                                DataSourceID="EntityDataSourcePrerequis" DataTextField="Nom" DataValueField="noCours" SelectedValue='<%#Bind("noCoursRequis")%>'>
-                              <asp:ListItem Text="Aucun" Value="0"></asp:ListItem>
+                                DataSourceID="EntityDataSourcePrerequis" DataTextField="Nom" DataValueField="noCours" SelectedValue='<%# Bind("Prerequis.noCours") %>' >
+                              <asp:ListItem Text="Aucun" Value=""></asp:ListItem>
                             </asp:DropDownList></td>
                         <td colspan="2"><asp:TextBox ID="txtDescription" runat="server" SkinID="TextBoxDescription" TextMode="MultiLine" Text='<%#Bind("Description")%>'></asp:TextBox></td>
                     </tr>
                     <tr>
                         <td>
                             <asp:Button ID="btnUpdateCours" runat="server" SkinID="btnConfirmation" Text="Enregistrer" CommandName="Update" />
-                            <asp:Button ID="btnCancel" runat="server" Text="Annuler" SkinID="btnConfirmation" CommandName="Annuler" />
+                            <asp:Button ID="btnCancel" runat="server" Text="Annuler" SkinID="btnConfirmation" CommandName="Annuler" CausesValidation="false" />
                         </td>
                     </tr>
                 </EditItemTemplate>
@@ -132,17 +133,21 @@
                 EnableFlattening="False" EntitySetName="CatégorieSet">
             </asp:EntityDataSource>
             <asp:EntityDataSource ID="EntityDataSourcePrerequis" runat="server" 
-                ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-                EntitySetName="CoursSet" Select="it.[noCours], it.[Nom]">
+                ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" EnableFlattening="false" 
+                EntitySetName="CoursSet" Select="it.[noCours], it.[Nom]" Where="it.[noCours] <> @noCours">
+                <WhereParameters>
+                    <asp:ControlParameter ControlID="hFieldNoCours" Name="noCours" Type="Int32" />
+                </WhereParameters>
             </asp:EntityDataSource>
             <asp:EntityDataSource ID="EntityDataSourceCours" runat="server" 
-                ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-                EnableDelete="True" EnableUpdate="True" EntitySetName="CoursSet"
-                Where="it.noCours = @noCours" Include="Catégorie, Session, GroupeDAge">
+                ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer"
+                EnableUpdate="True" EntitySetName="CoursSet" EnableFlattening="false"
+                Where="it.[noCours] = @noCours" Include="[Catégorie], Session, GroupeDAge, Prerequis">
                 <WhereParameters>
                     <asp:ControlParameter Name="noCours" Type="Int32" ControlID="hFieldNoCours" />
                 </WhereParameters>
             </asp:EntityDataSource>
         </asp:View>
     </asp:MultiView>
+    <br /><asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
 </asp:Content>
