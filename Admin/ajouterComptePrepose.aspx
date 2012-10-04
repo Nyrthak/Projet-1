@@ -2,4 +2,8 @@
 
 
 
-<asp:Content ID="ContentCours" ContentPlaceHolderID="contentPlaceMasterPage" runat="server"></asp:content>
+<asp:Content ID="contentMenuClient" ContentPlaceHolderID="contentMenuClient" runat="server"></asp:Content>
+
+<asp:Content ID="ContentCours" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
+
+</asp:Content>
