@@ -74,9 +74,9 @@
             <asp:HiddenField ID="hFieldnoCours" runat="server" />
             <asp:ListView ID="lviewCours" runat="server" DataSourceID="entityDataSourceCours" DataKeyNames="noCours">
                 <LayoutTemplate> 
-                    <asp:Label ID="lblTitreModifierCours" runat="server" Text='<%#Eval("Nom") & " - " & Eval("GroupeDAge.NomGroupeDAge")%>' SkinID="lbTitrePage"></asp:Label>
-                    <table>
-                        <asp:PlaceHolder id="ItemPlaceHolder"  runat="server" />
+                    <asp:Label ID="lblTitreModifierCours" runat="server" Text="Afficher un cours" SkinID="lbTitrePage"></asp:Label>
+                    <table id="tbCours">
+                        <asp:PlaceHolder id="ItemPlaceHolder" runat="server" />
                     </table>
                 </LayoutTemplate>
                 <ItemTemplate>
@@ -87,7 +87,7 @@
                     </tr>
                     <tr>
                         <td><asp:Label ID="lblNomDuCours" runat="server" Text='<%#Eval("Nom")%>'></asp:Label></td>
-                        <td><asp:TextBox ID="lblPrix" runat="server" Text='<%#Eval("Prix")%>'></asp:TextBox></td> 
+                        <td><asp:Label ID="lblPrix" runat="server" Text='<%#Eval("Prix")%>'></asp:Label></td> 
                         <td></td>          
                     </tr>
                     <tr>
@@ -96,23 +96,23 @@
                         <td><asp:Label ID="lblSTitreCategorie" runat="server" Text="Catégorie" SkinID="lbChampsFormulaire"></asp:Label></td>
                     </tr>
                     <tr>
-                        <td><asp:Label ID="lblGroupeDAge" runat="server" Text='<%#Eval("GroupeDAge.noGroupeDAge")%>'></asp:Label></td>
-                        <td><asp:Label ID="lblSession" runat="server" Text='<%#Eval("Session.noSession")%>'></asp:Label></td>
-                        <td><asp:Label ID="lblCategorie" runat="server" Text='<%#Eval("Catégorie.noCatégorie")%>'></asp:Label></td>
+                        <td><asp:Label ID="lblGroupeDAge" runat="server" Text='<%#Eval("GroupeDAge.NomGroupeDAge")%>'></asp:Label></td>
+                        <td><asp:Label ID="lblSession" runat="server" Text='<%#Eval("Session.NomSession")%>'></asp:Label></td>
+                        <td><asp:Label ID="lblCategorie" runat="server" Text='<%#Eval("Catégorie.Nom")%>'></asp:Label></td>
                     </tr>
                     <tr>
                         <td><asp:Label ID="lblSTitrePrerequis" runat="server" Text="Prérequis" SkinID="lbChampsFormulaire"></asp:Label></td>
                         <td colspan="2"><asp:Label ID="lblSTitreDescription" runat="server" Text="Description" SkinID="lbChampsFormulaire"></asp:Label></td>
                     </tr>
                     <tr>
-                        <td><asp:Label ID="lblPrerequis" runat="server" Text='<%#Eval("Prerequis.Nom")%>' SkinID="lbChampsFormulaire"></asp:Label></td>
+                        <td><asp:Label ID="lblPrerequis" runat="server" Text='<%#Eval("Prerequis.lePrerequis.Nom")%>' SkinID="lbChampsFormulaire"></asp:Label></td>
                         <td colspan="2"><asp:Label ID="lblDescription" runat="server" Text='<%#Eval("Description")%>'></asp:Label></td>
                     </tr>
                 </ItemTemplate>
             </asp:ListView>
             <asp:EntityDataSource ID="entityDataSourceCours" runat="server" 
                 ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-                EntitySetName="CoursSet" EnableFlattening="false" Include="GroupeDAge, Session, Catégorie, Prerequis"
+                EntitySetName="CoursSet" EnableFlattening="false" Include="GroupeDAge, Session, Catégorie, Prerequis.lePrerequis"
                  Where="it.[noCours] = @leNoCours">               
                 <WhereParameters>
                     <asp:ControlParameter Name="leNoCours" Type="Int32" ControlID="hFieldnoCours" />

@@ -1,4 +1,6 @@
 ﻿<%@ Page Language="VB" AutoEventWireup="false" MasterPageFile="~/masterPage.master" CodeFile="GérerLesCours.aspx.vb" Inherits="Admin_GérerLesCours" %>
+<asp:Content ID="ContentMenu" ContentPlaceHolderID="contentMenuClient" runat="server"></asp:Content>
+
 <asp:Content ID="ContentCours" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
     <asp:MultiView ID="mViewCours" runat="server" ActiveViewIndex="0">
         <asp:View ID="viewGererCours" runat="server">
@@ -106,7 +108,7 @@
                     </tr>
                     <tr>
                         <td><asp:DropDownList ID="dDListPrerequis" runat="server" SkinID="dDListFormulaire" AppendDataBoundItems="true" 
-                                DataSourceID="EntityDataSourcePrerequis" DataTextField="Nom" DataValueField="noCours" SelectedValue='<%# Bind("Prerequis.noCours") %>' >
+                                DataSourceID="EntityDataSourcePrerequis" DataTextField="Nom" DataValueField="noCours" SelectedValue='<%# Eval("Prerequis.lePrerequis.noCours") %>' >
                               <asp:ListItem Text="Aucun" Value=""></asp:ListItem>
                             </asp:DropDownList></td>
                         <td colspan="2"><asp:TextBox ID="txtDescription" runat="server" SkinID="TextBoxDescription" TextMode="MultiLine" Text='<%#Bind("Description")%>'></asp:TextBox></td>
@@ -142,7 +144,7 @@
             <asp:EntityDataSource ID="EntityDataSourceCours" runat="server" 
                 ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer"
                 EnableUpdate="True" EntitySetName="CoursSet" EnableFlattening="false"
-                Where="it.[noCours] = @noCours" Include="[Catégorie], Session, GroupeDAge, Prerequis">
+                Where="it.[noCours] = @noCours" Include="[Catégorie], Session, GroupeDAge, Prerequis.lePrerequis">
                 <WhereParameters>
                     <asp:ControlParameter Name="noCours" Type="Int32" ControlID="hFieldNoCours" />
                 </WhereParameters>

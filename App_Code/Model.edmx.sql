@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 10/02/2012 17:48:27
+-- Date Created: 10/04/2012 11:01:25
 -- Generated from EDMX file: C:\Users\Katherine\Documents\A2012\Projet I\Projet-1\App_Code\Model.edmx
 -- --------------------------------------------------
 
@@ -65,8 +65,11 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_GroupeCours]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[GroupeSet] DROP CONSTRAINT [FK_GroupeCours];
 GO
-IF OBJECT_ID(N'[dbo].[FK_CoursCours]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[CoursSet] DROP CONSTRAINT [FK_CoursCours];
+IF OBJECT_ID(N'[dbo].[FK_CoursPrerequis]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[PrerequisSet] DROP CONSTRAINT [FK_CoursPrerequis];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CoursPrerequis1]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[PrerequisSet] DROP CONSTRAINT [FK_CoursPrerequis1];
 GO
 
 -- --------------------------------------------------
@@ -120,6 +123,9 @@ IF OBJECT_ID(N'[dbo].[SpécialitéSet]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[SpécialitéAnimateurSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[SpécialitéAnimateurSet];
+GO
+IF OBJECT_ID(N'[dbo].[PrerequisSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[PrerequisSet];
 GO
 
 -- --------------------------------------------------
@@ -187,8 +193,7 @@ CREATE TABLE [dbo].[CoursSet] (
     [Description] nvarchar(250)  NULL,
     [Catégorie_noCatégorie] int  NOT NULL,
     [Session_noSession] int  NOT NULL,
-    [GroupeDAge_noGroupeDAge] int  NOT NULL,
-    [Prerequis_noCours] int  NULL
+    [GroupeDAge_noGroupeDAge] int  NOT NULL
 );
 GO
 
@@ -280,6 +285,14 @@ CREATE TABLE [dbo].[SpécialitéAnimateurSet] (
     [noAnimateur] int  NOT NULL,
     [Animateur_noAnimateur] int  NOT NULL,
     [Spécialité_noSpécialité] int  NOT NULL
+);
+GO
+
+-- Creating table 'PrerequisSet'
+CREATE TABLE [dbo].[PrerequisSet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Cours_noCours] int  NOT NULL,
+    [lePrerequis_noCours] int  NOT NULL
 );
 GO
 
@@ -381,6 +394,12 @@ GO
 ALTER TABLE [dbo].[SpécialitéAnimateurSet]
 ADD CONSTRAINT [PK_SpécialitéAnimateurSet]
     PRIMARY KEY CLUSTERED ([noSpécialité], [noAnimateur] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'PrerequisSet'
+ALTER TABLE [dbo].[PrerequisSet]
+ADD CONSTRAINT [PK_PrerequisSet]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
 -- --------------------------------------------------
@@ -611,18 +630,32 @@ ON [dbo].[GroupeSet]
     ([Cours_noCours]);
 GO
 
--- Creating foreign key on [Prerequis_noCours] in table 'CoursSet'
-ALTER TABLE [dbo].[CoursSet]
-ADD CONSTRAINT [FK_CoursCours]
-    FOREIGN KEY ([Prerequis_noCours])
+-- Creating foreign key on [Cours_noCours] in table 'PrerequisSet'
+ALTER TABLE [dbo].[PrerequisSet]
+ADD CONSTRAINT [FK_CoursPrerequis]
+    FOREIGN KEY ([Cours_noCours])
     REFERENCES [dbo].[CoursSet]
         ([noCours])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 
--- Creating non-clustered index for FOREIGN KEY 'FK_CoursCours'
-CREATE INDEX [IX_FK_CoursCours]
-ON [dbo].[CoursSet]
-    ([Prerequis_noCours]);
+-- Creating non-clustered index for FOREIGN KEY 'FK_CoursPrerequis'
+CREATE INDEX [IX_FK_CoursPrerequis]
+ON [dbo].[PrerequisSet]
+    ([Cours_noCours]);
+GO
+
+-- Creating foreign key on [lePrerequis_noCours] in table 'PrerequisSet'
+ALTER TABLE [dbo].[PrerequisSet]
+ADD CONSTRAINT [FK_CoursPrerequis1]
+    FOREIGN KEY ([lePrerequis_noCours])
+    REFERENCES [dbo].[CoursSet]
+        ([noCours])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CoursPrerequis1'
+CREATE INDEX [IX_FK_CoursPrerequis1]
+ON [dbo].[PrerequisSet]
+    ([lePrerequis_noCours]);
 GO
 
 -- --------------------------------------------------
