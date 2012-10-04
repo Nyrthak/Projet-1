@@ -16,7 +16,7 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("803b1446-3ad1-43b7-a3cc-0939013dc725")>
+<Assembly: EdmSchemaAttribute("d9aa957a-aab9-4f7e-8965-389addd8edd7")>
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("Model", "CompteProvince", "Compte", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Compte), "Province", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Province))>
 <Assembly: EdmRelationshipAttribute("Model", "CompteMembre", "Compte", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Compte), "Membre", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Membre))>
@@ -34,8 +34,8 @@ Imports System.Runtime.Serialization
 <Assembly: EdmRelationshipAttribute("Model", "AnimateurSpécialitéAnimateur", "Animateur", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Animateur), "SpécialitéAnimateur", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.SpécialitéAnimateur))>
 <Assembly: EdmRelationshipAttribute("Model", "SpécialitéSpécialitéAnimateur", "Spécialité", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Spécialité), "SpécialitéAnimateur", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.SpécialitéAnimateur))>
 <Assembly: EdmRelationshipAttribute("Model", "GroupeCours", "Groupe", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Groupe), "Cours", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Cours))>
-<Assembly: EdmRelationshipAttribute("Model", "CoursPrerequis", "Cours", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Cours), "Prerequis", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Prerequis))>
-<Assembly: EdmRelationshipAttribute("Model", "CoursPrerequis1", "Cours", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Cours), "Prerequis", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Prerequis))>
+<Assembly: EdmRelationshipAttribute("Model", "CoursPrerequis", "Cours", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Cours), "Prerequis", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Model.Prerequis))>
+<Assembly: EdmRelationshipAttribute("Model", "CoursPrerequis1", "Cours", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Cours), "Prerequis", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Model.Prerequis))>
 
 #End Region
 Namespace Model
@@ -1488,13 +1488,26 @@ Namespace Model
         <SoapIgnoreAttribute()>
         <DataMemberAttribute()>
         <EdmRelationshipNavigationPropertyAttribute("Model", "CoursPrerequis", "Prerequis")>
-         Public Property Prerequis() As EntityCollection(Of Prerequis)
+        Public Property Prerequis() As Prerequis
             Get
-                Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of Prerequis)("Model.CoursPrerequis", "Prerequis")
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Prerequis)("Model.CoursPrerequis", "Prerequis").Value
+            End Get
+            Set
+                CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Prerequis)("Model.CoursPrerequis", "Prerequis").Value = value
+            End Set
+        End Property
+        ''' <summary>
+        ''' No Metadata Documentation available.
+        ''' </summary>
+        <BrowsableAttribute(False)>
+        <DataMemberAttribute()>
+        Public Property PrerequisReference() As EntityReference(Of Prerequis)
+            Get
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Prerequis)("Model.CoursPrerequis", "Prerequis")
             End Get
             Set
                 If (Not value Is Nothing)
-                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of Prerequis)("Model.CoursPrerequis", "Prerequis", value)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of Prerequis)("Model.CoursPrerequis", "Prerequis", value)
                 End If
             End Set
         End Property
@@ -1506,13 +1519,26 @@ Namespace Model
         <SoapIgnoreAttribute()>
         <DataMemberAttribute()>
         <EdmRelationshipNavigationPropertyAttribute("Model", "CoursPrerequis1", "Prerequis")>
-         Public Property Prerequis_1() As EntityCollection(Of Prerequis)
+        Public Property estLeprerequisDe() As Prerequis
             Get
-                Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of Prerequis)("Model.CoursPrerequis1", "Prerequis")
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Prerequis)("Model.CoursPrerequis1", "Prerequis").Value
+            End Get
+            Set
+                CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Prerequis)("Model.CoursPrerequis1", "Prerequis").Value = value
+            End Set
+        End Property
+        ''' <summary>
+        ''' No Metadata Documentation available.
+        ''' </summary>
+        <BrowsableAttribute(False)>
+        <DataMemberAttribute()>
+        Public Property estLeprerequisDeReference() As EntityReference(Of Prerequis)
+            Get
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Prerequis)("Model.CoursPrerequis1", "Prerequis")
             End Get
             Set
                 If (Not value Is Nothing)
-                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of Prerequis)("Model.CoursPrerequis1", "Prerequis", value)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of Prerequis)("Model.CoursPrerequis1", "Prerequis", value)
                 End If
             End Set
         End Property

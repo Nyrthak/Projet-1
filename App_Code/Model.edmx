@@ -22,6 +22,7 @@
     <EntitySet Name="ForfaitSet" EntityType="Model.Store.ForfaitSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SpécialitéSet" EntityType="Model.Store.SpécialitéSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SpécialitéAnimateurSet" EntityType="Model.Store.SpécialitéAnimateurSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PrerequisSet" EntityType="Model.Store.PrerequisSet" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="CompteProvince" Association="Model.Store.CompteProvince">
       <End Role="Compte" EntitySet="CompteSet" />
       <End Role="Province" EntitySet="ProvinceSet" />
@@ -86,9 +87,13 @@
       <End Role="Groupe" EntitySet="GroupeSet" />
       <End Role="Cours" EntitySet="CoursSet" />
     </AssociationSet>
-    <AssociationSet Name="CoursCours" Association="Model.Store.CoursCours">
+    <AssociationSet Name="CoursPrerequis" Association="Model.Store.CoursPrerequis">
       <End Role="Cours" EntitySet="CoursSet" />
-      <End Role="Cours1" EntitySet="CoursSet" />
+      <End Role="Prerequis" EntitySet="PrerequisSet" />
+    </AssociationSet>
+    <AssociationSet Name="CoursPrerequis1" Association="Model.Store.CoursPrerequis1">
+      <End Role="Cours" EntitySet="CoursSet" />
+      <End Role="Prerequis" EntitySet="PrerequisSet" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="ProvinceSet">
@@ -155,7 +160,6 @@
     <Property Name="Catégorie_noCatégorie" Type="int" Nullable="false" />
     <Property Name="Session_noSession" Type="int" Nullable="false" />
     <Property Name="GroupeDAge_noGroupeDAge" Type="int" Nullable="false" />
-    <Property Name="Prerequis_noCours" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="GroupeSet">
     <Key>
@@ -249,6 +253,14 @@
     <Property Name="noAnimateur" Type="int" Nullable="false" />
     <Property Name="Animateur_noAnimateur" Type="int" Nullable="false" />
     <Property Name="Spécialité_noSpécialité" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PrerequisSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cours_noCours" Type="int" Nullable="false" />
+    <Property Name="lePrerequis_noCours" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="CompteProvince">
     <End Role="Compte" Type="Model.Store.CompteSet" Multiplicity="*" />
@@ -442,15 +454,27 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="CoursCours">
-    <End Role="Cours" Type="Model.Store.CoursSet" Multiplicity="*" />
-    <End Role="Cours1" Type="Model.Store.CoursSet" Multiplicity="0..1" />
+  <Association Name="CoursPrerequis">
+    <End Role="Cours" Type="Model.Store.CoursSet" Multiplicity="1" />
+    <End Role="Prerequis" Type="Model.Store.PrerequisSet" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Cours1">
+      <Principal Role="Cours">
         <PropertyRef Name="noCours" />
       </Principal>
-      <Dependent Role="Cours">
-        <PropertyRef Name="Prerequis_noCours" />
+      <Dependent Role="Prerequis">
+        <PropertyRef Name="Cours_noCours" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CoursPrerequis1">
+    <End Role="Cours" Type="Model.Store.CoursSet" Multiplicity="1" />
+    <End Role="Prerequis" Type="Model.Store.PrerequisSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cours">
+        <PropertyRef Name="noCours" />
+      </Principal>
+      <Dependent Role="Prerequis">
+        <PropertyRef Name="lePrerequis_noCours" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -621,7 +645,7 @@
           <NavigationProperty Name="GroupeDAge" Relationship="Model.GroupeDAgeCours" FromRole="Cours" ToRole="GroupeDAge" />
           <NavigationProperty Name="Groupe" Relationship="Model.GroupeCours" FromRole="Cours" ToRole="Groupe" />
           <NavigationProperty Name="Prerequis" Relationship="Model.CoursPrerequis" FromRole="Cours" ToRole="Prerequis" />
-          <NavigationProperty Name="Prerequis_1" Relationship="Model.CoursPrerequis1" FromRole="Cours" ToRole="Prerequis" />
+          <NavigationProperty Name="estLeprerequisDe" Relationship="Model.CoursPrerequis1" FromRole="Cours" ToRole="Prerequis" />
           </EntityType>
         <EntityType Name="Groupe">
           <Key>
@@ -799,11 +823,11 @@
         </EntityType>
         <Association Name="CoursPrerequis">
           <End Type="Model.Cours" Role="Cours" Multiplicity="1" />
-          <End Type="Model.Prerequis" Role="Prerequis" Multiplicity="*" />
+          <End Type="Model.Prerequis" Role="Prerequis" Multiplicity="0..1" />
         </Association>
         <Association Name="CoursPrerequis1">
           <End Type="Model.Cours" Role="Cours" Multiplicity="1" />
-          <End Type="Model.Prerequis" Role="Prerequis" Multiplicity="*" />
+          <End Type="Model.Prerequis" Role="Prerequis" Multiplicity="0..1" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -967,6 +991,13 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="PrerequisSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Prerequis)">
+        <MappingFragment StoreEntitySet="PrerequisSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="CompteProvince" TypeName="Model.CompteProvince" StoreEntitySet="CompteSet">
       <EndProperty Name="Province">
         <ScalarProperty Name="noProvince" ColumnName="Province_noProvince" />
@@ -1097,6 +1128,22 @@
       </EndProperty>
       <EndProperty Name="Groupe">
         <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CoursPrerequis" TypeName="Model.CoursPrerequis" StoreEntitySet="PrerequisSet">
+      <EndProperty Name="Cours">
+        <ScalarProperty Name="noCours" ColumnName="Cours_noCours" />
+      </EndProperty>
+      <EndProperty Name="Prerequis">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CoursPrerequis1" TypeName="Model.CoursPrerequis1" StoreEntitySet="PrerequisSet">
+      <EndProperty Name="Cours">
+        <ScalarProperty Name="noCours" ColumnName="lePrerequis_noCours" />
+      </EndProperty>
+      <EndProperty Name="Prerequis">
+        <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>
