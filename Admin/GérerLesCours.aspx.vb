@@ -69,6 +69,7 @@ Partial Class Admin_GérerLesCours
             hFieldNoCours.Value = e.CommandArgument
             lViewModifierCours.EditIndex = 0
             mViewCours.ActiveViewIndex = 1
+            lViewModifierCours.DataBind()
             lblMessage.Text = ""
         End If
 
@@ -101,7 +102,16 @@ Partial Class Admin_GérerLesCours
 
     Protected Sub lViewModifierCours_ItemUpdated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewUpdatedEventArgs) Handles lViewModifierCours.ItemUpdated
         mViewCours.ActiveViewIndex = 0
-        lViewCours.DataBind()
         lblMessage.Text = "Le cours a été modifié"
+    End Sub
+
+
+  
+    Protected Sub EntityDataSourceCours_Updated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceChangedEventArgs) Handles EntityDataSourceCours.Updated
+
+    End Sub
+
+    Protected Sub lViewModifierCours_ItemUpdating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewUpdateEventArgs) Handles lViewModifierCours.ItemUpdating
+
     End Sub
 End Class
