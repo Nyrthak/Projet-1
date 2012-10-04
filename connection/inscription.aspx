@@ -55,7 +55,7 @@
                         ErrorMessage="Votre date de naissance doit être spécifié." 
                         ControlToValidate="tbDateNaissance" Display="Dynamic">*</asp:RequiredFieldValidator>
                         <asp:RegularExpressionValidator ID="reguExpressionDateNaissance" runat="server" ErrorMessage="Votre date de naissance n'est pas du bon format (jj/mm/yyyy)" ControlToValidate="tbDateNaissance" 
-                        ValidationExpression="^([012][0-9]|[3][01])[/]([0-9]|[0][123456789]|[1][012])[/][0-9][0-9][0-9][0-9]$" forecolor="Red" Display="Dynamic">*</asp:RegularExpressionValidator>        
+                        ValidationExpression="^(0[0-9]|[012][0-9]|[3][01])[/]([0-9]|[0][123456789]|[1][012])[/][0-9][0-9][0-9][0-9]$" forecolor="Red" Display="Dynamic">*</asp:RegularExpressionValidator>        
                     </td>
             </tr>
             <tr>
@@ -82,7 +82,7 @@
             <tr>
                 <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbNumeroTelephone" runat="server" Text="Numéro de téléphone:"></asp:Label>
                     </td>
-                <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" ID="tbNumeroTelephone" runat="server" MaxLength="10" ></asp:TextBox>
+                <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" ID="tbNumeroTelephone" runat="server"  MaxLength="10" ></asp:TextBox>
                     <asp:RequiredFieldValidator SkinID="requisValidation" 
                         ID="requisValidationNumeroTelephone" runat="server" 
                         ErrorMessage="Votre numéro de téléphone doit être spécifié." 
