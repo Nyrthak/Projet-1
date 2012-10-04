@@ -1,4 +1,6 @@
-﻿<%@ Page Language="VB" MasterPageFile="~/masterPageClient.master" AutoEventWireup="false" CodeFile="infoPaiement.aspx.vb" Inherits="client_infoPaiement" %>
+﻿<%@ Page Language="VB" MasterPageFile="~/masterPage.master" AutoEventWireup="false" CodeFile="infoPaiement.aspx.vb" Inherits="client_infoPaiement" %>
+
+<asp:Content ID="contentAdmin" ContentPlaceHolderID="contentMenuAdmin" runat="server"></asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
 

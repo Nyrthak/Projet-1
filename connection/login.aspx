@@ -1,5 +1,9 @@
 ﻿<%@ Page Language="VB" MasterPageFile="~/masterPage.master" AutoEventWireup="false"  CodeFile="login.aspx.vb" Inherits="login" %>
 
+
+<asp:Content ID="contentMenu" ContentPlaceHolderID="contentMenuClient" runat="server"></asp:Content>
+<asp:Content ID="contentAdmin" ContentPlaceHolderID="contentMenuAdmin" runat="server"></asp:Content>
+
 <asp:Content ID="contentLogin" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
         <h1><asp:Label runat="server" id="lbConnection" Text="Connection" SkinID="lbTitrePage"></asp:Label></h1>        
         <asp:Login ID="loginCtrl" runat="server" BackColor="#9FB8FF" Width="350px" Height="170px" 

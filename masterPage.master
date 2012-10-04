@@ -27,6 +27,16 @@
         </div>
         <div id="centre">
             <div id="corps">
+                <asp:ContentPlaceHolder ID="contentMenuClient" runat="server">
+                    <div id="menuFloat">
+                         <asp:Menu ID="menuLeft" runat="server" DataSourceID="siteMapDataSourceMenu">
+                         <StaticHoverStyle BackColor="#537EFF" ForeColor="White" />
+                         <StaticSelectedStyle BackColor="#537EFF" ForeColor="White" />
+                     </asp:Menu>
+                    </div>
+                </asp:ContentPlaceHolder>
+                <asp:ContentPlaceHolder ID="contentMenuAdmin" runat="server">
+                </asp:ContentPlaceHolder>
                 <asp:ContentPlaceHolder id="contentPlaceMasterPage" runat="server">
                 </asp:ContentPlaceHolder>
             </div>
@@ -47,7 +57,7 @@
         </div>       
     </div>
     <asp:SiteMapDataSource ID="siteMapDataSource" runat="server" ShowStartingNode="false"  SiteMapProvider="siteMapLogged"/>
-
+    <asp:SiteMapDataSource ID="siteMapDataSourceMenu" runat="server" ShowStartingNode="false" SiteMapProvider="siteMapMenu"/>
     </form>
 </body>
 </html>

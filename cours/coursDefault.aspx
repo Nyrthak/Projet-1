@@ -1,5 +1,8 @@
 ﻿<%@ Page Language="VB" MasterPageFile="~/masterPage.master" AutoEventWireup="false" CodeFile="coursDefault.aspx.vb" Inherits="coursDefault" %>
 
+<asp:Content ID="contentMenu" ContentPlaceHolderID="contentMenuClient" runat="server"></asp:Content>
+<asp:Content ID="contentAdmin" ContentPlaceHolderID="contentMenuAdmin" runat="server"></asp:Content>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">    
     <asp:Button ID="btnRechercher" runat="server" Text="Ok" CssClass="rechercher" />
     <asp:TextBox ID="txtRechercher" runat="server" SkinID="TextBoxFormulaire" CssClass="rechercher"></asp:TextBox>
