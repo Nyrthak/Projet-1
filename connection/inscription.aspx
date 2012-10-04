@@ -8,7 +8,7 @@
 <asp:Content ID="contentLogin" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">    
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="Server" />
     <asp:CalendarExtender ID="calendarExtenderDateNaissance" runat="server" TargetControlID="tbDateNaissance" PopupButtonID="imgBtnCalendrier" 
-     CssClass="MyCalendar" PopupPosition="Right" Format="d/MM/yyyy" >
+     CssClass="MyCalendar" PopupPosition="Right" Format="d-MM-yyyy" >
     </asp:CalendarExtender>               
         <h1><asp:Label SkinID="lbTitrePage" ID="lbInscription" runat="server" Text="Inscription"></asp:Label></h1>
         <asp:ValidationSummary SkinID="valiSummary" ID="valiSummaryInscription" runat="server" />
@@ -54,8 +54,8 @@
                         ID="requisValidationDateNaissance" runat="server" 
                         ErrorMessage="Votre date de naissance doit être spécifié." 
                         ControlToValidate="tbDateNaissance" Display="Dynamic">*</asp:RequiredFieldValidator>
-                        <asp:RegularExpressionValidator ID="reguExpressionDateNaissance" runat="server" ErrorMessage="Votre date de naissance n'est pas du bon format (jj/mm/yyyy)" ControlToValidate="tbDateNaissance" 
-                        ValidationExpression="^([0-9]|[012][0-9]|[3][01])[/]([0-9]|[0][123456789]|[1][012])[/][0-9][0-9][0-9][0-9]$" forecolor="Red" Display="Dynamic">*</asp:RegularExpressionValidator>        
+                        <asp:RegularExpressionValidator ID="reguExpressionDateNaissance" runat="server" ErrorMessage="Votre date de naissance n'est pas du bon format (jj-mm-aaaa)" ControlToValidate="tbDateNaissance" 
+                        ValidationExpression="^([0-9]|[012][0-9]|[3][01])[-]([0-9]|[0][123456789]|[1][012])[-][0-9][0-9][0-9][0-9]$" forecolor="Red" Display="Dynamic">*</asp:RegularExpressionValidator>        
                     </td>
             </tr>
             <tr>

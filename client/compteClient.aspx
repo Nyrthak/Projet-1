@@ -77,12 +77,13 @@
                     <tr>                      
                         <td style="width:200px;">
                             <asp:CalendarExtender ID="calendarExtenderDateNaissance" runat="server" TargetControlID="tbDateNaissance" PopupButtonID="imgBtnCalendrier" 
-                                    CssClass="MyCalendar" PopupPosition="Right" Format="d/MM/yyyy">
+                                    CssClass="MyCalendar" PopupPosition="Right" Format="d-MM-yyyy">
                             </asp:CalendarExtender>                           
                             <asp:Label SkinID="lbTitreInfoMembre" id="lbDate" runat="server" Text="Date de naissance:"></asp:Label>
-                            <asp:textbox SkinID="tbinscription" id="tbDateNaissance" runat="server" Text='<%#Bind("DateNaissance" , "{0:dd/MM/yyyy}") %>'></asp:TextBox>
-                            <asp:RegularExpressionValidator ID="reguExpressionDateNaissance" runat="server" ErrorMessage="Votre date de naissance n'est pas du bon format (jj/mm/yyyy)" ControlToValidate="tbDateNaissance" 
-                                ValidationExpression="([0-9]|[012][0-9]|[3][01])[/]([0-9]|[0][123456789]|[1][012])[/][0-9][0-9][0-9][0-9]$" forecolor="Red" Display="Dynamic" ValidationGroup="A">*</asp:RegularExpressionValidator>
+                            <asp:textbox SkinID="tbinscription" id="tbDateNaissance" runat="server" Text='<%#Bind("DateNaissance" , "{0:dd-MM-yyyy}") %>'></asp:TextBox>
+                            <asp:Label SkinID="lbTitreInfoMembre" id="lbExempleDateNaissance" runat="server" Text="ex: jj-mm-aaaa"></asp:Label>
+                            <asp:RegularExpressionValidator ID="reguExpressionDateNaissance" runat="server" ErrorMessage="Votre date de naissance n'est pas du bon format (jj-mm-yyyy)" ControlToValidate="tbDateNaissance" 
+                                ValidationExpression="([0-9]|[012][0-9]|[3][01])[-]([0-9]|[0][123456789]|[1][012])[-][0-9][0-9][0-9][0-9]$" forecolor="Red" Display="Dynamic" ValidationGroup="A">*</asp:RegularExpressionValidator>
                             <asp:ImageButton ID="imgBtnCalendrier" ImageUrl="~/App_Themes/Default/images/btnCalendrier.png" runat="server" CausesValidation="false" />                          
                             <asp:RequiredFieldValidator SkinID="requisValidation" 
                                 ID="requisValidationDateNaissance" runat="server" 
