@@ -16,7 +16,7 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("f9a26d3a-8676-4831-8f63-c09de1ac1a87")>
+<Assembly: EdmSchemaAttribute("1326fd99-1ddf-4e95-978e-5d3ecfb94388")>
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("Model", "CompteProvince", "Compte", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Compte), "Province", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Province))>
 <Assembly: EdmRelationshipAttribute("Model", "CompteMembre", "Compte", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Compte), "Membre", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Membre))>
@@ -34,6 +34,7 @@ Imports System.Runtime.Serialization
 <Assembly: EdmRelationshipAttribute("Model", "AnimateurSpécialitéAnimateur", "Animateur", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Animateur), "SpécialitéAnimateur", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.SpécialitéAnimateur))>
 <Assembly: EdmRelationshipAttribute("Model", "SpécialitéSpécialitéAnimateur", "Spécialité", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Spécialité), "SpécialitéAnimateur", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.SpécialitéAnimateur))>
 <Assembly: EdmRelationshipAttribute("Model", "GroupeCours", "Groupe", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Groupe), "Cours", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Cours))>
+<Assembly: EdmRelationshipAttribute("Model", "CoursCours", "Cours", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Cours), "Cours1", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Model.Cours))>
 
 #End Region
 Namespace Model
@@ -1231,13 +1232,11 @@ Namespace Model
         ''' <param name="noCours">Initial value of the noCours property.</param>
         ''' <param name="nom">Initial value of the Nom property.</param>
         ''' <param name="prix">Initial value of the Prix property.</param>
-        ''' <param name="noCoursRequis">Initial value of the noCoursRequis property.</param>
-        Public Shared Function CreateCours(noCours As Global.System.Int32, nom As Global.System.String, prix As Global.System.Double, noCoursRequis As Global.System.Int32) As Cours
+        Public Shared Function CreateCours(noCours As Global.System.Int32, nom As Global.System.String, prix As Global.System.Double) As Cours
             Dim cours as Cours = New Cours
             cours.noCours = noCours
             cours.Nom = nom
             cours.Prix = prix
-            cours.noCoursRequis = noCoursRequis
             Return cours
         End Function
 
@@ -1344,31 +1343,6 @@ Namespace Model
         End Sub
     
         Private Partial Sub OnDescriptionChanged()
-        End Sub
-    
-        ''' <summary>
-        ''' No Metadata Documentation available.
-        ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
-        <DataMemberAttribute()>
-        Public Property noCoursRequis() As Global.System.Int32
-            Get
-                Return _noCoursRequis
-            End Get
-            Set
-                OnnoCoursRequisChanging(value)
-                ReportPropertyChanging("noCoursRequis")
-                _noCoursRequis = StructuralObject.SetValidValue(value)
-                ReportPropertyChanged("noCoursRequis")
-                OnnoCoursRequisChanged()
-            End Set
-        End Property
-    
-        Private _noCoursRequis As Global.System.Int32
-        Private Partial Sub OnnoCoursRequisChanging(value As Global.System.Int32)
-        End Sub
-    
-        Private Partial Sub OnnoCoursRequisChanged()
         End Sub
 
         #End Region
@@ -1481,6 +1455,68 @@ Namespace Model
             Set
                 If (Not value Is Nothing)
                     CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of Groupe)("Model.GroupeCours", "Groupe", value)
+                End If
+            End Set
+        End Property
+    
+        ''' <summary>
+        ''' No Metadata Documentation available.
+        ''' </summary>
+        <XmlIgnoreAttribute()>
+        <SoapIgnoreAttribute()>
+        <DataMemberAttribute()>
+        <EdmRelationshipNavigationPropertyAttribute("Model", "CoursCours", "Cours1")>
+        Public Property Prerequis() As Cours
+            Get
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Cours)("Model.CoursCours", "Cours1").Value
+            End Get
+            Set
+                CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Cours)("Model.CoursCours", "Cours1").Value = value
+            End Set
+        End Property
+        ''' <summary>
+        ''' No Metadata Documentation available.
+        ''' </summary>
+        <BrowsableAttribute(False)>
+        <DataMemberAttribute()>
+        Public Property PrerequisReference() As EntityReference(Of Cours)
+            Get
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Cours)("Model.CoursCours", "Cours1")
+            End Get
+            Set
+                If (Not value Is Nothing)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of Cours)("Model.CoursCours", "Cours1", value)
+                End If
+            End Set
+        End Property
+    
+        ''' <summary>
+        ''' No Metadata Documentation available.
+        ''' </summary>
+        <XmlIgnoreAttribute()>
+        <SoapIgnoreAttribute()>
+        <DataMemberAttribute()>
+        <EdmRelationshipNavigationPropertyAttribute("Model", "CoursCours", "Cours1")>
+        Public Property Cours_2() As Cours
+            Get
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Cours)("Model.CoursCours", "Cours1").Value
+            End Get
+            Set
+                CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Cours)("Model.CoursCours", "Cours1").Value = value
+            End Set
+        End Property
+        ''' <summary>
+        ''' No Metadata Documentation available.
+        ''' </summary>
+        <BrowsableAttribute(False)>
+        <DataMemberAttribute()>
+        Public Property Cours_2Reference() As EntityReference(Of Cours)
+            Get
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Cours)("Model.CoursCours", "Cours1")
+            End Get
+            Set
+                If (Not value Is Nothing)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of Cours)("Model.CoursCours", "Cours1", value)
                 End If
             End Set
         End Property
@@ -2292,15 +2328,11 @@ Namespace Model
         ''' Create a new ListeDAttente object.
         ''' </summary>
         ''' <param name="dateAjout">Initial value of the DateAjout property.</param>
-        ''' <param name="noCours">Initial value of the noCours property.</param>
-        ''' <param name="noGroupe">Initial value of the noGroupe property.</param>
-        ''' <param name="noMembre">Initial value of the noMembre property.</param>
-        Public Shared Function CreateListeDAttente(dateAjout As Global.System.DateTime, noCours As Global.System.Int32, noGroupe As Global.System.Int32, noMembre As Global.System.Int32) As ListeDAttente
+        ''' <param name="noListeDAttente">Initial value of the noListeDAttente property.</param>
+        Public Shared Function CreateListeDAttente(dateAjout As Global.System.DateTime, noListeDAttente As Global.System.Int32) As ListeDAttente
             Dim listeDAttente as ListeDAttente = New ListeDAttente
             listeDAttente.DateAjout = dateAjout
-            listeDAttente.noCours = noCours
-            listeDAttente.noGroupe = noGroupe
-            listeDAttente.noMembre = noMembre
+            listeDAttente.noListeDAttente = noListeDAttente
             Return listeDAttente
         End Function
 
@@ -2337,80 +2369,26 @@ Namespace Model
         ''' </summary>
         <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
         <DataMemberAttribute()>
-        Public Property noCours() As Global.System.Int32
+        Public Property noListeDAttente() As Global.System.Int32
             Get
-                Return _noCours
+                Return _noListeDAttente
             End Get
             Set
-                If (_noCours <> Value) Then
-                    OnnoCoursChanging(value)
-                    ReportPropertyChanging("noCours")
-                    _noCours = StructuralObject.SetValidValue(value)
-                    ReportPropertyChanged("noCours")
-                    OnnoCoursChanged()
+                If (_noListeDAttente <> Value) Then
+                    OnnoListeDAttenteChanging(value)
+                    ReportPropertyChanging("noListeDAttente")
+                    _noListeDAttente = StructuralObject.SetValidValue(value)
+                    ReportPropertyChanged("noListeDAttente")
+                    OnnoListeDAttenteChanged()
                 End If
             End Set
         End Property
     
-        Private _noCours As Global.System.Int32
-        Private Partial Sub OnnoCoursChanging(value As Global.System.Int32)
+        Private _noListeDAttente As Global.System.Int32
+        Private Partial Sub OnnoListeDAttenteChanging(value As Global.System.Int32)
         End Sub
     
-        Private Partial Sub OnnoCoursChanged()
-        End Sub
-    
-        ''' <summary>
-        ''' No Metadata Documentation available.
-        ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
-        <DataMemberAttribute()>
-        Public Property noGroupe() As Global.System.Int32
-            Get
-                Return _noGroupe
-            End Get
-            Set
-                If (_noGroupe <> Value) Then
-                    OnnoGroupeChanging(value)
-                    ReportPropertyChanging("noGroupe")
-                    _noGroupe = StructuralObject.SetValidValue(value)
-                    ReportPropertyChanged("noGroupe")
-                    OnnoGroupeChanged()
-                End If
-            End Set
-        End Property
-    
-        Private _noGroupe As Global.System.Int32
-        Private Partial Sub OnnoGroupeChanging(value As Global.System.Int32)
-        End Sub
-    
-        Private Partial Sub OnnoGroupeChanged()
-        End Sub
-    
-        ''' <summary>
-        ''' No Metadata Documentation available.
-        ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
-        <DataMemberAttribute()>
-        Public Property noMembre() As Global.System.Int32
-            Get
-                Return _noMembre
-            End Get
-            Set
-                If (_noMembre <> Value) Then
-                    OnnoMembreChanging(value)
-                    ReportPropertyChanging("noMembre")
-                    _noMembre = StructuralObject.SetValidValue(value)
-                    ReportPropertyChanged("noMembre")
-                    OnnoMembreChanged()
-                End If
-            End Set
-        End Property
-    
-        Private _noMembre As Global.System.Int32
-        Private Partial Sub OnnoMembreChanging(value As Global.System.Int32)
-        End Sub
-    
-        Private Partial Sub OnnoMembreChanged()
+        Private Partial Sub OnnoListeDAttenteChanged()
         End Sub
 
         #End Region
@@ -2727,18 +2705,14 @@ Namespace Model
         ''' </summary>
         ''' <param name="modePaiement">Initial value of the ModePaiement property.</param>
         ''' <param name="prix">Initial value of the Prix property.</param>
-        ''' <param name="noCours">Initial value of the noCours property.</param>
-        ''' <param name="noGroupe">Initial value of the noGroupe property.</param>
-        ''' <param name="noMembre">Initial value of the noMembre property.</param>
         ''' <param name="noPaypal">Initial value of the noPaypal property.</param>
-        Public Shared Function CreatePaiement(modePaiement As Global.System.String, prix As Global.System.Double, noCours As Global.System.Int32, noGroupe As Global.System.Int32, noMembre As Global.System.Int32, noPaypal As Global.System.String) As Paiement
+        ''' <param name="noPaiement">Initial value of the noPaiement property.</param>
+        Public Shared Function CreatePaiement(modePaiement As Global.System.String, prix As Global.System.Double, noPaypal As Global.System.String, noPaiement As Global.System.Int32) As Paiement
             Dim paiement as Paiement = New Paiement
             paiement.ModePaiement = modePaiement
             paiement.Prix = prix
-            paiement.noCours = noCours
-            paiement.noGroupe = noGroupe
-            paiement.noMembre = noMembre
             paiement.noPaypal = noPaypal
+            paiement.noPaiement = noPaiement
             Return paiement
         End Function
 
@@ -2798,87 +2772,6 @@ Namespace Model
         ''' <summary>
         ''' No Metadata Documentation available.
         ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
-        <DataMemberAttribute()>
-        Public Property noCours() As Global.System.Int32
-            Get
-                Return _noCours
-            End Get
-            Set
-                If (_noCours <> Value) Then
-                    OnnoCoursChanging(value)
-                    ReportPropertyChanging("noCours")
-                    _noCours = StructuralObject.SetValidValue(value)
-                    ReportPropertyChanged("noCours")
-                    OnnoCoursChanged()
-                End If
-            End Set
-        End Property
-    
-        Private _noCours As Global.System.Int32
-        Private Partial Sub OnnoCoursChanging(value As Global.System.Int32)
-        End Sub
-    
-        Private Partial Sub OnnoCoursChanged()
-        End Sub
-    
-        ''' <summary>
-        ''' No Metadata Documentation available.
-        ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
-        <DataMemberAttribute()>
-        Public Property noGroupe() As Global.System.Int32
-            Get
-                Return _noGroupe
-            End Get
-            Set
-                If (_noGroupe <> Value) Then
-                    OnnoGroupeChanging(value)
-                    ReportPropertyChanging("noGroupe")
-                    _noGroupe = StructuralObject.SetValidValue(value)
-                    ReportPropertyChanged("noGroupe")
-                    OnnoGroupeChanged()
-                End If
-            End Set
-        End Property
-    
-        Private _noGroupe As Global.System.Int32
-        Private Partial Sub OnnoGroupeChanging(value As Global.System.Int32)
-        End Sub
-    
-        Private Partial Sub OnnoGroupeChanged()
-        End Sub
-    
-        ''' <summary>
-        ''' No Metadata Documentation available.
-        ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
-        <DataMemberAttribute()>
-        Public Property noMembre() As Global.System.Int32
-            Get
-                Return _noMembre
-            End Get
-            Set
-                If (_noMembre <> Value) Then
-                    OnnoMembreChanging(value)
-                    ReportPropertyChanging("noMembre")
-                    _noMembre = StructuralObject.SetValidValue(value)
-                    ReportPropertyChanged("noMembre")
-                    OnnoMembreChanged()
-                End If
-            End Set
-        End Property
-    
-        Private _noMembre As Global.System.Int32
-        Private Partial Sub OnnoMembreChanging(value As Global.System.Int32)
-        End Sub
-    
-        Private Partial Sub OnnoMembreChanged()
-        End Sub
-    
-        ''' <summary>
-        ''' No Metadata Documentation available.
-        ''' </summary>
         <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
         <DataMemberAttribute()>
         Public Property noPaypal() As Global.System.String
@@ -2899,6 +2792,33 @@ Namespace Model
         End Sub
     
         Private Partial Sub OnnoPaypalChanged()
+        End Sub
+    
+        ''' <summary>
+        ''' No Metadata Documentation available.
+        ''' </summary>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
+        <DataMemberAttribute()>
+        Public Property noPaiement() As Global.System.Int32
+            Get
+                Return _noPaiement
+            End Get
+            Set
+                If (_noPaiement <> Value) Then
+                    OnnoPaiementChanging(value)
+                    ReportPropertyChanging("noPaiement")
+                    _noPaiement = StructuralObject.SetValidValue(value)
+                    ReportPropertyChanged("noPaiement")
+                    OnnoPaiementChanged()
+                End If
+            End Set
+        End Property
+    
+        Private _noPaiement As Global.System.Int32
+        Private Partial Sub OnnoPaiementChanging(value As Global.System.Int32)
+        End Sub
+    
+        Private Partial Sub OnnoPaiementChanged()
         End Sub
 
         #End Region

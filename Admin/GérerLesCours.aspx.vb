@@ -9,7 +9,7 @@ Partial Class Admin_GérerLesCours
     End Sub
 
     Protected Sub dsContextCreating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextCreatingEventArgs) _
-        Handles EntityDataSourceCategorie.ContextCreating, EntityDataSourceGroupeDAge.ContextCreating, EntityDataSourcePrerequis.ContextCreating, EntityDataSourceSession.ContextCreating
+        Handles EntityDataSourceCategorie.ContextCreating, EntityDataSourceGroupeDAge.ContextCreating, EntityDataSourcePrerequis.ContextCreating, EntityDataSourceSession.ContextCreating, EntityDataSourceCours.ContextCreating
         'RÉCUPÈRE LE CONTEXTE DE FACON À N'EN AVOIR QU'UN
         If Not lecontext Is Nothing Then
             e.Context = lecontext
@@ -17,7 +17,7 @@ Partial Class Admin_GérerLesCours
     End Sub
 
     Protected Sub dsContextDisposing(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextDisposingEventArgs) _
-       Handles EntityDataSourceCategorie.ContextDisposing, EntityDataSourceGroupeDAge.ContextDisposing, EntityDataSourcePrerequis.ContextDisposing, EntityDataSourceSession.ContextDisposing
+       Handles EntityDataSourceCategorie.ContextDisposing, EntityDataSourceGroupeDAge.ContextDisposing, EntityDataSourcePrerequis.ContextDisposing, EntityDataSourceSession.ContextDisposing, EntityDataSourceCours.ContextDisposing
         e.Cancel = True
     End Sub
 
@@ -39,7 +39,7 @@ Partial Class Admin_GérerLesCours
         leCoursAjouté.Session = (From dl In lecontext.SessionSet
                                          Where dl.noSession = 1
                                          Select dl).First
-        leCoursAjouté.noCoursRequis = 0
+        leCoursAjouté.Prerequis = Nothing
         lecontext.AddObject("CoursSet", leCoursAjouté)
         lecontext.SaveChanges()
         hFieldNoCours.Value = leCoursAjouté.noCours
@@ -104,5 +104,4 @@ Partial Class Admin_GérerLesCours
         lViewCours.DataBind()
         lblMessage.Text = "Le cours a été modifié"
     End Sub
-
 End Class

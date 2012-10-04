@@ -5,448 +5,456 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-        <EntityContainer Name="ModelStoreContainer">
-          <EntitySet Name="AnimateurSet" EntityType="Model.Store.AnimateurSet" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="CatégorieSet" EntityType="Model.Store.CatégorieSet" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="CompteSet" EntityType="Model.Store.CompteSet" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="CoursSet" EntityType="Model.Store.CoursSet" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="ForfaitSet" EntityType="Model.Store.ForfaitSet" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="GroupeDAgeSet" EntityType="Model.Store.GroupeDAgeSet" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="GroupeSet" EntityType="Model.Store.GroupeSet" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="HoraireSet" EntityType="Model.Store.HoraireSet" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="JourSet" EntityType="Model.Store.JourSet" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="ListeDAttenteSet" EntityType="Model.Store.ListeDAttenteSet" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="MembreSet" EntityType="Model.Store.MembreSet" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="PaiementSet" EntityType="Model.Store.PaiementSet" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="ProvinceSet" EntityType="Model.Store.ProvinceSet" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="SessionSet" EntityType="Model.Store.SessionSet" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="SpécialitéAnimateurSet" EntityType="Model.Store.SpécialitéAnimateurSet" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="SpécialitéSet" EntityType="Model.Store.SpécialitéSet" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK_AnimateurGroupe" Association="Model.Store.FK_AnimateurGroupe">
-            <End Role="AnimateurSet" EntitySet="AnimateurSet" />
-            <End Role="GroupeSet" EntitySet="GroupeSet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AnimateurProvince" Association="Model.Store.FK_AnimateurProvince">
-            <End Role="ProvinceSet" EntitySet="ProvinceSet" />
-            <End Role="AnimateurSet" EntitySet="AnimateurSet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AnimateurSpécialitéAnimateur" Association="Model.Store.FK_AnimateurSpécialitéAnimateur">
-            <End Role="AnimateurSet" EntitySet="AnimateurSet" />
-            <End Role="SpécialitéAnimateurSet" EntitySet="SpécialitéAnimateurSet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CatégorieCours" Association="Model.Store.FK_CatégorieCours">
-            <End Role="CatégorieSet" EntitySet="CatégorieSet" />
-            <End Role="CoursSet" EntitySet="CoursSet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CompteMembre" Association="Model.Store.FK_CompteMembre">
-            <End Role="CompteSet" EntitySet="CompteSet" />
-            <End Role="MembreSet" EntitySet="MembreSet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CompteProvince" Association="Model.Store.FK_CompteProvince">
-            <End Role="ProvinceSet" EntitySet="ProvinceSet" />
-            <End Role="CompteSet" EntitySet="CompteSet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GroupeCours" Association="Model.Store.FK_GroupeCours">
-            <End Role="CoursSet" EntitySet="CoursSet" />
-            <End Role="GroupeSet" EntitySet="GroupeSet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GroupeDAgeCours" Association="Model.Store.FK_GroupeDAgeCours">
-            <End Role="GroupeDAgeSet" EntitySet="GroupeDAgeSet" />
-            <End Role="CoursSet" EntitySet="CoursSet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GroupePaiement" Association="Model.Store.FK_GroupePaiement">
-            <End Role="GroupeSet" EntitySet="GroupeSet" />
-            <End Role="PaiementSet" EntitySet="PaiementSet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HoraireGroupe" Association="Model.Store.FK_HoraireGroupe">
-            <End Role="GroupeSet" EntitySet="GroupeSet" />
-            <End Role="HoraireSet" EntitySet="HoraireSet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_JourHoraire" Association="Model.Store.FK_JourHoraire">
-            <End Role="JourSet" EntitySet="JourSet" />
-            <End Role="HoraireSet" EntitySet="HoraireSet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ListeDAttenteGroupe" Association="Model.Store.FK_ListeDAttenteGroupe">
-            <End Role="GroupeSet" EntitySet="GroupeSet" />
-            <End Role="ListeDAttenteSet" EntitySet="ListeDAttenteSet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ListeDAttenteMembre" Association="Model.Store.FK_ListeDAttenteMembre">
-            <End Role="MembreSet" EntitySet="MembreSet" />
-            <End Role="ListeDAttenteSet" EntitySet="ListeDAttenteSet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MembrePaiement" Association="Model.Store.FK_MembrePaiement">
-            <End Role="MembreSet" EntitySet="MembreSet" />
-            <End Role="PaiementSet" EntitySet="PaiementSet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SessionCours" Association="Model.Store.FK_SessionCours">
-            <End Role="SessionSet" EntitySet="SessionSet" />
-            <End Role="CoursSet" EntitySet="CoursSet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SpécialitéSpécialitéAnimateur" Association="Model.Store.FK_SpécialitéSpécialitéAnimateur">
-            <End Role="SpécialitéSet" EntitySet="SpécialitéSet" />
-            <End Role="SpécialitéAnimateurSet" EntitySet="SpécialitéAnimateurSet" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="AnimateurSet">
-          <Key>
-            <PropertyRef Name="noAnimateur" />
-          </Key>
-          <Property Name="noAnimateur" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Nom" Type="nvarchar" Nullable="false" MaxLength="25" />
-          <Property Name="Prénom" Type="nvarchar" Nullable="false" MaxLength="25" />
-          <Property Name="DateNaissance" Type="datetime" Nullable="false" />
-          <Property Name="Adresse" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="Ville" Type="nvarchar" Nullable="false" MaxLength="30" />
-          <Property Name="CodePostal" Type="nvarchar" Nullable="false" MaxLength="6" />
-          <Property Name="noTéléphone" Type="nvarchar" Nullable="false" MaxLength="12" />
-          <Property Name="Province_noProvince" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="CatégorieSet">
-          <Key>
-            <PropertyRef Name="noCatégorie" />
-          </Key>
-          <Property Name="noCatégorie" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Nom" Type="nvarchar" Nullable="false" MaxLength="15" />
-        </EntityType>
-        <EntityType Name="CompteSet">
-          <Key>
-            <PropertyRef Name="noCompte" />
-          </Key>
-          <Property Name="noCompte" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Type" Type="int" Nullable="false" />
-          <Property Name="Adresse" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="Ville" Type="nvarchar" Nullable="false" MaxLength="30" />
-          <Property Name="CodePostal" Type="nvarchar" Nullable="false" MaxLength="6" />
-          <Property Name="Abonnement" Type="bit" />
-          <Property Name="ModePaiement" Type="nvarchar" MaxLength="20" />
-          <Property Name="motDePasseCrypté" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="30" />
-          <Property Name="noTelephone" Type="nvarchar" Nullable="false" MaxLength="12" />
-          <Property Name="Pays" Type="nvarchar" Nullable="false" MaxLength="20" />
-          <Property Name="Province_noProvince" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="CoursSet">
-          <Key>
-            <PropertyRef Name="noCours" />
-          </Key>
-          <Property Name="noCours" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Nom" Type="nvarchar" Nullable="false" MaxLength="25" />
-          <Property Name="Prix" Type="float" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="250" />
-          <Property Name="noCoursRequis" Type="int" Nullable="false" />
-          <Property Name="Catégorie_noCatégorie" Type="int" Nullable="false" />
-          <Property Name="Session_noSession" Type="int" Nullable="false" />
-          <Property Name="GroupeDAge_noGroupeDAge" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ForfaitSet">
-          <Key>
-            <PropertyRef Name="nbInscrits" />
-          </Key>
-          <Property Name="nbInscrits" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Coût" Type="float" Nullable="false" />
-        </EntityType>
-        <EntityType Name="GroupeDAgeSet">
-          <Key>
-            <PropertyRef Name="noGroupeDAge" />
-          </Key>
-          <Property Name="noGroupeDAge" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="NomGroupeDAge" Type="nvarchar" Nullable="false" MaxLength="25" />
-        </EntityType>
-        <EntityType Name="GroupeSet">
-          <Key>
-            <PropertyRef Name="noGroupe" />
-          </Key>
-          <Property Name="noGroupe" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Local" Type="nvarchar" Nullable="false" MaxLength="10" />
-          <Property Name="DateDébut" Type="datetime" Nullable="false" />
-          <Property Name="DateFin" Type="datetime" Nullable="false" />
-          <Property Name="DateLimiteInscription" Type="datetime" Nullable="false" />
-          <Property Name="Âge" Type="int" Nullable="false" />
-          <Property Name="Animateur_noAnimateur" Type="int" Nullable="false" />
-          <Property Name="Cours_noCours" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="HoraireSet">
-          <Key>
-            <PropertyRef Name="noGroupe" />
-            <PropertyRef Name="noJour" />
-          </Key>
-          <Property Name="HeureDébut" Type="datetime" Nullable="false" />
-          <Property Name="HeureFin" Type="datetime" Nullable="false" />
-          <Property Name="noGroupe" Type="int" Nullable="false" />
-          <Property Name="noJour" Type="int" Nullable="false" />
-          <Property Name="Jour_noJour" Type="int" Nullable="false" />
-          <Property Name="Groupe_noGroupe" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="JourSet">
-          <Key>
-            <PropertyRef Name="noJour" />
-          </Key>
-          <Property Name="noJour" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="nomJour" Type="nvarchar" Nullable="false" MaxLength="10" />
-        </EntityType>
-        <EntityType Name="ListeDAttenteSet">
-          <Key>
-            <PropertyRef Name="noCours" />
-            <PropertyRef Name="noGroupe" />
-            <PropertyRef Name="noMembre" />
-          </Key>
-          <Property Name="DateAjout" Type="datetime" Nullable="false" />
-          <Property Name="noCours" Type="int" Nullable="false" />
-          <Property Name="noGroupe" Type="int" Nullable="false" />
-          <Property Name="noMembre" Type="int" Nullable="false" />
-          <Property Name="Membre_noMembre" Type="int" Nullable="false" />
-          <Property Name="Groupe_noGroupe" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="MembreSet">
-          <Key>
-            <PropertyRef Name="noMembre" />
-          </Key>
-          <Property Name="noMembre" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Nom" Type="nvarchar" Nullable="false" MaxLength="25" />
-          <Property Name="Prénom" Type="nvarchar" Nullable="false" MaxLength="25" />
-          <Property Name="DateNaissance" Type="datetime" Nullable="false" />
-          <Property Name="Propriétaire" Type="bit" Nullable="false" />
-          <Property Name="Compte_noCompte" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="PaiementSet">
-          <Key>
-            <PropertyRef Name="noCours" />
-            <PropertyRef Name="noGroupe" />
-            <PropertyRef Name="noMembre" />
-          </Key>
-          <Property Name="ModePaiement" Type="nvarchar" Nullable="false" MaxLength="15" />
-          <Property Name="Prix" Type="float" Nullable="false" />
-          <Property Name="noCours" Type="int" Nullable="false" />
-          <Property Name="noGroupe" Type="int" Nullable="false" />
-          <Property Name="noMembre" Type="int" Nullable="false" />
-          <Property Name="noPaypal" Type="nvarchar" Nullable="false" MaxLength="30" />
-          <Property Name="Membre_noMembre" Type="int" Nullable="false" />
-          <Property Name="Groupe_noGroupe" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ProvinceSet">
-          <Key>
-            <PropertyRef Name="noProvince" />
-          </Key>
-          <Property Name="noProvince" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Nom" Type="nvarchar" Nullable="false" MaxLength="25" />
-        </EntityType>
-        <EntityType Name="SessionSet">
-          <Key>
-            <PropertyRef Name="noSession" />
-          </Key>
-          <Property Name="noSession" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="NomSession" Type="nvarchar" Nullable="false" MaxLength="25" />
-        </EntityType>
-        <EntityType Name="SpécialitéAnimateurSet">
-          <Key>
-            <PropertyRef Name="noSpécialité" />
-            <PropertyRef Name="noAnimateur" />
-          </Key>
-          <Property Name="noSpécialité" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="noAnimateur" Type="int" Nullable="false" />
-          <Property Name="Animateur_noAnimateur" Type="int" Nullable="false" />
-          <Property Name="Spécialité_noSpécialité" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="SpécialitéSet">
-          <Key>
-            <PropertyRef Name="noSpécialité" />
-          </Key>
-          <Property Name="noSpécialité" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="nomSpécialité" Type="nvarchar" Nullable="false" MaxLength="25" />
-        </EntityType>
-        <Association Name="FK_AnimateurGroupe">
-          <End Role="AnimateurSet" Type="Model.Store.AnimateurSet" Multiplicity="1" />
-          <End Role="GroupeSet" Type="Model.Store.GroupeSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AnimateurSet">
-              <PropertyRef Name="noAnimateur" />
-            </Principal>
-            <Dependent Role="GroupeSet">
-              <PropertyRef Name="Animateur_noAnimateur" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AnimateurProvince">
-          <End Role="ProvinceSet" Type="Model.Store.ProvinceSet" Multiplicity="1" />
-          <End Role="AnimateurSet" Type="Model.Store.AnimateurSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProvinceSet">
-              <PropertyRef Name="noProvince" />
-            </Principal>
-            <Dependent Role="AnimateurSet">
-              <PropertyRef Name="Province_noProvince" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AnimateurSpécialitéAnimateur">
-          <End Role="AnimateurSet" Type="Model.Store.AnimateurSet" Multiplicity="1" />
-          <End Role="SpécialitéAnimateurSet" Type="Model.Store.SpécialitéAnimateurSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AnimateurSet">
-              <PropertyRef Name="noAnimateur" />
-            </Principal>
-            <Dependent Role="SpécialitéAnimateurSet">
-              <PropertyRef Name="Animateur_noAnimateur" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CatégorieCours">
-          <End Role="CatégorieSet" Type="Model.Store.CatégorieSet" Multiplicity="1" />
-          <End Role="CoursSet" Type="Model.Store.CoursSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CatégorieSet">
-              <PropertyRef Name="noCatégorie" />
-            </Principal>
-            <Dependent Role="CoursSet">
-              <PropertyRef Name="Catégorie_noCatégorie" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CompteMembre">
-          <End Role="CompteSet" Type="Model.Store.CompteSet" Multiplicity="1" />
-          <End Role="MembreSet" Type="Model.Store.MembreSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CompteSet">
-              <PropertyRef Name="noCompte" />
-            </Principal>
-            <Dependent Role="MembreSet">
-              <PropertyRef Name="Compte_noCompte" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CompteProvince">
-          <End Role="ProvinceSet" Type="Model.Store.ProvinceSet" Multiplicity="1" />
-          <End Role="CompteSet" Type="Model.Store.CompteSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProvinceSet">
-              <PropertyRef Name="noProvince" />
-            </Principal>
-            <Dependent Role="CompteSet">
-              <PropertyRef Name="Province_noProvince" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GroupeCours">
-          <End Role="CoursSet" Type="Model.Store.CoursSet" Multiplicity="1" />
-          <End Role="GroupeSet" Type="Model.Store.GroupeSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CoursSet">
-              <PropertyRef Name="noCours" />
-            </Principal>
-            <Dependent Role="GroupeSet">
-              <PropertyRef Name="Cours_noCours" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GroupeDAgeCours">
-          <End Role="GroupeDAgeSet" Type="Model.Store.GroupeDAgeSet" Multiplicity="1" />
-          <End Role="CoursSet" Type="Model.Store.CoursSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GroupeDAgeSet">
-              <PropertyRef Name="noGroupeDAge" />
-            </Principal>
-            <Dependent Role="CoursSet">
-              <PropertyRef Name="GroupeDAge_noGroupeDAge" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GroupePaiement">
-          <End Role="GroupeSet" Type="Model.Store.GroupeSet" Multiplicity="1" />
-          <End Role="PaiementSet" Type="Model.Store.PaiementSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GroupeSet">
-              <PropertyRef Name="noGroupe" />
-            </Principal>
-            <Dependent Role="PaiementSet">
-              <PropertyRef Name="Groupe_noGroupe" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HoraireGroupe">
-          <End Role="GroupeSet" Type="Model.Store.GroupeSet" Multiplicity="1" />
-          <End Role="HoraireSet" Type="Model.Store.HoraireSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GroupeSet">
-              <PropertyRef Name="noGroupe" />
-            </Principal>
-            <Dependent Role="HoraireSet">
-              <PropertyRef Name="Groupe_noGroupe" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_JourHoraire">
-          <End Role="JourSet" Type="Model.Store.JourSet" Multiplicity="1" />
-          <End Role="HoraireSet" Type="Model.Store.HoraireSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="JourSet">
-              <PropertyRef Name="noJour" />
-            </Principal>
-            <Dependent Role="HoraireSet">
-              <PropertyRef Name="Jour_noJour" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ListeDAttenteGroupe">
-          <End Role="GroupeSet" Type="Model.Store.GroupeSet" Multiplicity="1" />
-          <End Role="ListeDAttenteSet" Type="Model.Store.ListeDAttenteSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GroupeSet">
-              <PropertyRef Name="noGroupe" />
-            </Principal>
-            <Dependent Role="ListeDAttenteSet">
-              <PropertyRef Name="Groupe_noGroupe" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ListeDAttenteMembre">
-          <End Role="MembreSet" Type="Model.Store.MembreSet" Multiplicity="1" />
-          <End Role="ListeDAttenteSet" Type="Model.Store.ListeDAttenteSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MembreSet">
-              <PropertyRef Name="noMembre" />
-            </Principal>
-            <Dependent Role="ListeDAttenteSet">
-              <PropertyRef Name="Membre_noMembre" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MembrePaiement">
-          <End Role="MembreSet" Type="Model.Store.MembreSet" Multiplicity="1" />
-          <End Role="PaiementSet" Type="Model.Store.PaiementSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MembreSet">
-              <PropertyRef Name="noMembre" />
-            </Principal>
-            <Dependent Role="PaiementSet">
-              <PropertyRef Name="Membre_noMembre" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SessionCours">
-          <End Role="SessionSet" Type="Model.Store.SessionSet" Multiplicity="1" />
-          <End Role="CoursSet" Type="Model.Store.CoursSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SessionSet">
-              <PropertyRef Name="noSession" />
-            </Principal>
-            <Dependent Role="CoursSet">
-              <PropertyRef Name="Session_noSession" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SpécialitéSpécialitéAnimateur">
-          <End Role="SpécialitéSet" Type="Model.Store.SpécialitéSet" Multiplicity="1" />
-          <End Role="SpécialitéAnimateurSet" Type="Model.Store.SpécialitéAnimateurSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SpécialitéSet">
-              <PropertyRef Name="noSpécialité" />
-            </Principal>
-            <Dependent Role="SpécialitéAnimateurSet">
-              <PropertyRef Name="Spécialité_noSpécialité" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-      </Schema></edmx:StorageModels>
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="ProvinceSet" EntityType="Model.Store.ProvinceSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CompteSet" EntityType="Model.Store.CompteSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MembreSet" EntityType="Model.Store.MembreSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PaiementSet" EntityType="Model.Store.PaiementSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CatégorieSet" EntityType="Model.Store.CatégorieSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CoursSet" EntityType="Model.Store.CoursSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="GroupeSet" EntityType="Model.Store.GroupeSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ListeDAttenteSet" EntityType="Model.Store.ListeDAttenteSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SessionSet" EntityType="Model.Store.SessionSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="GroupeDAgeSet" EntityType="Model.Store.GroupeDAgeSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="JourSet" EntityType="Model.Store.JourSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="HoraireSet" EntityType="Model.Store.HoraireSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AnimateurSet" EntityType="Model.Store.AnimateurSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ForfaitSet" EntityType="Model.Store.ForfaitSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SpécialitéSet" EntityType="Model.Store.SpécialitéSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SpécialitéAnimateurSet" EntityType="Model.Store.SpécialitéAnimateurSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="CompteProvince" Association="Model.Store.CompteProvince">
+      <End Role="Compte" EntitySet="CompteSet" />
+      <End Role="Province" EntitySet="ProvinceSet" />
+    </AssociationSet>
+    <AssociationSet Name="CompteMembre" Association="Model.Store.CompteMembre">
+      <End Role="Compte" EntitySet="CompteSet" />
+      <End Role="Membre" EntitySet="MembreSet" />
+    </AssociationSet>
+    <AssociationSet Name="MembrePaiement" Association="Model.Store.MembrePaiement">
+      <End Role="Membre" EntitySet="MembreSet" />
+      <End Role="Paiement" EntitySet="PaiementSet" />
+    </AssociationSet>
+    <AssociationSet Name="GroupePaiement" Association="Model.Store.GroupePaiement">
+      <End Role="Groupe" EntitySet="GroupeSet" />
+      <End Role="Paiement" EntitySet="PaiementSet" />
+    </AssociationSet>
+    <AssociationSet Name="CatégorieCours" Association="Model.Store.CatégorieCours">
+      <End Role="Catégorie" EntitySet="CatégorieSet" />
+      <End Role="Cours" EntitySet="CoursSet" />
+    </AssociationSet>
+    <AssociationSet Name="SessionCours" Association="Model.Store.SessionCours">
+      <End Role="Session" EntitySet="SessionSet" />
+      <End Role="Cours" EntitySet="CoursSet" />
+    </AssociationSet>
+    <AssociationSet Name="ListeDAttenteMembre" Association="Model.Store.ListeDAttenteMembre">
+      <End Role="ListeDAttente" EntitySet="ListeDAttenteSet" />
+      <End Role="Membre" EntitySet="MembreSet" />
+    </AssociationSet>
+    <AssociationSet Name="ListeDAttenteGroupe" Association="Model.Store.ListeDAttenteGroupe">
+      <End Role="ListeDAttente" EntitySet="ListeDAttenteSet" />
+      <End Role="Groupe" EntitySet="GroupeSet" />
+    </AssociationSet>
+    <AssociationSet Name="GroupeDAgeCours" Association="Model.Store.GroupeDAgeCours">
+      <End Role="GroupeDAge" EntitySet="GroupeDAgeSet" />
+      <End Role="Cours" EntitySet="CoursSet" />
+    </AssociationSet>
+    <AssociationSet Name="JourHoraire" Association="Model.Store.JourHoraire">
+      <End Role="Jour" EntitySet="JourSet" />
+      <End Role="Horaire" EntitySet="HoraireSet" />
+    </AssociationSet>
+    <AssociationSet Name="AnimateurGroupe" Association="Model.Store.AnimateurGroupe">
+      <End Role="Animateur" EntitySet="AnimateurSet" />
+      <End Role="Groupe" EntitySet="GroupeSet" />
+    </AssociationSet>
+    <AssociationSet Name="HoraireGroupe" Association="Model.Store.HoraireGroupe">
+      <End Role="Horaire" EntitySet="HoraireSet" />
+      <End Role="Groupe" EntitySet="GroupeSet" />
+    </AssociationSet>
+    <AssociationSet Name="AnimateurProvince" Association="Model.Store.AnimateurProvince">
+      <End Role="Animateur" EntitySet="AnimateurSet" />
+      <End Role="Province" EntitySet="ProvinceSet" />
+    </AssociationSet>
+    <AssociationSet Name="AnimateurSpécialitéAnimateur" Association="Model.Store.AnimateurSpécialitéAnimateur">
+      <End Role="Animateur" EntitySet="AnimateurSet" />
+      <End Role="SpécialitéAnimateur" EntitySet="SpécialitéAnimateurSet" />
+    </AssociationSet>
+    <AssociationSet Name="SpécialitéSpécialitéAnimateur" Association="Model.Store.SpécialitéSpécialitéAnimateur">
+      <End Role="Spécialité" EntitySet="SpécialitéSet" />
+      <End Role="SpécialitéAnimateur" EntitySet="SpécialitéAnimateurSet" />
+    </AssociationSet>
+    <AssociationSet Name="GroupeCours" Association="Model.Store.GroupeCours">
+      <End Role="Groupe" EntitySet="GroupeSet" />
+      <End Role="Cours" EntitySet="CoursSet" />
+    </AssociationSet>
+    <AssociationSet Name="CoursCours" Association="Model.Store.CoursCours">
+      <End Role="Cours" EntitySet="CoursSet" />
+      <End Role="Cours1" EntitySet="CoursSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ProvinceSet">
+    <Key>
+      <PropertyRef Name="noProvince" />
+    </Key>
+    <Property Name="noProvince" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar" Nullable="false" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="CompteSet">
+    <Key>
+      <PropertyRef Name="noCompte" />
+    </Key>
+    <Property Name="noCompte" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="Adresse" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Ville" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="CodePostal" Type="nvarchar" Nullable="false" MaxLength="6" />
+    <Property Name="Abonnement" Type="bit" Nullable="true" />
+    <Property Name="ModePaiement" Type="nvarchar" Nullable="true" MaxLength="20" />
+    <Property Name="motDePasseCrypté" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="noTelephone" Type="nvarchar" Nullable="false" MaxLength="12" />
+    <Property Name="Pays" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="Province_noProvince" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MembreSet">
+    <Key>
+      <PropertyRef Name="noMembre" />
+    </Key>
+    <Property Name="noMembre" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar" Nullable="false" MaxLength="25" />
+    <Property Name="Prénom" Type="nvarchar" Nullable="false" MaxLength="25" />
+    <Property Name="DateNaissance" Type="datetime" Nullable="false" />
+    <Property Name="Propriétaire" Type="bit" Nullable="false" />
+    <Property Name="Compte_noCompte" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PaiementSet">
+    <Key>
+      <PropertyRef Name="noPaiement" />
+    </Key>
+    <Property Name="ModePaiement" Type="nvarchar" Nullable="false" MaxLength="15" />
+    <Property Name="Prix" Type="float" Nullable="false" />
+    <Property Name="noPaypal" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="noPaiement" Type="int" Nullable="false" />
+    <Property Name="Membre_noMembre" Type="int" Nullable="false" />
+    <Property Name="Groupe_noGroupe" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CatégorieSet">
+    <Key>
+      <PropertyRef Name="noCatégorie" />
+    </Key>
+    <Property Name="noCatégorie" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar" Nullable="false" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="CoursSet">
+    <Key>
+      <PropertyRef Name="noCours" />
+    </Key>
+    <Property Name="noCours" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar" Nullable="false" MaxLength="25" />
+    <Property Name="Prix" Type="float" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" Nullable="true" MaxLength="250" />
+    <Property Name="Catégorie_noCatégorie" Type="int" Nullable="false" />
+    <Property Name="Session_noSession" Type="int" Nullable="false" />
+    <Property Name="GroupeDAge_noGroupeDAge" Type="int" Nullable="false" />
+    <Property Name="Prerequis_noCours" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="GroupeSet">
+    <Key>
+      <PropertyRef Name="noGroupe" />
+    </Key>
+    <Property Name="noGroupe" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Local" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="DateDébut" Type="datetime" Nullable="false" />
+    <Property Name="DateFin" Type="datetime" Nullable="false" />
+    <Property Name="DateLimiteInscription" Type="datetime" Nullable="false" />
+    <Property Name="Âge" Type="int" Nullable="false" />
+    <Property Name="Animateur_noAnimateur" Type="int" Nullable="false" />
+    <Property Name="Cours_noCours" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ListeDAttenteSet">
+    <Key>
+      <PropertyRef Name="noListeDAttente" />
+    </Key>
+    <Property Name="DateAjout" Type="datetime" Nullable="false" />
+    <Property Name="noListeDAttente" Type="int" Nullable="false" />
+    <Property Name="Membre_noMembre" Type="int" Nullable="false" />
+    <Property Name="Groupe_noGroupe" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SessionSet">
+    <Key>
+      <PropertyRef Name="noSession" />
+    </Key>
+    <Property Name="noSession" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NomSession" Type="nvarchar" Nullable="false" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="GroupeDAgeSet">
+    <Key>
+      <PropertyRef Name="noGroupeDAge" />
+    </Key>
+    <Property Name="noGroupeDAge" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NomGroupeDAge" Type="nvarchar" Nullable="false" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="JourSet">
+    <Key>
+      <PropertyRef Name="noJour" />
+    </Key>
+    <Property Name="noJour" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nomJour" Type="nvarchar" Nullable="false" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="HoraireSet">
+    <Key>
+      <PropertyRef Name="noGroupe" />
+      <PropertyRef Name="noJour" />
+    </Key>
+    <Property Name="HeureDébut" Type="datetime" Nullable="false" />
+    <Property Name="HeureFin" Type="datetime" Nullable="false" />
+    <Property Name="noGroupe" Type="int" Nullable="false" />
+    <Property Name="noJour" Type="int" Nullable="false" />
+    <Property Name="Jour_noJour" Type="int" Nullable="false" />
+    <Property Name="Groupe_noGroupe" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AnimateurSet">
+    <Key>
+      <PropertyRef Name="noAnimateur" />
+    </Key>
+    <Property Name="noAnimateur" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar" Nullable="false" MaxLength="25" />
+    <Property Name="Prénom" Type="nvarchar" Nullable="false" MaxLength="25" />
+    <Property Name="DateNaissance" Type="datetime" Nullable="false" />
+    <Property Name="Adresse" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Ville" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="CodePostal" Type="nvarchar" Nullable="false" MaxLength="6" />
+    <Property Name="noTéléphone" Type="nvarchar" Nullable="false" MaxLength="12" />
+    <Property Name="Province_noProvince" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ForfaitSet">
+    <Key>
+      <PropertyRef Name="nbInscrits" />
+    </Key>
+    <Property Name="nbInscrits" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Coût" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SpécialitéSet">
+    <Key>
+      <PropertyRef Name="noSpécialité" />
+    </Key>
+    <Property Name="noSpécialité" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nomSpécialité" Type="nvarchar" Nullable="false" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="SpécialitéAnimateurSet">
+    <Key>
+      <PropertyRef Name="noSpécialité" />
+      <PropertyRef Name="noAnimateur" />
+    </Key>
+    <Property Name="noSpécialité" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="noAnimateur" Type="int" Nullable="false" />
+    <Property Name="Animateur_noAnimateur" Type="int" Nullable="false" />
+    <Property Name="Spécialité_noSpécialité" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="CompteProvince">
+    <End Role="Compte" Type="Model.Store.CompteSet" Multiplicity="*" />
+    <End Role="Province" Type="Model.Store.ProvinceSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Province">
+        <PropertyRef Name="noProvince" />
+      </Principal>
+      <Dependent Role="Compte">
+        <PropertyRef Name="Province_noProvince" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CompteMembre">
+    <End Role="Compte" Type="Model.Store.CompteSet" Multiplicity="1" />
+    <End Role="Membre" Type="Model.Store.MembreSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Compte">
+        <PropertyRef Name="noCompte" />
+      </Principal>
+      <Dependent Role="Membre">
+        <PropertyRef Name="Compte_noCompte" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MembrePaiement">
+    <End Role="Membre" Type="Model.Store.MembreSet" Multiplicity="1" />
+    <End Role="Paiement" Type="Model.Store.PaiementSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Membre">
+        <PropertyRef Name="noMembre" />
+      </Principal>
+      <Dependent Role="Paiement">
+        <PropertyRef Name="Membre_noMembre" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="GroupePaiement">
+    <End Role="Groupe" Type="Model.Store.GroupeSet" Multiplicity="1" />
+    <End Role="Paiement" Type="Model.Store.PaiementSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Groupe">
+        <PropertyRef Name="noGroupe" />
+      </Principal>
+      <Dependent Role="Paiement">
+        <PropertyRef Name="Groupe_noGroupe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CatégorieCours">
+    <End Role="Catégorie" Type="Model.Store.CatégorieSet" Multiplicity="1" />
+    <End Role="Cours" Type="Model.Store.CoursSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Catégorie">
+        <PropertyRef Name="noCatégorie" />
+      </Principal>
+      <Dependent Role="Cours">
+        <PropertyRef Name="Catégorie_noCatégorie" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SessionCours">
+    <End Role="Session" Type="Model.Store.SessionSet" Multiplicity="1" />
+    <End Role="Cours" Type="Model.Store.CoursSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Session">
+        <PropertyRef Name="noSession" />
+      </Principal>
+      <Dependent Role="Cours">
+        <PropertyRef Name="Session_noSession" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ListeDAttenteMembre">
+    <End Role="ListeDAttente" Type="Model.Store.ListeDAttenteSet" Multiplicity="*" />
+    <End Role="Membre" Type="Model.Store.MembreSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Membre">
+        <PropertyRef Name="noMembre" />
+      </Principal>
+      <Dependent Role="ListeDAttente">
+        <PropertyRef Name="Membre_noMembre" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ListeDAttenteGroupe">
+    <End Role="ListeDAttente" Type="Model.Store.ListeDAttenteSet" Multiplicity="*" />
+    <End Role="Groupe" Type="Model.Store.GroupeSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Groupe">
+        <PropertyRef Name="noGroupe" />
+      </Principal>
+      <Dependent Role="ListeDAttente">
+        <PropertyRef Name="Groupe_noGroupe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="GroupeDAgeCours">
+    <End Role="GroupeDAge" Type="Model.Store.GroupeDAgeSet" Multiplicity="1" />
+    <End Role="Cours" Type="Model.Store.CoursSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GroupeDAge">
+        <PropertyRef Name="noGroupeDAge" />
+      </Principal>
+      <Dependent Role="Cours">
+        <PropertyRef Name="GroupeDAge_noGroupeDAge" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JourHoraire">
+    <End Role="Jour" Type="Model.Store.JourSet" Multiplicity="1" />
+    <End Role="Horaire" Type="Model.Store.HoraireSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Jour">
+        <PropertyRef Name="noJour" />
+      </Principal>
+      <Dependent Role="Horaire">
+        <PropertyRef Name="Jour_noJour" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AnimateurGroupe">
+    <End Role="Animateur" Type="Model.Store.AnimateurSet" Multiplicity="1" />
+    <End Role="Groupe" Type="Model.Store.GroupeSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Animateur">
+        <PropertyRef Name="noAnimateur" />
+      </Principal>
+      <Dependent Role="Groupe">
+        <PropertyRef Name="Animateur_noAnimateur" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="HoraireGroupe">
+    <End Role="Horaire" Type="Model.Store.HoraireSet" Multiplicity="*" />
+    <End Role="Groupe" Type="Model.Store.GroupeSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Groupe">
+        <PropertyRef Name="noGroupe" />
+      </Principal>
+      <Dependent Role="Horaire">
+        <PropertyRef Name="Groupe_noGroupe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AnimateurProvince">
+    <End Role="Animateur" Type="Model.Store.AnimateurSet" Multiplicity="*" />
+    <End Role="Province" Type="Model.Store.ProvinceSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Province">
+        <PropertyRef Name="noProvince" />
+      </Principal>
+      <Dependent Role="Animateur">
+        <PropertyRef Name="Province_noProvince" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AnimateurSpécialitéAnimateur">
+    <End Role="Animateur" Type="Model.Store.AnimateurSet" Multiplicity="1" />
+    <End Role="SpécialitéAnimateur" Type="Model.Store.SpécialitéAnimateurSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Animateur">
+        <PropertyRef Name="noAnimateur" />
+      </Principal>
+      <Dependent Role="SpécialitéAnimateur">
+        <PropertyRef Name="Animateur_noAnimateur" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SpécialitéSpécialitéAnimateur">
+    <End Role="Spécialité" Type="Model.Store.SpécialitéSet" Multiplicity="1" />
+    <End Role="SpécialitéAnimateur" Type="Model.Store.SpécialitéAnimateurSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Spécialité">
+        <PropertyRef Name="noSpécialité" />
+      </Principal>
+      <Dependent Role="SpécialitéAnimateur">
+        <PropertyRef Name="Spécialité_noSpécialité" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="GroupeCours">
+    <End Role="Groupe" Type="Model.Store.GroupeSet" Multiplicity="*" />
+    <End Role="Cours" Type="Model.Store.CoursSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Cours">
+        <PropertyRef Name="noCours" />
+      </Principal>
+      <Dependent Role="Groupe">
+        <PropertyRef Name="Cours_noCours" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CoursCours">
+    <End Role="Cours" Type="Model.Store.CoursSet" Multiplicity="*" />
+    <End Role="Cours1" Type="Model.Store.CoursSet" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Cours1">
+        <PropertyRef Name="noCours" />
+      </Principal>
+      <Dependent Role="Cours">
+        <PropertyRef Name="Prerequis_noCours" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
@@ -531,6 +539,10 @@
             <End Role="Groupe" EntitySet="GroupeSet" />
             <End Role="Cours" EntitySet="CoursSet" />
           </AssociationSet>
+          <AssociationSet Name="CoursCours" Association="Model.CoursCours">
+            <End Role="Cours" EntitySet="CoursSet" />
+            <End Role="Cours1" EntitySet="CoursSet" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Province">
           <Key>
@@ -574,18 +586,14 @@
         </EntityType>
         <EntityType Name="Paiement" >
           <Key>
-            <PropertyRef Name="noCours" />
-            <PropertyRef Name="noGroupe" />
-            <PropertyRef Name="noMembre" />
+            <PropertyRef Name="noPaiement" />
           </Key>
           <Property Type="String" Name="ModePaiement" Nullable="false" MaxLength="15" />
           <Property Type="Double" Name="Prix" Nullable="false" />
           <NavigationProperty Name="Membre" Relationship="Model.MembrePaiement" FromRole="Paiement" ToRole="Membre" />
           <NavigationProperty Name="Groupe" Relationship="Model.GroupePaiement" FromRole="Paiement" ToRole="Groupe" />
-          <Property Type="Int32" Name="noCours" Nullable="false" />
-          <Property Type="Int32" Name="noGroupe" Nullable="false" />
-          <Property Type="Int32" Name="noMembre" Nullable="false" />
           <Property Type="String" Name="noPaypal" Nullable="false" MaxLength="30" />
+          <Property Type="Int32" Name="noPaiement" Nullable="false" />
         </EntityType>
         <EntityType Name="Catégorie">
           <Key>
@@ -606,9 +614,10 @@
           <NavigationProperty Name="Catégorie" Relationship="Model.CatégorieCours" FromRole="Cours" ToRole="Catégorie" />
           <NavigationProperty Name="Session" Relationship="Model.SessionCours" FromRole="Cours" ToRole="Session" />
           <NavigationProperty Name="GroupeDAge" Relationship="Model.GroupeDAgeCours" FromRole="Cours" ToRole="GroupeDAge" />
-          <Property Type="Int32" Name="noCoursRequis" Nullable="false" />
           <NavigationProperty Name="Groupe" Relationship="Model.GroupeCours" FromRole="Cours" ToRole="Groupe" />
-        </EntityType>
+          <NavigationProperty Name="Prerequis" Relationship="Model.CoursCours" FromRole="Cours" ToRole="Cours1" />
+          <NavigationProperty Name="Cours_2" Relationship="Model.CoursCours" FromRole="Cours" ToRole="Cours1" />
+          </EntityType>
         <EntityType Name="Groupe">
           <Key>
             <PropertyRef Name="noGroupe" />
@@ -627,16 +636,12 @@
         </EntityType>
         <EntityType Name="ListeDAttente" >
           <Key>
-            <PropertyRef Name="noCours" />
-            <PropertyRef Name="noGroupe" />
-            <PropertyRef Name="noMembre" />
+            <PropertyRef Name="noListeDAttente" />
           </Key>
           <Property Type="DateTime" Name="DateAjout" Nullable="false" />
           <NavigationProperty Name="Membre" Relationship="Model.ListeDAttenteMembre" FromRole="ListeDAttente" ToRole="Membre" />
           <NavigationProperty Name="Groupe" Relationship="Model.ListeDAttenteGroupe" FromRole="ListeDAttente" ToRole="Groupe" />
-          <Property Type="Int32" Name="noCours" Nullable="false" />
-          <Property Type="Int32" Name="noGroupe" Nullable="false" />
-          <Property Type="Int32" Name="noMembre" Nullable="false" />
+          <Property Type="Int32" Name="noListeDAttente" Nullable="false" />
         </EntityType>
         <EntityType Name="Session">
           <Key>
@@ -779,6 +784,10 @@
           <End Type="Model.Groupe" Role="Groupe" Multiplicity="*" />
           <End Type="Model.Cours" Role="Cours" Multiplicity="1" />
         </Association>
+        <Association Name="CoursCours">
+          <End Type="Model.Cours" Role="Cours" Multiplicity="*" />
+          <End Type="Model.Cours" Role="Cours1" Multiplicity="0..1" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -824,9 +833,7 @@
     <EntitySetMapping Name="PaiementSet">
       <EntityTypeMapping TypeName="IsTypeOf(Model.Paiement)">
         <MappingFragment StoreEntitySet="PaiementSet">
-          <ScalarProperty Name="noCours" ColumnName="noCours" />
-          <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
-          <ScalarProperty Name="noMembre" ColumnName="noMembre" />
+          <ScalarProperty Name="noPaiement" ColumnName="noPaiement" />
           <ScalarProperty Name="ModePaiement" ColumnName="ModePaiement" />
           <ScalarProperty Name="Prix" ColumnName="Prix" />
           <ScalarProperty Name="noPaypal" ColumnName="noPaypal" />
@@ -848,7 +855,6 @@
           <ScalarProperty Name="Nom" ColumnName="Nom" />
           <ScalarProperty Name="Prix" ColumnName="Prix" />
           <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="noCoursRequis" ColumnName="noCoursRequis" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -867,9 +873,7 @@
     <EntitySetMapping Name="ListeDAttenteSet">
       <EntityTypeMapping TypeName="IsTypeOf(Model.ListeDAttente)">
         <MappingFragment StoreEntitySet="ListeDAttenteSet">
-          <ScalarProperty Name="noCours" ColumnName="noCours" />
-          <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
-          <ScalarProperty Name="noMembre" ColumnName="noMembre" />
+          <ScalarProperty Name="noListeDAttente" ColumnName="noListeDAttente" />
           <ScalarProperty Name="DateAjout" ColumnName="DateAjout" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -967,9 +971,7 @@
         <ScalarProperty Name="noMembre" ColumnName="Membre_noMembre" />
       </EndProperty>
       <EndProperty Name="Paiement">
-        <ScalarProperty Name="noCours" ColumnName="noCours" />
-        <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
-        <ScalarProperty Name="noMembre" ColumnName="noMembre" />
+        <ScalarProperty Name="noPaiement" ColumnName="noPaiement" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="GroupePaiement" TypeName="Model.GroupePaiement" StoreEntitySet="PaiementSet">
@@ -977,9 +979,7 @@
         <ScalarProperty Name="noGroupe" ColumnName="Groupe_noGroupe" />
       </EndProperty>
       <EndProperty Name="Paiement">
-        <ScalarProperty Name="noCours" ColumnName="noCours" />
-        <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
-        <ScalarProperty Name="noMembre" ColumnName="noMembre" />
+        <ScalarProperty Name="noPaiement" ColumnName="noPaiement" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="CatégorieCours" TypeName="Model.CatégorieCours" StoreEntitySet="CoursSet">
@@ -1003,9 +1003,7 @@
         <ScalarProperty Name="noMembre" ColumnName="Membre_noMembre" />
       </EndProperty>
       <EndProperty Name="ListeDAttente">
-        <ScalarProperty Name="noCours" ColumnName="noCours" />
-        <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
-        <ScalarProperty Name="noMembre" ColumnName="noMembre" />
+        <ScalarProperty Name="noListeDAttente" ColumnName="noListeDAttente" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="ListeDAttenteGroupe" TypeName="Model.ListeDAttenteGroupe" StoreEntitySet="ListeDAttenteSet">
@@ -1013,9 +1011,7 @@
         <ScalarProperty Name="noGroupe" ColumnName="Groupe_noGroupe" />
       </EndProperty>
       <EndProperty Name="ListeDAttente">
-        <ScalarProperty Name="noCours" ColumnName="noCours" />
-        <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
-        <ScalarProperty Name="noMembre" ColumnName="noMembre" />
+        <ScalarProperty Name="noListeDAttente" ColumnName="noListeDAttente" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="GroupeDAgeCours" TypeName="Model.GroupeDAgeCours" StoreEntitySet="CoursSet">
@@ -1086,6 +1082,15 @@
         <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
       </EndProperty>
     </AssociationSetMapping>
+    <AssociationSetMapping Name="CoursCours" TypeName="Model.CoursCours" StoreEntitySet="CoursSet">
+      <EndProperty Name="Cours1">
+        <ScalarProperty Name="noCours" ColumnName="Prerequis_noCours" />
+      </EndProperty>
+      <EndProperty Name="Cours">
+        <ScalarProperty Name="noCours" ColumnName="noCours" />
+      </EndProperty>
+      <Condition ColumnName="Prerequis_noCours" IsNull="false" />
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
@@ -1107,62 +1112,62 @@
     <edmx:Diagrams>
       <Diagram Name="Model" >
         <EntityTypeShape EntityType="Model.Province" Width="1.5" PointX="0.875" PointY="0.5" Height="1.7879850260416665" />
-        <EntityTypeShape EntityType="Model.Compte" Width="1.5" PointX="3" PointY="0.5" Height="3.5186979166666656" />
+        <EntityTypeShape EntityType="Model.Compte" Width="1.5" PointX="2.875" PointY="0.5" Height="3.7109993489583326" />
         <EntityTypeShape EntityType="Model.Membre" Width="1.5" PointX="5" PointY="0.5" Height="1.9802864583333331" />
-        <EntityTypeShape EntityType="Model.Paiement" Width="1.5" PointX="6.875" PointY="0.5" Height="2.5571907552083331" />
+        <EntityTypeShape EntityType="Model.Paiement" Width="1.5" PointX="7.125" PointY="0.5" Height="2.172587890625" />
         <EntityTypeShape EntityType="Model.Catégorie" Width="1.5" PointX="1.125" PointY="4.125" Height="1.5956835937499996" />
-        <EntityTypeShape EntityType="Model.Cours" Width="1.5" PointX="3.25" PointY="4.25" Height="2.7494921874999996" />
+        <EntityTypeShape EntityType="Model.Cours" Width="1.5" PointX="3.25" PointY="4.25" Height="2.5571907552083335" />
         <EntityTypeShape EntityType="Model.Groupe" Width="1.5" PointX="7" PointY="3.75" Height="3.1340950520833335" />
-        <EntityTypeShape EntityType="Model.ListeDAttente" Width="1.5" PointX="5" PointY="3.75" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="Model.ListeDAttente" Width="1.5" PointX="5" PointY="3.75" Height="1.7879850260416657" />
         <EntityTypeShape EntityType="Model.Session" Width="1.5" PointX="1.125" PointY="6" Height="1.5956835937499996" />
         <EntityTypeShape EntityType="Model.GroupeDAge" Width="1.5" PointX="1.125" PointY="7.75" Height="1.5956835937499996" />
         <EntityTypeShape EntityType="Model.Jour" Width="1.5" PointX="5.125" PointY="10" Height="1.5956835937499996" />
         <EntityTypeShape EntityType="Model.Horaire" Width="1.5" PointX="5.125" PointY="7" Height="2.1725878906249996" />
-        <EntityTypeShape EntityType="Model.Animateur" Width="1.5" PointX="7" PointY="7.125" Height="2.9417936197916656" />
+        <EntityTypeShape EntityType="Model.Animateur" Width="1.5" PointX="7" PointY="7.5" Height="3.1340950520833335" />
         <EntityTypeShape EntityType="Model.Forfait" Width="1.5" PointX="8.75" PointY="0.5" Height="1.4033821614583331" />
         <AssociationConnector Association="Model.CompteProvince">
-          <ConnectorPoint PointX="3" PointY="1.3939925130208333" />
+          <ConnectorPoint PointX="2.875" PointY="1.3939925130208333" />
           <ConnectorPoint PointX="2.375" PointY="1.3939925130208333" />
         </AssociationConnector>
         <AssociationConnector Association="Model.CompteMembre">
-          <ConnectorPoint PointX="4.5" PointY="1.7785953776041663" />
+          <ConnectorPoint PointX="4.375" PointY="1.7785953776041663" />
           <ConnectorPoint PointX="5" PointY="1.7785953776041663" />
         </AssociationConnector>
         <AssociationConnector Association="Model.MembrePaiement">
-          <ConnectorPoint PointX="6.5" PointY="1.7785953776041663" />
-          <ConnectorPoint PointX="6.875" PointY="1.7785953776041663" />
+          <ConnectorPoint PointX="6.5" PointY="1.5862939453124998" />
+          <ConnectorPoint PointX="7.125" PointY="1.5862939453124998" />
         </AssociationConnector>
         <AssociationConnector Association="Model.GroupePaiement">
-          <ConnectorPoint PointX="7.6875" PointY="3.75" />
-          <ConnectorPoint PointX="7.6875" PointY="3.0571907552083331" />
+          <ConnectorPoint PointX="7.8125" PointY="3.75" />
+          <ConnectorPoint PointX="7.8125" PointY="2.864889322916667" />
         </AssociationConnector>
         <AssociationConnector Association="Model.CatégorieCours">
           <ConnectorPoint PointX="2.625" PointY="4.985341796875" />
           <ConnectorPoint PointX="3.25" PointY="4.985341796875" />
         </AssociationConnector>
         <AssociationConnector Association="Model.SessionCours">
-          <ConnectorPoint PointX="2.625" PointY="6.49974609375" />
-          <ConnectorPoint PointX="3.25" PointY="6.49974609375" />
+          <ConnectorPoint PointX="2.625" PointY="6.4035953776041667" />
+          <ConnectorPoint PointX="3.25" PointY="6.4035953776041667" />
         </AssociationConnector>
         <AssociationConnector Association="Model.ListeDAttenteMembre">
           <ConnectorPoint PointX="5.75" PointY="3.75" />
           <ConnectorPoint PointX="5.75" PointY="3.0571907552083331" />
         </AssociationConnector>
         <AssociationConnector Association="Model.ListeDAttenteGroupe">
-          <ConnectorPoint PointX="6.5" PointY="4.6290222460937507" />
-          <ConnectorPoint PointX="7" PointY="4.6290222460937507" />
+          <ConnectorPoint PointX="6.5" PointY="4.6439925130208328" />
+          <ConnectorPoint PointX="7" PointY="4.6439925130208328" />
         </AssociationConnector>
         <AssociationConnector Association="Model.GroupeDAgeCours">
           <ConnectorPoint PointX="2.625" PointY="8.547841796875" />
           <ConnectorPoint PointX="4" PointY="8.547841796875" />
-          <ConnectorPoint PointX="4" PointY="6.9994921875" />
+          <ConnectorPoint PointX="4" PointY="6.8071907552083335" />
         </AssociationConnector>
         <AssociationConnector Association="Model.JourHoraire">
           <ConnectorPoint PointX="5.875" PointY="10" />
           <ConnectorPoint PointX="5.875" PointY="9.172587890625" />
         </AssociationConnector>
         <AssociationConnector Association="Model.AnimateurGroupe">
-          <ConnectorPoint PointX="7.75" PointY="7.125" />
+          <ConnectorPoint PointX="7.75" PointY="7.5" />
           <ConnectorPoint PointX="7.75" PointY="6.8840950520833335" />
         </AssociationConnector>
         <AssociationConnector Association="Model.HoraireGroupe">
@@ -1187,8 +1192,14 @@
           <ConnectorPoint PointX="9.875" PointY="8" />
         </AssociationConnector>
         <AssociationConnector Association="Model.GroupeCours">
-          <ConnectorPoint PointX="7" PointY="6.4033389713541657" />
-          <ConnectorPoint PointX="4.75" PointY="6.4033389713541657" />
+          <ConnectorPoint PointX="7" PointY="6.3071882552083318" />
+          <ConnectorPoint PointX="4.75" PointY="6.3071882552083318" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.CoursCours">
+          <ConnectorPoint PointX="3.7819230769230767" PointY="7.1917936197916665" />
+          <ConnectorPoint PointX="3.7819230769230767" PointY="7.4417936197916674" />
+          <ConnectorPoint PointX="4.2284615384615378" PointY="7.4417936197916674" />
+          <ConnectorPoint PointX="4.2284615384615378" PointY="7.1917936197916665" />
         </AssociationConnector>
       </Diagram>
     </edmx:Diagrams>

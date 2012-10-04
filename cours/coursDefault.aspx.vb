@@ -11,4 +11,12 @@
             mViewCours.ActiveViewIndex = 1
         End If
     End Sub
+
+    Protected Sub lViewListeCours_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles lViewListeCours.ItemCommand
+        If e.CommandName = "Selection" Then
+            mViewCours.ActiveViewIndex = 2
+            hFieldnoCours.Value = e.CommandArgument
+            lviewCours.DataBind()
+        End If
+    End Sub
 End Class

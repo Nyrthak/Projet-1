@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="VB" AutoEventWireup="false" MasterPageFile="~/masterPage.master" CodeFile="GérerLesCours.aspx.vb" Inherits="Admin_GérerLesCours" %>
-
 <asp:Content ID="ContentCours" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
     <asp:MultiView ID="mViewCours" runat="server" ActiveViewIndex="0">
         <asp:View ID="viewGererCours" runat="server">
@@ -12,9 +11,9 @@
                 <LayoutTemplate>
                     <table id="tableauListeCours">
                         <tr>
-                            <td><asp:Label ID="lblTitreNomCours" runat="server" Text="Nom"></asp:Label></td>
-                            <td><asp:Label ID="lblTitreNbGroupes" runat="server" Text="Nb. de groupes"></asp:Label></td>
-                            <td><asp:Label ID="lblTitreCategorie" runat="server" Text="Catégorie"></asp:Label></td>
+                            <td><asp:Label ID="lblTitreNomCours" runat="server" SkinID="lbTitreInfoMembre" Text="Nom"></asp:Label></td>
+                            <td><asp:Label ID="lblTitreNbGroupes" runat="server" SkinID="lbTitreInfoMembre" Text="Nb. de groupes"></asp:Label></td>
+                            <td><asp:Label ID="lblTitreCategorie" runat="server" SkinID="lbTitreInfoMembre" Text="Catégorie"></asp:Label></td>
                         </tr>
                         <asp:PlaceHolder id="GroupPlaceHolder" runat="server" />
                     </table>
@@ -107,8 +106,8 @@
                     </tr>
                     <tr>
                         <td><asp:DropDownList ID="dDListPrerequis" runat="server" SkinID="dDListFormulaire" AppendDataBoundItems="true" 
-                                DataSourceID="EntityDataSourcePrerequis" DataTextField="Nom" DataValueField="noCours" SelectedValue='<%#Bind("noCoursRequis")%>'>
-                              <asp:ListItem Text="Aucun" Value="0"></asp:ListItem>
+                                DataSourceID="EntityDataSourcePrerequis" DataTextField="Nom" DataValueField="noCours" SelectedValue='<%# Bind("Prerequis.noCours") %>' >
+                              <asp:ListItem Text="Aucun" Value=""></asp:ListItem>
                             </asp:DropDownList></td>
                         <td colspan="2"><asp:TextBox ID="txtDescription" runat="server" SkinID="TextBoxDescription" TextMode="MultiLine" Text='<%#Bind("Description")%>'></asp:TextBox></td>
                     </tr>
@@ -134,16 +133,16 @@
                 EnableFlattening="False" EntitySetName="CatégorieSet">
             </asp:EntityDataSource>
             <asp:EntityDataSource ID="EntityDataSourcePrerequis" runat="server" 
-                ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
+                ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" EnableFlattening="false" 
                 EntitySetName="CoursSet" Select="it.[noCours], it.[Nom]" Where="it.[noCours] <> @noCours">
                 <WhereParameters>
                     <asp:ControlParameter ControlID="hFieldNoCours" Name="noCours" Type="Int32" />
                 </WhereParameters>
             </asp:EntityDataSource>
             <asp:EntityDataSource ID="EntityDataSourceCours" runat="server" 
-                ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-                EnableDelete="True" EnableUpdate="True" EntitySetName="CoursSet"
-                Where="it.noCours = @noCours" Include="Catégorie, Session, GroupeDAge">
+                ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer"
+                EnableUpdate="True" EntitySetName="CoursSet" EnableFlattening="false"
+                Where="it.[noCours] = @noCours" Include="[Catégorie], Session, GroupeDAge, Prerequis">
                 <WhereParameters>
                     <asp:ControlParameter Name="noCours" Type="Int32" ControlID="hFieldNoCours" />
                 </WhereParameters>
