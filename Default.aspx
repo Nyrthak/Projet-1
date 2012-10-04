@@ -1,5 +1,8 @@
 ﻿<%@ Page Title="" Language="VB" MasterPageFile="~/masterPage.master" AutoEventWireup="false" CodeFile="Default.aspx.vb" Inherits="_Default" Theme="Default" %>
 
+<asp:Content ID="contentMenu" ContentPlaceHolderID="contentMenuClient" runat="server"></asp:Content>
+<asp:Content ID="contentAdmin" ContentPlaceHolderID="contentMenuAdmin" runat="server"></asp:Content>
+
 <asp:Content ID="contentAccueil" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
 <h1><asp:Label SkinID="lbTitrePage" ID="lbAccueil" runat="server" Text="Accueil" ></asp:Label></h1>
     <div id="texteAccueil">

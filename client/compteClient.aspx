@@ -1,8 +1,11 @@
-﻿<%@ Page Language="VB" MasterPageFile="~/masterPageClient.master" AutoEventWireup="false" CodeFile="compteClient.aspx.vb" Inherits="monCompteClient" %>
+﻿<%@ Page Language="VB" MasterPageFile="~/masterPage.master" AutoEventWireup="false" CodeFile="compteClient.aspx.vb" Inherits="monCompteClient" %>
 
 <%@ Register TagPrefix="asp" Namespace="AjaxControlToolkit" Assembly="AjaxControlToolkit"%>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
+<asp:Content ID="contentAdmin" ContentPlaceHolderID="contentMenuAdmin" runat="server"></asp:Content>
+
+<asp:Content ID="contentClient" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
+    <div id="contentRight">
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="Server" />   
     <asp:MultiView ID="multiViewMembre" runat="server" ActiveViewIndex="0">
     <asp:View ID="viewMembres" runat="server">
@@ -23,9 +26,7 @@
                     <asp:PlaceHolder runat="server" ID="GroupPlaceHolder"></asp:PlaceHolder>
                 </table>
             </LayoutTemplate>
-            <GroupTemplate>
-                <asp:PlaceHolder runat="server" ID="ItemPlaceHolder"></asp:PlaceHolder>
-            </GroupTemplate>
+            <GroupTemplate><asp:PlaceHolder runat="server" ID="ItemPlaceHolder"></asp:PlaceHolder></GroupTemplate>
             <ItemTemplate>
                 <tr>
                     <td id="itemTemplate">
@@ -52,9 +53,7 @@
                     <asp:PlaceHolder runat="server" ID="GroupPlaceHolder"></asp:PlaceHolder>
                 </table>
             </LayoutTemplate>
-            <GroupTemplate>
-                <asp:PlaceHolder runat="server" ID="ItemPlaceHolder"></asp:PlaceHolder>
-            </GroupTemplate>
+            <GroupTemplate><asp:PlaceHolder runat="server" ID="ItemPlaceHolder"></asp:PlaceHolder></GroupTemplate>
             <ItemTemplate></ItemTemplate>
             <EditItemTemplate>
                 <tr>
@@ -105,7 +104,7 @@
 
     </asp:View>
     </asp:MultiView>
-
+</div>
 <asp:EntityDataSource ID="entiDataSourceCompte" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
         EntitySetName="CompteSet">
@@ -126,6 +125,7 @@
             <asp:SessionParameter Name="noCompte" Type="Int32" SessionField="noCompte" />
         </WhereParameters>
     </asp:EntityDataSource>
+
 </asp:Content>
 
 

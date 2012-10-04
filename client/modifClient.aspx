@@ -1,4 +1,6 @@
-﻿<%@ Page Language="VB" AutoEventWireup="false" MasterPageFile="~/masterPageClient.master" CodeFile="modifClient.aspx.vb" Inherits="client_modifClient" %>
+﻿<%@ Page Language="VB" AutoEventWireup="false" MasterPageFile="~/masterPage.master" CodeFile="modifClient.aspx.vb" Inherits="client_modifClient" %>
+
+<asp:Content ID="contentAdmin" ContentPlaceHolderID="contentMenuAdmin" runat="server"></asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
 
