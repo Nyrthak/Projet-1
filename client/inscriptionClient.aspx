@@ -2,27 +2,27 @@
 
 <asp:Content ID="contentAdmin" ContentPlaceHolderID="contentMenuAdmin" runat="server"></asp:Content>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
-        <asp:Repeater ID="repeater" DataSourceID="entityDataSourceMembre" runat="server">
+<asp:Content ID="contentMenu" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
+        <asp:Repeater ID="repeater" DataSourceID="entityDataSourcePaiement" runat="server">
             <ItemTemplate>
-                <asp:Label ID="lbPaiement" runat="server" Text=""></asp:Label>
+                <asp:Label ID="lbPaiement" runat="server" Text='<%#Eval("noPaiement") %>'></asp:Label>
             </ItemTemplate>
         </asp:Repeater>
 
 
-    <asp:EntityDataSource ID="entityDataSourceMembre" runat="server"
+  <%--  <asp:EntityDataSource ID="entityDataSourceMembre" runat="server"
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-        EntitySetName="MembreSet" Where="it.Compte.noCompte = @noCompte" Include="Compte, Paiement" >
+        EntitySetName="MembreSet" Where="it.noCompte = @noCompte" Include="Compte, Paiement" >
         <WhereParameters>
             <asp:SessionParameter Name="noCompte" Type="Int32" SessionField="noCompte" />
         </WhereParameters>
-    </asp:EntityDataSource>
+    </asp:EntityDataSource>--%>
     
     <asp:EntityDataSource ID="entityDataSourcePaiement" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-        EntitySetName="PaiementSet" Where="noMembre = ">
-        <WhereParameters>
-            
-        </WhereParameters>
+        EntitySetName="PaiementSet" Where="" Include="Membre" >
+      <%--  <WhereParameters>
+            <asp:Parameter name="listMembre" Type="String" />
+        </WhereParameters>--%>
     </asp:EntityDataSource>
 </asp:Content>

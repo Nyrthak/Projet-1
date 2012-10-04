@@ -55,7 +55,7 @@
                         ErrorMessage="Votre date de naissance doit être spécifié." 
                         ControlToValidate="tbDateNaissance" Display="Dynamic">*</asp:RequiredFieldValidator>
                         <asp:RegularExpressionValidator ID="reguExpressionDateNaissance" runat="server" ErrorMessage="Votre date de naissance n'est pas du bon format (jj/mm/yyyy)" ControlToValidate="tbDateNaissance" 
-                        ValidationExpression="^([0-9]|[0][123456789]|[1][012])[/]([012][0-9]|[3][01])[/][0-9][0-9][0-9][0-9]$" forecolor="Red" Display="Dynamic">*</asp:RegularExpressionValidator>        
+                        ValidationExpression="^([012][0-9]|[3][01])[/]([0-9]|[0][123456789]|[1][012])[/][0-9][0-9][0-9][0-9]$" forecolor="Red" Display="Dynamic">*</asp:RegularExpressionValidator>        
                     </td>
             </tr>
             <tr>
@@ -76,6 +76,7 @@
                         ID="requisValidationConfirmationMotDePasse" runat="server" 
                         ErrorMessage="Votre confirmation de mot de passe doit être spécifié." 
                         ControlToValidate="tbConfirmationMotDePasse" Display="Dynamic">*</asp:RequiredFieldValidator>
+                    <asp:CompareValidator ID="compareConfirmMotPasse" runat="server" ErrorMessage="Votre mot de passe de confirmation doit être le même que votre mot de passe." Display="Dynamic" ControlToCompare="tbMotDePasse" ControlToValidate="tbConfirmationMotDePasse">*</asp:CompareValidator>
                         </td>
             </tr>
             <tr>

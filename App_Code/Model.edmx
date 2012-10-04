@@ -1111,7 +1111,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram Name="Model" >
-        <EntityTypeShape EntityType="Model.Province" Width="1.5" PointX="0.875" PointY="0.5" Height="1.7879850260416665" />
+        <EntityTypeShape EntityType="Model.Province" Width="1.5" PointX="0.875" PointY="0.625" Height="1.7879850260416665" />
         <EntityTypeShape EntityType="Model.Compte" Width="1.5" PointX="2.875" PointY="0.5" Height="3.7109993489583326" />
         <EntityTypeShape EntityType="Model.Membre" Width="1.5" PointX="5" PointY="0.5" Height="1.9802864583333331" />
         <EntityTypeShape EntityType="Model.Paiement" Width="1.5" PointX="7.125" PointY="0.5" Height="2.172587890625" />
@@ -1126,8 +1126,8 @@
         <EntityTypeShape EntityType="Model.Animateur" Width="1.5" PointX="7" PointY="7.5" Height="3.1340950520833335" />
         <EntityTypeShape EntityType="Model.Forfait" Width="1.5" PointX="8.75" PointY="0.5" Height="1.4033821614583331" />
         <AssociationConnector Association="Model.CompteProvince">
-          <ConnectorPoint PointX="2.875" PointY="1.3939925130208333" />
-          <ConnectorPoint PointX="2.375" PointY="1.3939925130208333" />
+          <ConnectorPoint PointX="2.875" PointY="1.5189925130208333" />
+          <ConnectorPoint PointX="2.375" PointY="1.5189925130208333" />
         </AssociationConnector>
         <AssociationConnector Association="Model.CompteMembre">
           <ConnectorPoint PointX="4.375" PointY="1.7785953776041663" />
@@ -1179,7 +1179,7 @@
           <ConnectorPoint PointX="5.958333333333333" PointY="9.672841796875" />
           <ConnectorPoint PointX="5.791666666666667" PointY="9.672841796875" />
           <ConnectorPoint PointX="0.96875" PointY="9.672841796875" />
-          <ConnectorPoint PointX="0.96875" PointY="2.2879850260416665" />
+          <ConnectorPoint PointX="0.96875" PointY="2.4129850260416665" />
         </AssociationConnector>
         <EntityTypeShape EntityType="Model.Spécialité" Width="1.5" PointX="9.125" PointY="5.625" Height="1.5956835937499996" />
         <EntityTypeShape EntityType="Model.SpécialitéAnimateur" Width="1.5" PointX="9.125" PointY="8" Height="1.7879850260416674" />
