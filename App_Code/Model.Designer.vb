@@ -16,7 +16,7 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("1bed7e2c-1e3a-4e6e-aade-f489ee36980c")>
+<Assembly: EdmSchemaAttribute("a8d80754-07bd-4f14-9dbe-37876f3a29cc")>
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("Model", "CompteProvince", "Compte", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Compte), "Province", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Province))>
 <Assembly: EdmRelationshipAttribute("Model", "CompteMembre", "Compte", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Compte), "Membre", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Membre))>
@@ -1641,18 +1641,20 @@ Namespace Model
         ''' </summary>
         ''' <param name="noGroupe">Initial value of the noGroupe property.</param>
         ''' <param name="local">Initial value of the Local property.</param>
-        ''' <param name="dateDébut">Initial value of the DateDébut property.</param>
+        ''' <param name="dateDebut">Initial value of the DateDebut property.</param>
         ''' <param name="dateFin">Initial value of the DateFin property.</param>
         ''' <param name="dateLimiteInscription">Initial value of the DateLimiteInscription property.</param>
-        ''' <param name="âge">Initial value of the Âge property.</param>
-        Public Shared Function CreateGroupe(noGroupe As Global.System.Int32, local As Global.System.String, dateDébut As Global.System.DateTime, dateFin As Global.System.DateTime, dateLimiteInscription As Global.System.DateTime, âge As Global.System.Int32) As Groupe
+        ''' <param name="ageMinimum">Initial value of the AgeMinimum property.</param>
+        ''' <param name="agemaximum">Initial value of the Agemaximum property.</param>
+        Public Shared Function CreateGroupe(noGroupe As Global.System.Int32, local As Global.System.String, dateDebut As Global.System.DateTime, dateFin As Global.System.DateTime, dateLimiteInscription As Global.System.DateTime, ageMinimum As Global.System.Int32, agemaximum As Global.System.String) As Groupe
             Dim groupe as Groupe = New Groupe
             groupe.noGroupe = noGroupe
             groupe.Local = local
-            groupe.DateDébut = dateDébut
+            groupe.DateDebut = dateDebut
             groupe.DateFin = dateFin
             groupe.DateLimiteInscription = dateLimiteInscription
-            groupe.Âge = âge
+            groupe.AgeMinimum = ageMinimum
+            groupe.Agemaximum = agemaximum
             Return groupe
         End Function
 
@@ -1716,24 +1718,24 @@ Namespace Model
         ''' </summary>
         <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
         <DataMemberAttribute()>
-        Public Property DateDébut() As Global.System.DateTime
+        Public Property DateDebut() As Global.System.DateTime
             Get
-                Return _DateDébut
+                Return _DateDebut
             End Get
             Set
-                OnDateDébutChanging(value)
-                ReportPropertyChanging("DateDébut")
-                _DateDébut = StructuralObject.SetValidValue(value)
-                ReportPropertyChanged("DateDébut")
-                OnDateDébutChanged()
+                OnDateDebutChanging(value)
+                ReportPropertyChanging("DateDebut")
+                _DateDebut = StructuralObject.SetValidValue(value)
+                ReportPropertyChanged("DateDebut")
+                OnDateDebutChanged()
             End Set
         End Property
     
-        Private _DateDébut As Global.System.DateTime
-        Private Partial Sub OnDateDébutChanging(value As Global.System.DateTime)
+        Private _DateDebut As Global.System.DateTime
+        Private Partial Sub OnDateDebutChanging(value As Global.System.DateTime)
         End Sub
     
-        Private Partial Sub OnDateDébutChanged()
+        Private Partial Sub OnDateDebutChanged()
         End Sub
     
         ''' <summary>
@@ -1791,24 +1793,49 @@ Namespace Model
         ''' </summary>
         <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
         <DataMemberAttribute()>
-        Public Property Âge() As Global.System.Int32
+        Public Property AgeMinimum() As Global.System.Int32
             Get
-                Return _Âge
+                Return _AgeMinimum
             End Get
             Set
-                OnÂgeChanging(value)
-                ReportPropertyChanging("Âge")
-                _Âge = StructuralObject.SetValidValue(value)
-                ReportPropertyChanged("Âge")
-                OnÂgeChanged()
+                OnAgeMinimumChanging(value)
+                ReportPropertyChanging("AgeMinimum")
+                _AgeMinimum = StructuralObject.SetValidValue(value)
+                ReportPropertyChanged("AgeMinimum")
+                OnAgeMinimumChanged()
             End Set
         End Property
     
-        Private _Âge As Global.System.Int32
-        Private Partial Sub OnÂgeChanging(value As Global.System.Int32)
+        Private _AgeMinimum As Global.System.Int32
+        Private Partial Sub OnAgeMinimumChanging(value As Global.System.Int32)
         End Sub
     
-        Private Partial Sub OnÂgeChanged()
+        Private Partial Sub OnAgeMinimumChanged()
+        End Sub
+    
+        ''' <summary>
+        ''' No Metadata Documentation available.
+        ''' </summary>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+        <DataMemberAttribute()>
+        Public Property Agemaximum() As Global.System.String
+            Get
+                Return _Agemaximum
+            End Get
+            Set
+                OnAgemaximumChanging(value)
+                ReportPropertyChanging("Agemaximum")
+                _Agemaximum = StructuralObject.SetValidValue(value, false)
+                ReportPropertyChanged("Agemaximum")
+                OnAgemaximumChanged()
+            End Set
+        End Property
+    
+        Private _Agemaximum As Global.System.String
+        Private Partial Sub OnAgemaximumChanging(value As Global.System.String)
+        End Sub
+    
+        Private Partial Sub OnAgemaximumChanged()
         End Sub
 
         #End Region
@@ -2047,12 +2074,12 @@ Namespace Model
         ''' <summary>
         ''' Create a new Horaire object.
         ''' </summary>
-        ''' <param name="heureDébut">Initial value of the HeureDébut property.</param>
+        ''' <param name="heureDebut">Initial value of the HeureDebut property.</param>
         ''' <param name="heureFin">Initial value of the HeureFin property.</param>
         ''' <param name="noHoraire">Initial value of the noHoraire property.</param>
-        Public Shared Function CreateHoraire(heureDébut As Global.System.DateTime, heureFin As Global.System.DateTime, noHoraire As Global.System.Int32) As Horaire
+        Public Shared Function CreateHoraire(heureDebut As Global.System.DateTime, heureFin As Global.System.DateTime, noHoraire As Global.System.Int32) As Horaire
             Dim horaire as Horaire = New Horaire
-            horaire.HeureDébut = heureDébut
+            horaire.HeureDebut = heureDebut
             horaire.HeureFin = heureFin
             horaire.noHoraire = noHoraire
             Return horaire
@@ -2066,24 +2093,24 @@ Namespace Model
         ''' </summary>
         <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
         <DataMemberAttribute()>
-        Public Property HeureDébut() As Global.System.DateTime
+        Public Property HeureDebut() As Global.System.DateTime
             Get
-                Return _HeureDébut
+                Return _HeureDebut
             End Get
             Set
-                OnHeureDébutChanging(value)
-                ReportPropertyChanging("HeureDébut")
-                _HeureDébut = StructuralObject.SetValidValue(value)
-                ReportPropertyChanged("HeureDébut")
-                OnHeureDébutChanged()
+                OnHeureDebutChanging(value)
+                ReportPropertyChanging("HeureDebut")
+                _HeureDebut = StructuralObject.SetValidValue(value)
+                ReportPropertyChanged("HeureDebut")
+                OnHeureDebutChanged()
             End Set
         End Property
     
-        Private _HeureDébut As Global.System.DateTime
-        Private Partial Sub OnHeureDébutChanging(value As Global.System.DateTime)
+        Private _HeureDebut As Global.System.DateTime
+        Private Partial Sub OnHeureDebutChanging(value As Global.System.DateTime)
         End Sub
     
-        Private Partial Sub OnHeureDébutChanged()
+        Private Partial Sub OnHeureDebutChanged()
         End Sub
     
         ''' <summary>

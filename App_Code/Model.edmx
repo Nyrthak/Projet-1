@@ -167,10 +167,11 @@
     </Key>
     <Property Name="noGroupe" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Local" Type="nvarchar" Nullable="false" MaxLength="10" />
-    <Property Name="DateDébut" Type="datetime" Nullable="false" />
+    <Property Name="DateDebut" Type="datetime" Nullable="false" />
     <Property Name="DateFin" Type="datetime" Nullable="false" />
     <Property Name="DateLimiteInscription" Type="datetime" Nullable="false" />
-    <Property Name="Âge" Type="int" Nullable="false" />
+    <Property Name="AgeMinimum" Type="int" Nullable="false" />
+    <Property Name="Agemaximum" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Animateur_noAnimateur" Type="int" Nullable="false" />
     <Property Name="Cours_noCours" Type="int" Nullable="false" />
   </EntityType>
@@ -208,9 +209,9 @@
     <Key>
       <PropertyRef Name="noHoraire" />
     </Key>
-    <Property Name="HeureDébut" Type="datetime" Nullable="false" />
+    <Property Name="HeureDebut" Type="datetime" Nullable="false" />
     <Property Name="HeureFin" Type="datetime" Nullable="false" />
-    <Property Name="noHoraire" Type="int" Nullable="false" />
+    <Property Name="noHoraire" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Jour_noJour" Type="int" Nullable="false" />
     <Property Name="Groupe_noGroupe" Type="int" Nullable="false" />
   </EntityType>
@@ -649,15 +650,16 @@
           </Key>
           <Property Type="Int32" Name="noGroupe" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Local" Nullable="false" MaxLength="10" />
-          <Property Type="DateTime" Name="DateDébut" Nullable="false" />
+          <Property Type="DateTime" Name="DateDebut" Nullable="false" />
           <Property Type="DateTime" Name="DateFin" Nullable="false" />
           <Property Type="DateTime" Name="DateLimiteInscription" Nullable="false" />
           <NavigationProperty Name="Paiement" Relationship="Model.GroupePaiement" FromRole="Groupe" ToRole="Paiement" />
           <NavigationProperty Name="ListeDAttente" Relationship="Model.ListeDAttenteGroupe" FromRole="Groupe" ToRole="ListeDAttente" />
           <NavigationProperty Name="Animateur" Relationship="Model.AnimateurGroupe" FromRole="Groupe" ToRole="Animateur" />
           <NavigationProperty Name="Horaire" Relationship="Model.HoraireGroupe" FromRole="Groupe" ToRole="Horaire" />
-          <Property Type="Int32" Name="Âge" Nullable="false" />
+          <Property Type="Int32" Name="AgeMinimum" Nullable="false" />
           <NavigationProperty Name="Cours" Relationship="Model.GroupeCours" FromRole="Groupe" ToRole="Cours" />
+          <Property Type="String" Name="Agemaximum" Nullable="false" />
         </EntityType>
         <EntityType Name="ListeDAttente" >
           <Key>
@@ -696,11 +698,11 @@
           <Key>
             <PropertyRef Name="noHoraire" />
           </Key>
-          <Property Type="DateTime" Name="HeureDébut" Nullable="false" />
+          <Property Type="DateTime" Name="HeureDebut" Nullable="false" />
           <Property Type="DateTime" Name="HeureFin" Nullable="false" />
           <NavigationProperty Name="Jour" Relationship="Model.JourHoraire" FromRole="Horaire" ToRole="Jour" />
           <NavigationProperty Name="Groupe" Relationship="Model.HoraireGroupe" FromRole="Horaire" ToRole="Groupe" />
-          <Property Type="Int32" Name="noHoraire" Nullable="false" />
+          <Property Type="Int32" Name="noHoraire" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="Animateur">
           <Key>
@@ -896,10 +898,11 @@
         <MappingFragment StoreEntitySet="GroupeSet">
           <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
           <ScalarProperty Name="Local" ColumnName="Local" />
-          <ScalarProperty Name="DateDébut" ColumnName="DateDébut" />
+          <ScalarProperty Name="DateDebut" ColumnName="DateDebut" />
           <ScalarProperty Name="DateFin" ColumnName="DateFin" />
           <ScalarProperty Name="DateLimiteInscription" ColumnName="DateLimiteInscription" />
-          <ScalarProperty Name="Âge" ColumnName="Âge" />
+          <ScalarProperty Name="AgeMinimum" ColumnName="AgeMinimum" />
+          <ScalarProperty Name="Agemaximum" ColumnName="Agemaximum" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -939,7 +942,7 @@
       <EntityTypeMapping TypeName="IsTypeOf(Model.Horaire)">
         <MappingFragment StoreEntitySet="HoraireSet">
           <ScalarProperty Name="noHoraire" ColumnName="noHoraire" />
-          <ScalarProperty Name="HeureDébut" ColumnName="HeureDébut" />
+          <ScalarProperty Name="HeureDebut" ColumnName="HeureDebut" />
           <ScalarProperty Name="HeureFin" ColumnName="HeureFin" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -1158,7 +1161,7 @@
         <EntityTypeShape EntityType="Model.Paiement" Width="1.5" PointX="7.125" PointY="0.5" Height="2.172587890625" />
         <EntityTypeShape EntityType="Model.Catégorie" Width="1.5" PointX="1.125" PointY="4.125" Height="1.5956835937499996" />
         <EntityTypeShape EntityType="Model.Cours" Width="1.5" PointX="3.25" PointY="4.25" Height="2.5571907552083335" />
-        <EntityTypeShape EntityType="Model.Groupe" Width="1.5" PointX="7" PointY="3.75" Height="3.1340950520833335" />
+        <EntityTypeShape EntityType="Model.Groupe" Width="1.5" PointX="7" PointY="3.75" Height="3.3263964843749996" />
         <EntityTypeShape EntityType="Model.ListeDAttente" Width="1.5" PointX="5" PointY="3.75" Height="1.7879850260416657" />
         <EntityTypeShape EntityType="Model.Session" Width="1.5" PointX="1.125" PointY="6" Height="1.5956835937499996" />
         <EntityTypeShape EntityType="Model.GroupeDAge" Width="1.5" PointX="1.125" PointY="7.75" Height="1.5956835937499996" />
@@ -1179,8 +1182,8 @@
           <ConnectorPoint PointX="7.125" PointY="1.5862939453124998" />
         </AssociationConnector>
         <AssociationConnector Association="Model.GroupePaiement">
-          <ConnectorPoint PointX="7.8208314098106468" PointY="3.75" />
-          <ConnectorPoint PointX="7.8208314098106468" PointY="2.672587890625" />
+          <ConnectorPoint PointX="7.8125" PointY="3.75" />
+          <ConnectorPoint PointX="7.8125" PointY="2.672587890625" />
         </AssociationConnector>
         <AssociationConnector Association="Model.CatégorieCours">
           <ConnectorPoint PointX="2.625" PointY="4.985341796875" />
@@ -1208,11 +1211,14 @@
         </AssociationConnector>
         <AssociationConnector Association="Model.AnimateurGroupe">
           <ConnectorPoint PointX="7.75" PointY="7.5" />
-          <ConnectorPoint PointX="7.75" PointY="6.8840950520833335" />
+          <ConnectorPoint PointX="7.75" PointY="7.076396484375" />
         </AssociationConnector>
         <AssociationConnector Association="Model.HoraireGroupe">
-          <ConnectorPoint PointX="6.625" PointY="7" />
-          <ConnectorPoint PointX="7" PointY="6.8840950520833335" />
+          <ConnectorPoint PointX="5.875" PointY="7" />
+          <ConnectorPoint PointX="5.875" PointY="6.76" />
+          <ConnectorPoint PointX="6.76" PointY="6.76" />
+          <ConnectorPoint PointX="6.76" PointY="5.458767526041667" />
+          <ConnectorPoint PointX="7" PointY="5.458767526041667" />
         </AssociationConnector>
         <AssociationConnector Association="Model.AnimateurProvince">
           <ConnectorPoint PointX="7" PointY="9.672841796875" />
@@ -1232,8 +1238,10 @@
           <ConnectorPoint PointX="9.875" PointY="8" />
         </AssociationConnector>
         <AssociationConnector Association="Model.GroupeCours">
-          <ConnectorPoint PointX="7" PointY="6.3071882552083318" />
-          <ConnectorPoint PointX="4.75" PointY="6.3071882552083318" />
+          <ConnectorPoint PointX="7" PointY="6.1177425130208327" />
+          <ConnectorPoint PointX="6.8433333333333328" PointY="6.1177425130208318" />
+          <ConnectorPoint PointX="6.6766666666666667" PointY="6.1177425130208327" />
+          <ConnectorPoint PointX="4.75" PointY="6.1177425130208327" />
         </AssociationConnector>
         <EntityTypeShape EntityType="Model.Prerequis" Width="1.5" PointX="3.25" PointY="7.75" Height="1.4033821614583317" />
         <AssociationConnector Association="Model.CoursPrerequis">
