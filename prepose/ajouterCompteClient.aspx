@@ -51,8 +51,6 @@
                         ID="requisValidationDateNaissance" runat="server" 
                         ErrorMessage="La date de naissance doit être spécifié." 
                         ControlToValidate="tbDateNaissance" Display="Dynamic">*</asp:RequiredFieldValidator>
-                        <%--<asp:RegularExpressionValidator ID="reguExpressionDateNaissance" runat="server" ErrorMessage="La date de naissance n'est pas du bon format (jj-mm-aaaa)" ControlToValidate="tbDateNaissance" 
-                        ValidationExpression="^([0-9]|[012][0-9]|[3][01])[-]([0-9]|[0][123456789]|[1][012])[-][0-9][0-9][0-9][0-9]$" forecolor="Red" Display="Dynamic">*</asp:RegularExpressionValidator>--%> 
                         <asp:CompareValidator runat="server" ID="test" Type="Date" ControlToValidate="tbDateNaissance" ErrorMessage="La date de naissance n'est pas du bon format (jj-mm-aaaa)" ForeColor="Red" Operator="DataTypeCheck">*</asp:CompareValidator>
          
                             
@@ -153,7 +151,7 @@
             <asp:ListItem>Cpntant</asp:ListItem>
             <asp:ListItem>Chèque</asp:ListItem>
         </asp:RadioButtonList>   
-        <asp:Button SkinID="btnEnregistrer" ID="btnEnregistrerInscription" runat="server" Text="S'inscrire et payer" /><br />
+        <asp:Button SkinID="btnEnregistrer" ID="btnEnregistrerInscription" runat="server" Text="S'inscrire" /><br />
          <asp:Label ID="lbNote1" runat="server" Text="*: Ce sera votre nom d'utilisateur lors de future connection. Il doit être valide pour que nous vous communiquions des informations."></asp:Label><br />
         <asp:EntityDataSource ID="entityDataSourceProvince" runat="server" 
         ConnectionString="name=ModelContainer" 
