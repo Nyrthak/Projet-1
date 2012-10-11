@@ -2,6 +2,7 @@
 <%@ Register TagPrefix="asp" Namespace="AjaxControlToolkit" Assembly="AjaxControlToolkit"%>
 
 <asp:Content ID="contentMenuClient" ContentPlaceHolderID="contentMenuClient" runat="server"></asp:Content>
+<asp:Content ID="contentMenuAdmin" ContentPlaceHolderID="contentMenuAdmin" runat="server"></asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
 <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="Server" />

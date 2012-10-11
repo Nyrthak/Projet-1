@@ -3,6 +3,7 @@
 
 <asp:Content ID="contentMenu" ContentPlaceHolderID="contentMenuClient" runat="server"></asp:Content>
 <asp:Content ID="contentAdmin" ContentPlaceHolderID="contentMenuAdmin" runat="server"></asp:Content>
+<asp:Content ID="contentMenuPrepose" ContentPlaceHolderID="contentMenuPrepose" runat="server"></asp:Content>
 
 <asp:Content ID="contentLogin" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
         <h1><asp:Label runat="server" id="lbConnection" Text="Connection" SkinID="lbTitrePage"></asp:Label></h1>        

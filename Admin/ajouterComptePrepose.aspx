@@ -3,6 +3,7 @@
 
 
 <asp:Content ID="contentMenuClient" ContentPlaceHolderID="contentMenuClient" runat="server"></asp:Content>
+<asp:Content ID="contentMenuPrepose" ContentPlaceHolderID="contentMenuPrepose" runat="server"></asp:Content>
 
 <asp:Content ID="ContentCours" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
 <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="Server" />

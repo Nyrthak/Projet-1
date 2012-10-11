@@ -3,6 +3,7 @@
 <%@ Register TagPrefix="asp" Namespace="AjaxControlToolkit" Assembly="AjaxControlToolkit"%>
 
 <asp:Content ID="contentAdmin" ContentPlaceHolderID="contentMenuAdmin" runat="server"></asp:Content>
+<asp:Content ID="contentMenuPrepose" ContentPlaceHolderID="contentMenuPrepose" runat="server"></asp:Content>
 
 <asp:Content ID="contentClient" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
     <div id="contentRight">

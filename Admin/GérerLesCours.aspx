@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="VB" AutoEventWireup="false" MasterPageFile="~/masterPage.master" CodeFile="GérerLesCours.aspx.vb" Inherits="Admin_GérerLesCours" %>
 <asp:Content ID="ContentMenu" ContentPlaceHolderID="contentMenuClient" runat="server"></asp:Content>
+<asp:Content ID="contentMenuPrepose" ContentPlaceHolderID="contentMenuPrepose" runat="server"></asp:Content>
 
 <asp:Content ID="ContentCours" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
     <asp:MultiView ID="mViewCours" runat="server" ActiveViewIndex="0">

@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="VB" MasterPageFile="~/masterPage.master" AutoEventWireup="false" CodeFile="inscriptionClient.aspx.vb" Inherits="client_inscriptionClient" %>
 
 <asp:Content ID="contentAdmin" ContentPlaceHolderID="contentMenuAdmin" runat="server"></asp:Content>
+<asp:Content ID="contentMenuPrepose" ContentPlaceHolderID="contentMenuPrepose" runat="server"></asp:Content>
 
 <asp:Content ID="contentMenu" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
         <asp:Repeater ID="repeater" DataSourceID="entityDataSourcePaiement" runat="server">

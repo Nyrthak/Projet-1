@@ -37,6 +37,8 @@
                 </asp:ContentPlaceHolder>
                 <asp:ContentPlaceHolder ID="contentMenuAdmin" runat="server">
                 </asp:ContentPlaceHolder>
+                <asp:ContentPlaceHolder ID="contentMenuPrepose" runat="server">
+                </asp:ContentPlaceHolder>
                 <asp:ContentPlaceHolder id="contentPlaceMasterPage" runat="server">
                 </asp:ContentPlaceHolder>
             </div>
