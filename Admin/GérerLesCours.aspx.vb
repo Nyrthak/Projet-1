@@ -107,6 +107,7 @@ Partial Class Admin_GérerLesCours
 
     Protected Sub lViewModifierCours_ItemUpdated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewUpdatedEventArgs) Handles lViewModifierCours.ItemUpdated
         mViewCours.ActiveViewIndex = 0
+        lViewCours.DataBind()
         lblMessage.Text = "Le cours a été modifié"
     End Sub
   

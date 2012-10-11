@@ -13,15 +13,15 @@ body{ width:1023px; margin:auto; background-color:#c5c5c5;}
         #corps .TableauAdmin td{width:690px; vertical-align:top; height:50px;}
         #corps .rechercher{float:right; margin-right:20px;}
         #corps .lbRechercher{float:right;margin-right:10px; font-weight:bold;}
-        #corps .listeSansPoints{list-style-type:none; margin-left:100px; font-size:1.5em; font-weight:bold; margin-top:50px;}
-        #corps .listeCours{width:700px;}
+        #corps .listeCours{width:500px;}
             #corps .listeSansPoints li{margin-top: 20px;} 
             #corps #imageAccueil{float:right; margin-right:20px;}  
             #corps #texteAccueil{float:left;}
             #corps h1{margin-bottom:10px; margin-right:250px;}                  
         #corps a{ color:#537EFF; text-decoration:none;}
-        #corps #tbCours{width:590px; margin-top:40px;}
+        #corps #tbCours{width:500px; margin-top:10px;}
         #tableauListeCours{width:700px; text-align:center;}
+        #corps .boutonMenuCategorie{border:1px solid black; width:75px; height:20px; margin-right:20px;}
     #heureOuverture{float:right; background:url('images/backgroundcorps.jpg') repeat-x top center; width: 208px; height:400px; border-left:1px solid black; border-right:1px solid black; border-top:1px solid black;} 
         #topHeureOuverture{width:208px; height:55px; background-color:#293F7F; text-align:center;}
             #heureOuverture h2{font-size:1.2em; line-height:55px; color:White;}
@@ -29,8 +29,11 @@ body{ width:1023px; margin:auto; background-color:#c5c5c5;}
         #heureOuverture li{margin:5px 0 0 20px;}
         .heure{margin-left: 40px;}   
 #contentLeft{float:left; width:370px; } 
-#menuFloat{float:left; width:220px; border-right: 1px solid black; height: 360px;}
-    #menuFloat ul li{line-height: 40px; border-bottom:1px solid black; text-align:center; width:180px;}
+#menuFloat{float:left; width:220px; border-right: 1px solid black; height: 340px; margin-top:20px;}
+    #menuFloat ul{list-style-type:none;}
+        #menuFloat ul li{line-height: 40px; border-bottom:1px solid black; text-align:center; width:180px;}
+        #menuFloat ul li a{display:block;}
+            #menuFloat ul li a:hover{color:White; background-color:#537EFF;}
 #contentRight{float:right; width:508px;}
     #contentRight .itemTemplate{width:235px; border-collapse:collapse; height:20px;}   
 #footer{ background-color:#293F7F; width:1021px; height:50px; clear:both; color:White; border-left:1px solid black; border-right:1px solid black; border-bottom:1px solid black; line-height:50px;}

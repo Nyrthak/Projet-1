@@ -43,7 +43,7 @@
                 <Fields>
                     <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="True" 
                         ShowLastPageButton="True" FirstPageText="Premier" LastPageText="Dernier" 
-                        NextPageText="Suivant" PreviousPageText="Précédent" />
+                        NextPageText="Suivant" PreviousPageText="Précédent" ButtonCssClass="boutonMenuCategorie"/>
                 </Fields>
             </asp:DataPager>
             <asp:LinqDataSource ID="LinqDataSourceCours" runat="server"
