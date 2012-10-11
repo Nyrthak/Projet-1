@@ -82,8 +82,7 @@
                             <asp:Label SkinID="lbTitreInfoMembre" id="lbDate" runat="server" Text="Date de naissance:"></asp:Label>
                             <asp:textbox SkinID="tbinscription" id="tbDateNaissance" runat="server" Text='<%#Bind("DateNaissance" , "{0:dd-MM-yyyy}") %>'></asp:TextBox>
                             <asp:Label SkinID="lbTitreInfoMembre" id="lbExempleDateNaissance" runat="server" Text="ex: jj-mm-aaaa"></asp:Label>
-                            <asp:RegularExpressionValidator ID="reguExpressionDateNaissance" runat="server" ErrorMessage="Votre date de naissance n'est pas du bon format (jj-mm-yyyy)" ControlToValidate="tbDateNaissance" 
-                                ValidationExpression="([0-9]|[012][0-9]|[3][01])[-]([0-9]|[0][123456789]|[1][012])[-][0-9][0-9][0-9][0-9]$" forecolor="Red" Display="Dynamic" ValidationGroup="A">*</asp:RegularExpressionValidator>
+                            <asp:CompareValidator runat="server" ID="test" Type="Date" ControlToValidate="tbDateNaissance" ErrorMessage="La date de naissance n'est pas du bon format (jj-mm-aaaa)" ForeColor="Red" Operator="DataTypeCheck">*</asp:CompareValidator>
                             <asp:ImageButton ID="imgBtnCalendrier" ImageUrl="~/App_Themes/Default/images/btnCalendrier.png" runat="server" CausesValidation="false" />                          
                             <asp:RequiredFieldValidator SkinID="requisValidation" 
                                 ID="requisValidationDateNaissance" runat="server" 

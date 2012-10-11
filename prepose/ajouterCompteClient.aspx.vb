@@ -1,31 +1,9 @@
-﻿'Cette class permet de s'inscrire sur notre site avec des validations sur les champs.
-'Lawrence Dubé et Katherine Vandal
+﻿Imports Model
 
-Imports System.Reflection
-Imports System.Drawing
-Imports Model
-Imports System.Windows.Forms
-
-Partial Class inscription
+Partial Class prepose_ajouterCompteClient
     Inherits page
     Private Shared lecontext As ModelContainer = Nothing
 
-    Protected Sub page_load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        If Not Session("userOnline") = "" Then
-            Page.Response.Redirect("~/Default.aspx")
-        End If
-
-        lecontext = New ModelContainer()
-
-        'Remplissage du dropdownlist annee
-        Dim i As Integer = 0
-        dropDownListAnnee.Items.Add("")
-        While i < 12
-            dropDownListAnnee.Items.Add(Now.AddYears(i).Year)
-            i += 1
-        End While
-
-    End Sub
     Protected Sub dsContextCreating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextCreatingEventArgs) _
     Handles entityDataSourceProvince.ContextCreating
 
@@ -34,15 +12,27 @@ Partial Class inscription
             e.Context = lecontext
         End If
     End Sub
+
+    Protected Sub Page_PreInit(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreInit
+        verificationTypeUser(2)
+    End Sub
+
     Protected Sub dsContextDisposing(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextDisposingEventArgs) _
     Handles entityDataSourceProvince.ContextDisposing
         e.Cancel = True
+    End Sub
+
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        lecontext = New ModelContainer()
     End Sub
 
     Protected Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Unload
         lecontext = Nothing
     End Sub
 
+    Protected Sub dropDownListProvince_DataBound(ByVal sender As Object, ByVal e As System.EventArgs) Handles dropDownListProvince.DataBound
+        dropDownListProvince.Items.Insert(0, "")
+    End Sub
 
     Protected Sub btnEnregistrerInscription_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnregistrerInscription.Click
         Dim compteur As Integer = 0
@@ -51,7 +41,7 @@ Partial Class inscription
         For Each courriel As String In (From dl In lecontext.CompteSet Select dl.Email)
             If tbCourriel.Text = courriel Then
                 Dim validatorEmail As CustomValidator = New CustomValidator
-                validatorEmail.ErrorMessage = "Votre email est déja utilisé."
+                validatorEmail.ErrorMessage = "L'email est déja utilisé."
                 validatorEmail.IsValid = False
                 Me.Validators.Add(validatorEmail)
             Else
@@ -60,7 +50,7 @@ Partial Class inscription
         Next
         If tbMotDePasse.Text.Count < 6 Then
             Dim validatorMotDePasse As CustomValidator = New CustomValidator
-            validatorMotDePasse.ErrorMessage = "Votre mot de passe doit contenir plus de 5 caractères"
+            validatorMotDePasse.ErrorMessage = "Le mot de passe doit contenir plus de 5 caractères"
             validatorMotDePasse.IsValid = False
             Me.Validators.Add(validatorMotDePasse)
         End If
@@ -94,12 +84,7 @@ Partial Class inscription
             lecontext.SaveChanges()
 
             Page.Response.Redirect("~/connection/inscriptionReusi.aspx")
-            
+
         End If
-    End Sub
-
-
-    Protected Sub dropDownListProvince_DataBound(ByVal sender As Object, ByVal e As System.EventArgs) Handles dropDownListProvince.DataBound
-        dropDownListProvince.Items.Insert(0, "")
     End Sub
 End Class

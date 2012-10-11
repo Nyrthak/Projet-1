@@ -40,6 +40,8 @@
             Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(langue & "-ca")
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(langue & "-ca")
         End If
+        Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy"
+        Thread.CurrentThread.CurrentCulture.DateTimeFormat.DateSeparator = "-"
     End Sub
        
 </script>
