@@ -23,6 +23,8 @@ Partial Class prepose_ajouterCompteClient
     End Sub
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        rangeValidatorDateNaissance.MinimumValue = Now.AddYears(-150).ToShortDateString
+        rangeValidatorDateNaissance.MaximumValue = Now.Date.ToShortDateString
         lecontext = New ModelContainer()
     End Sub
 

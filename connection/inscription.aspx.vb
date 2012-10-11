@@ -24,7 +24,8 @@ Partial Class inscription
             dropDownListAnnee.Items.Add(Now.AddYears(i).Year)
             i += 1
         End While
-
+        rangeValidatorDateNaissance.MinimumValue = Now.AddYears(-150).ToShortDateString
+        rangeValidatorDateNaissance.MaximumValue = Now.Date.ToShortDateString
     End Sub
     Protected Sub dsContextCreating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextCreatingEventArgs) _
     Handles entityDataSourceProvince.ContextCreating

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="VB" MasterPageFile="~/masterPage.master" AutoEventWireup="false" CodeFile="compteClient.aspx.vb" Inherits="monCompteClient" %>
+﻿<%@ Page Language="VB" MasterPageFile="~/masterPage.master" AutoEventWireup="false" CodeFile="compteClient.aspx.vb" Inherits="CompteClient" %>
 
 <%@ Register TagPrefix="asp" Namespace="AjaxControlToolkit" Assembly="AjaxControlToolkit"%>
 
@@ -81,14 +81,15 @@
                                     CssClass="MyCalendar" PopupPosition="Right" Format="d-MM-yyyy">
                             </asp:CalendarExtender>                           
                             <asp:Label SkinID="lbTitreInfoMembre" id="lbDate" runat="server" Text="Date de naissance:"></asp:Label>
-                            <asp:textbox SkinID="tbinscription" id="tbDateNaissance" runat="server" Text='<%#Bind("DateNaissance" , "{0:dd-MM-yyyy}") %>'></asp:TextBox>
+                            <asp:textbox SkinID="tbinscription" id="tbDateNaissance" runat="server" Text='<%#Bind("DateNaissance" , "{0:dd-MM-yyyy}") %>'></asp:TextBox><br />
                             <asp:Label SkinID="lbTitreInfoMembre" id="lbExempleDateNaissance" runat="server" Text="ex: jj-mm-aaaa"></asp:Label>
-                            <asp:CompareValidator runat="server" ID="test" Type="Date" ControlToValidate="tbDateNaissance" ErrorMessage="La date de naissance n'est pas du bon format (jj-mm-aaaa)" ForeColor="Red" Operator="DataTypeCheck">*</asp:CompareValidator>
-                            <asp:ImageButton ID="imgBtnCalendrier" ImageUrl="~/App_Themes/Default/images/btnCalendrier.png" runat="server" CausesValidation="false" />                          
+                            <asp:CompareValidator runat="server" ID="test" Type="Date" ControlToValidate="tbDateNaissance" ErrorMessage="La date de naissance n'est pas du bon format (jj-mm-aaaa)" ForeColor="Red" Operator="DataTypeCheck" Display="Dynamic">*</asp:CompareValidator>
+                            <asp:RangeValidator ID="rangeValidatorDateNaissance" runat="server" Type="Date" ErrorMessage="La date de naissance doit précèder la date d'aujourd'hui." ControlToValidate="tbDateNaissance" Display="Dynamic" ForeColor="Red">*</asp:RangeValidator>                 
                             <asp:RequiredFieldValidator SkinID="requisValidation" 
                                 ID="requisValidationDateNaissance" runat="server" 
                                 ErrorMessage="Votre date de naissance doit être spécifié." 
                                 ControlToValidate="tbDateNaissance" Display="Dynamic" ValidationGroup="A">*</asp:RequiredFieldValidator>
+                                <asp:ImageButton ID="imgBtnCalendrier" ImageUrl="~/App_Themes/Default/images/btnCalendrier.png" runat="server" CausesValidation="false" />
                         </td>
                      </tr>
                      <tr>
@@ -101,8 +102,9 @@
             </EditItemTemplate>                    
         </asp:ListView>
         <asp:HiddenField ID="hiddenFieldNoMembre" Visible="false" Value="" runat="server" />
-                            <asp:ValidationSummary SkinID="valiSummary" ID="validationSummaryMembre" runat="server" ValidationGroup="A" />
-
+        <div style="margin-left:20px">
+            <asp:ValidationSummary SkinID="valiSummary" ID="validationSummaryMembre" runat="server" ValidationGroup="A" />
+        </div>
     </asp:View>
     </asp:MultiView>
 </div>
@@ -120,7 +122,7 @@
 </asp:EntityDataSource>
 
 <asp:EntityDataSource ID="entiDataSourceMembre" runat="server" 
-        ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
+        ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer"  
         EntitySetName="MembreSet" Where="it.Compte.noCompte = @noCompte" Include="Compte" >
         <WhereParameters>
             <asp:SessionParameter Name="noCompte" Type="Int32" SessionField="noCompte" />

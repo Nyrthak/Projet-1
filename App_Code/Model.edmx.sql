@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 10/04/2012 11:01:25
+-- Date Created: 10/11/2012 13:54:30
 -- Generated from EDMX file: C:\Users\Katherine\Documents\A2012\Projet I\Projet-1\App_Code\Model.edmx
 -- --------------------------------------------------
 
@@ -244,8 +244,7 @@ GO
 CREATE TABLE [dbo].[HoraireSet] (
     [HeureDébut] datetime  NOT NULL,
     [HeureFin] datetime  NOT NULL,
-    [noGroupe] int  NOT NULL,
-    [noJour] int  NOT NULL,
+    [noHoraire] int  NOT NULL,
     [Jour_noJour] int  NOT NULL,
     [Groupe_noGroupe] int  NOT NULL
 );
@@ -281,8 +280,7 @@ GO
 
 -- Creating table 'SpécialitéAnimateurSet'
 CREATE TABLE [dbo].[SpécialitéAnimateurSet] (
-    [noSpécialité] int IDENTITY(1,1) NOT NULL,
-    [noAnimateur] int  NOT NULL,
+    [Id] int  NOT NULL,
     [Animateur_noAnimateur] int  NOT NULL,
     [Spécialité_noSpécialité] int  NOT NULL
 );
@@ -366,10 +364,10 @@ ADD CONSTRAINT [PK_JourSet]
     PRIMARY KEY CLUSTERED ([noJour] ASC);
 GO
 
--- Creating primary key on [noGroupe], [noJour] in table 'HoraireSet'
+-- Creating primary key on [noHoraire] in table 'HoraireSet'
 ALTER TABLE [dbo].[HoraireSet]
 ADD CONSTRAINT [PK_HoraireSet]
-    PRIMARY KEY CLUSTERED ([noGroupe], [noJour] ASC);
+    PRIMARY KEY CLUSTERED ([noHoraire] ASC);
 GO
 
 -- Creating primary key on [noAnimateur] in table 'AnimateurSet'
@@ -390,10 +388,10 @@ ADD CONSTRAINT [PK_SpécialitéSet]
     PRIMARY KEY CLUSTERED ([noSpécialité] ASC);
 GO
 
--- Creating primary key on [noSpécialité], [noAnimateur] in table 'SpécialitéAnimateurSet'
+-- Creating primary key on [Id] in table 'SpécialitéAnimateurSet'
 ALTER TABLE [dbo].[SpécialitéAnimateurSet]
 ADD CONSTRAINT [PK_SpécialitéAnimateurSet]
-    PRIMARY KEY CLUSTERED ([noSpécialité], [noAnimateur] ASC);
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
 -- Creating primary key on [Id] in table 'PrerequisSet'

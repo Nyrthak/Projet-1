@@ -1,6 +1,6 @@
 ﻿Imports Model
 
-Partial Class monCompteClient
+Partial Class CompteClient
     Inherits page
     Private Shared lecontext As ModelContainer = Nothing
 
@@ -21,6 +21,7 @@ Partial Class monCompteClient
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         lbErreur.Text = ""
         lecontext = New ModelContainer()
+       
     End Sub
 
     Protected Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Unload
@@ -28,6 +29,7 @@ Partial Class monCompteClient
     End Sub
     Protected Sub Page_PreInit(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreInit
         verificationTypeUser(1)
+        
     End Sub
 
     Protected Sub listViewMembres_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles listViewMembres.ItemCommand
@@ -70,6 +72,7 @@ Partial Class monCompteClient
         hiddenFieldNoMembre.Value = ajouterMembre.noMembre
     End Sub
 
+
     Protected Sub listViewAjoutMembre_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles listViewAjoutMembre.ItemCommand
         If e.CommandName = "Cancel" Then
             'Teste si le membre a déleter est bien dans la base de donnée.
@@ -99,5 +102,19 @@ Partial Class monCompteClient
         listViewMembres.DataBind()
     End Sub
 
+    Protected Sub listViewAjoutMembre_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles listViewAjoutMembre.PreRender
+        CType(listViewAjoutMembre.Items(0).FindControl("rangeValidatorDateNaissance"), RangeValidator).MaximumValue = Now.Date.ToShortDateString
+        CType(listViewAjoutMembre.Items(0).FindControl("rangeValidatorDateNaissance"), RangeValidator).MinimumValue = Now.AddYears(-150).ToShortDateString
+    End Sub
 
+    Protected Sub listViewMembres_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles listViewMembres.Load
+        'Supprime les membre qui dont le nom est "Entrez un nom"
+        For Each membre As Membre In (From monMembre In lecontext.MembreSet Select monMembre)
+            If membre.Nom = "Entrez un nom" Then
+                lecontext.MembreSet.DeleteObject(membre)
+
+            End If
+        Next
+        lecontext.SaveChanges()
+    End Sub
 End Class

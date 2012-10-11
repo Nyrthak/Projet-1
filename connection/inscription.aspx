@@ -55,7 +55,8 @@
                         ID="requisValidationDateNaissance" runat="server" 
                         ErrorMessage="Votre date de naissance doit être spécifié." 
                         ControlToValidate="tbDateNaissance" Display="Dynamic">*</asp:RequiredFieldValidator>
-                        <asp:CompareValidator runat="server" ID="test" Type="Date" ControlToValidate="tbDateNaissance" ErrorMessage="La date de naissance n'est pas du bon format (jj-mm-aaaa)" ForeColor="Red" Operator="DataTypeCheck">*</asp:CompareValidator>        
+                        <asp:CompareValidator runat="server" ID="test" Type="Date" ControlToValidate="tbDateNaissance" ErrorMessage="La date de naissance n'est pas du bon format (jj-mm-aaaa)" ForeColor="Red" Operator="DataTypeCheck" Display="Dynamic">*</asp:CompareValidator>
+                    <asp:RangeValidator ID="rangeValidatorDateNaissance" Type="Date" runat="server" ErrorMessage="La date de naissance doit précèder la date d'aujourd'hui." ControlToValidate="tbDateNaissance" Display="Dynamic" ForeColor="Red">*</asp:RangeValidator>
                     </td>
             </tr>
             <tr>
