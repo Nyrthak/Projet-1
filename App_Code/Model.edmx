@@ -1193,8 +1193,8 @@
           <ConnectorPoint PointX="7.125" PointY="1.5862939453124998" />
         </AssociationConnector>
         <AssociationConnector Association="Model.GroupePaiement">
-          <ConnectorPoint PointX="7.8125" PointY="3.75" />
-          <ConnectorPoint PointX="7.8125" PointY="2.864889322916667" />
+          <ConnectorPoint PointX="7.8208314098106468" PointY="3.75" />
+          <ConnectorPoint PointX="7.8208314098106468" PointY="2.672587890625" />
         </AssociationConnector>
         <AssociationConnector Association="Model.CatégorieCours">
           <ConnectorPoint PointX="2.625" PointY="4.985341796875" />
