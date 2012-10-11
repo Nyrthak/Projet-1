@@ -84,24 +84,24 @@
             </asp:ListView>
             <asp:ListView ID="lviewGroupes" runat="server" DataSourceID="entityDataSourceGroupes" DataKeyNames="noGroupe">
                 <LayoutTemplate>
-                    <asp:Label ID="lblTitreModifierCours" runat="server" Text="Afficher un cours" SkinID="lbSousTitre"></asp:Label>
+                    <asp:Label ID="lblTitreModifierCours" runat="server" Text="Liste des groupes" SkinID="lbSousTitre"></asp:Label>
                     <table id="tbCours">
                         <asp:PlaceHolder id="ItemPlaceHolder" runat="server" />
                     </table>
                 </LayoutTemplate>
                 <ItemTemplate>
                     <tr>
-                        <td><asp:Label ID="lblJour" runat="server" Text='<%#Eval("Jour.nomJour")%>' /></td>
-                        <td><asp:Label ID="lblHeureDebut" runat="server" Text='<%#Eval("HeureDébut")%>' /></td>
-                        <td><asp:Label ID="lblHeureFin" runat="server" Text='<%#Eval("HeureFin")%>' /></td>
-                        <td><asp:Label ID="lblLocal" runat="server" Text='<%#Eval("Groupe.Local")%>' /></td>
-                        <td><asp:Label ID="lblDateDebut" runat="server" Text='<%#Eval("Groupe.DateDébut", "{0:dd/MM/yyyy}")%>' /></td>
-                        <td><asp:Label ID="lblDateFin" runat="server" Text='<%#Eval("Groupe.DateFin", "{0:dd/MM/yyyy}")%>' /></td>
-                        <td><asp:Label ID="lblDateLimiteInscription" runat="server" Text='<%#Eval("Groupe.DateLimiteInscription")%>' /></td>
-                        <td><asp:Label ID="lblAge" runat="server" Text='<%#Eval("Groupe.Âge")%>' /></td>
-                        <td><asp:Label ID="lblAnimateur" runat="server" Text='<%#Eval("Groupe.Animateur.Nom")%>' /></td>
+                        <td><asp:Label ID="lblLocal" runat="server" Text='<%#Eval("Local")%>' /></td>
+                        <td><asp:Label ID="lblDateDebut" runat="server" Text='<%#Eval("DateDébut", "{0:dd/MM/yyyy}")%>' /></td>
+                        <td><asp:Label ID="lblDateFin" runat="server" Text='<%#Eval("DateFin", "{0:dd/MM/yyyy}")%>' /></td>
+                        <td><asp:Label ID="lblDateLimiteInscription" runat="server" Text='<%#Eval("DateLimiteInscription", "{0:dd/MM/yyyy}")%>' /></td>
+                        <td><asp:Label ID="lblAge" runat="server" Text='<%#Eval("Âge")%>' /></td>
+                        <td><asp:Label ID="lblAnimateur" runat="server" Text='<%#Eval("Animateur.Nom")%>' /></td>
                         <td></td>
+                        <%--<td><asp:Label ID="lblHoraire" runat="server" Text='<%#Eval("Jour.nomJour") & " de " & Eval("HeureDébut", "{0:hh:mm}") & "h" & " à " & Eval("HeureFin", "{0:hh:mm}") & "h" %>' /></td>--%>
                     </tr>
+                    <asp:ListView ID="lviewHoraire" runat="server" DataSourceID="entityDataSourceHoraire" DataKeyNames="noHoraire">
+                    </asp:ListView>
                 </ItemTemplate>
             </asp:ListView>
         </asp:View>
@@ -131,8 +131,8 @@
     </asp:EntityDataSource>
     <asp:EntityDataSource ID="entityDataSourceGroupes" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-        EntitySetName="HoraireSet" EnableFlattening="false" Include="Groupe.Cours, Jour, Groupe.Animateur, Groupe"
-        Where="it.Groupe.Cours.noCours = @leNoCours">
+        EntitySetName="GroupeSet" EnableFlattening="false" Include="Cours, Animateur"
+        Where="it.Cours.noCours = @leNoCours">
         <WhereParameters>
             <asp:ControlParameter Name="leNoCours" Type="Int32" ControlID="hFieldnoCours" />
         </WhereParameters>

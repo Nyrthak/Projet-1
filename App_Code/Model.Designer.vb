@@ -16,7 +16,7 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("a30bc160-a1d7-4625-9cbd-e241f9fbd5be")>
+<Assembly: EdmSchemaAttribute("1bed7e2c-1e3a-4e6e-aade-f489ee36980c")>
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("Model", "CompteProvince", "Compte", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Compte), "Province", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Province))>
 <Assembly: EdmRelationshipAttribute("Model", "CompteMembre", "Compte", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Compte), "Membre", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Membre))>
@@ -2049,14 +2049,12 @@ Namespace Model
         ''' </summary>
         ''' <param name="heureDébut">Initial value of the HeureDébut property.</param>
         ''' <param name="heureFin">Initial value of the HeureFin property.</param>
-        ''' <param name="noGroupe">Initial value of the noGroupe property.</param>
-        ''' <param name="noJour">Initial value of the noJour property.</param>
-        Public Shared Function CreateHoraire(heureDébut As Global.System.DateTime, heureFin As Global.System.DateTime, noGroupe As Global.System.Int32, noJour As Global.System.Int32) As Horaire
+        ''' <param name="noHoraire">Initial value of the noHoraire property.</param>
+        Public Shared Function CreateHoraire(heureDébut As Global.System.DateTime, heureFin As Global.System.DateTime, noHoraire As Global.System.Int32) As Horaire
             Dim horaire as Horaire = New Horaire
             horaire.HeureDébut = heureDébut
             horaire.HeureFin = heureFin
-            horaire.noGroupe = noGroupe
-            horaire.noJour = noJour
+            horaire.noHoraire = noHoraire
             Return horaire
         End Function
 
@@ -2118,53 +2116,26 @@ Namespace Model
         ''' </summary>
         <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
         <DataMemberAttribute()>
-        Public Property noGroupe() As Global.System.Int32
+        Public Property noHoraire() As Global.System.Int32
             Get
-                Return _noGroupe
+                Return _noHoraire
             End Get
             Set
-                If (_noGroupe <> Value) Then
-                    OnnoGroupeChanging(value)
-                    ReportPropertyChanging("noGroupe")
-                    _noGroupe = StructuralObject.SetValidValue(value)
-                    ReportPropertyChanged("noGroupe")
-                    OnnoGroupeChanged()
+                If (_noHoraire <> Value) Then
+                    OnnoHoraireChanging(value)
+                    ReportPropertyChanging("noHoraire")
+                    _noHoraire = StructuralObject.SetValidValue(value)
+                    ReportPropertyChanged("noHoraire")
+                    OnnoHoraireChanged()
                 End If
             End Set
         End Property
     
-        Private _noGroupe As Global.System.Int32
-        Private Partial Sub OnnoGroupeChanging(value As Global.System.Int32)
+        Private _noHoraire As Global.System.Int32
+        Private Partial Sub OnnoHoraireChanging(value As Global.System.Int32)
         End Sub
     
-        Private Partial Sub OnnoGroupeChanged()
-        End Sub
-    
-        ''' <summary>
-        ''' No Metadata Documentation available.
-        ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
-        <DataMemberAttribute()>
-        Public Property noJour() As Global.System.Int32
-            Get
-                Return _noJour
-            End Get
-            Set
-                If (_noJour <> Value) Then
-                    OnnoJourChanging(value)
-                    ReportPropertyChanging("noJour")
-                    _noJour = StructuralObject.SetValidValue(value)
-                    ReportPropertyChanged("noJour")
-                    OnnoJourChanged()
-                End If
-            End Set
-        End Property
-    
-        Private _noJour As Global.System.Int32
-        Private Partial Sub OnnoJourChanging(value As Global.System.Int32)
-        End Sub
-    
-        Private Partial Sub OnnoJourChanged()
+        Private Partial Sub OnnoHoraireChanged()
         End Sub
 
         #End Region
@@ -3363,12 +3334,10 @@ Namespace Model
         ''' <summary>
         ''' Create a new SpécialitéAnimateur object.
         ''' </summary>
-        ''' <param name="noSpécialité">Initial value of the noSpécialité property.</param>
-        ''' <param name="noAnimateur">Initial value of the noAnimateur property.</param>
-        Public Shared Function CreateSpécialitéAnimateur(noSpécialité As Global.System.Int32, noAnimateur As Global.System.Int32) As SpécialitéAnimateur
+        ''' <param name="id">Initial value of the Id property.</param>
+        Public Shared Function CreateSpécialitéAnimateur(id As Global.System.Int32) As SpécialitéAnimateur
             Dim spécialitéAnimateur as SpécialitéAnimateur = New SpécialitéAnimateur
-            spécialitéAnimateur.noSpécialité = noSpécialité
-            spécialitéAnimateur.noAnimateur = noAnimateur
+            spécialitéAnimateur.Id = id
             Return spécialitéAnimateur
         End Function
 
@@ -3380,53 +3349,26 @@ Namespace Model
         ''' </summary>
         <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
         <DataMemberAttribute()>
-        Public Property noSpécialité() As Global.System.Int32
+        Public Property Id() As Global.System.Int32
             Get
-                Return _noSpécialité
+                Return _Id
             End Get
             Set
-                If (_noSpécialité <> Value) Then
-                    OnnoSpécialitéChanging(value)
-                    ReportPropertyChanging("noSpécialité")
-                    _noSpécialité = StructuralObject.SetValidValue(value)
-                    ReportPropertyChanged("noSpécialité")
-                    OnnoSpécialitéChanged()
+                If (_Id <> Value) Then
+                    OnIdChanging(value)
+                    ReportPropertyChanging("Id")
+                    _Id = StructuralObject.SetValidValue(value)
+                    ReportPropertyChanged("Id")
+                    OnIdChanged()
                 End If
             End Set
         End Property
     
-        Private _noSpécialité As Global.System.Int32
-        Private Partial Sub OnnoSpécialitéChanging(value As Global.System.Int32)
+        Private _Id As Global.System.Int32
+        Private Partial Sub OnIdChanging(value As Global.System.Int32)
         End Sub
     
-        Private Partial Sub OnnoSpécialitéChanged()
-        End Sub
-    
-        ''' <summary>
-        ''' No Metadata Documentation available.
-        ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
-        <DataMemberAttribute()>
-        Public Property noAnimateur() As Global.System.Int32
-            Get
-                Return _noAnimateur
-            End Get
-            Set
-                If (_noAnimateur <> Value) Then
-                    OnnoAnimateurChanging(value)
-                    ReportPropertyChanging("noAnimateur")
-                    _noAnimateur = StructuralObject.SetValidValue(value)
-                    ReportPropertyChanged("noAnimateur")
-                    OnnoAnimateurChanged()
-                End If
-            End Set
-        End Property
-    
-        Private _noAnimateur As Global.System.Int32
-        Private Partial Sub OnnoAnimateurChanging(value As Global.System.Int32)
-        End Sub
-    
-        Private Partial Sub OnnoAnimateurChanged()
+        Private Partial Sub OnIdChanged()
         End Sub
 
         #End Region

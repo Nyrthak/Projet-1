@@ -206,13 +206,11 @@
   </EntityType>
   <EntityType Name="HoraireSet">
     <Key>
-      <PropertyRef Name="noGroupe" />
-      <PropertyRef Name="noJour" />
+      <PropertyRef Name="noHoraire" />
     </Key>
     <Property Name="HeureDébut" Type="datetime" Nullable="false" />
     <Property Name="HeureFin" Type="datetime" Nullable="false" />
-    <Property Name="noGroupe" Type="int" Nullable="false" />
-    <Property Name="noJour" Type="int" Nullable="false" />
+    <Property Name="noHoraire" Type="int" Nullable="false" />
     <Property Name="Jour_noJour" Type="int" Nullable="false" />
     <Property Name="Groupe_noGroupe" Type="int" Nullable="false" />
   </EntityType>
@@ -246,11 +244,9 @@
   </EntityType>
   <EntityType Name="SpécialitéAnimateurSet">
     <Key>
-      <PropertyRef Name="noSpécialité" />
-      <PropertyRef Name="noAnimateur" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="noSpécialité" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="noAnimateur" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
     <Property Name="Animateur_noAnimateur" Type="int" Nullable="false" />
     <Property Name="Spécialité_noSpécialité" Type="int" Nullable="false" />
   </EntityType>
@@ -698,15 +694,13 @@
         </EntityType>
         <EntityType Name="Horaire" >
           <Key>
-            <PropertyRef Name="noGroupe" />
-            <PropertyRef Name="noJour" />
+            <PropertyRef Name="noHoraire" />
           </Key>
           <Property Type="DateTime" Name="HeureDébut" Nullable="false" />
           <Property Type="DateTime" Name="HeureFin" Nullable="false" />
           <NavigationProperty Name="Jour" Relationship="Model.JourHoraire" FromRole="Horaire" ToRole="Jour" />
           <NavigationProperty Name="Groupe" Relationship="Model.HoraireGroupe" FromRole="Horaire" ToRole="Groupe" />
-          <Property Type="Int32" Name="noGroupe" Nullable="false" />
-          <Property Type="Int32" Name="noJour" Nullable="false" />
+          <Property Type="Int32" Name="noHoraire" Nullable="false" />
         </EntityType>
         <EntityType Name="Animateur">
           <Key>
@@ -793,13 +787,11 @@
         </EntityType>
         <EntityType Name="SpécialitéAnimateur">
           <Key>
-            <PropertyRef Name="noSpécialité" />
-            <PropertyRef Name="noAnimateur" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="noSpécialité" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="noAnimateur" Nullable="false" />
           <NavigationProperty Name="Animateur" Relationship="Model.AnimateurSpécialitéAnimateur" FromRole="SpécialitéAnimateur" ToRole="Animateur" />
           <NavigationProperty Name="Spécialité" Relationship="Model.SpécialitéSpécialitéAnimateur" FromRole="SpécialitéAnimateur" ToRole="Spécialité" />
+          <Property Type="Int32" Name="Id" Nullable="false" />
         </EntityType>
         <Association Name="AnimateurSpécialitéAnimateur">
           <End Type="Model.Animateur" Role="Animateur" Multiplicity="1" />
@@ -946,8 +938,7 @@
     <EntitySetMapping Name="HoraireSet">
       <EntityTypeMapping TypeName="IsTypeOf(Model.Horaire)">
         <MappingFragment StoreEntitySet="HoraireSet">
-          <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
-          <ScalarProperty Name="noJour" ColumnName="noJour" />
+          <ScalarProperty Name="noHoraire" ColumnName="noHoraire" />
           <ScalarProperty Name="HeureDébut" ColumnName="HeureDébut" />
           <ScalarProperty Name="HeureFin" ColumnName="HeureFin" />
         </MappingFragment>
@@ -986,8 +977,7 @@
     <EntitySetMapping Name="SpécialitéAnimateurSet">
       <EntityTypeMapping TypeName="IsTypeOf(Model.SpécialitéAnimateur)">
         <MappingFragment StoreEntitySet="SpécialitéAnimateurSet">
-          <ScalarProperty Name="noSpécialité" ColumnName="noSpécialité" />
-          <ScalarProperty Name="noAnimateur" ColumnName="noAnimateur" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1075,8 +1065,7 @@
         <ScalarProperty Name="noJour" ColumnName="Jour_noJour" />
       </EndProperty>
       <EndProperty Name="Horaire">
-        <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
-        <ScalarProperty Name="noJour" ColumnName="noJour" />
+        <ScalarProperty Name="noHoraire" ColumnName="noHoraire" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="AnimateurGroupe" TypeName="Model.AnimateurGroupe" StoreEntitySet="GroupeSet">
@@ -1092,8 +1081,7 @@
         <ScalarProperty Name="noGroupe" ColumnName="Groupe_noGroupe" />
       </EndProperty>
       <EndProperty Name="Horaire">
-        <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
-        <ScalarProperty Name="noJour" ColumnName="noJour" />
+        <ScalarProperty Name="noHoraire" ColumnName="noHoraire" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="AnimateurProvince" TypeName="Model.AnimateurProvince" StoreEntitySet="AnimateurSet">
@@ -1109,8 +1097,7 @@
         <ScalarProperty Name="noAnimateur" ColumnName="Animateur_noAnimateur" />
       </EndProperty>
       <EndProperty Name="SpécialitéAnimateur">
-        <ScalarProperty Name="noSpécialité" ColumnName="noSpécialité" />
-        <ScalarProperty Name="noAnimateur" ColumnName="noAnimateur" />
+        <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="SpécialitéSpécialitéAnimateur" TypeName="Model.SpécialitéSpécialitéAnimateur" StoreEntitySet="SpécialitéAnimateurSet">
@@ -1118,8 +1105,7 @@
         <ScalarProperty Name="noSpécialité" ColumnName="Spécialité_noSpécialité" />
       </EndProperty>
       <EndProperty Name="SpécialitéAnimateur">
-        <ScalarProperty Name="noSpécialité" ColumnName="noSpécialité" />
-        <ScalarProperty Name="noAnimateur" ColumnName="noAnimateur" />
+        <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="GroupeCours" TypeName="Model.GroupeCours" StoreEntitySet="GroupeSet">
@@ -1177,7 +1163,7 @@
         <EntityTypeShape EntityType="Model.Session" Width="1.5" PointX="1.125" PointY="6" Height="1.5956835937499996" />
         <EntityTypeShape EntityType="Model.GroupeDAge" Width="1.5" PointX="1.125" PointY="7.75" Height="1.5956835937499996" />
         <EntityTypeShape EntityType="Model.Jour" Width="1.5" PointX="5.125" PointY="10" Height="1.5956835937499996" />
-        <EntityTypeShape EntityType="Model.Horaire" Width="1.5" PointX="5.125" PointY="7" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="Model.Horaire" Width="1.5" PointX="5.125" PointY="7" Height="1.9802864583333335" />
         <EntityTypeShape EntityType="Model.Animateur" Width="1.5" PointX="7" PointY="7.5" Height="3.1340950520833335" />
         <EntityTypeShape EntityType="Model.Forfait" Width="1.5" PointX="8.75" PointY="0.5" Height="1.4033821614583331" />
         <AssociationConnector Association="Model.CompteProvince">
@@ -1218,7 +1204,7 @@
         </AssociationConnector>
         <AssociationConnector Association="Model.JourHoraire">
           <ConnectorPoint PointX="5.875" PointY="10" />
-          <ConnectorPoint PointX="5.875" PointY="9.172587890625" />
+          <ConnectorPoint PointX="5.875" PointY="8.9802864583333335" />
         </AssociationConnector>
         <AssociationConnector Association="Model.AnimateurGroupe">
           <ConnectorPoint PointX="7.75" PointY="7.5" />
@@ -1236,10 +1222,10 @@
           <ConnectorPoint PointX="0.96875" PointY="2.4129850260416665" />
         </AssociationConnector>
         <EntityTypeShape EntityType="Model.Spécialité" Width="1.5" PointX="9.125" PointY="5.625" Height="1.5956835937499996" />
-        <EntityTypeShape EntityType="Model.SpécialitéAnimateur" Width="1.5" PointX="9.125" PointY="8" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="Model.SpécialitéAnimateur" Width="1.5" PointX="9.125" PointY="8" Height="1.5956835937499996" />
         <AssociationConnector Association="Model.AnimateurSpécialitéAnimateur">
-          <ConnectorPoint PointX="8.5" PointY="8.8939925130208337" />
-          <ConnectorPoint PointX="9.125" PointY="8.8939925130208337" />
+          <ConnectorPoint PointX="8.5" PointY="8.797841796875" />
+          <ConnectorPoint PointX="9.125" PointY="8.797841796875" />
         </AssociationConnector>
         <AssociationConnector Association="Model.SpécialitéSpécialitéAnimateur">
           <ConnectorPoint PointX="9.875" PointY="7.22068359375" />
