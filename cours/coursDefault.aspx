@@ -92,22 +92,115 @@
                 </LayoutTemplate>
                 <ItemTemplate>
                     <tr>
-                        <td><asp:Label ID="lblLocal" runat="server" Text='<%#Eval("Local")%>' /></td>
-                        <td><asp:Label ID="lblDateDebut" runat="server" Text='<%#Eval("DateDébut", "{0:dd/MM/yyyy}")%>' /></td>
-                        <td><asp:Label ID="lblDateFin" runat="server" Text='<%#Eval("DateFin", "{0:dd/MM/yyyy}")%>' /></td>
-                        <td><asp:Label ID="lblDateLimiteInscription" runat="server" Text='<%#Eval("DateLimiteInscription", "{0:dd/MM/yyyy}")%>' /></td>
-                        <td><asp:Label ID="lblAge" runat="server" Text='<%#Eval("Âge")%>' /></td>
-                        <td><asp:Label ID="lblAnimateur" runat="server" Text='<%#Eval("Animateur.Nom")%>' /></td>
-                        <td></td>
-                        <%--<td><asp:Label ID="lblHoraire" runat="server" Text='<%#Eval("Jour.nomJour") & " de " & Eval("HeureDébut", "{0:hh:mm}") & "h" & " à " & Eval("HeureFin", "{0:hh:mm}") & "h" %>' /></td>--%>
+                        <td><asp:LinkButton ID="lnkGroupe" runat="server" Text='<%# "Groupe " & Eval("noGroupe") %>' CommandName="Selection" CommandArgument='<%#Eval("noGroupe")%>' /></td>
+                        <td><asp:Label ID="lblAge" runat="server" Text='<%#Eval("AgeMinimum") & "-" & Eval("AgeMaximum") & " ans"%>' /></td>
+                        <td>
+                            <asp:DropDownList ID="dDListMembres" runat="server" DataSourceID="entityDataSourceMembre"
+                                DataTextField="Prénom" DataValueField="noMembre">
+                            </asp:DropDownList>
+                        </td>
+                        <td><asp:Button ID="btnSinscrire" runat="server" Text="S'inscrire" SkinID="btnAjoutSupprimer" /></td>
                     </tr>
+                    <asp:HiddenField ID="hFieldnoGroupe" runat="server" Value='<%#Eval("noGroupe")%>' />
                     <asp:ListView ID="lviewHoraire" runat="server" DataSourceID="entityDataSourceHoraire" DataKeyNames="noHoraire">
+                         <LayoutTemplate>            
+                                <asp:PlaceHolder id="ItemPlaceHolder" runat="server" />              
+                        </LayoutTemplate>
+                        <ItemTemplate>
+                            <tr>
+                                <td></td>
+                                <td  class="horaire"><asp:Label ID="lblHoraire" runat="server" Text='<%#Eval("Jour.nomJour") & " de " & Eval("HeureDebut", "{0:hh:mm}") & "h" & " à " & Eval("HeureFin", "{0:hh:mm}") & "h" %>' /></td>
+                                <td colspan="2"></td>
+                            </tr>
+                        </ItemTemplate>
                     </asp:ListView>
+                    <tr>
+                        <td colspan="4"><br /> </td>
+                    </tr>
+                    <asp:EntityDataSource ID="entityDataSourceHoraire" runat="server" ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer"
+                        EntitySetName="HoraireSet" EnableFlattening="false" Include="Groupe, Jour" Where="it.Groupe.noGroupe = @noGroupe">
+                        <WhereParameters>
+                            <asp:ControlParameter Name="noGroupe" Type="Int32" ControlID="hFieldnoGroupe" />
+                        </WhereParameters>
+                    </asp:EntityDataSource>
                 </ItemTemplate>
             </asp:ListView>
         </asp:View>
+        <asp:View ID="viewGroupe" runat="server">
+            <asp:ListView ID="lviewLeGroupe" runat="server" DataSourceID="entityDataSourceLeGroupe" DataKeyNames="noGroupe">
+                <LayoutTemplate>                    
+                        <asp:PlaceHolder id="ItemPlaceHolder" runat="server" />
+                </LayoutTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="lblTitreAfficherGroupe" runat="server" Text='<%# "Groupe " & Eval("noGroupe") %>' SkinID="lbTitrePage"></asp:Label>
+                    <table id="tbCours">
+                        <tr>
+                            <td>
+                                <asp:Label ID="lblTitreDebut" runat="server" Text="Date de début: " SkinID="lbChampsFormulaire"></asp:Label>
+                                <asp:Label ID="lblDebut" runat="server" Text='<%#Eval("DateDebut", "{0:dd/MM/yy}") %>'></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblTitreLocal" runat="server" Text="Local: " SkinID="lbChampsFormulaire"></asp:Label>
+                                <asp:Label ID="lblLocal" runat="server" Text='<%#Eval("Local") %>'></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:Label ID="lblTitreFin" runat="server" Text="Date de fin: " SkinID="lbChampsFormulaire"></asp:Label>
+                                <asp:Label ID="lblFin" runat="server" Text='<%#Eval("DateFin", "{0:dd/MM/yy}") %>'></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblTitreAge" runat="server" Text="Âge: " SkinID="lbChampsFormulaire"></asp:Label>
+                                <asp:Label ID="lblAge" runat="server" Text='<%#Eval("AgeMinimum") & "-" & Eval("AgeMaximum") & " ans"%>'></asp:Label>
+                            </td
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:Label ID="lblTitreDateLimite" runat="server" Text="Date limite d'inscription: " SkinID="lbChampsFormulaire"></asp:Label>
+                                <asp:Label ID="lblDateLimite" runat="server" Text='<%#Eval("DateLimiteInscription", "{0:dd/MM/yy}") %>'></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblTitreAnimateur" runat="server" Text="Animateur: " SkinID="lbChampsFormulaire"></asp:Label>
+                                <asp:Label ID="lblAnimateur" runat="server" Text='<%#Eval("Animateur.Nom")%>'></asp:Label>
+                            </td>
+                        </tr>
+                    </table>
+                </ItemTemplate>
+            </asp:ListView>
+            <asp:ListView ID="lviewHoraire" runat="server" DataSourceID="entityDataSourceHoraire" DataKeyNames="noHoraire">
+                         <LayoutTemplate>
+                                <table>
+                                    <tr>
+                                        <td><asp:Label ID="lblTitreHoraire" runat="server" Text="Horaire" SkinID="lbChampsFormulaire" /></td>
+                                    </tr>
+                                    <asp:PlaceHolder id="ItemPlaceHolder" runat="server" /> 
+                                </table>                          
+                        </LayoutTemplate>
+                        <ItemTemplate>                      
+                            <tr>
+                                <td  class="horaire"><asp:Label ID="lblHoraire" runat="server" Text='<%#Eval("Jour.nomJour") & " de " & Eval("HeureDebut", "{0:hh:mm}") & "h" & " à " & Eval("HeureFin", "{0:hh:mm}") & "h" %>' /></td>
+                            </tr>
+                        </ItemTemplate>
+                    </asp:ListView>
+                    <div class="btnInscription">
+                        <asp:DropDownList ID="dDListMembres" runat="server" DataSourceID="entityDataSourceMembre"
+                                DataTextField="Prénom" DataValueField="noMembre">
+                        </asp:DropDownList>
+                        <asp:Button ID="btnSinscrire" runat="server" Text="S'inscrire" SkinID="btnAjoutSupprimer" />
+                    </div>
+                    <div class="btnInscription">
+                        <asp:Button ID="btnRetour" runat="server" Text="Retour" SkinID="btnAjoutSupprimer" />
+                    </div>
+                    <asp:EntityDataSource ID="entityDataSourceHoraire" runat="server" ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer"
+                        EntitySetName="HoraireSet" EnableFlattening="false" Include="Groupe, Jour" Where="it.Groupe.noGroupe = @noGroupe">
+                        <WhereParameters>
+                            <asp:ControlParameter Name="noGroupe" Type="Int32" ControlID="hFieldnoGroupe2" />
+                        </WhereParameters>
+                    </asp:EntityDataSource>
+        </asp:View>
     </asp:MultiView>
     </div>
+    <asp:HiddenField ID="hFieldnoGroupe2" runat="server" />
     <asp:HiddenField ID="hFieldNoCategorie" runat="server" Value="0" />
     <asp:EntityDataSource ID="entityDataSourceListeCours" runat="server" 
     ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
@@ -132,10 +225,26 @@
     </asp:EntityDataSource>
     <asp:EntityDataSource ID="entityDataSourceGroupes" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-        EntitySetName="GroupeSet" EnableFlattening="false" Include="Cours, Animateur"
+        EntitySetName="GroupeSet" EnableFlattening="false" Include="Cours"
         Where="it.Cours.noCours = @leNoCours">
         <WhereParameters>
             <asp:ControlParameter Name="leNoCours" Type="Int32" ControlID="hFieldnoCours" />
+        </WhereParameters>
+    </asp:EntityDataSource>
+    <asp:EntityDataSource ID="entityDataSourceLeGroupe" runat="server" 
+        ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
+        EntitySetName="GroupeSet" EnableFlattening="false" Include="Cours, Animateur"
+        Where="it.noGroupe = @leNoGroupe">
+        <WhereParameters>
+            <asp:ControlParameter Name="leNoGroupe" Type="Int32" ControlID="hFieldnoGroupe2" />
+        </WhereParameters>
+    </asp:EntityDataSource>
+    <asp:EntityDataSource ID="entityDataSourceMembre" runat="server"
+        ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
+        EntitySetName="MembreSet" EnableFlattening="false" Include="Compte"
+        Where="it.Compte.noCompte = @leNoCompte">
+        <WhereParameters>
+            <asp:SessionParameter Name="leNoCompte" Type="Int32" SessionField="noCompte" />
         </WhereParameters>
     </asp:EntityDataSource>
 </asp:Content>
