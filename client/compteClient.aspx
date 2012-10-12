@@ -115,7 +115,7 @@
 
 <asp:EntityDataSource ID="entiDataSourceAjouterMembre" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-        EntitySetName="MembreSet" Where="it.noMembre = @noMembre" Include="Compte" EnableUpdate="true">      
+        EntitySetName="MembreSet" Where="it.noMembre = @noMembre" Include="Compte" EnableUpdate="true" EnableFlattening="false">      
         <WhereParameters>
             <asp:ControlParameter Name="noMembre" Type="Int32" ControlID="hiddenFieldNoMembre" />
         </WhereParameters>

@@ -6,7 +6,6 @@ Partial Class login
     Private Shared lecontext As ModelContainer = Nothing
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
         lecontext = New ModelContainer()
         loginCtrl.UserNameLabelText = "Adresse courriel:"
     End Sub
@@ -39,7 +38,5 @@ Partial Class login
         If Session("userType") = 3 Then
             Response.Redirect("~/admin/default.aspx")
         End If
-
-
     End Sub
 End Class

@@ -25,11 +25,13 @@ Partial Class CompteClient
     End Sub
 
     Protected Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Unload
+
+
+
         lecontext = Nothing
     End Sub
     Protected Sub Page_PreInit(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreInit
-        verificationTypeUser(1)
-        
+        verificationTypeUser(1)      
     End Sub
 
     Protected Sub listViewMembres_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles listViewMembres.ItemCommand
@@ -107,14 +109,15 @@ Partial Class CompteClient
         CType(listViewAjoutMembre.Items(0).FindControl("rangeValidatorDateNaissance"), RangeValidator).MinimumValue = Now.AddYears(-150).ToShortDateString
     End Sub
 
-    Protected Sub listViewMembres_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles listViewMembres.Load
+    Protected Sub viewMembres_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles viewMembres.Load
         'Supprime les membre qui dont le nom est "Entrez un nom"
-        For Each membre As Membre In (From monMembre In lecontext.MembreSet Select monMembre)
-            If membre.Nom = "Entrez un nom" Then
-                lecontext.MembreSet.DeleteObject(membre)
-
-            End If
-        Next
-        lecontext.SaveChanges()
+        If Not multiViewMembre.ActiveViewIndex = 1 Then
+            For Each membre As Membre In (From monMembre In lecontext.MembreSet Select monMembre)
+                If membre.Nom = "Entrez un nom" Then
+                    lecontext.MembreSet.DeleteObject(membre)
+                End If
+            Next
+            lecontext.SaveChanges()
+        End If
     End Sub
 End Class

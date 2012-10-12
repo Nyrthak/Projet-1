@@ -1,5 +1,6 @@
-﻿
+﻿Imports Model
 Partial Class prepose_modifComptePrep
-    Inherits System.Web.UI.Page
+    Inherits page
+    Private Shared lecontext As ModelContainer = Nothing
 
 End Class
