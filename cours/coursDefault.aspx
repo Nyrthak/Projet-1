@@ -8,7 +8,7 @@
     <asp:Button ID="btnRechercher" runat="server" Text="Ok" CssClass="rechercher" />
     <asp:TextBox ID="txtRechercher" runat="server" SkinID="TextBoxFormulaire" CssClass="rechercher"></asp:TextBox>
     <asp:Label ID="lblRechercher" runat="server" Text="Rechercher" CssClass="lbRechercher"></asp:Label>
-    <div id="menuFloat">
+    <div class="menuFloat">
         <asp:ListView ID="lViewCatégorie" runat="server" DataSourceID="EntityDataSourceCatégorie" DataKeyNames="noCatégorie">
                 <LayoutTemplate>
                     <ul>

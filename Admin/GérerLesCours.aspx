@@ -3,11 +3,12 @@
 <asp:Content ID="contentMenuPrepose" ContentPlaceHolderID="contentMenuPrepose" runat="server"></asp:Content>
 
 <asp:Content ID="ContentCours" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
+    <div id="contentRight">
     <asp:MultiView ID="mViewCours" runat="server" ActiveViewIndex="0">
         <asp:View ID="viewGererCours" runat="server">
             <asp:Label ID="lblTitreGererCours" runat="server" Text="Gérer les cours" SkinID="lbTitrePage"></asp:Label><br />
             <asp:Label ID="lblListeDeCours" runat="server" Text="Liste de cours" SkinID="lbSousTitre"></asp:Label>
-            <asp:Button ID="btnRechercher" runat="server" Text="Ok" CssClass="rechercher" />
+            <asp:Button ID="btnRechercher" runat="server" Text="OK" CssClass="rechercher" SkinID="btnRechercher" />
             <asp:TextBox ID="txtRechercher" runat="server" SkinID="TextBoxFormulaire" CssClass="rechercher"></asp:TextBox>
             <asp:Label ID="lblRechercher" runat="server" Text="Rechercher : " CssClass="lbRechercher"></asp:Label> 
             <asp:ListView ID="lViewCours" runat="server" DataSourceID="LinqDataSourceCours" DataKeyNames="noCours">
@@ -115,7 +116,8 @@
                         <td colspan="2"><asp:TextBox ID="txtDescription" runat="server" SkinID="TextBoxDescription" TextMode="MultiLine" Text='<%#Bind("Description")%>'></asp:TextBox></td>
                     </tr>
                     <tr>
-                        <td>
+                        <td colspan="2">
+                            <br />
                             <asp:Button ID="btnUpdateCours" runat="server" SkinID="btnConfirmation" Text="Enregistrer" CommandName="Update" />
                             <asp:Button ID="btnCancel" runat="server" Text="Annuler" SkinID="btnConfirmation" CommandName="Annuler" CausesValidation="false" />
                         </td>
@@ -153,4 +155,5 @@
         </asp:View>
     </asp:MultiView>
     <br /><asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
+    </div>
 </asp:Content>
