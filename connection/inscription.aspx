@@ -15,7 +15,7 @@
         <asp:ValidationSummary SkinID="valiSummary" ID="valiSummaryInscription" runat="server" />
         <table class="tableau">
             <tr>
-                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbNom" runat="server" Text="Nom:"></asp:Label>
+                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbNom" runat="server" Text="Nom"></asp:Label>
                     </td>
                 <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="160px" ID="tbNom" runat="server" MaxLength="20"></asp:TextBox>               
                     <asp:RequiredFieldValidator SkinID="requisValidation" ID="requisValidationNom" 
@@ -24,7 +24,7 @@
                     </td>
             </tr>
             <tr>
-                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbPrenom" runat="server" Text="Prenom:"></asp:Label>
+                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbPrenom" runat="server" Text="Prenom"></asp:Label>
                     </td>
                 <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="160px" ID="tbPrenom" runat="server" MaxLength="20" ></asp:TextBox>                     
                     <asp:RequiredFieldValidator skinid="requisValidation" 
@@ -34,7 +34,7 @@
                     </td>
             </tr>
             <tr>
-                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbCourriel" runat="server" Text="Adresse courriel*:"></asp:Label>
+                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbCourriel" runat="server" Text="Adresse courriel*"></asp:Label>
                     </td>
                 <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="210px" ID="tbCourriel" runat="server" MaxLength="35" ></asp:TextBox>
                     <asp:RequiredFieldValidator SkinID="requisValidation" 
@@ -60,7 +60,7 @@
                     </td>
             </tr>
             <tr>
-                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbMotDePasse" runat="server" Text="Mot de passe:"></asp:Label>
+                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbMotDePasse" runat="server" Text="Mot de passe"></asp:Label>
                     </td>
                 <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="160px" ID="tbMotDePasse" runat="server" TextMode="Password" MaxLength="20"></asp:TextBox>                     
                      <asp:RequiredFieldValidator SkinID="requisValidation" 
@@ -70,7 +70,7 @@
                     </td>
             </tr>
             <tr>
-                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbConfirmationMotDePasse" runat="server" Text="Confirmation du mot de passe:"></asp:Label>
+                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbConfirmationMotDePasse" runat="server" Text="Confirmation du mot de passe"></asp:Label>
                     </td>
                 <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="160px" ID="tbConfirmationMotDePasse" runat="server" TextMode="Password" MaxLength="20"></asp:TextBox>
                     <asp:RequiredFieldValidator SkinID="requisValidation" 
@@ -81,7 +81,7 @@
                         </td>
             </tr>
             <tr>
-                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbNumeroTelephone" runat="server" Text="Numéro de téléphone:"></asp:Label>
+                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbNumeroTelephone" runat="server" Text="Numéro de téléphone"></asp:Label>
                     </td>
                 <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="100px" ID="tbNumeroTelephone" runat="server"  MaxLength="10" ></asp:TextBox>
                     <asp:RequiredFieldValidator SkinID="requisValidation" 
@@ -93,7 +93,7 @@
                     </td>
             </tr>
             <tr>
-                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbAdresse" runat="server" Text="Adresse:"></asp:Label>
+                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbAdresse" runat="server" Text="Adresse"></asp:Label>
                     </td>
                 <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="200px" ID="tbAdresse" runat="server" MaxLength="30" ></asp:TextBox>
                 <asp:RequiredFieldValidator SkinID="requisValidation" ID="requisValidationAdresse" 
@@ -102,7 +102,7 @@
                     </td>
             </tr>
             <tr>
-                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbCodePostale" runat="server" Text="Code Postal:"></asp:Label>
+                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbCodePostale" runat="server" Text="Code Postal"></asp:Label>
                     </td>
                 <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="60px" ID="tbCodePostal" runat="server" MaxLength="6" ></asp:TextBox>
                     <asp:RequiredFieldValidator SkinID="requisValidation" 
@@ -117,7 +117,7 @@
                     </td>
             </tr>
             <tr>
-                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbVille" runat="server" Text="Ville:"></asp:Label>
+                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbVille" runat="server" Text="Ville"></asp:Label>
                     </td>
                 <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="160px" ID="tbVille" runat="server" MaxLength="20" ></asp:TextBox>
                 <asp:RequiredFieldValidator SkinID="requisValidation" ID="requisValidationVille" 
@@ -126,7 +126,7 @@
                 </td>                        
             </tr>
             <tr>
-                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbProvince" runat="server" Text="Province:"></asp:Label>
+                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbProvince" runat="server" Text="Province"></asp:Label>
                     </td>
                 <td class="longeurDeuxiemeColonne"><asp:DropDownList skinId="dropDownListProvince" id="dropDownListProvince" 
                         runat="server" DataSourceID="entityDataSourceProvince" DataTextField="nom" 
@@ -136,7 +136,7 @@
                     </td>
             </tr>
             <tr>
-                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbPays" runat="server" Text="Pays:"></asp:Label>
+                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbPays" runat="server" Text="Pays"></asp:Label>
                     </td>
                 <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="80px" ID="tbPays" runat="server" MaxLength="25" ></asp:TextBox>
                 <asp:RequiredFieldValidator SkinID="requisValidation" ID="requisValidationPays" runat="server" ErrorMessage="Votre pays doit être spécifié." ControlToValidate="tbPays" Display="Dynamic">*</asp:RequiredFieldValidator>
@@ -147,7 +147,7 @@
         <asp:Label ID="lbFraisOuverture" runat="server" Text="Des frais de 50$ s'applique pour l'ouverture d'un compte." SkinID="lbTitrePage"></asp:Label><br />
         <asp:Label ID="lbInformationsFrais" runat="server" Text="Les frais ne seront pas crédités avant que votre inscription soit approuvée." Font-Size="12px"></asp:Label><br />
  
-        <asp:Label  SkinID="lbInscription" id="lbTypeDeCarte" runat="server" Text="Type de carte:"></asp:Label>
+        <asp:Label  SkinID="lbInscription" id="lbTypeDeCarte" runat="server" Text="Type de carte"></asp:Label>
         <asp:RequiredFieldValidator SkinID="requisValidation" ID="requisValidationModePaiement" runat="server" ErrorMessage="Le mode de paiement doit être spécifié." ControlToValidate="rbListeTypeCarte" Display="Dynamic" >*</asp:RequiredFieldValidator>
         <asp:RadioButtonList ID="rbListeTypeCarte" runat="server" CellSpacing="10" 
             RepeatDirection="Horizontal">
@@ -158,7 +158,7 @@
         </asp:RadioButtonList>           
         <table class="style1">
             <tr>
-                <td class="longeurPremiereColonne"><asp:Label skinid="lbInscription" ID="lbNumeroCartePaiement" runat="server" Text="Numéro de la carte:"></asp:Label>
+                <td class="longeurPremiereColonne"><asp:Label skinid="lbInscription" ID="lbNumeroCartePaiement" runat="server" Text="Numéro de la carte"></asp:Label>
                 </td>
                 <td><asp:TextBox SkinID="tbInscription" ID="tbNumeroCartePaiement" Text="" runat="server"></asp:TextBox>
                 <asp:RequiredFieldValidator SkinID="requisValidation" 
@@ -168,7 +168,7 @@
                     </td>
             </tr>
             <tr>
-                <td class="longeurPremiereColonne"><asp:Label skinid="lbInscription" ID="lbNumeroSecurite" runat="server" Text="Numéro de sécurité**:"></asp:Label>
+                <td class="longeurPremiereColonne"><asp:Label skinid="lbInscription" ID="lbNumeroSecurite" runat="server" Text="Numéro de sécurité**"></asp:Label>
                     </td>
                 <td>
                    <asp:TextBox SkinID="tbInscription" Width="40px" ID="tbNumeroSecuriteCarte" runat="server" MaxLength="3" ></asp:TextBox>
@@ -176,7 +176,7 @@
                    </td>                      
             </tr>
             <tr>
-                <td class="longeurPremiereColonne"><asp:Label skinid="lbInscription" ID="lbDateExpirationCarte" runat="server" Text="Date d'expiration:"></asp:Label>
+                <td class="longeurPremiereColonne"><asp:Label skinid="lbInscription" ID="lbDateExpirationCarte" runat="server" Text="Date d'expiration"></asp:Label>
                     </td>
                 <td>
                     <asp:DropDownList skinid="dropDownListDateExpiration" Width="50px" ID="dropDownListMois"  runat="server" >
@@ -194,14 +194,16 @@
                         <asp:ListItem>11</asp:ListItem>
                         <asp:ListItem>12</asp:ListItem>
                     </asp:DropDownList>
-                    <asp:RequiredFieldValidator SkinID="requisValidation" ID="requisValidationDateExpirationMois" runat="server" ErrorMessage="Le mois de la date d'expiration de votre carte de crédit doit être spécifié." ControlToValidate="dropDownListMois" Display="Dynamic">*</asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator SkinID="requisValidation" ID="requisValidationDateExpirationMois" runat="server" 
+                        ErrorMessage="Le mois de la date d'expiration de votre carte de crédit doit être spécifié." ControlToValidate="dropDownListMois" Display="Dynamic">*</asp:RequiredFieldValidator>
                     <asp:DropDownList skinid="dropDownListDateExpiration" Width="70px" ID="dropDownListAnnee" runat="server">
                     </asp:DropDownList>
-                    <asp:RequiredFieldValidator SkinID="requisValidation" ID="requisValidationDateExpirationAnnee" runat="server" ErrorMessage="L'année de la date d'expiration de votre carte de crédit doit être spécifié." ControlToValidate="dropDownListAnnee" Display="Dynamic">*</asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator SkinID="requisValidation" ID="requisValidationDateExpirationAnnee" runat="server" 
+                        ErrorMessage="L'année de la date d'expiration de votre carte de crédit doit être spécifié." ControlToValidate="dropDownListAnnee" Display="Dynamic">*</asp:RequiredFieldValidator>
                 </td>
             </tr>
             <tr>
-                <td class="longeurPremiereColonne"><asp:Label skinid="lbInscription" ID="lbNomPaiement" runat="server" Text="Nom du détenteur:"></asp:Label>
+                <td class="longeurPremiereColonne"><asp:Label skinid="lbInscription" ID="lbNomPaiement" runat="server" Text="Nom du détenteur"></asp:Label>
                     </td>
                 <td>
                     <asp:TextBox SkinID="tbInscription" Width="210px" ID="tbNomPaiement" runat="server" MaxLength="40"></asp:TextBox>

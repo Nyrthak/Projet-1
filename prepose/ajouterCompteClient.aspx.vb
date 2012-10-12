@@ -14,7 +14,7 @@ Partial Class prepose_ajouterCompteClient
     End Sub
 
     Protected Sub Page_PreInit(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreInit
-        verificationTypeUser(2)
+
     End Sub
 
     Protected Sub dsContextDisposing(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextDisposingEventArgs) _

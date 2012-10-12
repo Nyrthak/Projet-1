@@ -34,7 +34,7 @@ Partial Class login
             Page.Response.Redirect("~/Default.aspx")
         End If
         If Session("userType") = 2 Then
-            Response.Redirect("~/prepose/pagePrepose.aspx")
+            Response.Redirect("~/prepose/modifComptePrep.aspx")
         End If
         If Session("userType") = 3 Then
             Response.Redirect("~/admin/default.aspx")

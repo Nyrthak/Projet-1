@@ -15,9 +15,7 @@
     <div id="bigDiv">
         
         <div id="header">
-            
             <asp:LoginStatus ID="laginStatus" runat="server" LogoutPageUrl="Default.aspx" forecolor="Red"/>
-            <asp:LinkButton ID="lnkButtonPagePreposeAdmin" runat="server" Text="" Visible="false"></asp:LinkButton>
         </div>
         <div id="menu">
             <asp:Menu ID="menuTop" runat="server" Orientation="Horizontal" DataSourceID="siteMapDataSource" >
@@ -28,8 +26,8 @@
         <div id="centre">
             <div id="corps">
                 <asp:ContentPlaceHolder ID="contentMenuClient" runat="server">
-                    <div id="menuFloat">
-                         <asp:Menu ID="menuLeft" runat="server" DataSourceID="siteMapDataSourceMenu">
+                    <div class="menuFloat">
+                         <asp:Menu ID="menuLeftClient" runat="server" DataSourceID="siteMapDataSourceMenuClient">
                          <StaticHoverStyle BackColor="#537EFF" ForeColor="White" />
                          <StaticSelectedStyle BackColor="#537EFF" ForeColor="White" />
                      </asp:Menu>
@@ -38,6 +36,12 @@
                 <asp:ContentPlaceHolder ID="contentMenuAdmin" runat="server">
                 </asp:ContentPlaceHolder>
                 <asp:ContentPlaceHolder ID="contentMenuPrepose" runat="server">
+                <div class="menuFloat">
+                         <asp:Menu ID="menuLeftPrepose" runat="server" DataSourceID="siteMapDataSourceMenuPrepose">
+                         <StaticHoverStyle BackColor="#537EFF" ForeColor="White" />
+                         <StaticSelectedStyle BackColor="#537EFF" ForeColor="White" />
+                     </asp:Menu>
+                    </div>
                 </asp:ContentPlaceHolder>
                 <asp:ContentPlaceHolder id="contentPlaceMasterPage" runat="server">
                 </asp:ContentPlaceHolder>
@@ -59,7 +63,8 @@
         </div>       
     </div>
     <asp:SiteMapDataSource ID="siteMapDataSource" runat="server" ShowStartingNode="false"  SiteMapProvider="siteMapLogged"/>
-    <asp:SiteMapDataSource ID="siteMapDataSourceMenu" runat="server" ShowStartingNode="false" SiteMapProvider="siteMapMenu"/>
+    <asp:SiteMapDataSource ID="siteMapDataSourceMenuClient" runat="server" ShowStartingNode="false" SiteMapProvider="siteMapMenuClient"/>
+     <asp:SiteMapDataSource ID="siteMapDataSourceMenuPrepose" runat="server" ShowStartingNode="false" SiteMapProvider="siteMapMenuPrepose"/>
     </form>
 </body>
 </html>

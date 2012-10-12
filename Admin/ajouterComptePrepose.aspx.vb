@@ -19,8 +19,8 @@ Partial Class Admin_ajouterComptePrepose
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         lecontext = New ModelContainer()
 
-        rangeValidatorDateNaissance.MinimumValue = Now.AddYears(-150)
-        rangeValidatorDateNaissance.MaximumValue = Now.Date
+        rangeValidatorDateNaissance.MinimumValue = Now.AddYears(-150).ToShortDateString
+        rangeValidatorDateNaissance.MaximumValue = Now.Date.ToShortDateString
     End Sub
 
     Protected Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Unload

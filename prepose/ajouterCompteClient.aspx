@@ -9,10 +9,13 @@
     <asp:CalendarExtender ID="calendarExtenderDateNaissance" runat="server" TargetControlID="tbDateNaissance" PopupButtonID="imgBtnCalendrier" 
      CssClass="MyCalendar" PopupPosition="Right" Format="d-MM-yyyy" >
     </asp:CalendarExtender> 
+<div id="contentRight">
 <asp:ValidationSummary SkinID="valiSummary" ID="valiSummaryInscription" runat="server" />
+
+    <asp:Label SkinID="lbTitrePage" ID="lbTitrePage" runat="server" Text="Ajouter un compte préposé"></asp:Label>
     <table class="tableau">
             <tr>
-                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbNom" runat="server" Text="Nom:"></asp:Label>
+                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbNom" runat="server" Text="Nom"></asp:Label>
                     </td>
                 <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="160px" ID="tbNom" runat="server" MaxLength="20"></asp:TextBox>               
                     <asp:RequiredFieldValidator SkinID="requisValidation" ID="requisValidationNom" 
@@ -21,7 +24,7 @@
                     </td>
             </tr>
             <tr>
-                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbPrenom" runat="server" Text="Prenom:"></asp:Label>
+                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbPrenom" runat="server" Text="Prenom"></asp:Label>
                     </td>
                 <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="160px" ID="tbPrenom" runat="server" MaxLength="20" ></asp:TextBox>                     
                     <asp:RequiredFieldValidator skinid="requisValidation" 
@@ -31,7 +34,7 @@
                     </td>
             </tr>
             <tr>
-                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbCourriel" runat="server" Text="Adresse courriel*:"></asp:Label>
+                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbCourriel" runat="server" Text="Adresse courriel*"></asp:Label>
                     </td>
                 <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="210px" ID="tbCourriel" runat="server" MaxLength="35" ></asp:TextBox>
                     <asp:RequiredFieldValidator SkinID="requisValidation" 
@@ -47,18 +50,23 @@
                 <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbDateNaissance" runat="server" Text="Date de naissance"></asp:Label>
                     </td>
                 <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="90px" ID="tbDateNaissance" runat="server" MaxLength="10" ReadOnly="false" ></asp:TextBox>
-                <asp:ImageButton ID="imgBtnCalendrier" ImageUrl="~/App_Themes/Default/images/btnCalendrier.png" runat="server" CausesValidation="false" />              
+                <asp:ImageButton ID="imgBtnCalendrier" ImageUrl="~/App_Themes/Default/images/btnCalendrier.png" 
+                    runat="server" CausesValidation="false" />              
                     <asp:RequiredFieldValidator SkinID="requisValidation" 
                         ID="requisValidationDateNaissance" runat="server" 
                         ErrorMessage="La date de naissance doit être spécifié." 
                         ControlToValidate="tbDateNaissance" Display="Dynamic">*</asp:RequiredFieldValidator>
-                        <asp:CompareValidator runat="server" ID="test" Type="Date" ControlToValidate="tbDateNaissance" ErrorMessage="La date de naissance n'est pas du bon format (jj-mm-aaaa)" ForeColor="Red" Operator="DataTypeCheck" Display="Dynamic">*</asp:CompareValidator>
-                        <asp:RangeValidator ID="rangeValidatorDateNaissance" Type="Date" runat="server" ErrorMessage="La date de naissance doit précèder la date d'aujourd'hui." ControlToValidate="tbDateNaissance" Display="Dynamic" ForeColor="Red">*</asp:RangeValidator>
+                        <asp:CompareValidator runat="server" ID="test" Type="Date" ControlToValidate="tbDateNaissance" 
+                            ErrorMessage="La date de naissance n'est pas du bon format (jj-mm-aaaa)" ForeColor="Red" Operator="DataTypeCheck" 
+                            Display="Dynamic">*</asp:CompareValidator>
+                        <asp:RangeValidator ID="rangeValidatorDateNaissance" Type="Date" runat="server" 
+                            ErrorMessage="La date de naissance doit précèder la date d'aujourd'hui." 
+                            ControlToValidate="tbDateNaissance" Display="Dynamic" ForeColor="Red">*</asp:RangeValidator>
                             
                     </td>
             </tr>
             <tr>
-                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbMotDePasse" runat="server" Text="Mot de passe:"></asp:Label>
+                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbMotDePasse" runat="server" Text="Mot de passe"></asp:Label>
                     </td>
                 <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="160px" ID="tbMotDePasse" runat="server" TextMode="Password" MaxLength="20"></asp:TextBox>                     
                      <asp:RequiredFieldValidator SkinID="requisValidation" 
@@ -68,7 +76,7 @@
                     </td>
             </tr>
             <tr>
-                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbConfirmationMotDePasse" runat="server" Text="Confirmation du mot de passe:"></asp:Label>
+                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbConfirmationMotDePasse" runat="server" Text="Confirmation du mot de passe"></asp:Label>
                     </td>
                 <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="160px" ID="tbConfirmationMotDePasse" runat="server" TextMode="Password" MaxLength="20"></asp:TextBox>
                     <asp:RequiredFieldValidator SkinID="requisValidation" 
@@ -79,7 +87,7 @@
                         </td>
             </tr>
             <tr>
-                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbNumeroTelephone" runat="server" Text="Numéro de téléphone:"></asp:Label>
+                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbNumeroTelephone" runat="server" Text="Numéro de téléphone"></asp:Label>
                     </td>
                 <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="100px" ID="tbNumeroTelephone" runat="server"  MaxLength="10" ></asp:TextBox>
                     <asp:RequiredFieldValidator SkinID="requisValidation" 
@@ -91,7 +99,7 @@
                     </td>
             </tr>
             <tr>
-                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbAdresse" runat="server" Text="Adresse:"></asp:Label>
+                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbAdresse" runat="server" Text="Adresse"></asp:Label>
                     </td>
                 <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="200px" ID="tbAdresse" runat="server" MaxLength="30" ></asp:TextBox>
                 <asp:RequiredFieldValidator SkinID="requisValidation" ID="requisValidationAdresse" 
@@ -100,7 +108,7 @@
                     </td>
             </tr>
             <tr>
-                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbCodePostale" runat="server" Text="Code Postal:"></asp:Label>
+                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbCodePostale" runat="server" Text="Code Postal"></asp:Label>
                     </td>
                 <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="60px" ID="tbCodePostal" runat="server" MaxLength="6" ></asp:TextBox>
                     <asp:RequiredFieldValidator SkinID="requisValidation" 
@@ -115,7 +123,7 @@
                     </td>
             </tr>
             <tr>
-                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbVille" runat="server" Text="Ville:"></asp:Label>
+                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbVille" runat="server" Text="Ville"></asp:Label>
                     </td>
                 <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="160px" ID="tbVille" runat="server" MaxLength="20" ></asp:TextBox>
                 <asp:RequiredFieldValidator SkinID="requisValidation" ID="requisValidationVille" 
@@ -124,36 +132,41 @@
                 </td>                        
             </tr>
             <tr>
-                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbProvince" runat="server" Text="Province:"></asp:Label>
+                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbProvince" runat="server" Text="Province"></asp:Label>
                     </td>
                 <td class="longeurDeuxiemeColonne"><asp:DropDownList skinId="dropDownListProvince" id="dropDownListProvince" 
                         runat="server" DataSourceID="entityDataSourceProvince" DataTextField="nom" 
                         DataValueField="noProvince" >
                     </asp:DropDownList>
-                    <asp:RequiredFieldValidator skinid="requisValidation" ID="requisValidationProvince" runat="server" ErrorMessage="La province doit être spécifié." ControlToValidate="dropDownListProvince" Display="Dynamic">*</asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator skinid="requisValidation" ID="requisValidationProvince" runat="server" 
+                    ErrorMessage="La province doit être spécifié." ControlToValidate="dropDownListProvince" Display="Dynamic">*</asp:RequiredFieldValidator>
                     </td>
             </tr>
             <tr>
-                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbPays" runat="server" Text="Pays:"></asp:Label>
+                <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbPays" runat="server" Text="Pays"></asp:Label>
                     </td>
                 <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="80px" ID="tbPays" runat="server" MaxLength="25" ></asp:TextBox>
-                <asp:RequiredFieldValidator SkinID="requisValidation" ID="requisValidationPays" runat="server" ErrorMessage="Le pays doit être spécifié." ControlToValidate="tbPays" Display="Dynamic">*</asp:RequiredFieldValidator>
+                <asp:RequiredFieldValidator SkinID="requisValidation" ID="requisValidationPays" 
+                    runat="server" ErrorMessage="Le pays doit être spécifié." ControlToValidate="tbPays" Display="Dynamic">*</asp:RequiredFieldValidator>
                     </td>
             </tr>
         </table>
-        <asp:Label  SkinID="lbInscription" id="lbTypeDeCarte" runat="server" Text="Type de paiement:"></asp:Label>
+        <asp:Label  SkinID="lbInscription" id="lbTypeDeCarte" runat="server" Text="Type de paiement"></asp:Label>
         <asp:RequiredFieldValidator SkinID="requisValidation" ID="requisValidationModePaiement" runat="server" ErrorMessage="Le mode de paiement doit être spécifié." ControlToValidate="rbListeTypeCarte" Display="Dynamic" >*</asp:RequiredFieldValidator>
         <asp:RadioButtonList ID="rbListeTypeCarte" runat="server" CellSpacing="10" 
-            RepeatDirection="Horizontal">
+            RepeatDirection="Vertical" RepeatColumns="3 " >
             <asp:ListItem>MasterCard</asp:ListItem>
             <asp:ListItem>Visa</asp:ListItem>
             <asp:ListItem>American Express</asp:ListItem>
             <asp:ListItem>Discover</asp:ListItem>
-            <asp:ListItem>Cpntant</asp:ListItem>
+            <asp:ListItem>Contant</asp:ListItem>
             <asp:ListItem>Chèque</asp:ListItem>
-        </asp:RadioButtonList>   
+        </asp:RadioButtonList>  
+        
         <asp:Button SkinID="btnEnregistrer" ID="btnEnregistrerInscription" runat="server" Text="S'inscrire" /><br />
          <asp:Label ID="lbNote1" runat="server" Text="*: Ce sera votre nom d'utilisateur lors de future connection. Il doit être valide pour que nous vous communiquions des informations."></asp:Label><br />
+</div>         
+        
         <asp:EntityDataSource ID="entityDataSourceProvince" runat="server" 
         ConnectionString="name=ModelContainer" 
         DefaultContainerName="ModelContainer" EntitySetName="ProvinceSet" 

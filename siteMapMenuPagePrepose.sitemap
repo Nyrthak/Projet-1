@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+    <siteMapNode url="" title=""  description="">
+      <siteMapNode url="~/prepose/modifComptePrep.aspx" title="Modifier mon compte" description="Modifier mon compte"/>
+      <siteMapNode url="~/prepose/ajouterCompteClient.aspx" title="Ajouter compte client" description="Ajouter compte client"/>
+      <siteMapNode url="~/prepose/gererClient.aspx" title="Gérer les clients" description="Gérer les clients"/>
+      <siteMapNode url="~/prepose/validerInscription.aspx" title="Valider les inscriptions" description="Valider les inscriptions"/>
+    </siteMapNode>
+</siteMap>
