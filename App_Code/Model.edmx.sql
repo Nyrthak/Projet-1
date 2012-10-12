@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 10/11/2012 13:54:30
+-- Date Created: 10/11/2012 14:27:05
 -- Generated from EDMX file: C:\Users\Katherine\Documents\A2012\Projet I\Projet-1\App_Code\Model.edmx
 -- --------------------------------------------------
 
@@ -201,10 +201,11 @@ GO
 CREATE TABLE [dbo].[GroupeSet] (
     [noGroupe] int IDENTITY(1,1) NOT NULL,
     [Local] nvarchar(10)  NOT NULL,
-    [DateDébut] datetime  NOT NULL,
+    [DateDebut] datetime  NOT NULL,
     [DateFin] datetime  NOT NULL,
     [DateLimiteInscription] datetime  NOT NULL,
-    [Âge] int  NOT NULL,
+    [AgeMinimum] int  NOT NULL,
+    [Agemaximum] nvarchar(max)  NOT NULL,
     [Animateur_noAnimateur] int  NOT NULL,
     [Cours_noCours] int  NOT NULL
 );
@@ -242,9 +243,9 @@ GO
 
 -- Creating table 'HoraireSet'
 CREATE TABLE [dbo].[HoraireSet] (
-    [HeureDébut] datetime  NOT NULL,
+    [HeureDebut] datetime  NOT NULL,
     [HeureFin] datetime  NOT NULL,
-    [noHoraire] int  NOT NULL,
+    [noHoraire] int IDENTITY(1,1) NOT NULL,
     [Jour_noJour] int  NOT NULL,
     [Groupe_noGroupe] int  NOT NULL
 );

@@ -43,4 +43,15 @@ Partial Class coursDefault
             lviewCours.DataBind()
         End If
     End Sub
+
+    Protected Sub lviewGroupes_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles lviewGroupes.ItemCommand
+        If e.CommandName = "Selection" Then
+            mViewCours.ActiveViewIndex = 2
+            hFieldnoGroupe2.Value = e.CommandArgument
+        End If
+    End Sub
+
+    Protected Sub btnRetour_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnRetour.Click
+        mViewCours.ActiveViewIndex = 1
+    End Sub
 End Class
