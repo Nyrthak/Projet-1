@@ -171,7 +171,7 @@
                 <td class="longeurPremiereColonne"><asp:Label skinid="lbInscription" ID="lbNumeroSecurite" runat="server" Text="Numéro de sécurité**"></asp:Label>
                     </td>
                 <td>
-                   <asp:TextBox SkinID="tbInscription" Width="40px" ID="tbNumeroSecuriteCarte" runat="server" MaxLength="3" ></asp:TextBox>
+                   <asp:TextBox SkinID="tbInscription" Width="30px" ID="tbNumeroSecuriteCarte" runat="server" MaxLength="3" ></asp:TextBox>
                    <asp:RequiredFieldValidator SkinID="requisValidation" ID="requisValidationNumeroSecurite" runat="server" ErrorMessage="Votre numéro de sécurité doit être spécifié." ControlToValidate="tbNumeroSecuriteCarte" Display="Dynamic">*</asp:RequiredFieldValidator>
                    </td>                      
             </tr>
