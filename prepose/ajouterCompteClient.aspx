@@ -226,7 +226,7 @@
         
         <asp:EntityDataSource ID="entityDataSourceProvince" runat="server" 
         ConnectionString="name=ModelContainer" 
-        DefaultContainerName="ModelContainer" EntitySetName="ProvinceSet" 
+        DefaultContainerName="ModelContainer" EntitySetName="Province" 
         EnableFlattening="False">
     </asp:EntityDataSource>
 

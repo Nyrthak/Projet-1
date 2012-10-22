@@ -217,7 +217,7 @@
         <asp:Button SkinID="btnEnregistrer" ID="btnEnregistrerInscription" runat="server" Text="S'inscrire et payer" />
     <asp:EntityDataSource ID="entityDataSourceProvince" runat="server" 
         ConnectionString="name=ModelContainer" 
-        DefaultContainerName="ModelContainer" EntitySetName="ProvinceSet" 
+        DefaultContainerName="ModelContainer" EntitySetName="Province" 
         EnableFlattening="False">
     </asp:EntityDataSource>
 </asp:Content>

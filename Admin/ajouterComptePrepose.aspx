@@ -148,7 +148,7 @@
          <asp:Label ID="lbNote1" runat="server" Text="*: Ce sera votre nom d'utilisateur lors de future connection. Il doit être valide pour que nous vous communiquions des informations."></asp:Label><br />
         <asp:EntityDataSource ID="entityDataSourceProvince" runat="server" 
         ConnectionString="name=ModelContainer" 
-        DefaultContainerName="ModelContainer" EntitySetName="ProvinceSet" 
+        DefaultContainerName="ModelContainer" EntitySetName="Province" 
         EnableFlattening="False">
     </asp:EntityDataSource>
 </div>

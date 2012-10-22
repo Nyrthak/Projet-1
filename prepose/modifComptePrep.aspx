@@ -207,7 +207,7 @@
 </div>
      <asp:EntityDataSource ID="entiDataSourceProvince" runat="server" 
         ConnectionString="name=ModelContainer" 
-        DefaultContainerName="ModelContainer" EntitySetName="ProvinceSet" 
+        DefaultContainerName="ModelContainer" EntitySetName="Province" 
         EnableFlattening="False">
     </asp:EntityDataSource>
     <asp:EntityDataSource ID="entiDataSourceMembre" runat="server" 
@@ -219,7 +219,7 @@
     </asp:EntityDataSource>
     <asp:EntityDataSource ID="entiDataSourceCompte" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-        EntitySetName="CompteSet" EnableFlattening="false" EnableUpdate="True" Where="it.noCompte = @noCompte" Include="Province">
+        EntitySetName="Compte" EnableFlattening="false" EnableUpdate="True" Where="it.noCompte = @noCompte" Include="Province">
         <WhereParameters>
         <asp:SessionParameter Name="noCompte" SessionField="noCompte" Type="Int32"/>    
         </WhereParameters>

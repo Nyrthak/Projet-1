@@ -48,7 +48,7 @@ Partial Class prepose_ajouterCompteClient
         Dim compteur As Integer = 0
         Dim salt As String = ""
         'Dim aCookie As New HttpCookie("online")
-        For Each courriel As String In (From dl In lecontext.CompteSet Select dl.Email)
+        For Each courriel As String In (From dl In lecontext.Compte Select dl.Email)
             If tbCourriel.Text = courriel Then
                 Dim validatorEmail As CustomValidator = New CustomValidator
                 validatorEmail.ErrorMessage = "L'email est déja utilisé."
@@ -94,7 +94,7 @@ Partial Class prepose_ajouterCompteClient
             compteAjoute.motDePasseCrypté = hash
             compteAjoute.Email = tbCourriel.Text
             compteAjoute.noTelephone = tbNumeroTelephone.Text
-            compteAjoute.Province = (From dl In lecontext.ProvinceSet Where dl.noProvince = dropDownListProvince.SelectedValue Select dl).First
+            compteAjoute.Province = (From dl In lecontext.Province Where dl.noProvince = dropDownListProvince.SelectedValue Select dl).First
             compteAjoute.Pays = tbPays.Text
 
             membreAjoute.Nom = tbNom.Text
@@ -103,7 +103,7 @@ Partial Class prepose_ajouterCompteClient
             membreAjoute.Propriétaire = True
 
             compteAjoute.Membre.Add(membreAjoute)
-            lecontext.AddObject("CompteSet", compteAjoute)
+            lecontext.AddObject("Compte", compteAjoute)
             lecontext.SaveChanges()
 
             Page.Response.Redirect("~/connection/inscriptionReusi.aspx")

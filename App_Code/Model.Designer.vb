@@ -16,7 +16,7 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("a8d80754-07bd-4f14-9dbe-37876f3a29cc")>
+<Assembly: EdmSchemaAttribute("9c0fd47f-1556-4e07-978e-e6ecb425d5aa")>
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("Model", "CompteProvince", "Compte", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Compte), "Province", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Province))>
 <Assembly: EdmRelationshipAttribute("Model", "CompteMembre", "Compte", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Compte), "Membre", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Membre))>
@@ -91,361 +91,361 @@ Namespace Model
         ''' <summary>
         ''' No Metadata Documentation available.
         ''' </summary>
-        Public ReadOnly Property ProvinceSet() As ObjectSet(Of Province)
+        Public ReadOnly Property Province() As ObjectSet(Of Province)
             Get
-                If (_ProvinceSet Is Nothing) Then
-                    _ProvinceSet = MyBase.CreateObjectSet(Of Province)("ProvinceSet")
+                If (_Province Is Nothing) Then
+                    _Province = MyBase.CreateObjectSet(Of Province)("Province")
                 End If
-                Return _ProvinceSet
+                Return _Province
             End Get
         End Property
     
-        Private _ProvinceSet As ObjectSet(Of Province)
+        Private _Province As ObjectSet(Of Province)
     
         ''' <summary>
         ''' No Metadata Documentation available.
         ''' </summary>
-        Public ReadOnly Property CompteSet() As ObjectSet(Of Compte)
+        Public ReadOnly Property Compte() As ObjectSet(Of Compte)
             Get
-                If (_CompteSet Is Nothing) Then
-                    _CompteSet = MyBase.CreateObjectSet(Of Compte)("CompteSet")
+                If (_Compte Is Nothing) Then
+                    _Compte = MyBase.CreateObjectSet(Of Compte)("Compte")
                 End If
-                Return _CompteSet
+                Return _Compte
             End Get
         End Property
     
-        Private _CompteSet As ObjectSet(Of Compte)
+        Private _Compte As ObjectSet(Of Compte)
     
         ''' <summary>
         ''' No Metadata Documentation available.
         ''' </summary>
-        Public ReadOnly Property MembreSet() As ObjectSet(Of Membre)
+        Public ReadOnly Property Membre() As ObjectSet(Of Membre)
             Get
-                If (_MembreSet Is Nothing) Then
-                    _MembreSet = MyBase.CreateObjectSet(Of Membre)("MembreSet")
+                If (_Membre Is Nothing) Then
+                    _Membre = MyBase.CreateObjectSet(Of Membre)("Membre")
                 End If
-                Return _MembreSet
+                Return _Membre
             End Get
         End Property
     
-        Private _MembreSet As ObjectSet(Of Membre)
+        Private _Membre As ObjectSet(Of Membre)
     
         ''' <summary>
         ''' No Metadata Documentation available.
         ''' </summary>
-        Public ReadOnly Property PaiementSet() As ObjectSet(Of Paiement)
+        Public ReadOnly Property Paiement() As ObjectSet(Of Paiement)
             Get
-                If (_PaiementSet Is Nothing) Then
-                    _PaiementSet = MyBase.CreateObjectSet(Of Paiement)("PaiementSet")
+                If (_Paiement Is Nothing) Then
+                    _Paiement = MyBase.CreateObjectSet(Of Paiement)("Paiement")
                 End If
-                Return _PaiementSet
+                Return _Paiement
             End Get
         End Property
     
-        Private _PaiementSet As ObjectSet(Of Paiement)
+        Private _Paiement As ObjectSet(Of Paiement)
     
         ''' <summary>
         ''' No Metadata Documentation available.
         ''' </summary>
-        Public ReadOnly Property CatégorieSet() As ObjectSet(Of Catégorie)
+        Public ReadOnly Property Catégorie() As ObjectSet(Of Catégorie)
             Get
-                If (_CatégorieSet Is Nothing) Then
-                    _CatégorieSet = MyBase.CreateObjectSet(Of Catégorie)("CatégorieSet")
+                If (_Catégorie Is Nothing) Then
+                    _Catégorie = MyBase.CreateObjectSet(Of Catégorie)("Catégorie")
                 End If
-                Return _CatégorieSet
+                Return _Catégorie
             End Get
         End Property
     
-        Private _CatégorieSet As ObjectSet(Of Catégorie)
+        Private _Catégorie As ObjectSet(Of Catégorie)
     
         ''' <summary>
         ''' No Metadata Documentation available.
         ''' </summary>
-        Public ReadOnly Property CoursSet() As ObjectSet(Of Cours)
+        Public ReadOnly Property Cours() As ObjectSet(Of Cours)
             Get
-                If (_CoursSet Is Nothing) Then
-                    _CoursSet = MyBase.CreateObjectSet(Of Cours)("CoursSet")
+                If (_Cours Is Nothing) Then
+                    _Cours = MyBase.CreateObjectSet(Of Cours)("Cours")
                 End If
-                Return _CoursSet
+                Return _Cours
             End Get
         End Property
     
-        Private _CoursSet As ObjectSet(Of Cours)
+        Private _Cours As ObjectSet(Of Cours)
     
         ''' <summary>
         ''' No Metadata Documentation available.
         ''' </summary>
-        Public ReadOnly Property GroupeSet() As ObjectSet(Of Groupe)
+        Public ReadOnly Property Groupe() As ObjectSet(Of Groupe)
             Get
-                If (_GroupeSet Is Nothing) Then
-                    _GroupeSet = MyBase.CreateObjectSet(Of Groupe)("GroupeSet")
+                If (_Groupe Is Nothing) Then
+                    _Groupe = MyBase.CreateObjectSet(Of Groupe)("Groupe")
                 End If
-                Return _GroupeSet
+                Return _Groupe
             End Get
         End Property
     
-        Private _GroupeSet As ObjectSet(Of Groupe)
+        Private _Groupe As ObjectSet(Of Groupe)
     
         ''' <summary>
         ''' No Metadata Documentation available.
         ''' </summary>
-        Public ReadOnly Property ListeDAttenteSet() As ObjectSet(Of ListeDAttente)
+        Public ReadOnly Property ListeDAttente() As ObjectSet(Of ListeDAttente)
             Get
-                If (_ListeDAttenteSet Is Nothing) Then
-                    _ListeDAttenteSet = MyBase.CreateObjectSet(Of ListeDAttente)("ListeDAttenteSet")
+                If (_ListeDAttente Is Nothing) Then
+                    _ListeDAttente = MyBase.CreateObjectSet(Of ListeDAttente)("ListeDAttente")
                 End If
-                Return _ListeDAttenteSet
+                Return _ListeDAttente
             End Get
         End Property
     
-        Private _ListeDAttenteSet As ObjectSet(Of ListeDAttente)
+        Private _ListeDAttente As ObjectSet(Of ListeDAttente)
     
         ''' <summary>
         ''' No Metadata Documentation available.
         ''' </summary>
-        Public ReadOnly Property SessionSet() As ObjectSet(Of Session)
+        Public ReadOnly Property Session() As ObjectSet(Of Session)
             Get
-                If (_SessionSet Is Nothing) Then
-                    _SessionSet = MyBase.CreateObjectSet(Of Session)("SessionSet")
+                If (_Session Is Nothing) Then
+                    _Session = MyBase.CreateObjectSet(Of Session)("Session")
                 End If
-                Return _SessionSet
+                Return _Session
             End Get
         End Property
     
-        Private _SessionSet As ObjectSet(Of Session)
+        Private _Session As ObjectSet(Of Session)
     
         ''' <summary>
         ''' No Metadata Documentation available.
         ''' </summary>
-        Public ReadOnly Property GroupeDAgeSet() As ObjectSet(Of GroupeDAge)
+        Public ReadOnly Property GroupeDAge() As ObjectSet(Of GroupeDAge)
             Get
-                If (_GroupeDAgeSet Is Nothing) Then
-                    _GroupeDAgeSet = MyBase.CreateObjectSet(Of GroupeDAge)("GroupeDAgeSet")
+                If (_GroupeDAge Is Nothing) Then
+                    _GroupeDAge = MyBase.CreateObjectSet(Of GroupeDAge)("GroupeDAge")
                 End If
-                Return _GroupeDAgeSet
+                Return _GroupeDAge
             End Get
         End Property
     
-        Private _GroupeDAgeSet As ObjectSet(Of GroupeDAge)
+        Private _GroupeDAge As ObjectSet(Of GroupeDAge)
     
         ''' <summary>
         ''' No Metadata Documentation available.
         ''' </summary>
-        Public ReadOnly Property JourSet() As ObjectSet(Of Jour)
+        Public ReadOnly Property Jour() As ObjectSet(Of Jour)
             Get
-                If (_JourSet Is Nothing) Then
-                    _JourSet = MyBase.CreateObjectSet(Of Jour)("JourSet")
+                If (_Jour Is Nothing) Then
+                    _Jour = MyBase.CreateObjectSet(Of Jour)("Jour")
                 End If
-                Return _JourSet
+                Return _Jour
             End Get
         End Property
     
-        Private _JourSet As ObjectSet(Of Jour)
+        Private _Jour As ObjectSet(Of Jour)
     
         ''' <summary>
         ''' No Metadata Documentation available.
         ''' </summary>
-        Public ReadOnly Property HoraireSet() As ObjectSet(Of Horaire)
+        Public ReadOnly Property Horaire() As ObjectSet(Of Horaire)
             Get
-                If (_HoraireSet Is Nothing) Then
-                    _HoraireSet = MyBase.CreateObjectSet(Of Horaire)("HoraireSet")
+                If (_Horaire Is Nothing) Then
+                    _Horaire = MyBase.CreateObjectSet(Of Horaire)("Horaire")
                 End If
-                Return _HoraireSet
+                Return _Horaire
             End Get
         End Property
     
-        Private _HoraireSet As ObjectSet(Of Horaire)
+        Private _Horaire As ObjectSet(Of Horaire)
     
         ''' <summary>
         ''' No Metadata Documentation available.
         ''' </summary>
-        Public ReadOnly Property AnimateurSet() As ObjectSet(Of Animateur)
+        Public ReadOnly Property Animateur() As ObjectSet(Of Animateur)
             Get
-                If (_AnimateurSet Is Nothing) Then
-                    _AnimateurSet = MyBase.CreateObjectSet(Of Animateur)("AnimateurSet")
+                If (_Animateur Is Nothing) Then
+                    _Animateur = MyBase.CreateObjectSet(Of Animateur)("Animateur")
                 End If
-                Return _AnimateurSet
+                Return _Animateur
             End Get
         End Property
     
-        Private _AnimateurSet As ObjectSet(Of Animateur)
+        Private _Animateur As ObjectSet(Of Animateur)
     
         ''' <summary>
         ''' No Metadata Documentation available.
         ''' </summary>
-        Public ReadOnly Property ForfaitSet() As ObjectSet(Of Forfait)
+        Public ReadOnly Property Forfait() As ObjectSet(Of Forfait)
             Get
-                If (_ForfaitSet Is Nothing) Then
-                    _ForfaitSet = MyBase.CreateObjectSet(Of Forfait)("ForfaitSet")
+                If (_Forfait Is Nothing) Then
+                    _Forfait = MyBase.CreateObjectSet(Of Forfait)("Forfait")
                 End If
-                Return _ForfaitSet
+                Return _Forfait
             End Get
         End Property
     
-        Private _ForfaitSet As ObjectSet(Of Forfait)
+        Private _Forfait As ObjectSet(Of Forfait)
     
         ''' <summary>
         ''' No Metadata Documentation available.
         ''' </summary>
-        Public ReadOnly Property SpécialitéSet() As ObjectSet(Of Spécialité)
+        Public ReadOnly Property Spécialité() As ObjectSet(Of Spécialité)
             Get
-                If (_SpécialitéSet Is Nothing) Then
-                    _SpécialitéSet = MyBase.CreateObjectSet(Of Spécialité)("SpécialitéSet")
+                If (_Spécialité Is Nothing) Then
+                    _Spécialité = MyBase.CreateObjectSet(Of Spécialité)("Spécialité")
                 End If
-                Return _SpécialitéSet
+                Return _Spécialité
             End Get
         End Property
     
-        Private _SpécialitéSet As ObjectSet(Of Spécialité)
+        Private _Spécialité As ObjectSet(Of Spécialité)
     
         ''' <summary>
         ''' No Metadata Documentation available.
         ''' </summary>
-        Public ReadOnly Property SpécialitéAnimateurSet() As ObjectSet(Of SpécialitéAnimateur)
+        Public ReadOnly Property SpécialitéAnimateur() As ObjectSet(Of SpécialitéAnimateur)
             Get
-                If (_SpécialitéAnimateurSet Is Nothing) Then
-                    _SpécialitéAnimateurSet = MyBase.CreateObjectSet(Of SpécialitéAnimateur)("SpécialitéAnimateurSet")
+                If (_SpécialitéAnimateur Is Nothing) Then
+                    _SpécialitéAnimateur = MyBase.CreateObjectSet(Of SpécialitéAnimateur)("SpécialitéAnimateur")
                 End If
-                Return _SpécialitéAnimateurSet
+                Return _SpécialitéAnimateur
             End Get
         End Property
     
-        Private _SpécialitéAnimateurSet As ObjectSet(Of SpécialitéAnimateur)
+        Private _SpécialitéAnimateur As ObjectSet(Of SpécialitéAnimateur)
     
         ''' <summary>
         ''' No Metadata Documentation available.
         ''' </summary>
-        Public ReadOnly Property PrerequisSet() As ObjectSet(Of Prerequis)
+        Public ReadOnly Property Prerequis() As ObjectSet(Of Prerequis)
             Get
-                If (_PrerequisSet Is Nothing) Then
-                    _PrerequisSet = MyBase.CreateObjectSet(Of Prerequis)("PrerequisSet")
+                If (_Prerequis Is Nothing) Then
+                    _Prerequis = MyBase.CreateObjectSet(Of Prerequis)("Prerequis")
                 End If
-                Return _PrerequisSet
+                Return _Prerequis
             End Get
         End Property
     
-        Private _PrerequisSet As ObjectSet(Of Prerequis)
+        Private _Prerequis As ObjectSet(Of Prerequis)
 
         #End Region
         #Region "AddTo Methods"
     
         ''' <summary>
-        ''' Deprecated Method for adding a new object to the ProvinceSet EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
+        ''' Deprecated Method for adding a new object to the Province EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
         ''' </summary>
-        Public Sub AddToProvinceSet(ByVal province As Province)
-            MyBase.AddObject("ProvinceSet", province)
+        Public Sub AddToProvince(ByVal province As Province)
+            MyBase.AddObject("Province", province)
         End Sub
     
         ''' <summary>
-        ''' Deprecated Method for adding a new object to the CompteSet EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
+        ''' Deprecated Method for adding a new object to the Compte EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
         ''' </summary>
-        Public Sub AddToCompteSet(ByVal compte As Compte)
-            MyBase.AddObject("CompteSet", compte)
+        Public Sub AddToCompte(ByVal compte As Compte)
+            MyBase.AddObject("Compte", compte)
         End Sub
     
         ''' <summary>
-        ''' Deprecated Method for adding a new object to the MembreSet EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
+        ''' Deprecated Method for adding a new object to the Membre EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
         ''' </summary>
-        Public Sub AddToMembreSet(ByVal membre As Membre)
-            MyBase.AddObject("MembreSet", membre)
+        Public Sub AddToMembre(ByVal membre As Membre)
+            MyBase.AddObject("Membre", membre)
         End Sub
     
         ''' <summary>
-        ''' Deprecated Method for adding a new object to the PaiementSet EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
+        ''' Deprecated Method for adding a new object to the Paiement EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
         ''' </summary>
-        Public Sub AddToPaiementSet(ByVal paiement As Paiement)
-            MyBase.AddObject("PaiementSet", paiement)
+        Public Sub AddToPaiement(ByVal paiement As Paiement)
+            MyBase.AddObject("Paiement", paiement)
         End Sub
     
         ''' <summary>
-        ''' Deprecated Method for adding a new object to the CatégorieSet EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
+        ''' Deprecated Method for adding a new object to the Catégorie EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
         ''' </summary>
-        Public Sub AddToCatégorieSet(ByVal catégorie As Catégorie)
-            MyBase.AddObject("CatégorieSet", catégorie)
+        Public Sub AddToCatégorie(ByVal catégorie As Catégorie)
+            MyBase.AddObject("Catégorie", catégorie)
         End Sub
     
         ''' <summary>
-        ''' Deprecated Method for adding a new object to the CoursSet EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
+        ''' Deprecated Method for adding a new object to the Cours EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
         ''' </summary>
-        Public Sub AddToCoursSet(ByVal cours As Cours)
-            MyBase.AddObject("CoursSet", cours)
+        Public Sub AddToCours(ByVal cours As Cours)
+            MyBase.AddObject("Cours", cours)
         End Sub
     
         ''' <summary>
-        ''' Deprecated Method for adding a new object to the GroupeSet EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
+        ''' Deprecated Method for adding a new object to the Groupe EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
         ''' </summary>
-        Public Sub AddToGroupeSet(ByVal groupe As Groupe)
-            MyBase.AddObject("GroupeSet", groupe)
+        Public Sub AddToGroupe(ByVal groupe As Groupe)
+            MyBase.AddObject("Groupe", groupe)
         End Sub
     
         ''' <summary>
-        ''' Deprecated Method for adding a new object to the ListeDAttenteSet EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
+        ''' Deprecated Method for adding a new object to the ListeDAttente EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
         ''' </summary>
-        Public Sub AddToListeDAttenteSet(ByVal listeDAttente As ListeDAttente)
-            MyBase.AddObject("ListeDAttenteSet", listeDAttente)
+        Public Sub AddToListeDAttente(ByVal listeDAttente As ListeDAttente)
+            MyBase.AddObject("ListeDAttente", listeDAttente)
         End Sub
     
         ''' <summary>
-        ''' Deprecated Method for adding a new object to the SessionSet EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
+        ''' Deprecated Method for adding a new object to the Session EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
         ''' </summary>
-        Public Sub AddToSessionSet(ByVal session As Session)
-            MyBase.AddObject("SessionSet", session)
+        Public Sub AddToSession(ByVal session As Session)
+            MyBase.AddObject("Session", session)
         End Sub
     
         ''' <summary>
-        ''' Deprecated Method for adding a new object to the GroupeDAgeSet EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
+        ''' Deprecated Method for adding a new object to the GroupeDAge EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
         ''' </summary>
-        Public Sub AddToGroupeDAgeSet(ByVal groupeDAge As GroupeDAge)
-            MyBase.AddObject("GroupeDAgeSet", groupeDAge)
+        Public Sub AddToGroupeDAge(ByVal groupeDAge As GroupeDAge)
+            MyBase.AddObject("GroupeDAge", groupeDAge)
         End Sub
     
         ''' <summary>
-        ''' Deprecated Method for adding a new object to the JourSet EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
+        ''' Deprecated Method for adding a new object to the Jour EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
         ''' </summary>
-        Public Sub AddToJourSet(ByVal jour As Jour)
-            MyBase.AddObject("JourSet", jour)
+        Public Sub AddToJour(ByVal jour As Jour)
+            MyBase.AddObject("Jour", jour)
         End Sub
     
         ''' <summary>
-        ''' Deprecated Method for adding a new object to the HoraireSet EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
+        ''' Deprecated Method for adding a new object to the Horaire EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
         ''' </summary>
-        Public Sub AddToHoraireSet(ByVal horaire As Horaire)
-            MyBase.AddObject("HoraireSet", horaire)
+        Public Sub AddToHoraire(ByVal horaire As Horaire)
+            MyBase.AddObject("Horaire", horaire)
         End Sub
     
         ''' <summary>
-        ''' Deprecated Method for adding a new object to the AnimateurSet EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
+        ''' Deprecated Method for adding a new object to the Animateur EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
         ''' </summary>
-        Public Sub AddToAnimateurSet(ByVal animateur As Animateur)
-            MyBase.AddObject("AnimateurSet", animateur)
+        Public Sub AddToAnimateur(ByVal animateur As Animateur)
+            MyBase.AddObject("Animateur", animateur)
         End Sub
     
         ''' <summary>
-        ''' Deprecated Method for adding a new object to the ForfaitSet EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
+        ''' Deprecated Method for adding a new object to the Forfait EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
         ''' </summary>
-        Public Sub AddToForfaitSet(ByVal forfait As Forfait)
-            MyBase.AddObject("ForfaitSet", forfait)
+        Public Sub AddToForfait(ByVal forfait As Forfait)
+            MyBase.AddObject("Forfait", forfait)
         End Sub
     
         ''' <summary>
-        ''' Deprecated Method for adding a new object to the SpécialitéSet EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
+        ''' Deprecated Method for adding a new object to the Spécialité EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
         ''' </summary>
-        Public Sub AddToSpécialitéSet(ByVal spécialité As Spécialité)
-            MyBase.AddObject("SpécialitéSet", spécialité)
+        Public Sub AddToSpécialité(ByVal spécialité As Spécialité)
+            MyBase.AddObject("Spécialité", spécialité)
         End Sub
     
         ''' <summary>
-        ''' Deprecated Method for adding a new object to the SpécialitéAnimateurSet EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
+        ''' Deprecated Method for adding a new object to the SpécialitéAnimateur EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
         ''' </summary>
-        Public Sub AddToSpécialitéAnimateurSet(ByVal spécialitéAnimateur As SpécialitéAnimateur)
-            MyBase.AddObject("SpécialitéAnimateurSet", spécialitéAnimateur)
+        Public Sub AddToSpécialitéAnimateur(ByVal spécialitéAnimateur As SpécialitéAnimateur)
+            MyBase.AddObject("SpécialitéAnimateur", spécialitéAnimateur)
         End Sub
     
         ''' <summary>
-        ''' Deprecated Method for adding a new object to the PrerequisSet EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
+        ''' Deprecated Method for adding a new object to the Prerequis EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
         ''' </summary>
-        Public Sub AddToPrerequisSet(ByVal prerequis As Prerequis)
-            MyBase.AddObject("PrerequisSet", prerequis)
+        Public Sub AddToPrerequis(ByVal prerequis As Prerequis)
+            MyBase.AddObject("Prerequis", prerequis)
         End Sub
 
         #End Region
