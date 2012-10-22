@@ -212,7 +212,7 @@
     </asp:EntityDataSource>
     <asp:EntityDataSource ID="entiDataSourceMembre" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-        EntitySetName="MembreSet" EnableFlattening="false" EnableUpdate="True" Where="it.Compte.noCompte = @noCompte" Include="Compte">
+        EntitySetName="Membre" EnableFlattening="false" EnableUpdate="True" Where="it.Compte.noCompte = @noCompte" Include="Compte">
         <WhereParameters>
         <asp:SessionParameter Name="noCompte" SessionField="noCompte" Type="Int32"/>    
         </WhereParameters>

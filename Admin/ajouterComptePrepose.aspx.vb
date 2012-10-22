@@ -39,7 +39,7 @@ Partial Class Admin_ajouterComptePrepose
                 validatorEmail.IsValid = False
                 Me.Validators.Add(validatorEmail)
             Else
-                salt = tbCourriel.Text.Substring(0, 3)
+                salt = "manan"
             End If
         Next
         If tbMotDePasse.Text.Count < 6 Then

@@ -70,7 +70,7 @@ Partial Class prepose_modifComptePrep
     End Sub
 
     Protected Sub btnEnregistrerPW_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnregistrerPW.Click
-        Dim salt = Session("userOnline").Substring(0, 3)
+        Dim salt = "manan"
         Dim noCompte As String = Session("noCompte")
         Dim compte As Compte = (From monCompte In lecontext.Compte Where monCompte.noCompte = noCompte).First
         If tbNouvMotDePasse.Text.Count < 6 Then

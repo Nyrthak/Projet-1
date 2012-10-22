@@ -16,7 +16,7 @@ Partial Class login
 
     Protected Sub loginCtrl_Authenticate(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.AuthenticateEventArgs) Handles loginCtrl.Authenticate
         For Each compte As Compte In (From dl In lecontext.Compte Where dl.Email = loginCtrl.UserName)
-            Dim salt = loginCtrl.UserName.Substring(0, 3)
+            Dim salt = "manan"
 
             If compte.motDePasseCrypté = CreatePasswordHash(loginCtrl.Password, salt) Then
                 e.Authenticated = True
