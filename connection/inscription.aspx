@@ -12,8 +12,8 @@
      CssClass="MyCalendar" PopupPosition="Right" Format="d-MM-yyyy" >
     </asp:CalendarExtender>               
         <h1><asp:Label SkinID="lbTitrePage" ID="lbInscription" runat="server" Text="Inscription"></asp:Label></h1>
-        <asp:ValidationSummary SkinID="valiSummary" ID="valiSummaryInscription" runat="server" />
-        <table class="tableau">
+        <asp:ValidationSummary SkinID="valiSummary" ID="valiSummaryInscription" runat="server" /> 
+    <table class="tableau">
             <tr>
                 <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbNom" runat="server" Text="Nom"></asp:Label>
                     </td>
@@ -77,7 +77,7 @@
                         ID="requisValidationConfirmationMotDePasse" runat="server" 
                         ErrorMessage="Votre confirmation de mot de passe doit être spécifié." 
                         ControlToValidate="tbConfirmationMotDePasse" Display="Dynamic">*</asp:RequiredFieldValidator>
-                    <asp:CompareValidator ID="compareConfirmMotPasse" runat="server" ErrorMessage="Votre mot de passe de confirmation doit être le même que votre mot de passe." Display="Dynamic" ControlToCompare="tbMotDePasse" ControlToValidate="tbConfirmationMotDePasse">*</asp:CompareValidator>
+                    <asp:CompareValidator ID="compareConfirmMotPasse" runat="server" ErrorMessage="Votre mot de passe de confirmation doit être le même que votre mot de passe." Display="Dynamic" ControlToCompare="tbMotDePasse" ControlToValidate="tbConfirmationMotDePasse" Operator="Equal">*</asp:CompareValidator>
                         </td>
             </tr>
             <tr>
@@ -155,7 +155,7 @@
             <asp:ListItem>Visa</asp:ListItem>
             <asp:ListItem>American Express</asp:ListItem>
             <asp:ListItem>Discover</asp:ListItem>
-        </asp:RadioButtonList>           
+        </asp:RadioButtonList>         
         <table class="style1">
             <tr>
                 <td class="longeurPremiereColonne"><asp:Label skinid="lbInscription" ID="lbNumeroCartePaiement" runat="server" Text="Numéro de la carte"></asp:Label>

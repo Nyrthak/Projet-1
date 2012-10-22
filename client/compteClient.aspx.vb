@@ -25,9 +25,6 @@ Partial Class CompteClient
     End Sub
 
     Protected Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Unload
-
-
-
         lecontext = Nothing
     End Sub
     Protected Sub Page_PreInit(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreInit

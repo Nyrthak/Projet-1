@@ -66,6 +66,19 @@ Partial Class prepose_ajouterCompteClient
         End If
         'teste sur la carte de crédit
 
+        If rbListeTypeCarte.SelectedItem.Text = "Comptant" Or rbListeTypeCarte.SelectedItem.Text = "Chèque" Then
+            requisValidationNumeroCartePaiement.Enabled = False
+            requisValidationNumeroSecurite.Enabled = False
+            requisValidationDateExpirationMois.Enabled = False
+            requisValidationDateExpirationMois.Enabled = False
+            requisValidationNomDétenteur.Enabled = False
+        Else
+            requisValidationNumeroCartePaiement.Enabled = True
+            requisValidationNumeroSecurite.Enabled = True
+            requisValidationDateExpirationMois.Enabled = True
+            requisValidationDateExpirationMois.Enabled = True
+            requisValidationNomDétenteur.Enabled = True
+        End If
         If Me.IsValid Then
             Dim hash As String = CreatePasswordHash(tbMotDePasse.Text, salt)
 

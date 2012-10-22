@@ -34,14 +34,15 @@ body{ width:1023px; margin:auto; background-color:#c5c5c5;}
         .menuFloat ul li{line-height: 40px; border-bottom:1px solid black; text-align:center; width:160px;}
         .menuFloat ul li a{display:block;}
             .menuFloat ul li a:hover{color:White; background-color:#537EFF;}
-#contentRight{float:right; width:548px;}
+#contentRight{float:right; width:528px; margin-left:20px;}
     #contentRight .itemTemplate{width:235px; border-collapse:collapse; height:20px;}
     #corps #tbCours{width:540px; margin-top:10px; margin-bottom:20px;}  
 #footer{ background-color:#293F7F; width:1021px; height:50px; clear:both; color:White; border-left:1px solid black; border-right:1px solid black; border-bottom:1px solid black; line-height:50px;}
     .right{float:right; margin-right:50px;}
     .left{float:left; margin-left:50px;}
     #footer a{color: White;}
-.longeurPremiereColonne{width:260px; text-align:right; padding-right:4px;}
+.longeurPremiereColonne{width:260px; padding-right:4px; text-align:right;}
+.longeurPremiereColonnePW{text-align:right; padding-right:4px;}
 .labelInline{ display:inline;}
 .labelInline2{ display:inline;}
 .MyCalendar .ajax__calendar_container{background-color:#293F7F; border:1px solid black;}

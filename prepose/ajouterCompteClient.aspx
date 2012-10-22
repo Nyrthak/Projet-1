@@ -5,16 +5,17 @@
 <asp:Content ID="contentMenuAdmin" ContentPlaceHolderID="contentMenuAdmin" runat="server"></asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
-<asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="Server" />
+    <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="Server" />
     <asp:CalendarExtender ID="calendarExtenderDateNaissance" runat="server" TargetControlID="tbDateNaissance" PopupButtonID="imgBtnCalendrier" 
      CssClass="MyCalendar" PopupPosition="Right" Format="d-MM-yyyy" >
     </asp:CalendarExtender> 
 <div id="contentRight">
-<asp:ValidationSummary SkinID="valiSummary" ID="valiSummaryInscription" runat="server" />
+    <asp:ValidationSummary SkinID="valiSummary" ID="valiSummaryInscription" runat="server" />
 
     <asp:Label SkinID="lbTitrePage" ID="lbTitrePage" runat="server" Text="Ajouter un compte client"></asp:Label>
     <table class="tableau">
             <tr>
+           
                 <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbNom" runat="server" Text="Nom"></asp:Label>
                     </td>
                 <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="160px" ID="tbNom" runat="server" MaxLength="20"></asp:TextBox>               
@@ -159,7 +160,7 @@
             <asp:ListItem>Visa</asp:ListItem>
             <asp:ListItem>American Express</asp:ListItem>
             <asp:ListItem>Discover</asp:ListItem>
-            <asp:ListItem>Contant</asp:ListItem>
+            <asp:ListItem>Comptant</asp:ListItem>
             <asp:ListItem>Chèque</asp:ListItem>
         </asp:RadioButtonList>  
         <table class="style1">

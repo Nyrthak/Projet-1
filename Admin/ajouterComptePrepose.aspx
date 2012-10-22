@@ -6,6 +6,7 @@
 <asp:Content ID="contentMenuPrepose" ContentPlaceHolderID="contentMenuPrepose" runat="server"></asp:Content>
 
 <asp:Content ID="ContentCours" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
+<div id="contentRight">
 <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="Server" />
     <asp:CalendarExtender ID="calendarExtenderDateNaissance" runat="server" TargetControlID="tbDateNaissance" PopupButtonID="imgBtnCalendrier" 
      CssClass="MyCalendar" PopupPosition="Right" Format="d-MM-yyyy" >
@@ -77,7 +78,7 @@
                         ID="requisValidationConfirmationMotDePasse" runat="server" 
                         ErrorMessage="La confirmation de mot de passe doit être spécifié." 
                         ControlToValidate="tbConfirmationMotDePasse" Display="Dynamic" ForeColor="Red">*</asp:RequiredFieldValidator>
-                    <asp:CompareValidator ID="compareConfirmMotPasse" runat="server" ErrorMessage="Le mot de passe de confirmation doit être le même que votre mot de passe." Display="Dynamic" ControlToCompare="tbMotDePasse" ControlToValidate="tbConfirmationMotDePasse">*</asp:CompareValidator>
+                    <asp:CompareValidator ID="compareConfirmMotPasse" runat="server" ErrorMessage="Le mot de passe de confirmation doit être le même que votre mot de passe." Display="Dynamic" ControlToCompare="tbMotDePasse" ControlToValidate="tbConfirmationMotDePasse" Operator="Equal">*</asp:CompareValidator>
                         </td>
             </tr>
             <tr>
@@ -150,4 +151,5 @@
         DefaultContainerName="ModelContainer" EntitySetName="ProvinceSet" 
         EnableFlattening="False">
     </asp:EntityDataSource>
+</div>
 </asp:Content>
