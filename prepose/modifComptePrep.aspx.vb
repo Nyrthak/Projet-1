@@ -49,7 +49,7 @@ Partial Class prepose_modifComptePrep
 
     Protected Sub btnEnregistrer_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnregistrer.Click 
         Dim noCompte As String = Session("noCompte")
-        For Each courriel As String In (From dl In lecontext.CompteSet Where dl.noCompte <> noCompte Select dl.Email)
+        For Each courriel As String In (From dl In lecontext.Compte Where dl.noCompte <> noCompte Select dl.Email)
             If CType(lViewCompte.Items(0).FindControl("tbCourriel"), TextBox).Text = courriel Then
                 Dim validatorEmail As CustomValidator = New CustomValidator
                 validatorEmail.ErrorMessage = "Votre email est déja utilisé."
@@ -72,7 +72,7 @@ Partial Class prepose_modifComptePrep
     Protected Sub btnEnregistrerPW_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnregistrerPW.Click
         Dim salt = Session("userOnline").Substring(0, 3)
         Dim noCompte As String = Session("noCompte")
-        Dim compte As Compte = (From monCompte In lecontext.CompteSet Where monCompte.noCompte = noCompte).First
+        Dim compte As Compte = (From monCompte In lecontext.Compte Where monCompte.noCompte = noCompte).First
         If tbNouvMotDePasse.Text.Count < 6 Then
             Dim validatorMotDePasse As CustomValidator = New CustomValidator
             validatorMotDePasse.ErrorMessage = "Votre nouveau mot de passe doit contenir plus de 5 caractères"
