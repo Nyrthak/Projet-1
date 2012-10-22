@@ -480,94 +480,94 @@
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
         <EntityContainer Name="ModelContainer" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ProvinceSet" EntityType="Model.Province" />
-          <EntitySet Name="CompteSet" EntityType="Model.Compte" />
-          <EntitySet Name="MembreSet" EntityType="Model.Membre" />
-          <EntitySet Name="PaiementSet" EntityType="Model.Paiement" />
-          <EntitySet Name="CatégorieSet" EntityType="Model.Catégorie" />
-          <EntitySet Name="CoursSet" EntityType="Model.Cours" />
-          <EntitySet Name="GroupeSet" EntityType="Model.Groupe" />
-          <EntitySet Name="ListeDAttenteSet" EntityType="Model.ListeDAttente" />
-          <EntitySet Name="SessionSet" EntityType="Model.Session" />
-          <EntitySet Name="GroupeDAgeSet" EntityType="Model.GroupeDAge" />
-          <EntitySet Name="JourSet" EntityType="Model.Jour" />
-          <EntitySet Name="HoraireSet" EntityType="Model.Horaire" />
-          <EntitySet Name="AnimateurSet" EntityType="Model.Animateur" />
-          <EntitySet Name="ForfaitSet" EntityType="Model.Forfait" />
+          <EntitySet Name="Province" EntityType="Model.Province" />
+          <EntitySet Name="Compte" EntityType="Model.Compte" />
+          <EntitySet Name="Membre" EntityType="Model.Membre" />
+          <EntitySet Name="Paiement" EntityType="Model.Paiement" />
+          <EntitySet Name="Catégorie" EntityType="Model.Catégorie" />
+          <EntitySet Name="Cours" EntityType="Model.Cours" />
+          <EntitySet Name="Groupe" EntityType="Model.Groupe" />
+          <EntitySet Name="ListeDAttente" EntityType="Model.ListeDAttente" />
+          <EntitySet Name="Session" EntityType="Model.Session" />
+          <EntitySet Name="GroupeDAge" EntityType="Model.GroupeDAge" />
+          <EntitySet Name="Jour" EntityType="Model.Jour" />
+          <EntitySet Name="Horaire" EntityType="Model.Horaire" />
+          <EntitySet Name="Animateur" EntityType="Model.Animateur" />
+          <EntitySet Name="Forfait" EntityType="Model.Forfait" />
           <AssociationSet Name="CompteProvince" Association="Model.CompteProvince">
-            <End Role="Compte" EntitySet="CompteSet" />
-            <End Role="Province" EntitySet="ProvinceSet" />
+            <End Role="Compte" EntitySet="Compte" />
+            <End Role="Province" EntitySet="Province" />
           </AssociationSet>
           <AssociationSet Name="CompteMembre" Association="Model.CompteMembre">
-            <End Role="Compte" EntitySet="CompteSet" />
-            <End Role="Membre" EntitySet="MembreSet" />
+            <End Role="Compte" EntitySet="Compte" />
+            <End Role="Membre" EntitySet="Membre" />
           </AssociationSet>
           <AssociationSet Name="MembrePaiement" Association="Model.MembrePaiement">
-            <End Role="Membre" EntitySet="MembreSet" />
-            <End Role="Paiement" EntitySet="PaiementSet" />
+            <End Role="Membre" EntitySet="Membre" />
+            <End Role="Paiement" EntitySet="Paiement" />
           </AssociationSet>
           <AssociationSet Name="GroupePaiement" Association="Model.GroupePaiement">
-            <End Role="Groupe" EntitySet="GroupeSet" />
-            <End Role="Paiement" EntitySet="PaiementSet" />
+            <End Role="Groupe" EntitySet="Groupe" />
+            <End Role="Paiement" EntitySet="Paiement" />
           </AssociationSet>
           <AssociationSet Name="CatégorieCours" Association="Model.CatégorieCours">
-            <End Role="Catégorie" EntitySet="CatégorieSet" />
-            <End Role="Cours" EntitySet="CoursSet" />
+            <End Role="Catégorie" EntitySet="Catégorie" />
+            <End Role="Cours" EntitySet="Cours" />
           </AssociationSet>
           <AssociationSet Name="SessionCours" Association="Model.SessionCours">
-            <End Role="Session" EntitySet="SessionSet" />
-            <End Role="Cours" EntitySet="CoursSet" />
+            <End Role="Session" EntitySet="Session" />
+            <End Role="Cours" EntitySet="Cours" />
           </AssociationSet>
           <AssociationSet Name="ListeDAttenteMembre" Association="Model.ListeDAttenteMembre">
-            <End Role="ListeDAttente" EntitySet="ListeDAttenteSet" />
-            <End Role="Membre" EntitySet="MembreSet" />
+            <End Role="ListeDAttente" EntitySet="ListeDAttente" />
+            <End Role="Membre" EntitySet="Membre" />
           </AssociationSet>
           <AssociationSet Name="ListeDAttenteGroupe" Association="Model.ListeDAttenteGroupe">
-            <End Role="ListeDAttente" EntitySet="ListeDAttenteSet" />
-            <End Role="Groupe" EntitySet="GroupeSet" />
+            <End Role="ListeDAttente" EntitySet="ListeDAttente" />
+            <End Role="Groupe" EntitySet="Groupe" />
           </AssociationSet>
           <AssociationSet Name="GroupeDAgeCours" Association="Model.GroupeDAgeCours">
-            <End Role="GroupeDAge" EntitySet="GroupeDAgeSet" />
-            <End Role="Cours" EntitySet="CoursSet" />
+            <End Role="GroupeDAge" EntitySet="GroupeDAge" />
+            <End Role="Cours" EntitySet="Cours" />
           </AssociationSet>
           <AssociationSet Name="JourHoraire" Association="Model.JourHoraire">
-            <End Role="Jour" EntitySet="JourSet" />
-            <End Role="Horaire" EntitySet="HoraireSet" />
+            <End Role="Jour" EntitySet="Jour" />
+            <End Role="Horaire" EntitySet="Horaire" />
           </AssociationSet>
           <AssociationSet Name="AnimateurGroupe" Association="Model.AnimateurGroupe">
-            <End Role="Animateur" EntitySet="AnimateurSet" />
-            <End Role="Groupe" EntitySet="GroupeSet" />
+            <End Role="Animateur" EntitySet="Animateur" />
+            <End Role="Groupe" EntitySet="Groupe" />
           </AssociationSet>
           <AssociationSet Name="HoraireGroupe" Association="Model.HoraireGroupe">
-            <End Role="Horaire" EntitySet="HoraireSet" />
-            <End Role="Groupe" EntitySet="GroupeSet" />
+            <End Role="Horaire" EntitySet="Horaire" />
+            <End Role="Groupe" EntitySet="Groupe" />
           </AssociationSet>
           <AssociationSet Name="AnimateurProvince" Association="Model.AnimateurProvince">
-            <End Role="Animateur" EntitySet="AnimateurSet" />
-            <End Role="Province" EntitySet="ProvinceSet" />
+            <End Role="Animateur" EntitySet="Animateur" />
+            <End Role="Province" EntitySet="Province" />
           </AssociationSet>
-          <EntitySet Name="SpécialitéSet" EntityType="Model.Spécialité" />
-          <EntitySet Name="SpécialitéAnimateurSet" EntityType="Model.SpécialitéAnimateur" />
+          <EntitySet Name="Spécialité" EntityType="Model.Spécialité" />
+          <EntitySet Name="SpécialitéAnimateur" EntityType="Model.SpécialitéAnimateur" />
           <AssociationSet Name="AnimateurSpécialitéAnimateur" Association="Model.AnimateurSpécialitéAnimateur">
-            <End Role="Animateur" EntitySet="AnimateurSet" />
-            <End Role="SpécialitéAnimateur" EntitySet="SpécialitéAnimateurSet" />
+            <End Role="Animateur" EntitySet="Animateur" />
+            <End Role="SpécialitéAnimateur" EntitySet="SpécialitéAnimateur" />
           </AssociationSet>
           <AssociationSet Name="SpécialitéSpécialitéAnimateur" Association="Model.SpécialitéSpécialitéAnimateur">
-            <End Role="Spécialité" EntitySet="SpécialitéSet" />
-            <End Role="SpécialitéAnimateur" EntitySet="SpécialitéAnimateurSet" />
+            <End Role="Spécialité" EntitySet="Spécialité" />
+            <End Role="SpécialitéAnimateur" EntitySet="SpécialitéAnimateur" />
           </AssociationSet>
           <AssociationSet Name="GroupeCours" Association="Model.GroupeCours">
-            <End Role="Groupe" EntitySet="GroupeSet" />
-            <End Role="Cours" EntitySet="CoursSet" />
+            <End Role="Groupe" EntitySet="Groupe" />
+            <End Role="Cours" EntitySet="Cours" />
           </AssociationSet>
-          <EntitySet Name="PrerequisSet" EntityType="Model.Prerequis" />
+          <EntitySet Name="Prerequis" EntityType="Model.Prerequis" />
           <AssociationSet Name="CoursPrerequis" Association="Model.CoursPrerequis">
-            <End Role="Cours" EntitySet="CoursSet" />
-            <End Role="Prerequis" EntitySet="PrerequisSet" />
+            <End Role="Cours" EntitySet="Cours" />
+            <End Role="Prerequis" EntitySet="Prerequis" />
           </AssociationSet>
           <AssociationSet Name="CoursPrerequis1" Association="Model.CoursPrerequis1">
-            <End Role="Cours" EntitySet="CoursSet" />
-            <End Role="Prerequis" EntitySet="PrerequisSet" />
+            <End Role="Cours" EntitySet="Cours" />
+            <End Role="Prerequis" EntitySet="Prerequis" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Province">
@@ -829,7 +829,7 @@
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="ModelContainer">
-    <EntitySetMapping Name="ProvinceSet">
+    <EntitySetMapping Name="Province">
       <EntityTypeMapping TypeName="IsTypeOf(Model.Province)">
         <MappingFragment StoreEntitySet="ProvinceSet">
           <ScalarProperty Name="noProvince" ColumnName="noProvince" />
@@ -837,7 +837,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="CompteSet">
+    <EntitySetMapping Name="Compte">
       <EntityTypeMapping TypeName="IsTypeOf(Model.Compte)">
         <MappingFragment StoreEntitySet="CompteSet">
           <ScalarProperty Name="noCompte" ColumnName="noCompte" />
@@ -854,7 +854,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="MembreSet">
+    <EntitySetMapping Name="Membre">
       <EntityTypeMapping TypeName="IsTypeOf(Model.Membre)">
         <MappingFragment StoreEntitySet="MembreSet">
           <ScalarProperty Name="noMembre" ColumnName="noMembre" />
@@ -865,7 +865,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="PaiementSet">
+    <EntitySetMapping Name="Paiement">
       <EntityTypeMapping TypeName="IsTypeOf(Model.Paiement)">
         <MappingFragment StoreEntitySet="PaiementSet">
           <ScalarProperty Name="noPaiement" ColumnName="noPaiement" />
@@ -875,7 +875,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="CatégorieSet">
+    <EntitySetMapping Name="Catégorie">
       <EntityTypeMapping TypeName="IsTypeOf(Model.Catégorie)">
         <MappingFragment StoreEntitySet="CatégorieSet">
           <ScalarProperty Name="noCatégorie" ColumnName="noCatégorie" />
@@ -883,7 +883,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="CoursSet">
+    <EntitySetMapping Name="Cours">
       <EntityTypeMapping TypeName="IsTypeOf(Model.Cours)">
         <MappingFragment StoreEntitySet="CoursSet">
           <ScalarProperty Name="noCours" ColumnName="noCours" />
@@ -893,7 +893,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="GroupeSet">
+    <EntitySetMapping Name="Groupe">
       <EntityTypeMapping TypeName="IsTypeOf(Model.Groupe)">
         <MappingFragment StoreEntitySet="GroupeSet">
           <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
@@ -906,7 +906,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ListeDAttenteSet">
+    <EntitySetMapping Name="ListeDAttente">
       <EntityTypeMapping TypeName="IsTypeOf(Model.ListeDAttente)">
         <MappingFragment StoreEntitySet="ListeDAttenteSet">
           <ScalarProperty Name="noListeDAttente" ColumnName="noListeDAttente" />
@@ -914,7 +914,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="SessionSet">
+    <EntitySetMapping Name="Session">
       <EntityTypeMapping TypeName="IsTypeOf(Model.Session)">
         <MappingFragment StoreEntitySet="SessionSet">
           <ScalarProperty Name="noSession" ColumnName="noSession" />
@@ -922,7 +922,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="GroupeDAgeSet">
+    <EntitySetMapping Name="GroupeDAge">
       <EntityTypeMapping TypeName="IsTypeOf(Model.GroupeDAge)">
         <MappingFragment StoreEntitySet="GroupeDAgeSet">
           <ScalarProperty Name="noGroupeDAge" ColumnName="noGroupeDAge" />
@@ -930,7 +930,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="JourSet">
+    <EntitySetMapping Name="Jour">
       <EntityTypeMapping TypeName="IsTypeOf(Model.Jour)">
         <MappingFragment StoreEntitySet="JourSet">
           <ScalarProperty Name="noJour" ColumnName="noJour" />
@@ -938,7 +938,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="HoraireSet">
+    <EntitySetMapping Name="Horaire">
       <EntityTypeMapping TypeName="IsTypeOf(Model.Horaire)">
         <MappingFragment StoreEntitySet="HoraireSet">
           <ScalarProperty Name="noHoraire" ColumnName="noHoraire" />
@@ -947,7 +947,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="AnimateurSet">
+    <EntitySetMapping Name="Animateur">
       <EntityTypeMapping TypeName="IsTypeOf(Model.Animateur)">
         <MappingFragment StoreEntitySet="AnimateurSet">
           <ScalarProperty Name="noAnimateur" ColumnName="noAnimateur" />
@@ -961,7 +961,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ForfaitSet">
+    <EntitySetMapping Name="Forfait">
       <EntityTypeMapping TypeName="IsTypeOf(Model.Forfait)">
         <MappingFragment StoreEntitySet="ForfaitSet">
           <ScalarProperty Name="nbInscrits" ColumnName="nbInscrits" />
@@ -969,7 +969,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="SpécialitéSet">
+    <EntitySetMapping Name="Spécialité">
       <EntityTypeMapping TypeName="IsTypeOf(Model.Spécialité)">
         <MappingFragment StoreEntitySet="SpécialitéSet">
           <ScalarProperty Name="noSpécialité" ColumnName="noSpécialité" />
@@ -977,14 +977,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="SpécialitéAnimateurSet">
+    <EntitySetMapping Name="SpécialitéAnimateur">
       <EntityTypeMapping TypeName="IsTypeOf(Model.SpécialitéAnimateur)">
         <MappingFragment StoreEntitySet="SpécialitéAnimateurSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="PrerequisSet">
+    <EntitySetMapping Name="Prerequis">
       <EntityTypeMapping TypeName="IsTypeOf(Model.Prerequis)">
         <MappingFragment StoreEntitySet="PrerequisSet">
           <ScalarProperty Name="Id" ColumnName="Id" />

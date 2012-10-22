@@ -38,16 +38,16 @@ Partial Class CompteClient
         If e.CommandName = "supprime" Then
             Dim noMembre As Integer = e.CommandArgument
             Dim present As Boolean = False
-            For Each membreDeleter As Membre In lecontext.MembreSet
+            For Each membreDeleter As Membre In lecontext.Membre
                 If membreDeleter.noMembre = noMembre Then
                     present = True
                 End If
             Next
             If present = True Then
                 'Supprime le membre qui dont le nom est "Entrez un nom"
-                Dim leMembreADeleter As Membre = (From monMembre In lecontext.MembreSet Where monMembre.noMembre = noMembre Select monMembre).First
+                Dim leMembreADeleter As Membre = (From monMembre In lecontext.Membre Where monMembre.noMembre = noMembre Select monMembre).First
                 If leMembreADeleter.Propriétaire = False Then
-                    lecontext.MembreSet.DeleteObject(leMembreADeleter)
+                    lecontext.Membre.DeleteObject(leMembreADeleter)
                     lecontext.SaveChanges()
                     Response.Redirect("~/client/compteClient.aspx")
                 Else
@@ -65,9 +65,9 @@ Partial Class CompteClient
         ajouterMembre.Prénom = "Entrez un prénom"
         ajouterMembre.DateNaissance = Date.Now
         ajouterMembre.Propriétaire = False
-        ajouterMembre.Compte = (From dl In lecontext.CompteSet Where dl.noCompte = noCompte Select dl).First
+        ajouterMembre.Compte = (From dl In lecontext.Compte Where dl.noCompte = noCompte Select dl).First
 
-        lecontext.AddObject("MembreSet", ajouterMembre)
+        lecontext.AddObject("Membre", ajouterMembre)
         lecontext.SaveChanges()
         multiViewMembre.ActiveViewIndex = 1
         listViewAjoutMembre.EditIndex = 0
@@ -80,7 +80,7 @@ Partial Class CompteClient
             'Teste si le membre a déleter est bien dans la base de donnée.
             Dim noMembre As String = hiddenFieldNoMembre.Value
             Dim present As Boolean = False
-            For Each membreDeleter As Membre In lecontext.MembreSet
+            For Each membreDeleter As Membre In lecontext.Membre
                 If membreDeleter.noMembre = noMembre Then
                     present = True
                 Else
@@ -89,9 +89,9 @@ Partial Class CompteClient
             Next
             If present = True Then
                 'Supprime le membre qui dont le nom est "Entrez un nom"
-                Dim leMembreADeleter As Membre = (From monMembre In lecontext.MembreSet Where monMembre.noMembre = noMembre Select monMembre).First
+                Dim leMembreADeleter As Membre = (From monMembre In lecontext.Membre Where monMembre.noMembre = noMembre Select monMembre).First
                 If leMembreADeleter.Nom = "Entrez un nom" Then
-                    lecontext.MembreSet.DeleteObject(leMembreADeleter)
+                    lecontext.Membre.DeleteObject(leMembreADeleter)
                     lecontext.SaveChanges()
                 End If
             End If
@@ -112,9 +112,9 @@ Partial Class CompteClient
     Protected Sub viewMembres_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles viewMembres.Load
         'Supprime les membre qui dont le nom est "Entrez un nom"
         If Not multiViewMembre.ActiveViewIndex = 1 Then
-            For Each membre As Membre In (From monMembre In lecontext.MembreSet Select monMembre)
+            For Each membre As Membre In (From monMembre In lecontext.Membre Select monMembre)
                 If membre.Nom = "Entrez un nom" Then
-                    lecontext.MembreSet.DeleteObject(membre)
+                    lecontext.Membre.DeleteObject(membre)
                 End If
             Next
             lecontext.SaveChanges()

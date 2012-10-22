@@ -110,12 +110,12 @@
 </div>
 <asp:EntityDataSource ID="entiDataSourceCompte" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-        EntitySetName="CompteSet">
+        EntitySetName="Compte">
 </asp:EntityDataSource>
 
 <asp:EntityDataSource ID="entiDataSourceAjouterMembre" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-        EntitySetName="MembreSet" Where="it.noMembre = @noMembre" Include="Compte" EnableUpdate="true" EnableFlattening="false">      
+        EntitySetName="Membre" Where="it.noMembre = @noMembre" Include="Compte" EnableUpdate="true" EnableFlattening="false">      
         <WhereParameters>
             <asp:ControlParameter Name="noMembre" Type="Int32" ControlID="hiddenFieldNoMembre" />
         </WhereParameters>
@@ -123,7 +123,7 @@
 
 <asp:EntityDataSource ID="entiDataSourceMembre" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer"  
-        EntitySetName="MembreSet" Where="it.Compte.noCompte = @noCompte" Include="Compte" >
+        EntitySetName="Membre" Where="it.Compte.noCompte = @noCompte" Include="Compte" >
         <WhereParameters>
             <asp:SessionParameter Name="noCompte" Type="Int32" SessionField="noCompte" />
         </WhereParameters>

@@ -28,12 +28,12 @@
 
      <asp:EntityDataSource ID="entityDataSourceProvince" runat="server" 
         ConnectionString="name=ModelContainer" 
-        DefaultContainerName="ModelContainer" EntitySetName="ProvinceSet" 
+        DefaultContainerName="ModelContainer" EntitySetName="Province" 
         EnableFlattening="False">
     </asp:EntityDataSource>
     <asp:EntityDataSource ID="entityDataSourceCompte" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-        EntitySetName="CompteSet" EnableFlattening="false" EnableUpdate="true" Where="it.noCompte = @noCompte">
+        EntitySetName="Compte" EnableFlattening="false" EnableUpdate="true" Where="it.noCompte = @noCompte">
         <WhereParameters>
         <asp:SessionParameter Name="noCompte" SessionField="noCompte" Type="Int32"/>    
         </WhereParameters>

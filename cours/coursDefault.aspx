@@ -9,7 +9,7 @@
     <asp:TextBox ID="txtRechercher" runat="server" SkinID="TextBoxFormulaire" CssClass="rechercher"></asp:TextBox>
     <asp:Label ID="lblRechercher" runat="server" Text="Rechercher" CssClass="lbRechercher"></asp:Label>
     <div class="menuFloat">
-        <asp:ListView ID="lViewCatégorie" runat="server" DataSourceID="EntityDataSourceCatégorie" DataKeyNames="noCatégorie">
+        <asp:ListView ID="lViewCatégorie" runat="server" DataSourceID="entityDataSourceCatégorie" DataKeyNames="noCatégorie">
                 <LayoutTemplate>
                     <ul>
                         <asp:PlaceHolder id="GroupPlaceHolder" runat="server" />
@@ -52,7 +52,7 @@
                 <Fields>
                     <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="True" 
                         ShowLastPageButton="True" FirstPageText="Premier" LastPageText="Dernier" 
-                        NextPageText="Suivant" PreviousPageText="Précédent" ButtonCssClass="boutonMenuCategorie" />
+                        NextPageText="Suivant" PreviousPageText="Précédent" ButtonCssClass="boutonMenuPager" />
                 </Fields>
             </asp:DataPager>
         </asp:View>
@@ -99,9 +99,10 @@
                                 DataTextField="Prénom" DataValueField="noMembre">
                             </asp:DropDownList>
                         </td>
-                        <td><asp:Button ID="btnSinscrire" runat="server" Text="S'inscrire" SkinID="btnAjoutSupprimer" /></td>
+                        <td><asp:Button ID="btnSinscrire" runat="server" Text="S'inscrire" SkinID="btnAjoutSupprimer" CommandName="Inscription" CommandArgument='<%#Eval("noGroupe")%>' /></td>
                     </tr>
                     <asp:HiddenField ID="hFieldnoGroupe" runat="server" Value='<%#Eval("noGroupe")%>' />
+
                     <asp:ListView ID="lviewHoraire" runat="server" DataSourceID="entityDataSourceHoraire" DataKeyNames="noHoraire">
                          <LayoutTemplate>            
                                 <asp:PlaceHolder id="ItemPlaceHolder" runat="server" />              
@@ -118,7 +119,7 @@
                         <td colspan="4"><br /> </td>
                     </tr>
                     <asp:EntityDataSource ID="entityDataSourceHoraire" runat="server" ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer"
-                        EntitySetName="HoraireSet" EnableFlattening="false" Include="Groupe, Jour" Where="it.Groupe.noGroupe = @noGroupe">
+                        EntitySetName="Horaire" EnableFlattening="false" Include="Groupe, Jour" Where="it.Groupe.noGroupe = @noGroupe">
                         <WhereParameters>
                             <asp:ControlParameter Name="noGroupe" Type="Int32" ControlID="hFieldnoGroupe" />
                         </WhereParameters>
@@ -182,21 +183,34 @@
                             </tr>
                         </ItemTemplate>
                     </asp:ListView>
-                    <div class="btnInscription">
-                        <asp:DropDownList ID="dDListMembres" runat="server" DataSourceID="entityDataSourceMembre"
-                                DataTextField="Prénom" DataValueField="noMembre">
-                        </asp:DropDownList>
-                        <asp:Button ID="btnSinscrire" runat="server" Text="S'inscrire" SkinID="btnAjoutSupprimer" />
-                    </div>
-                    <div class="btnInscription">
-                        <asp:Button ID="btnRetour" runat="server" Text="Retour" SkinID="btnAjoutSupprimer" />
-                    </div>
-                    <asp:EntityDataSource ID="entityDataSourceHoraire" runat="server" ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer"
-                        EntitySetName="HoraireSet" EnableFlattening="false" Include="Groupe, Jour" Where="it.Groupe.noGroupe = @noGroupe">
-                        <WhereParameters>
-                            <asp:ControlParameter Name="noGroupe" Type="Int32" ControlID="hFieldnoGroupe2" />
-                        </WhereParameters>
-                    </asp:EntityDataSource>
+            <asp:ListView ID="lViewMembres" runat="server" DataSourceID="entityDataSourcePaiements" DataKeyNames="noPaiement" GroupItemCount="3">
+                <LayoutTemplate>
+                    <asp:Label ID="lblTitreMembres" runat="server" Text= "Liste des membres " SkinID="lbSousTitre" />
+                    <table width="400px">
+                        <asp:PlaceHolder id="GroupPlaceHolder" runat="server" /> 
+                    </table>                          
+                </LayoutTemplate>
+                <GroupTemplate>
+                    <tr>
+                        <asp:PlaceHolder id="ItemPlaceHolder" runat="server" />
+                    </tr>
+                </GroupTemplate>
+                <ItemTemplate>
+                        <td>
+                            <asp:Label ID="lblNom" runat="server" Text='<%#Eval("Membre.Prénom") & " " & Eval("Membre.Nom") %>'></asp:Label>
+                        </td>
+                </ItemTemplate>
+            </asp:ListView>
+            <div class="btnCentre">
+                <asp:DropDownList ID="dDListMembres" runat="server" DataSourceID="entityDataSourceMembre"
+                        DataTextField="Prénom" DataValueField="noMembre">
+                </asp:DropDownList>
+                <asp:Button ID="btnSinscrire" runat="server" Text="S'inscrire" SkinID="btnAjoutSupprimer" />
+            </div>
+            <div class="btnCentre">
+                <asp:Button ID="btnRetour" runat="server" Text="Retour" Width="80px" SkinID="btnAjoutSupprimer" />
+            </div>
+                    
         </asp:View>
     </asp:MultiView>
     </div>
@@ -204,20 +218,20 @@
     <asp:HiddenField ID="hFieldNoCategorie" runat="server" Value="0" />
     <asp:EntityDataSource ID="entityDataSourceListeCours" runat="server" 
     ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-    EntitySetName="CoursSet" EnableFlattening="false" Include="GroupeDAge, Session, Catégorie"
+    EntitySetName="Cours" EnableFlattening="false" Include="GroupeDAge, Session, Catégorie"
         Where='(it.Nom + it.[Catégorie].Nom + it.[GroupeDAge].NomGroupeDAge like "%"+@recherche+"%" OR (@recherche = "")) AND (it.[Catégorie].[noCatégorie] = @categorie OR @categorie = 0)'>                
         <WhereParameters>
             <asp:ControlParameter Name="recherche" Type="String" ControlID="txtRechercher" ConvertEmptyStringToNull="false" />
             <asp:ControlParameter Name="categorie" Type="Int32" ControlID="hFieldNoCategorie" />
         </WhereParameters>
     </asp:EntityDataSource>
-    <asp:EntityDataSource ID="EntityDataSourceCatégorie" runat="server" 
+    <asp:EntityDataSource ID="entityDataSourceCatégorie" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-        EntitySetName="CatégorieSet" EnableFlattening="false">
+        EntitySetName="Catégorie" EnableFlattening="false">
     </asp:EntityDataSource>
     <asp:EntityDataSource ID="entityDataSourceCours" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-        EntitySetName="CoursSet" EnableFlattening="false" Include="GroupeDAge, Session, Catégorie, Prerequis.lePrerequis"
+        EntitySetName="Cours" EnableFlattening="false" Include="GroupeDAge, Session, Catégorie, Prerequis.lePrerequis"
         Where="it.[noCours] = @leNoCours">               
         <WhereParameters>
             <asp:ControlParameter Name="leNoCours" Type="Int32" ControlID="hFieldnoCours" />
@@ -225,7 +239,7 @@
     </asp:EntityDataSource>
     <asp:EntityDataSource ID="entityDataSourceGroupes" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-        EntitySetName="GroupeSet" EnableFlattening="false" Include="Cours"
+        EntitySetName="Groupe" EnableFlattening="false" Include="Cours"
         Where="it.Cours.noCours = @leNoCours">
         <WhereParameters>
             <asp:ControlParameter Name="leNoCours" Type="Int32" ControlID="hFieldnoCours" />
@@ -233,7 +247,7 @@
     </asp:EntityDataSource>
     <asp:EntityDataSource ID="entityDataSourceLeGroupe" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-        EntitySetName="GroupeSet" EnableFlattening="false" Include="Cours, Animateur"
+        EntitySetName="Groupe" EnableFlattening="false" Include="Cours, Animateur"
         Where="it.noGroupe = @leNoGroupe">
         <WhereParameters>
             <asp:ControlParameter Name="leNoGroupe" Type="Int32" ControlID="hFieldnoGroupe2" />
@@ -241,10 +255,24 @@
     </asp:EntityDataSource>
     <asp:EntityDataSource ID="entityDataSourceMembre" runat="server"
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-        EntitySetName="MembreSet" EnableFlattening="false" Include="Compte"
+        EntitySetName="Membre" EnableFlattening="false" Include="Compte"
         Where="it.Compte.noCompte = @leNoCompte">
         <WhereParameters>
             <asp:SessionParameter Name="leNoCompte" Type="Int32" SessionField="noCompte" />
+        </WhereParameters>
+    </asp:EntityDataSource>
+    <asp:EntityDataSource ID="entityDataSourceHoraire" runat="server" ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer"
+         EntitySetName="Horaire" EnableFlattening="false" Include="Groupe, Jour" Where="it.Groupe.noGroupe = @noGroupe">
+        <WhereParameters>
+            <asp:ControlParameter Name="noGroupe" Type="Int32" ControlID="hFieldnoGroupe2" />
+        </WhereParameters>
+    </asp:EntityDataSource>
+    <asp:EntityDataSource ID="entityDataSourcePaiements" runat="server"
+        ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
+        EntitySetName="Paiement" EnableFlattening="false" Include="Groupe, Membre, Groupe.Cours"
+        Where="it.Groupe.noGroupe = @leNoGroupe">
+        <WhereParameters>
+            <asp:ControlParameter Name="leNoGroupe" Type="Int32" ControlID="hFieldnoGroupe2" />
         </WhereParameters>
     </asp:EntityDataSource>
 </asp:Content>
