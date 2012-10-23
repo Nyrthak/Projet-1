@@ -34,32 +34,32 @@ Partial Class Admin_GérerLesCours
 #End Region
 
 #Region "Contrôle d'erreur"
-    Protected Sub EntityDataSourceCours_Updated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceChangedEventArgs) Handles EntityDataSourceCours.Updated
-        Dim noPrerequis = CType(lViewModifierCours.Items(0).FindControl("dDListPrerequis"), DropDownList).SelectedValue
-        If Not noPrerequis = "" Then
-            Dim leNoCours As Integer = hFieldNoCours.Value
-            Dim leCoursPrerequis As Cours = (From monCours In lecontext.Cours Where monCours.noCours = noPrerequis Select monCours).First
-            Dim leCoursAModifier As Cours = (From monCours In lecontext.Cours Where monCours.noCours = leNoCours Select monCours).First
-            If leCoursAModifier.Prerequis Is Nothing Then
-                Dim leLienPrerequis As Prerequis = New Prerequis
-                leLienPrerequis.Cours = leCoursAModifier
-                leLienPrerequis.lePrerequis = leCoursPrerequis
-                lecontext.Prerequis.AddObject(leLienPrerequis)
-            End If
-            leCoursAModifier.Prerequis.lePrerequis = leCoursPrerequis
-            lecontext.SaveChanges()
+    'Protected Sub EntityDataSourceCours_Updated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceChangedEventArgs) Handles EntityDataSourceCours.Updated
+    '    Dim noPrerequis = CType(lViewModifierCours.Items(0).FindControl("dDListPrerequis"), DropDownList).SelectedValue
+    '    If Not noPrerequis = "" Then
+    '        Dim leNoCours As Integer = hFieldNoCours.Value
+    '        Dim leCoursPrerequis As Cours = (From monCours In lecontext.Cours Where monCours.noCours = noPrerequis Select monCours).First
+    '        Dim leCoursAModifier As Cours = (From monCours In lecontext.Cours Where monCours.noCours = leNoCours Select monCours).First
+    '        If leCoursAModifier.Prerequis Is Nothing Then
+    '            Dim leLienPrerequis As Prerequis = New Prerequis
+    '            leLienPrerequis.Cours = leCoursAModifier
+    '            leLienPrerequis.lePrerequis = leCoursPrerequis
+    '            lecontext.Prerequis.AddObject(leLienPrerequis)
+    '        End If
+    '        leCoursAModifier.Prerequis.lePrerequis = leCoursPrerequis
+    '        lecontext.SaveChanges()
 
-        Else
-            Dim leNoCours As Integer = hFieldNoCours.Value
-            Dim leCoursAModifier As Cours = (From monCours In lecontext.Cours Where monCours.noCours = leNoCours Select monCours).First
-            If Not leCoursAModifier.Prerequis Is Nothing Then
-                leCoursAModifier.Prerequis = Nothing
-                Dim leLienPrerequis As Prerequis = (From monPrerequis In lecontext.Prerequis Where monPrerequis.Cours.noCours = leNoCours Select monPrerequis).First
-                lecontext.Prerequis.DeleteObject(leLienPrerequis)
-                lecontext.SaveChanges()
-            End If
-        End If
-    End Sub
+    '    Else
+    '        Dim leNoCours As Integer = hFieldNoCours.Value
+    '        Dim leCoursAModifier As Cours = (From monCours In lecontext.Cours Where monCours.noCours = leNoCours Select monCours).First
+    '        If Not leCoursAModifier.Prerequis Is Nothing Then
+    '            leCoursAModifier.Prerequis = Nothing
+    '            Dim leLienPrerequis As Prerequis = (From monPrerequis In lecontext.Prerequis Where monPrerequis.Cours.noCours = leNoCours Select monPrerequis).First
+    '            lecontext.Prerequis.DeleteObject(leLienPrerequis)
+    '            lecontext.SaveChanges()
+    '        End If
+    '    End If
+    'End Sub
 #End Region
 
 #Region "Contrôles"
@@ -77,7 +77,7 @@ Partial Class Admin_GérerLesCours
         leCoursAjouté.Session = (From dl In lecontext.Session
                                          Where dl.noSession = 1
                                          Select dl).First
-        leCoursAjouté.Prerequis = Nothing
+        leCoursAjouté.lePrerequis = Nothing
         lecontext.AddObject("Cours", leCoursAjouté)
         lecontext.SaveChanges()
         hFieldNoCours.Value = leCoursAjouté.noCours
@@ -170,11 +170,11 @@ Partial Class Admin_GérerLesCours
             Next
             If peutDeleter Then
                 Dim leCoursADeleter As Cours = (From monCours In lecontext.Cours Where monCours.noCours = leNoCours Select monCours).First
-                If Not leCoursADeleter.Prerequis Is Nothing Then
-                    leCoursADeleter.Prerequis = Nothing
-                    Dim leLienPrerequis As Prerequis = (From monPrerequis In lecontext.Prerequis Where monPrerequis.Cours.noCours = leNoCours Select monPrerequis).First
-                    lecontext.Prerequis.DeleteObject(leLienPrerequis)
-                End If
+                'If Not leCoursADeleter.Prerequis Is Nothing Then
+                '    leCoursADeleter.Prerequis = Nothing
+                '    Dim leLienPrerequis As Prerequis = (From monPrerequis In lecontext.Prerequis Where monPrerequis.Cours.noCours = leNoCours Select monPrerequis).First
+                '    lecontext.Prerequis.DeleteObject(leLienPrerequis)
+                'End If
                 lecontext.Cours.DeleteObject(leCoursADeleter)
                 lecontext.SaveChanges()
                 'lblMessage.Text = "Le cours a bien été supprimé"
@@ -252,6 +252,10 @@ Partial Class Admin_GérerLesCours
         'e.Cancel = True
         'lviewGroupes.DataBind()
 
+
+    End Sub
+
+    Protected Sub lViewModifierCours_ItemUpdating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewUpdateEventArgs) Handles lViewModifierCours.ItemUpdating
 
     End Sub
 End Class
