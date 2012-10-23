@@ -43,7 +43,7 @@ Partial Class coursDefault
             lviewCours.DataBind()
             Dim leNoCours As String = hFieldnoCours.Value
             Dim leCours As Cours = (From monCours In lecontext.Cours Where monCours.noCours = leNoCours Select monCours).First
-            If leCours.Prerequis Is Nothing Then
+            If leCours.lePrerequis Is Nothing Then
                 CType(lviewCours.Items(0).FindControl("lblPrerequis"), Label).Text = "Aucun"
             End If
         End If

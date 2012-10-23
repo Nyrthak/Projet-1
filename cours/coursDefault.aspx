@@ -76,7 +76,7 @@
                     </tr>
                     <tr>
                         <td><asp:Label ID="lblSTitreCategorie" runat="server" Text="Catégorie : " SkinID="lbChampsFormulaire"></asp:Label><asp:Label ID="lblCategorie" runat="server" Text='<%#Eval("Catégorie.Nom")%>'></asp:Label></td>
-                        <td><asp:Label ID="lblSTitrePrerequis" runat="server" Text="Prérequis : " SkinID="lbChampsFormulaire"></asp:Label><asp:Label ID="lblPrerequis" runat="server" Text='<%#Eval("Prerequis.lePrerequis.Nom")%>'></asp:Label></td>
+                        <td><asp:Label ID="lblSTitrePrerequis" runat="server" Text="Prérequis : " SkinID="lbChampsFormulaire"></asp:Label><asp:Label ID="lblPrerequis" runat="server" Text='<%#Eval("lePrerequis.Nom")%>'></asp:Label></td>
                     </tr>
                     <tr>
                         <td colspan="2"><asp:Label ID="lblSTitreDescription" runat="server" Text="Description : " SkinID="lbChampsFormulaire"></asp:Label><asp:Label ID="lblDescription" runat="server" Text='<%#Eval("Description")%>'></asp:Label></td>
@@ -231,7 +231,7 @@
     </asp:EntityDataSource>
     <asp:EntityDataSource ID="entityDataSourceCours" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-        EntitySetName="Cours" EnableFlattening="false" Include="GroupeDAge, Session, Catégorie, Prerequis.lePrerequis"
+        EntitySetName="Cours" EnableFlattening="false" Include="GroupeDAge, Session, Catégorie, lePrerequis"
         Where="it.[noCours] = @leNoCours">               
         <WhereParameters>
             <asp:ControlParameter Name="leNoCours" Type="Int32" ControlID="hFieldnoCours" />
