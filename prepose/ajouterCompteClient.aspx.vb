@@ -46,7 +46,7 @@ Partial Class prepose_ajouterCompteClient
 
     Protected Sub btnEnregistrerInscription_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnregistrerInscription.Click
         Dim compteur As Integer = 0
-        Dim salt As String = ""
+        Dim salt As String = "manan"
         'Dim aCookie As New HttpCookie("online")
         For Each courriel As String In (From dl In lecontext.Compte Select dl.Email)
             If tbCourriel.Text = courriel Then
@@ -54,8 +54,6 @@ Partial Class prepose_ajouterCompteClient
                 validatorEmail.ErrorMessage = "L'email est déja utilisé."
                 validatorEmail.IsValid = False
                 Me.Validators.Add(validatorEmail)
-            Else
-                salt = "manan"
             End If
         Next
         If tbMotDePasse.Text.Count < 6 Then

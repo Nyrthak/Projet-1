@@ -21,7 +21,7 @@
     
     <asp:EntityDataSource ID="entityDataSourcePaiement" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-        EntitySetName="PaiementSet" Where="" Include="Membre" >
+        EntitySetName="Paiement" Where="" Include="Membre" >
       <%--  <WhereParameters>
             <asp:Parameter name="listMembre" Type="String" />
         </WhereParameters>--%>
