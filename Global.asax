@@ -1,4 +1,5 @@
 ﻿<%@ Application Language="VB" %>
+<%@ Import Namespace="System.IO" %>
 <%@ Import Namespace="System.Globalization" %>
 <%@ Import Namespace="System.Threading" %>
 
@@ -13,7 +14,10 @@
     End Sub
         
     Sub Application_Error(ByVal sender As Object, ByVal e As EventArgs)
-        ' Code qui s’exécute lorsqu’une erreur non gérée se produit
+        Dim lastError As Exception = Server.GetLastError
+        File.AppendAllText(Server.MapPath("~\App_Data\Error.log"), "Erreur survenue le " + Now().ToLongDateString + vbCrLf)
+        File.AppendAllText(Server.MapPath("~\App_Data\Error.log"), "  " + lastError.ToString + vbCrLf + vbCrLf)
+        Response.Redirect("~\erreur.aspx", True)
     End Sub
 
     Sub Session_Start(ByVal sender As Object, ByVal e As EventArgs)

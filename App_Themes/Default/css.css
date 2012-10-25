@@ -5,7 +5,7 @@ body{ width:1023px; margin:auto; background-color:#c5c5c5;}
     .ddlLangue{ text-align:right;}
 /* Menu */
 #menu{ height:60px; border-right:1px solid black; border-left:1px solid black; border-bottom:1px solid black; }
-    #menu ul{float:left; width:100%; height: 100%; padding:0; margin: 0; list-style-type:none; background-image:url('images/fondBoutons.jpg');}
+    #menu ul{float:left; width:100%; height: 100%; padding:0px; margin: 0px; list-style-type:none; background-image:url('images/fondBoutons.jpg');}
         #menu ul li{display:inline; width:204px; text-align:center; }
         #menu ul .premierMenuGauche{background-image:none;}
             #menu ul li a{ line-height:60px; text-decoration:none; font-weight:bold; color:#537EFF; background-image: url('images/bordureMenu.png'); background-repeat:no-repeat;}
@@ -26,11 +26,17 @@ body{ width:1023px; margin:auto; background-color:#c5c5c5;}
         /* Content right (lorsque menu à gauche) */
         #contentRight{float:right; width:528px; margin-left:20px;} /* width:548px kath */
             #contentRight .itemTemplate{width:235px; border-collapse:collapse; height:20px;}
-            #contentRight .btnCentre{margin:40px; text-align:center;} 
+            #contentRight .btnCentre{margin:40px; text-align:center;}
+            #contentRight table td{vertical-align:top;} 
         /* Page d'accueil */
         #corps h1{margin-bottom:10px; margin-right:250px;}
         #corps #imageAccueil{float:right; margin-right:20px;}  
         #corps #texteAccueil{float:left;}   /* Fin page d'accueil */
+        /* Page Gérer cours */
+        .btnAjout{Margin-top:50px;}
+        /* Page Liste d'attente Admin */
+        #tbListeAttente{width:400px;}
+            #tbListeAttente td{text-align:center;}
         
         .longeurPremiereColonnePW{text-align:right; padding-right:4px;}
         .longeurPremiereColonne{width:260px; text-align:right; padding-right:4px;}

@@ -16,7 +16,7 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("bbc06a77-0fbd-461c-960d-edfa8d77152c")>
+<Assembly: EdmSchemaAttribute("1da23a5a-6774-4991-b083-fce697c66a65")>
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("Model", "FK_AnimateurGroupe", "Animateur", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Animateur), "Groupe", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Groupe), True)>
 <Assembly: EdmRelationshipAttribute("Model", "FK_AnimateurProvince", "Province", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Province), "Animateur", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Animateur), True)>

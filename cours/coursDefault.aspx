@@ -213,6 +213,7 @@
                     
         </asp:View>
     </asp:MultiView>
+        <asp:Label ID="lbMessage" runat="server" Text=""></asp:Label>
     </div>
     <asp:HiddenField ID="hFieldnoGroupe2" runat="server" />
     <asp:HiddenField ID="hFieldNoCategorie" runat="server" Value="0" />

@@ -19,7 +19,7 @@ Partial Class Admin_GérerLesCours
 
 #Region "EntityDataSource"
     Protected Sub dsContextCreating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextCreatingEventArgs) _
-        Handles EntityDataSourceCategorie.ContextCreating, EntityDataSourceGroupeDAge.ContextCreating, EntityDataSourcePrerequis.ContextCreating, EntityDataSourceSession.ContextCreating, EntityDataSourceCours.ContextCreating
+        Handles entiDataSourceCategorie.ContextCreating, entiDataSourceGroupeDAge.ContextCreating, entiDataSourcePrerequis.ContextCreating, entiDataSourceSession.ContextCreating, entiDataSourceCours.ContextCreating
         'RÉCUPÈRE LE CONTEXTE DE FACON À N'EN AVOIR QU'UN
         If Not lecontext Is Nothing Then
             e.Context = lecontext
@@ -27,39 +27,146 @@ Partial Class Admin_GérerLesCours
     End Sub
 
     Protected Sub dsContextDisposing(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextDisposingEventArgs) _
-       Handles EntityDataSourceCategorie.ContextDisposing, EntityDataSourceGroupeDAge.ContextDisposing, EntityDataSourcePrerequis.ContextDisposing, EntityDataSourceSession.ContextDisposing, EntityDataSourceCours.ContextDisposing
+       Handles entiDataSourceCategorie.ContextDisposing, entiDataSourceGroupeDAge.ContextDisposing, entiDataSourcePrerequis.ContextDisposing, entiDataSourceSession.ContextDisposing, entiDataSourceCours.ContextDisposing
         e.Cancel = True
     End Sub
 
 #End Region
 
 #Region "Contrôle d'erreur"
-    'Protected Sub EntityDataSourceCours_Updated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceChangedEventArgs) Handles EntityDataSourceCours.Updated
-    '    Dim noPrerequis = CType(lViewModifierCours.Items(0).FindControl("dDListPrerequis"), DropDownList).SelectedValue
-    '    If Not noPrerequis = "" Then
-    '        Dim leNoCours As Integer = hFieldNoCours.Value
-    '        Dim leCoursPrerequis As Cours = (From monCours In lecontext.Cours Where monCours.noCours = noPrerequis Select monCours).First
-    '        Dim leCoursAModifier As Cours = (From monCours In lecontext.Cours Where monCours.noCours = leNoCours Select monCours).First
-    '        If leCoursAModifier.Prerequis Is Nothing Then
-    '            Dim leLienPrerequis As Prerequis = New Prerequis
-    '            leLienPrerequis.Cours = leCoursAModifier
-    '            leLienPrerequis.lePrerequis = leCoursPrerequis
-    '            lecontext.Prerequis.AddObject(leLienPrerequis)
-    '        End If
-    '        leCoursAModifier.Prerequis.lePrerequis = leCoursPrerequis
-    '        lecontext.SaveChanges()
+    Protected Sub entiDataSourceCours_Updated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceChangedEventArgs) Handles entiDataSourceCours.Updated
+        Dim leNoCours As Integer = hFieldNoCours.Value
+    End Sub
+    'View Gérer cours
+    Protected Sub lViewCours_ItemDeleted(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewDeletedEventArgs) Handles lViewCours.ItemDeleted
+        If e.Exception IsNot Nothing Then
+            lblMessage.Text = traiteErreur(e.Exception, "supprimer")
+        Else
+            lblMessage.Text = ""
+        End If
+    End Sub
+    'View Modifier cours
+    Protected Sub lViewModifierCours_ItemUpdated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewUpdatedEventArgs) Handles lViewModifierCours.ItemUpdated
+        Dim leNoCours As Integer = hFieldNoCours.Value
+        Dim leCoursModifie As Cours = (From monCours In lecontext.Cours Where monCours.noCours = leNoCours Select monCours).First
+        If e.Exception IsNot Nothing Then
+            lblMessage.Text = traiteErreur(e.Exception, "mise-à-jour")
+            e.KeepInEditMode = True
+            e.ExceptionHandled = True
+        Else
+            mViewCours.ActiveViewIndex = 0
+            lViewCours.DataBind()
+            lblMessage.Text = "Le cours """ & leCoursModifie.Nom & """ a été modifié"
+        End If
+    End Sub
+    'View Groupes
+    Protected Sub lviewGroupes_ItemDeleting(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewDeleteEventArgs) Handles lviewGroupes.ItemDeleting
+        Dim noGroupe As Integer = e.Keys(0)
+        Dim lesHoraires As New List(Of Horaire)(From unHoraire In lecontext.Horaire Where unHoraire.Groupe.noGroupe = noGroupe Select unHoraire)
+        For Each unHoraire As Horaire In lesHoraires
+            lecontext.Horaire.DeleteObject(unHoraire)
+        Next
+        lecontext.SaveChanges()
+    End Sub
+    Protected Sub lviewGroupes_ItemDeleted(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewDeletedEventArgs) Handles lviewGroupes.ItemDeleted
+        If e.Exception IsNot Nothing Then
+            lblMessage.Text = traiteErreur(e.Exception, "supprimer")
+        Else
+            lblMessage.Text = "Le groupe " & e.Keys(0) & " a été supprimé."
+        End If
+    End Sub
+    'View le groupe
+    Protected Sub lviewLeGroupe_ItemEditing(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewEditEventArgs) Handles lviewLeGroupe.ItemEditing
+        lblMessage.Text = ""
+    End Sub
+    Protected Sub lviewLeGroupe_ItemUpdated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewUpdatedEventArgs) Handles lviewLeGroupe.ItemUpdated
+        If e.Exception IsNot Nothing Then
+            lblMessage.Text = traiteErreur(e.Exception, "mise-à-jour")
+            e.KeepInEditMode = True
+            e.ExceptionHandled = True
+        Else
+            lblMessage.Text = "Le Groupe a été modifié."
+        End If
+    End Sub
+    Protected Sub lviewLeGroupe_ItemCanceling(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCancelEventArgs) Handles lviewLeGroupe.ItemCanceling
+        Dim noGroupe As Integer = hFieldnoGroupe2.Value
+        Dim leGroupe As Groupe = (From unGroupe In lecontext.Groupe Where unGroupe.noGroupe = noGroupe Select unGroupe).First
+        Dim uneDate As Date = Date.Parse("25-10-2012")
+        If leGroupe.DateDebut.Date = uneDate And leGroupe.DateFin.Date = uneDate And leGroupe.DateLimiteInscription.Date = uneDate Then
+            lecontext.Groupe.DeleteObject(leGroupe)
+            lecontext.SaveChanges()
+            mViewCours.ActiveViewIndex = 2
+            lviewGroupes.DataBind()
+            e.Cancel = True
+        End If
+    End Sub
+    Protected Sub lviewHoraire_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles lviewHoraire.ItemCommand
+        If e.CommandName = "Cancel" Then
+            Dim noHoraire As Integer = e.CommandArgument
+            Dim lHoraire As Horaire = (From unHoraire In lecontext.Horaire Where unHoraire.noHoraire = noHoraire Select unHoraire).First
+            Dim midi As Date = Date.Parse("25-10-2012 00:00:00")
+            If lHoraire.HeureDebut.TimeOfDay = midi.TimeOfDay And lHoraire.HeureFin.TimeOfDay = midi.TimeOfDay Then
+                lecontext.Horaire.DeleteObject(lHoraire)
+                lecontext.SaveChanges()
+                lviewLeGroupe.DataBind()
+            End If
+        End If
+    End Sub
+    Protected Sub lviewHoraire_ItemDeleted(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewDeletedEventArgs) Handles lviewHoraire.ItemDeleted
+        If e.Exception IsNot Nothing Then
+            lblMessage.Text = traiteErreur(e.Exception, "supprimer")
+        Else
+            lblMessage.Text = "L'horaire a été supprimé."
+        End If
+    End Sub
+    Protected Sub lviewHoraire_ItemEditing(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewEditEventArgs) Handles lviewHoraire.ItemEditing
+        lblMessage.Text = ""
+    End Sub
+    Protected Sub lviewHoraire_ItemUpdated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewUpdatedEventArgs) Handles lviewHoraire.ItemUpdated
+        If e.Exception IsNot Nothing Then
+            lblMessage.Text = traiteErreur(e.Exception, "mise-à-jour")
+            e.KeepInEditMode = True
+            e.ExceptionHandled = True
+        Else
+            lblMessage.Text = "L'Horaire a été modifié."
+        End If
+    End Sub
 
-    '    Else
-    '        Dim leNoCours As Integer = hFieldNoCours.Value
-    '        Dim leCoursAModifier As Cours = (From monCours In lecontext.Cours Where monCours.noCours = leNoCours Select monCours).First
-    '        If Not leCoursAModifier.Prerequis Is Nothing Then
-    '            leCoursAModifier.Prerequis = Nothing
-    '            Dim leLienPrerequis As Prerequis = (From monPrerequis In lecontext.Prerequis Where monPrerequis.Cours.noCours = leNoCours Select monPrerequis).First
-    '            lecontext.Prerequis.DeleteObject(leLienPrerequis)
-    '            lecontext.SaveChanges()
-    '        End If
-    '    End If
-    'End Sub
+    Protected Function traiteErreur(ByVal ex As Exception, ByVal quoi As String) As String
+        Dim message As String = ""
+
+        If ex IsNot Nothing Then
+            message = "Il y a eut un problème lors du " & quoi & "..."
+
+            If ex.InnerException IsNot Nothing Then
+                Dim inner As Exception = ex.InnerException
+
+                If TypeOf inner Is System.Data.Common.DbException Then
+                    message &= _
+                       "Notre serveur de base de données a  actuellement des problèmes." & _
+                       "Veuillez réessayer plus tard."
+                ElseIf TypeOf inner _
+                 Is System.Data.NoNullAllowedException Then
+                    message &= _
+                       "Un des champs dont la valeur est requise n'a pas été saisit."
+                ElseIf TypeOf inner Is ArgumentException Then
+                    Dim paramName As String = CType(inner, ArgumentException).ParamName
+                    message &= _
+                        String.Concat("La valeur de ", paramName, " est illégale.")
+                ElseIf TypeOf inner Is ApplicationException Then
+                    message &= inner.Message
+                Else
+                    message &= ex.ToString
+                End If
+            Else
+                message &= ex.ToString
+            End If
+        End If
+
+        ' LE LOGGÉ DANS UN FICHIER TEXTE SERAIT AUSSI UNE BONNE IDÉE. N' en afficher que la forme abrégée.
+        Return message
+    End Function
+
 #End Region
 
 #Region "Contrôles"
@@ -123,6 +230,11 @@ Partial Class Admin_GérerLesCours
         mViewCours.ActiveViewIndex = 2
     End Sub
 
+    Protected Sub btnRetour2_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnRetour2.Click
+        mViewCours.ActiveViewIndex = 0
+        lViewCours.DataBind()
+    End Sub
+
     Sub customV_heureDebut(ByVal sender As Object, ByVal e As ServerValidateEventArgs)
         Dim heureFinString As String() = (CType(lviewHoraire.EditItem.FindControl("tbHeureFin"), TextBox).Text.Split(":"))
         Dim heureDebutString As String() = (e.Value.Split(":"))
@@ -154,9 +266,7 @@ Partial Class Admin_GérerLesCours
     End Sub
 
     Protected Sub mViewCours_ActiveViewChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles mViewCours.ActiveViewChanged
-        If mViewCours.ActiveViewIndex = 1 Then
-            lblMessage.Text = ""
-        End If
+        lblMessage.Text = ""
     End Sub
 
     Protected Sub lViewCours_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles lViewCours.ItemCommand
@@ -170,14 +280,9 @@ Partial Class Admin_GérerLesCours
             Next
             If peutDeleter Then
                 Dim leCoursADeleter As Cours = (From monCours In lecontext.Cours Where monCours.noCours = leNoCours Select monCours).First
-                'If Not leCoursADeleter.Prerequis Is Nothing Then
-                '    leCoursADeleter.Prerequis = Nothing
-                '    Dim leLienPrerequis As Prerequis = (From monPrerequis In lecontext.Prerequis Where monPrerequis.Cours.noCours = leNoCours Select monPrerequis).First
-                '    lecontext.Prerequis.DeleteObject(leLienPrerequis)
-                'End If
                 lecontext.Cours.DeleteObject(leCoursADeleter)
                 lecontext.SaveChanges()
-                'lblMessage.Text = "Le cours a bien été supprimé"
+                lblMessage.Text = "Le cours a bien été supprimé"
                 Response.Redirect("~/Admin/GérerLesCours.aspx")
             Else
                 lblMessage.Text = "Le Cours n'existe pas dans la base de données"
@@ -187,7 +292,6 @@ Partial Class Admin_GérerLesCours
             lViewModifierCours.EditIndex = 0
             mViewCours.ActiveViewIndex = 1
             lViewModifierCours.DataBind()
-            lblMessage.Text = ""
         ElseIf e.CommandName = "VoirGroupes" Then
             hFieldnoCours2.Value = e.CommandArgument
             mViewCours.ActiveViewIndex = 2
@@ -220,14 +324,6 @@ Partial Class Admin_GérerLesCours
         mViewCours.ActiveViewIndex = 0
     End Sub
 
-    Protected Sub lViewModifierCours_ItemUpdated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewUpdatedEventArgs) Handles lViewModifierCours.ItemUpdated
-        mViewCours.ActiveViewIndex = 0
-        lViewCours.DataBind()
-        Dim leNoCours As Integer = hFieldNoCours.Value
-        Dim leCoursModifie As Cours = (From monCours In lecontext.Cours Where monCours.noCours = leNoCours Select monCours).First
-        lblMessage.Text = "Le cours """ & leCoursModifie.Nom & """ a été modifié"
-    End Sub
-
     Protected Sub lviewGroupes_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles lviewGroupes.ItemCommand
         If e.CommandName = "Selection" Then
             hFieldnoGroupe2.Value = e.CommandArgument
@@ -236,26 +332,4 @@ Partial Class Admin_GérerLesCours
         End If
     End Sub
 #End Region
-
-    Protected Sub lviewGroupes_ItemDeleting(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewDeleteEventArgs) Handles lviewGroupes.ItemDeleting
-        'Dim leNoGroupe As Integer = e.Keys.Item(0)
-        'Dim leGroupe As Groupe = (From monGroupe In lecontext.Groupe Where monGroupe.noGroupe = leNoGroupe).First
-        'leGroupe.Animateur = Nothing
-
-        'Dim lesHoraires As Horaire() = (From lHoraire In lecontext.Horaire Where lHoraire.Groupe.noGroupe = leNoGroupe Select lHoraire).ToArray
-        'For Each unHoraire As Horaire In lesHoraires
-        '    lecontext.Horaire.DeleteObject(unHoraire)
-        'Next
-
-        'lecontext.Groupe.DeleteObject(leGroupe)
-        'lecontext.SaveChanges()
-        'e.Cancel = True
-        'lviewGroupes.DataBind()
-
-
-    End Sub
-
-    Protected Sub lViewModifierCours_ItemUpdating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewUpdateEventArgs) Handles lViewModifierCours.ItemUpdating
-
-    End Sub
 End Class
