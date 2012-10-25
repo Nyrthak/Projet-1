@@ -5,6 +5,6 @@
       <siteMapNode url="~/admin/ajouterComptePrepose.aspx" title="Ajouter un préposé" description="Ajouter un compte préposé"/>
       <siteMapNode url="~/admin/GérerLesCours.aspx" title="Gérer les cours" description="Ajouter, modifier, supprimer un cours"/>
       <siteMapNode url="" title="Gérer les forfaits" description="Gérer les forfaits familiaux"/>
-      <siteMapNode url="" title="Listes d'attente"  description="Afficher toutes les listes d'attente" />        
+      <siteMapNode url="~/admin/listesDattente.aspx" title="Listes d'attente"  description="Afficher toutes les listes d'attente" />        
     </siteMapNode>
 </siteMap>
