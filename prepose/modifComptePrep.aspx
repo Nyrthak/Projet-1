@@ -132,7 +132,7 @@
                             </td>
                         <td class="longeurDeuxiemeColonne"><asp:DropDownList skinId="dropDownListProvince" id="dropDownListProvince" 
                                 runat="server" DataSourceID="entiDataSourceProvince" DataTextField="nom" 
-                                DataValueField="noProvince" SelectedValue='<%# Bind("Province.noProvince") %>'>
+                                DataValueField="noProvince" SelectedValue='<%# Bind("Province_noProvince") %>'>
                             </asp:DropDownList>
                             <asp:RequiredFieldValidator skinid="requisValidation" ID="requisValidationProvince" runat="server" ErrorMessage="La province doit être spécifié." ControlToValidate="dropDownListProvince" Display="Dynamic">*</asp:RequiredFieldValidator>
                             </td>

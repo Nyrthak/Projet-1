@@ -4,26 +4,58 @@
 <asp:Content ID="contentMenuPrepose" ContentPlaceHolderID="contentMenuPrepose" runat="server"></asp:Content>
 
 <asp:Content ID="contentMenu" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
-        <asp:Repeater ID="repeater" DataSourceID="entityDataSourcePaiement" runat="server">
-            <ItemTemplate>
-                <asp:Label ID="lbPaiement" runat="server" Text='<%#Eval("noPaiement") %>'></asp:Label>
-            </ItemTemplate>
-        </asp:Repeater>
-
-
-  <%--  <asp:EntityDataSource ID="entityDataSourceMembre" runat="server"
+    <div id="contentRight">
+        <asp:Label SkinID="lbTitrePage" ID="lbTitrePage" runat="server" Text="Liste des inscriptions"></asp:Label><br />
+        <asp:ListView ID="lViewMembre" runat="server" DataSourceID="entiDataSourceMembre" DataKeyNames="noMembre">
+        <LayoutTemplate>                                                   
+                    <asp:PlaceHolder runat="server" id="GroupPlaceHolder"></asp:PlaceHolder>          
+        </LayoutTemplate>
+        <GroupTemplate><asp:PlaceHolder runat="server" ID="ItemPlaceHolder"></asp:PlaceHolder></GroupTemplate>
+        <ItemTemplate>
+               <div style="clear:both">            
+                <asp:Label SkinID="lbInscription" ID="lbNomMembre" runat="server" Text='<%#Eval("Prénom") &" " & Eval("Nom") %>'></asp:Label>
+               
+                <asp:HiddenField ID="hFielNoMembre" runat="server" Value='<%#Eval("noMembre") %>' />
+                
+                <asp:ListView ID="lViewPaiement" runat="server" DataSourceID="entiDataSourcePaiement" DataKeyNames="noPaiement">
+                        <LayoutTemplate>                       
+                                <table style="float:right">
+                                    <asp:PlaceHolder runat="server" id="GroupPlaceHolder"></asp:PlaceHolder>
+                                </table>
+                        </LayoutTemplate>
+                        <GroupTemplate><asp:PlaceHolder runat="server" ID="ItemPlaceHolder"></asp:PlaceHolder></GroupTemplate>
+                        <ItemTemplate>
+                            <tr>
+                                <td class="longeurDeuxiemeColonneNOM">
+                                    <asp:Label SkinID="lbInscription" ID="lbNomMembre" runat="server" Text='<%#Eval("Groupe.Cours.Nom") %>'></asp:Label>                                    
+                                </td>
+                            
+                                <td>
+                                    <asp:Button SkinID="btnAjoutSupprimer" ID="btnDesincrire" 
+                                    runat="server" Text="Désinscrire" CommandName="Desinscription" CommandArgument='<%#Eval("Groupe.Cours.noCours") %>' /><br />
+                               </td>
+                           </tr>
+                        </ItemTemplate>
+                </asp:ListView>
+                 </div>    
+           
+            <asp:EntityDataSource ID="entiDataSourcePaiement" runat="server" 
+                ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
+                EntitySetName="Paiement" Where="it.Membre.noMembre = @noMembre" Include="Membre, Groupe.Cours" >
+             <WhereParameters>
+                <asp:ControlParameter Type="int32" Name="noMembre" ControlID="hFielNoMembre"/>
+             </WhereParameters>
+            </asp:EntityDataSource>
+        </ItemTemplate>
+        </asp:ListView>
+</div>
+  <asp:EntityDataSource ID="entiDataSourceMembre" runat="server"
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-        EntitySetName="MembreSet" Where="it.noCompte = @noCompte" Include="Compte, Paiement" >
+        EntitySetName="Membre" Where="it.Compte.noCompte = @noCompte" Include="Compte" >
         <WhereParameters>
             <asp:SessionParameter Name="noCompte" Type="Int32" SessionField="noCompte" />
         </WhereParameters>
-    </asp:EntityDataSource>--%>
+   </asp:EntityDataSource>
     
-    <asp:EntityDataSource ID="entityDataSourcePaiement" runat="server" 
-        ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-        EntitySetName="Paiement" Where="" Include="Membre" >
-      <%--  <WhereParameters>
-            <asp:Parameter name="listMembre" Type="String" />
-        </WhereParameters>--%>
-    </asp:EntityDataSource>
+    
 </asp:Content>
