@@ -7,33 +7,41 @@
     <div id="contentRight">
         <asp:Label SkinID="lbTitrePage" ID="lbTitrePage" runat="server" Text="Liste des inscriptions"></asp:Label><br />
         <asp:ListView ID="lViewMembre" runat="server" DataSourceID="entiDataSourceMembre" DataKeyNames="noMembre">
-        <LayoutTemplate>
-            <table>           
-                <asp:PlaceHolder runat="server" id="GroupPlaceHolder"></asp:PlaceHolder>
-            </table>
+        <LayoutTemplate>                                                   
+                    <asp:PlaceHolder runat="server" id="GroupPlaceHolder"></asp:PlaceHolder>          
         </LayoutTemplate>
         <GroupTemplate><asp:PlaceHolder runat="server" ID="ItemPlaceHolder"></asp:PlaceHolder></GroupTemplate>
         <ItemTemplate>
-            <asp:Label SkinID="lbInscription" ID="lbNomMembre" runat="server" Text='<%#Eval("Prénom") &" " & Eval("Nom") %>'></asp:Label>
-            
-            <asp:HiddenField ID="hFielNoMembre" runat="server" Value='<%#Eval("noMembre") %>' />
-
-            <asp:ListView ID="lViewPaiement" runat="server" DataSourceID="entiDataSourcePaiement" DataKeyNames="noPaiement">
-            <LayoutTemplate>
-                <table>           
-                    <asp:PlaceHolder runat="server" id="GroupPlaceHolder"></asp:PlaceHolder>
-                </table>
-            </LayoutTemplate>
-            <GroupTemplate><asp:PlaceHolder runat="server" ID="ItemPlaceHolder"></asp:PlaceHolder></GroupTemplate>
-            <ItemTemplate>
-                    <asp:Label SkinID="lbInscription" ID="lbNomMembre" runat="server" Text='<%#Eval("ModePaiement") %>'></asp:Label>  
-            </ItemTemplate>
-            </asp:ListView>
-            
-            
+               <div style="clear:both">            
+                <asp:Label SkinID="lbInscription" ID="lbNomMembre" runat="server" Text='<%#Eval("Prénom") &" " & Eval("Nom") %>'></asp:Label>
+               
+                <asp:HiddenField ID="hFielNoMembre" runat="server" Value='<%#Eval("noMembre") %>' />
+                
+                <asp:ListView ID="lViewPaiement" runat="server" DataSourceID="entiDataSourcePaiement" DataKeyNames="noPaiement">
+                        <LayoutTemplate>                       
+                                <table style="float:right">
+                                    <asp:PlaceHolder runat="server" id="GroupPlaceHolder"></asp:PlaceHolder>
+                                </table>
+                        </LayoutTemplate>
+                        <GroupTemplate><asp:PlaceHolder runat="server" ID="ItemPlaceHolder"></asp:PlaceHolder></GroupTemplate>
+                        <ItemTemplate>
+                            <tr>
+                                <td class="longeurDeuxiemeColonneNOM">
+                                    <asp:Label SkinID="lbInscription" ID="lbNomMembre" runat="server" Text='<%#Eval("Groupe.Cours.Nom") %>'></asp:Label>                                    
+                                </td>
+                            
+                                <td>
+                                    <asp:Button SkinID="btnAjoutSupprimer" ID="btnDesincrire" 
+                                    runat="server" Text="Désinscrire" CommandName="Desinscription" CommandArgument='<%#Eval("Groupe.Cours.noCours") %>' /><br />
+                               </td>
+                           </tr>
+                        </ItemTemplate>
+                </asp:ListView>
+                 </div>    
+           
             <asp:EntityDataSource ID="entiDataSourcePaiement" runat="server" 
                 ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-                EntitySetName="Paiement" Where="it.Membre.noMembre = @noMembre" Include="Membre" >
+                EntitySetName="Paiement" Where="it.Membre.noMembre = @noMembre" Include="Membre, Groupe.Cours" >
              <WhereParameters>
                 <asp:ControlParameter Type="int32" Name="noMembre" ControlID="hFielNoMembre"/>
              </WhereParameters>

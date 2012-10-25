@@ -27,18 +27,4 @@ Partial Class client_inscriptionClient
         lecontext = Nothing
     End Sub
 
-    'Protected Sub entityDataSourcePaiement_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles entityDataSourcePaiement.Load
-    '    Dim noCompte As Integer = Session("noCompte")
-    '    Dim membreList = (From monMembre In lecontext.MembreSet Where monMembre.Compte.noCompte = noCompte)
-    '    Dim membreListString As String = ""
-    '    Dim listMembre As New Parameter
-    '    Dim noMembre As Integer
-    '    For Each membre In membreList
-    '        membreListString += (membre.noMembre & " ")
-    '    Next
-    '    listMembre.DefaultValue = membreListString
-    '    entityDataSourcePaiement.WhereParameters.Add(listMembre)
-
-    '    entityDataSourcePaiement.Where() = "It.membre.noMembre Like membreListString"
-    'End Sub
 End Class

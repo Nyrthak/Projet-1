@@ -31,10 +31,12 @@ body{ width:1023px; margin:auto; background-color:#c5c5c5;}
         #corps h1{margin-bottom:10px; margin-right:250px;}
         #corps #imageAccueil{float:right; margin-right:20px;}  
         #corps #texteAccueil{float:left;}   /* Fin page d'accueil */
-        
         .longeurPremiereColonnePW{text-align:right; padding-right:4px;}
-        .longeurPremiereColonne{width:260px; text-align:right; padding-right:4px;}
-        .boutonMenuPager{border:1px solid black; width:75px; height:20px; margin-right:20px;}       
+        .longeurPremiereColonne{width:260px; text-align:right; padding-right:4px; vertical-align:top;}
+        .longeurPremiereColonneNOM{width:200px; padding-right:4px; vertical-align:top;}
+        .longeurDeuxiemeColonneNOM{width:200px; padding-bottom:0px; }
+        .boutonMenuPager{border:1px solid black; width:75px; height:20px; margin-right:20px;}
+               
     /* Côté droit (Heure ourverture) */ 
     #heureOuverture{float:right; background:url('images/backgroundcorps.jpg') repeat-x top center; width: 208px; height:400px; border-left:1px solid black; border-right:1px solid black; border-top:1px solid black;} 
         #topHeureOuverture{width:208px; height:55px; background-color:#293F7F; text-align:center;}
