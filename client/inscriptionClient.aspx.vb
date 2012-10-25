@@ -23,6 +23,10 @@ Partial Class client_inscriptionClient
         lecontext = New ModelContainer()
     End Sub
 
+    Protected Sub Page_PreInit(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreInit
+        verificationTypeUser(1)
+    End Sub
+
     Protected Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Unload
         lecontext = Nothing
     End Sub
