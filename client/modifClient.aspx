@@ -12,55 +12,6 @@
     <asp:MultiView ID="multiViewModiCompte" runat="server" ActiveViewIndex="0">
         <asp:View ID="viewModiCompte" runat="server">
         <asp:ValidationSummary SkinID="valiSummary" ID="valiSummaryCompte" runat="server" />            
-            <asp:ListView ID="lViewMembre" runat="server" DataKeyNames="noMembre" DataSourceID="entiDataSourceMembre" EditIndex="0">
-            <LayoutTemplate>
-                        <table>
-                            <asp:PlaceHolder runat="server" ID="GroupPlaceHolder"></asp:PlaceHolder>
-                        </table>
-                    </LayoutTemplate>
-            <GroupTemplate><asp:PlaceHolder runat="server" ID="ItemPlaceHolder"></asp:PlaceHolder></GroupTemplate>
-            <ItemTemplate></ItemTemplate>
-            <EditItemTemplate>
-                <tr>
-                        <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbNom" runat="server" Text="Nom"></asp:Label>
-                            </td>
-                        <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="160px" Text='<%# Bind("Nom") %>' ID="tbNom"  runat="server" MaxLength="20"></asp:TextBox>               
-                            <asp:RequiredFieldValidator SkinID="requisValidation" ID="requisValidationNom" 
-                                runat="server" ErrorMessage="Votre nom doit être spécifié." 
-                                ControlToValidate="tbNom" Display="Dynamic">*</asp:RequiredFieldValidator>
-                            </td>
-                    </tr>
-                    <tr>
-                        <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbPrenom" runat="server" Text="Prenom"></asp:Label>
-                            </td>
-                        <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="160px" Text='<%# Bind("Prénom") %>' ID="tbPrenom" runat="server" MaxLength="20" ></asp:TextBox>                     
-                            <asp:RequiredFieldValidator skinid="requisValidation" 
-                                ID="requisValidationPrenom" runat="server" 
-                                ErrorMessage="Votre prenom doit être spécifié." ControlToValidate="tbPrenom" 
-                                Display="Dynamic">*</asp:RequiredFieldValidator>
-                            </td>
-                    </tr>
-                    <tr>
-                        <asp:CalendarExtender ID="calendarExtenderDateNaissance" runat="server" TargetControlID="tbDateNaissance" PopupButtonID="imgBtnCalendrier" 
-                         CssClass="MyCalendar" PopupPosition="Right" Format="d-MM-yyyy" >
-                        </asp:CalendarExtender>  
-                        <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbDateNaissance" runat="server" Text="Date de naissance"></asp:Label>
-                            </td>
-                        <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="90px" ID="tbDateNaissance" Text='<%# Bind("DateNaissance", "{0:dd/MM/yyyy}") %>' runat="server" MaxLength="10" ReadOnly="false" ></asp:TextBox>
-                        <asp:ImageButton ID="imgBtnCalendrier" ImageUrl="~/App_Themes/Default/images/btnCalendrier.png" runat="server" CausesValidation="false" />              
-                            <asp:RequiredFieldValidator SkinID="requisValidation" 
-                                ID="requisValidationDateNaissance" runat="server" 
-                                ErrorMessage="Votre date de naissance doit être spécifié." 
-                                ControlToValidate="tbDateNaissance" Display="Dynamic">*</asp:RequiredFieldValidator>
-                                <asp:CompareValidator runat="server" ID="test" Type="Date" ControlToValidate="tbDateNaissance" ErrorMessage="La date de naissance n'est pas du bon format (jj-mm-aaaa)" ForeColor="Red" Operator="DataTypeCheck" Display="Dynamic">*</asp:CompareValidator>
-                            <asp:RangeValidator ID="rangeValidatorDateNaissance" Type="Date" runat="server" 
-                            ErrorMessage="La date de naissance doit précèder la date d'aujourd'hui." 
-                            ControlToValidate="tbDateNaissance" Display="Dynamic" ForeColor="Red">*</asp:RangeValidator>
-                            </td>
-                    </tr>                        
-                </table>             
-            </EditItemTemplate>
-            </asp:ListView>
             <asp:ListView ID="lViewCompte" runat="server" DataKeyNames="noCompte" DataSourceID="entiDataSourceCompte" EditIndex="0">
             <LayoutTemplate>
                         <table>
@@ -209,13 +160,6 @@
         ConnectionString="name=ModelContainer" 
         DefaultContainerName="ModelContainer" EntitySetName="Province" 
         EnableFlattening="False">
-    </asp:EntityDataSource>
-    <asp:EntityDataSource ID="entiDataSourceMembre" runat="server" 
-        ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-        EntitySetName="Membre" EnableFlattening="false" EnableUpdate="True" Where="it.Compte.noCompte = @noCompte" Include="Compte">
-        <WhereParameters>
-        <asp:SessionParameter Name="noCompte" SessionField="noCompte" Type="Int32"/>    
-        </WhereParameters>
     </asp:EntityDataSource>
     <asp:EntityDataSource ID="entiDataSourceCompte" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
