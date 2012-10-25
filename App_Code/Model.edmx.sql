@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 10/23/2012 08:18:34
+-- Date Created: 10/23/2012 13:29:33
 -- Generated from EDMX file: C:\Users\Katherine\Documents\A2012\Projet I\Projet-1\App_Code\Model.edmx
 -- --------------------------------------------------
 
@@ -35,11 +35,17 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_CompteProvince]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Compte] DROP CONSTRAINT [FK_CompteProvince];
 GO
+IF OBJECT_ID(N'[dbo].[FK_CoursCours]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Cours] DROP CONSTRAINT [FK_CoursCours];
+GO
 IF OBJECT_ID(N'[dbo].[FK_GroupeCours]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Groupe] DROP CONSTRAINT [FK_GroupeCours];
 GO
 IF OBJECT_ID(N'[dbo].[FK_GroupeDAgeCours]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Cours] DROP CONSTRAINT [FK_GroupeDAgeCours];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SessionCours]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Cours] DROP CONSTRAINT [FK_SessionCours];
 GO
 IF OBJECT_ID(N'[dbo].[FK_GroupePaiement]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Paiement] DROP CONSTRAINT [FK_GroupePaiement];
@@ -47,20 +53,17 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_HoraireGroupe]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Horaire] DROP CONSTRAINT [FK_HoraireGroupe];
 GO
-IF OBJECT_ID(N'[dbo].[FK_JourHoraire]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Horaire] DROP CONSTRAINT [FK_JourHoraire];
-GO
 IF OBJECT_ID(N'[dbo].[FK_ListeDAttenteGroupe]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ListeDAttente] DROP CONSTRAINT [FK_ListeDAttenteGroupe];
+GO
+IF OBJECT_ID(N'[dbo].[FK_JourHoraire]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Horaire] DROP CONSTRAINT [FK_JourHoraire];
 GO
 IF OBJECT_ID(N'[dbo].[FK_ListeDAttenteMembre]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ListeDAttente] DROP CONSTRAINT [FK_ListeDAttenteMembre];
 GO
 IF OBJECT_ID(N'[dbo].[FK_MembrePaiement]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Paiement] DROP CONSTRAINT [FK_MembrePaiement];
-GO
-IF OBJECT_ID(N'[dbo].[FK_SessionCours]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Cours] DROP CONSTRAINT [FK_SessionCours];
 GO
 IF OBJECT_ID(N'[dbo].[FK_SpécialitéSpécialitéAnimateur]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[SpécialitéAnimateur] DROP CONSTRAINT [FK_SpécialitéSpécialitéAnimateur];
@@ -222,7 +225,7 @@ GO
 -- Creating table 'ListeDAttente'
 CREATE TABLE [dbo].[ListeDAttente] (
     [DateAjout] datetime  NOT NULL,
-    [noListeDAttente] int  NOT NULL,
+    [noListeDAttente] int IDENTITY(1,1) NOT NULL,
     [Membre_noMembre] int  NOT NULL,
     [Groupe_noGroupe] int  NOT NULL
 );
@@ -244,7 +247,7 @@ CREATE TABLE [dbo].[Paiement] (
     [ModePaiement] nvarchar(15)  NOT NULL,
     [Prix] float  NOT NULL,
     [noPaypal] nvarchar(30)  NOT NULL,
-    [noPaiement] int  NOT NULL,
+    [noPaiement] int IDENTITY(1,1) NOT NULL,
     [Membre_noMembre] int  NOT NULL,
     [Groupe_noGroupe] int  NOT NULL
 );
@@ -467,6 +470,20 @@ ON [dbo].[Compte]
     ([Province_noProvince]);
 GO
 
+-- Creating foreign key on [lePrerequis_noCours] in table 'Cours'
+ALTER TABLE [dbo].[Cours]
+ADD CONSTRAINT [FK_CoursCours]
+    FOREIGN KEY ([lePrerequis_noCours])
+    REFERENCES [dbo].[Cours]
+        ([noCours])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CoursCours'
+CREATE INDEX [IX_FK_CoursCours]
+ON [dbo].[Cours]
+    ([lePrerequis_noCours]);
+GO
+
 -- Creating foreign key on [Cours_noCours] in table 'Groupe'
 ALTER TABLE [dbo].[Groupe]
 ADD CONSTRAINT [FK_GroupeCours]
@@ -605,20 +622,6 @@ ADD CONSTRAINT [FK_SpécialitéSpécialitéAnimateur]
 CREATE INDEX [IX_FK_SpécialitéSpécialitéAnimateur]
 ON [dbo].[SpécialitéAnimateur]
     ([Spécialité_noSpécialité]);
-GO
-
--- Creating foreign key on [lePrerequis_noCours] in table 'Cours'
-ALTER TABLE [dbo].[Cours]
-ADD CONSTRAINT [FK_CoursCours]
-    FOREIGN KEY ([lePrerequis_noCours])
-    REFERENCES [dbo].[Cours]
-        ([noCours])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- Creating non-clustered index for FOREIGN KEY 'FK_CoursCours'
-CREATE INDEX [IX_FK_CoursCours]
-ON [dbo].[Cours]
-    ([lePrerequis_noCours]);
 GO
 
 -- --------------------------------------------------
