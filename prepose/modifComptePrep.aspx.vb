@@ -4,7 +4,7 @@ Partial Class prepose_modifComptePrep
     Private Shared lecontext As ModelContainer = Nothing
 
     Protected Sub dsContextCreating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextCreatingEventArgs) _
-    Handles entiDataSourceMembre.ContextCreating, entiDataSourceProvince.ContextCreating
+    Handles entiDataSourceProvince.ContextCreating, entiDataSourceCompte.ContextCreating
 
         'RÉCUPÈRE LE CONTEXTE DE FACON À N'EN AVOIR QU'UN
         If Not lecontext Is Nothing Then
@@ -13,7 +13,7 @@ Partial Class prepose_modifComptePrep
     End Sub
 
     Protected Sub dsContextDisposing(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextDisposingEventArgs) _
-    Handles entiDataSourceProvince.ContextDisposing, entiDataSourceMembre.ContextDisposing
+    Handles entiDataSourceProvince.ContextDisposing, entiDataSourceCompte.ContextDisposing
         e.Cancel = True
     End Sub
 
@@ -32,11 +32,6 @@ Partial Class prepose_modifComptePrep
 
     Protected Sub lViewCompte_ItemUpdated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewUpdatedEventArgs) Handles lViewCompte.ItemUpdated
         lbMessage.Text = "Votre compte à bien été modifié."
-    End Sub
-
-    Protected Sub lViewMembre_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles lViewMembre.PreRender
-        CType(lViewMembre.Items(0).FindControl("rangeValidatorDateNaissance"), RangeValidator).MaximumValue = Now.Date.ToShortDateString
-        CType(lViewMembre.Items(0).FindControl("rangeValidatorDateNaissance"), RangeValidator).MinimumValue = Now.AddYears(-150).ToShortDateString
     End Sub
 
     Protected Sub lViewCompte_ItemUpdating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewUpdateEventArgs) Handles lViewCompte.ItemUpdating
@@ -58,10 +53,8 @@ Partial Class prepose_modifComptePrep
             End If
         Next
         If Me.IsValid Then
-            lViewMembre.UpdateItem(0, True)
             lViewCompte.UpdateItem(0, True)
             lViewCompte.EditIndex = 0
-            lViewMembre.EditIndex = 0
         End If
     End Sub
 
