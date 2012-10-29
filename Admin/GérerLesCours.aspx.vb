@@ -37,8 +37,6 @@ Partial Class Admin_GérerLesCours
     Protected Sub entiDataSourceCours_Updated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceChangedEventArgs) Handles entiDataSourceCours.Updated
         Dim leNoCours As Integer = hFieldNoCours.Value
     End Sub
-
-    
     'View Gérer cours
     Protected Sub lViewCours_ItemDeleted(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewDeletedEventArgs) Handles lViewCours.ItemDeleted
         If e.Exception IsNot Nothing Then
@@ -64,11 +62,16 @@ Partial Class Admin_GérerLesCours
     'View Groupes
     Protected Sub lviewGroupes_ItemDeleting(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewDeleteEventArgs) Handles lviewGroupes.ItemDeleting
         Dim noGroupe As Integer = e.Keys(0)
-        Dim lesHoraires As New List(Of Horaire)(From unHoraire In lecontext.Horaire Where unHoraire.Groupe.noGroupe = noGroupe Select unHoraire)
-        For Each unHoraire As Horaire In lesHoraires
-            lecontext.Horaire.DeleteObject(unHoraire)
-        Next
-        lecontext.SaveChanges()
+        If (From unPaiement In lecontext.Paiement Where unPaiement.Groupe.noGroupe = noGroupe Select unPaiement).Count > 0 Then
+            lblMessage.Text = "Vous ne pouvez supprimer le groupe " & noGroupe & ", car il contient une(des) inscription(s)."
+            e.Cancel = True
+        Else
+            Dim lesHoraires As New List(Of Horaire)(From unHoraire In lecontext.Horaire Where unHoraire.Groupe.noGroupe = noGroupe Select unHoraire)
+            For Each unHoraire As Horaire In lesHoraires
+                lecontext.Horaire.DeleteObject(unHoraire)
+            Next
+            lecontext.SaveChanges()
+        End If
     End Sub
     Protected Sub lviewGroupes_ItemDeleted(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewDeletedEventArgs) Handles lviewGroupes.ItemDeleted
         If e.Exception IsNot Nothing Then
@@ -177,7 +180,7 @@ Partial Class Admin_GérerLesCours
         leCoursAjouté.Nom = "Entrez un nom"
         leCoursAjouté.Prix = 0
         leCoursAjouté.Description = ""
-        leCoursAjouté.Actif = True
+        leCoursAjouté.Actif = False
         leCoursAjouté.Catégorie = (From dl In lecontext.Catégorie
                                          Where dl.noCatégorie = 1
                                          Select dl).First
@@ -236,8 +239,7 @@ Partial Class Admin_GérerLesCours
             CType(e.Item.FindControl("lblNomCours"), Label).ForeColor = Drawing.Color.Gray
             CType(e.Item.FindControl("lblNbGroupe"), LinkButton).ForeColor = Drawing.Color.Gray
             CType(e.Item.FindControl("lblCategorie"), Label).ForeColor = Drawing.Color.Gray
-            CType(e.Item.FindControl("btnModifier"), Button).Enabled = False
-            CType(e.Item.FindControl("btnSupprimer"), Button).Enabled = False
+            CType(e.Item.FindControl("btnDesactiver"), Button).Text = "Activer"
         End If
     End Sub
 
@@ -287,7 +289,7 @@ Partial Class Admin_GérerLesCours
 
     Protected Sub lViewCours_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles lViewCours.ItemCommand
         Dim leNoCours As String = e.CommandArgument
-        If e.CommandName = "Delete" Then
+        If e.CommandName = "Supprimer" Then
             Dim peutDeleter As Boolean = False
             For Each leCours In lecontext.Cours
                 If leCours.noCours = leNoCours Then
@@ -296,13 +298,30 @@ Partial Class Admin_GérerLesCours
             Next
             If peutDeleter Then
                 Dim leCoursADeleter As Cours = (From monCours In lecontext.Cours Where monCours.noCours = leNoCours Select monCours).First
-                lecontext.Cours.DeleteObject(leCoursADeleter)
-                lecontext.SaveChanges()
-                lblMessage.Text = "Le cours a bien été supprimé"
-                Response.Redirect("~/Admin/GérerLesCours.aspx")
+                If (From unPaiement In lecontext.Paiement Where unPaiement.Groupe.Cours.noCours = leNoCours Select unPaiement).Count > 0 Then
+                    lblMessage.Text = "Le cours " & leCoursADeleter.Nom & " ne peut être supprimé, car il contient une(des) inscription(s)."
+                Else
+                    lecontext.Cours.DeleteObject(leCoursADeleter)
+                    lecontext.SaveChanges()
+                    lblMessage.Text = "Le cours a bien été supprimé."
+                    Response.Redirect("~/Admin/GérerLesCours.aspx")
+                End If
             Else
-                lblMessage.Text = "Le Cours n'existe pas dans la base de données"
+                lblMessage.Text = "Le Cours n'existe pas dans la base de données."
             End If
+        ElseIf e.CommandName = "Desactiver" Then
+            Dim leNoCours2 As String = e.CommandArgument
+            Dim leCoursADesactiver As Cours = (From monCours In lecontext.Cours Where monCours.noCours = leNoCours2 Select monCours).First
+            If leCoursADesactiver.Actif Then
+                leCoursADesactiver.Actif = False
+                lecontext.SaveChanges()
+                lblMessage.Text = "Le Cours " & leCoursADesactiver.Nom & " a été désactivé."
+            Else
+                leCoursADesactiver.Actif = True
+                lecontext.SaveChanges()
+                lblMessage.Text = "Le Cours " & leCoursADesactiver.Nom & " a été activé."
+            End If
+            lViewCours.DataBind()
         ElseIf e.CommandName = "Modifier" Then
             hFieldNoCours.Value = e.CommandArgument
             lViewModifierCours.EditIndex = 0
@@ -345,6 +364,30 @@ Partial Class Admin_GérerLesCours
             hFieldnoGroupe2.Value = e.CommandArgument
             lviewLeGroupe.DataBind()
             mViewCours.ActiveViewIndex = 3
+        ElseIf e.CommandName = "Desactiver" Then
+            Dim noGroupe As Integer = e.CommandArgument
+            Dim leGroupe As Groupe = (From unGroupe In lecontext.Groupe Where unGroupe.noGroupe = noGroupe Select unGroupe).FirstOrDefault
+            If leGroupe.Actif Then
+                leGroupe.Actif = False
+            Else
+                leGroupe.Actif = True
+            End If
+            lecontext.SaveChanges()
+            lviewGroupes.DataBind()
+        End If
+    End Sub
+
+    Protected Sub lviewGroupes_ItemDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewItemEventArgs) Handles lviewGroupes.ItemDataBound
+        Dim noGroupe As Integer = e.Item.DataItem.noGroupe
+        Dim leGroupe As Groupe = (From unGroupe In lecontext.Groupe Where unGroupe.noGroupe = noGroupe Select unGroupe).FirstOrDefault
+        If Not leGroupe.Actif Then
+            CType(e.Item.FindControl("lnkGroupe"), LinkButton).ForeColor = Drawing.Color.Gray
+            CType(e.Item.FindControl("lblAge"), Label).ForeColor = Drawing.Color.Gray
+            CType(e.Item.FindControl("btnDesactiver"), Button).Text = "Activer"
+
+            For Each lHoraire In CType(e.Item.FindControl("lViewHoraire"), ListView).Items
+                CType(lHoraire.FindControl("lblHoraire"), Label).ForeColor = Drawing.Color.Gray
+            Next
         End If
     End Sub
 #End Region

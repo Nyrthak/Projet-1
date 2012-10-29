@@ -220,7 +220,7 @@
     <asp:EntityDataSource ID="entityDataSourceListeCours" runat="server" 
     ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
     EntitySetName="Cours" EnableFlattening="false" Include="GroupeDAge, Session, Catégorie"
-        Where='(it.Nom + it.[Catégorie].Nom + it.[GroupeDAge].NomGroupeDAge like "%"+@recherche+"%" OR (@recherche = "")) AND (it.[Catégorie].[noCatégorie] = @categorie OR @categorie = 0)'>                
+        Where='(it.Nom + it.[Catégorie].Nom + it.[GroupeDAge].NomGroupeDAge like "%"+@recherche+"%" OR (@recherche = "")) AND (it.[Catégorie].[noCatégorie] = @categorie OR @categorie = 0) AND it.Actif'>                
         <WhereParameters>
             <asp:ControlParameter Name="recherche" Type="String" ControlID="txtRechercher" ConvertEmptyStringToNull="false" />
             <asp:ControlParameter Name="categorie" Type="Int32" ControlID="hFieldNoCategorie" />
@@ -241,7 +241,7 @@
     <asp:EntityDataSource ID="entityDataSourceGroupes" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
         EntitySetName="Groupe" EnableFlattening="false" Include="Cours"
-        Where="it.Cours.noCours = @leNoCours">
+        Where="it.Cours.noCours = @leNoCours And it.Actif">
         <WhereParameters>
             <asp:ControlParameter Name="leNoCours" Type="Int32" ControlID="hFieldnoCours" />
         </WhereParameters>

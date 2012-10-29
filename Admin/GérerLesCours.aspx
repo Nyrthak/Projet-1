@@ -33,17 +33,20 @@
                         <td><asp:Label ID="lblNomCours" runat="server" Text='<%#Eval("Nom")%>'></asp:Label></td>
                         <td><asp:LinkButton ID="lblNbGroupe" runat="server" Text='<%#Eval("nbGroupes")%>' CommandName="VoirGroupes" CommandArgument='<%#Eval("noCours") %>'></asp:LinkButton></td>
                         <td><asp:Label ID="lblCategorie" runat="server" Text='<%#Eval("nomCategorie")%>'></asp:Label></td>
-                        <td><asp:Button ID="btnModifier" runat="server" Text="Modifier" SkinID="btnConfirmation" CommandName="Modifier" CommandArgument='<%#Eval("noCours")%>'  /></td>
+                        <td><asp:Button ID="btnModifier" runat="server" Text="Modifier" SkinID="btnAjoutSupprimer" Width="72px" CommandName="Modifier" CommandArgument='<%#Eval("noCours")%>'  /></td>
                         <td>
-                            <asp:Button ID="btnSupprimer" runat="server" Text="Supprimer" SkinID="btnConfirmation" CommandName="Delete" CommandArgument='<%#Eval("noCours")%>' />
+                            <asp:Button ID="btnDesactiver" runat="server" Text="Désactiver" SkinID="btnAjoutSupprimer" Width="72px" CommandName="Desactiver" CommandArgument='<%#Eval("noCours")%>' />
+                        </td>
+                        <td>
+                        <asp:Button ID="btnSupprimer" runat="server" Text="Supprimer" SkinID="btnAjoutSupprimer" Width="72px" CommandName="Supprimer" CommandArgument='<%#Eval("noCours")%>' />
                             <ajaxToolkit:ConfirmButtonExtender ID="confirmBtnExtSupprimer" runat="server" TargetControlID="btnSupprimer" ConfirmText="Voulez-vous vraiment supprimer ce cours?">
-                            </ajaxToolkit:ConfirmButtonExtender>
+                            </ajaxToolkit:ConfirmButtonExtender>  
                         </td>
                     </tr>
                 </ItemTemplate>
             </asp:ListView>
             <br />
-            <asp:Button ID="btnAjouterUnCours" runat="server" Text="Ajouter" SkinID="btnConfirmation"/>
+            <asp:Button ID="btnAjouterUnCours" runat="server" Text="Ajouter" SkinID="btnAjoutSupprimer" Width="72px"/>
             <br /><br />
             <asp:DataPager ID="DataPagerGereCours" runat="server" 
                 PagedControlID="lViewCours">
@@ -131,6 +134,7 @@
                     <tr>
                         <td><asp:LinkButton ID="lnkGroupe" runat="server" Text='<%# "Groupe " & Eval("noGroupe") %>' CommandName="Selection" CommandArgument='<%#Eval("noGroupe")%>' /></td>
                         <td><asp:Label ID="lblAge" runat="server" Text='<%#Eval("AgeMinimum") & "-" & Eval("AgeMaximum") & " ans"%>' /></td>
+                        <td><asp:Button ID="btnDesactiver" runat="server" SkinID="btnConfirmation" Text="Désactiver" CommandName="Desactiver" CommandArgument='<%#Eval("noGroupe")%>' /></td>
                         <td>
                             <asp:Button ID="btnSupprimer" runat="server" SkinID="btnConfirmation" Text="Supprimer" CommandName="Delete" />
                             <ajaxToolkit:ConfirmButtonExtender ID="confirmBtnExtSupprimer" runat="server" TargetControlID="btnSupprimer" ConfirmText="Voulez-vous vraiment supprimer ce groupe?">
@@ -382,7 +386,7 @@
                     ContextTypeName="Model.ModelContainer"
                     TableName="Cours" 
                     Select="new (noCours, Nom, Catégorie.Nom As nomCategorie, Groupe.Count() AS nbGroupes)" 
-                    EnableDelete="True" OrderBy="Actif DESC, noCours"
+                    OrderBy="Actif DESC, noCours"
                     Where='(@recherche = "") || Nom.Contains(@recherche) || Catégorie.Nom.Contains(@recherche)' >
                     <WhereParameters>
                         <asp:ControlParameter Name="recherche" ControlID="tbRechercher" ConvertEmptyStringToNull="false" />
