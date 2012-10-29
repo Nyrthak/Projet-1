@@ -31,28 +31,28 @@ Partial Class CompteClient
         verificationTypeUser(1)      
     End Sub
 
-    Protected Sub listViewMembres_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles listViewMembres.ItemCommand
-        If e.CommandName = "supprime" Then
-            Dim noMembre As Integer = e.CommandArgument
-            Dim present As Boolean = False
-            For Each membreDeleter As Membre In lecontext.Membre
-                If membreDeleter.noMembre = noMembre Then
-                    present = True
-                End If
-            Next
-            If present = True Then
-                'Supprime le membre qui dont le nom est "Entrez un nom"
-                Dim leMembreADeleter As Membre = (From monMembre In lecontext.Membre Where monMembre.noMembre = noMembre Select monMembre).First
-                If leMembreADeleter.Propriétaire = False Then
-                    lecontext.Membre.DeleteObject(leMembreADeleter)
-                    lecontext.SaveChanges()
-                    Response.Redirect("~/client/compteClient.aspx")
-                Else
-                    lbErreur.Text = "Vous ne pouvez pas supprimer le propriétaire du compte."
-                End If
-            End If
-        End If
-    End Sub
+    'Protected Sub listViewMembres_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles listViewMembres.ItemCommand
+    '    If e.CommandName = "supprime" Then
+    '        Dim noMembre As Integer = e.CommandArgument
+    '        Dim present As Boolean = False
+    '        For Each membreDeleter As Membre In lecontext.Membre
+    '            If membreDeleter.noMembre = noMembre Then
+    '                present = True
+    '            End If
+    '        Next
+    '        If present = True Then
+    '            'Supprime le membre qui dont le nom est "Entrez un nom"
+    '            Dim leMembreADeleter As Membre = (From monMembre In lecontext.Membre Where monMembre.noMembre = noMembre Select monMembre).First
+    '            If leMembreADeleter.Propriétaire = False Then
+    '                lecontext.Membre.DeleteObject(leMembreADeleter)
+    '                lecontext.SaveChanges()
+    '                Response.Redirect("~/client/compteClient.aspx")
+    '            Else
+    '                lbErreur.Text = "Vous ne pouvez pas supprimer le propriétaire du compte."
+    '            End If
+    '        End If
+    '    End If
+    'End Sub
 
     Protected Sub btnAjouter_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAjouter.Click
         Dim ajouterMembre As Membre = New Membre()

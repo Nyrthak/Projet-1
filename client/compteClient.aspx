@@ -36,9 +36,6 @@
                     <td style="width:200px;">
                         <asp:Label SkinID="lbInfoMembre" id="tbDateNaissance" runat="server" Text='<%#Eval("DateNaissance", "{0:dd/MM/yyyy}") %>'></asp:Label>
                     </td>
-                     <td>
-                        <asp:Button SkinID="btnAjoutSupprimer" ID="btnSupprimer" runat="server" Text="Supprimer" CommandArgument='<%#Eval("noMembre") %>' CommandName="supprime"/>               
-                    </td>  
                 </tr>
             </ItemTemplate>         
         </asp:ListView>
