@@ -7,11 +7,11 @@
     <div id="contentRight">
         <asp:Label SkinID="lbTitrePage" ID="lbTitrePage" runat="server" Text="Liste des inscriptions"></asp:Label><br />
         <asp:ListView ID="lViewMembre" runat="server" DataSourceID="entiDataSourceMembre" DataKeyNames="noMembre">
-        <LayoutTemplate>                                                   
-                    <asp:PlaceHolder runat="server" id="GroupPlaceHolder"></asp:PlaceHolder>          
-        </LayoutTemplate>
-        <GroupTemplate><asp:PlaceHolder runat="server" ID="ItemPlaceHolder"></asp:PlaceHolder></GroupTemplate>
-        <ItemTemplate>
+            <LayoutTemplate>                                                   
+                        <asp:PlaceHolder runat="server" id="GroupPlaceHolder"></asp:PlaceHolder>          
+            </LayoutTemplate>
+            <GroupTemplate><asp:PlaceHolder runat="server" ID="ItemPlaceHolder"></asp:PlaceHolder></GroupTemplate>
+            <ItemTemplate>
                <div class="borderInscription">            
                 <asp:Label SkinID="lbInscription" ID="lbNomMembre" runat="server" Text='<%#Eval("Prénom") &" " & Eval("Nom") %>'></asp:Label>
                
@@ -25,15 +25,11 @@
                         </LayoutTemplate>
                         <GroupTemplate><asp:PlaceHolder runat="server" ID="ItemPlaceHolder"></asp:PlaceHolder></GroupTemplate>
                         <ItemTemplate>
+                            <asp:HiddenField ID="hFielNoMembreNoPaiement" runat="server" Value='<%#Eval("noPaiement.noMembre") %>' />
                             <tr>
                                 <td class="longeurDeuxiemeColonneNOM">
                                     <asp:Label SkinID="lbInscription" ID="lbNomMembre" runat="server" Text='<%#Eval("Groupe.Cours.Nom") %>'></asp:Label>                                    
-                                </td>
-                            
-                                <td>
-                                    <asp:Button SkinID="btnAjoutSupprimer" ID="btnDesincrire" 
-                                    runat="server" Text="Désinscrire" CommandName="Desinscription" CommandArgument='<%#Eval("Groupe.Cours.noCours") %>' /><br />
-                               </td>
+                                </td>                                
                            </tr>
                         </ItemTemplate>
                 </asp:ListView>
