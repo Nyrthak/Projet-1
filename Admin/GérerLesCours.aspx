@@ -34,7 +34,14 @@
                         <td><asp:LinkButton ID="lblNbGroupe" runat="server" Text='<%#Eval("nbGroupes")%>' CommandName="VoirGroupes" CommandArgument='<%#Eval("noCours") %>'></asp:LinkButton></td>
                         <td><asp:Label ID="lblCategorie" runat="server" Text='<%#Eval("nomCategorie")%>'></asp:Label></td>
                         <td><asp:Button ID="btnModifier" runat="server" Text="Modifier" SkinID="btnConfirmation" CommandName="Modifier" CommandArgument='<%#Eval("noCours")%>'  /></td>
-                        <td><asp:Button ID="btnSupprimer" runat="server" Text="Supprimer" SkinID="btnConfirmation" CommandName="Delete" CommandArgument='<%#Eval("noCours")%>' /></td>
+                        <td>
+                            <asp:Button ID="btnSupprimer" runat="server" Text="Supprimer" SkinID="btnConfirmation" CommandName="Delete" CommandArgument='<%#Eval("noCours")%>' />
+                            <ajaxToolkit:ConfirmButtonExtender ID="confirmBtnExtSupprimer" runat="server" TargetControlID="btnSupprimer" ConfirmText="Voulez-vous vraiment supprimer ce cours?">
+                            </ajaxToolkit:ConfirmButtonExtender>
+                            <ajaxToolkit:ModalPopupExtender ID="mPopupSupprimer" runat="server" TargetControlID="btnSupprimer" PopupControlID="confirmBtnExtSupprimer"
+                                CancelControlID="btnCancel" OkControlID="btnOK">    
+                            </ajaxToolkit:ModalPopupExtender>
+                        </td>
                     </tr>
                 </ItemTemplate>
             </asp:ListView>
@@ -67,13 +74,13 @@
                     </tr>
                     <tr>
                         <td>
-                            <asp:TextBox ID="tbNomDuCours" runat="server" SkinID="TextBoxFormulaire" Text='<%#Bind("Nom")%>'></asp:TextBox>
+                            <asp:TextBox ID="tbNomDuCours" runat="server" Width="130px" SkinID="tbSkin" Text='<%#Bind("Nom")%>'></asp:TextBox>
                             <asp:RequiredFieldValidator ID="rfvNomDuCours" runat="server" ErrorMessage="Le nom du cours est requis." ControlToValidate="tbNomDuCours" Text="*" />
                             <asp:CompareValidator ID="cValidatorNomDuCours" runat="server" controlToValidate="tbNomDuCours" ErrorMessage="Veuillez entrer un nom." 
                             ValueToCompare="Entrez un nom" Display="Dynamic" Operator="NotEqual" ForeColor="Red">*</asp:CompareValidator>
                         </td>
                         <td colspan="2">
-                            <asp:TextBox ID="tbPrix" runat="server" SkinID="TextBoxFormulaire" Text='<%#Bind("Prix")%>'></asp:TextBox>
+                            <asp:TextBox ID="tbPrix" runat="server" SkinID="tbSkin" Width="100px" Text='<%#Bind("Prix")%>'></asp:TextBox>$
                             <asp:RequiredFieldValidator ID="rfvPrix" runat="server" ErrorMessage="Le prix est requis." ControlToValidate="tbPrix" Text="*" Display="Dynamic" />
                             <asp:CompareValidator ID="cvPrix" runat="server" ErrorMessage="Le prix doit être écrit sous le format 0,00" ControlToValidate="tbPrix" Type="Double" Text="*" Operator="DataTypeCheck" Display="Dynamic" />
                         </td>          
@@ -268,7 +275,7 @@
                                     ErrorMessage="L'âge minimum doit être un nombre." ForeColor="Red" ControlToCompare="tbAgeMax"
                                     Operator="LessThanEqual" Display="Dynamic">*</asp:CompareValidator>
                                 <asp:Label ID="lblAge" runat="server" Text="-"></asp:Label>
-                                <asp:TextBox ID="tbAgeMax" runat="server" Text='<%#Eval("AgeMaximum")%>' SkinID="tbSkin" Width="20px" MaxLength="2"></asp:TextBox>
+                                <asp:TextBox ID="tbAgeMax" runat="server" Text='<%#Bind("AgeMaximum")%>' SkinID="tbSkin" Width="20px" MaxLength="2"></asp:TextBox>
                                 <asp:RequiredFieldValidator ForeColor="Red" 
                                     ID="rfvAgeMax" runat="server" ErrorMessage="L'âge maximum doit être spécifié." 
                                     ControlToValidate="tbAgeMax" Display="Dynamic">*</asp:RequiredFieldValidator>
@@ -367,7 +374,10 @@
     </asp:MultiView>
     <br /><asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
     </div>
+<<<<<<< HEAD
     
+=======
+>>>>>>> origin/Cours
     <%-- View Gerer Cours --%>
     <asp:LinqDataSource ID="LinqDataSourceCours" runat="server"
                     ContextTypeName="Model.ModelContainer"

@@ -68,7 +68,7 @@
                 <ItemTemplate>
                     <tr>            
                         <td><asp:Label ID="lblSTitreNomDuCours" runat="server" Text="Nom : " SkinID="lbChampsFormulaire"></asp:Label><asp:Label ID="lblNomDuCours" runat="server" Text='<%#Eval("Nom")%>'></asp:Label></td>
-                        <td><asp:Label ID="lblSTitrePrix" runat="server" Text="Prix : " SkinID="lbChampsFormulaire"></asp:Label><asp:Label ID="lblPrix" runat="server" Text='<%#Eval("Prix")%>'></asp:Label></td>
+                        <td><asp:Label ID="lblSTitrePrix" runat="server" Text="Prix : " SkinID="lbChampsFormulaire"></asp:Label><asp:Label ID="lblPrix" runat="server" Text='<%#Eval("Prix") & "$"%>'></asp:Label></td>
                     </tr>
                     <tr>
                         <td><asp:Label ID="lblSTitreGroupeDAge" runat="server" Text="Groupe d'âge : " SkinID="lbChampsFormulaire"></asp:Label><asp:Label ID="lblGroupeDAge" runat="server" Text='<%#Eval("GroupeDAge.NomGroupeDAge")%>'></asp:Label></td>
