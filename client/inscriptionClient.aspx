@@ -25,10 +25,9 @@
                         </LayoutTemplate>
                         <GroupTemplate><asp:PlaceHolder runat="server" ID="ItemPlaceHolder"></asp:PlaceHolder></GroupTemplate>
                         <ItemTemplate>
-                            <asp:HiddenField ID="hFielNoMembreNoPaiement" runat="server" Value='<%#Eval("noPaiement.noMembre") %>' />
                             <tr>
                                 <td class="longeurDeuxiemeColonneNOM">
-                                    <asp:Label SkinID="lbInscription" ID="lbNomMembre" runat="server" Text='<%#Eval("Groupe.Cours.Nom") %>'></asp:Label>                                    
+                                    <asp:Label SkinID="lbInscription" ID="lbNomMembre" runat="server" Text='<%#Eval("Groupe.Cours.Nom") & " Groupe " & Eval("Groupe.noGroupe") %>'></asp:Label>                                    
                                 </td>                                
                            </tr>
                         </ItemTemplate>
