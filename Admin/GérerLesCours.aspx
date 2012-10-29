@@ -38,9 +38,6 @@
                             <asp:Button ID="btnSupprimer" runat="server" Text="Supprimer" SkinID="btnConfirmation" CommandName="Delete" CommandArgument='<%#Eval("noCours")%>' />
                             <ajaxToolkit:ConfirmButtonExtender ID="confirmBtnExtSupprimer" runat="server" TargetControlID="btnSupprimer" ConfirmText="Voulez-vous vraiment supprimer ce cours?">
                             </ajaxToolkit:ConfirmButtonExtender>
-                            <ajaxToolkit:ModalPopupExtender ID="mPopupSupprimer" runat="server" TargetControlID="btnSupprimer" PopupControlID="confirmBtnExtSupprimer"
-                                CancelControlID="btnCancel" OkControlID="btnOK">    
-                            </ajaxToolkit:ModalPopupExtender>
                         </td>
                     </tr>
                 </ItemTemplate>
@@ -134,7 +131,11 @@
                     <tr>
                         <td><asp:LinkButton ID="lnkGroupe" runat="server" Text='<%# "Groupe " & Eval("noGroupe") %>' CommandName="Selection" CommandArgument='<%#Eval("noGroupe")%>' /></td>
                         <td><asp:Label ID="lblAge" runat="server" Text='<%#Eval("AgeMinimum") & "-" & Eval("AgeMaximum") & " ans"%>' /></td>
-                        <td><asp:Button ID="btnSupprimer" runat="server" SkinID="btnConfirmation" Text="Supprimer" CommandName="Delete" /></td>
+                        <td>
+                            <asp:Button ID="btnSupprimer" runat="server" SkinID="btnConfirmation" Text="Supprimer" CommandName="Delete" />
+                            <ajaxToolkit:ConfirmButtonExtender ID="confirmBtnExtSupprimer" runat="server" TargetControlID="btnSupprimer" ConfirmText="Voulez-vous vraiment supprimer ce groupe?">
+                            </ajaxToolkit:ConfirmButtonExtender>
+                        </td>
                     </tr>
                     <asp:HiddenField ID="hFieldnoGroupe" runat="server" Value='<%#Eval("noGroupe")%>' />
 
@@ -332,6 +333,8 @@
                                 <td>
                                     <asp:Button ID="btnModifierHoraire" runat="server" Text="Modifier" CommandName="Edit" Width="80px" SkinID="btnAjoutSupprimer" />
                                     <asp:Button ID="btnSupprimerHoraire" runat="server" Text="Supprimer" CommandName="Delete" Width="80px" SkinID="btnAjoutSupprimer" />
+                                    <ajaxToolkit:ConfirmButtonExtender ID="confirmBtnExtSupprimer" runat="server" TargetControlID="btnSupprimerHoraire" ConfirmText="Voulez-vous vraiment supprimer cet horaire?">
+                                    </ajaxToolkit:ConfirmButtonExtender>
                                 </td>
                             </tr>
                         </ItemTemplate>
