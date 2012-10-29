@@ -276,7 +276,7 @@
                                     ErrorMessage="L'âge minimum doit être un nombre." ForeColor="Red" ControlToCompare="tbAgeMax"
                                     Operator="LessThanEqual" Display="Dynamic">*</asp:CompareValidator>
                                 <asp:Label ID="lblAge" runat="server" Text="-"></asp:Label>
-                                <asp:TextBox ID="tbAgeMax" runat="server" Text='<%#Bind("AgeMaximum")%>' SkinID="tbSkin" Width="20px" MaxLength="2"></asp:TextBox>
+                                <asp:TextBox ID="tbAgeMax" runat="server" Text='<%#Bind("Agemaximum")%>' SkinID="tbSkin" Width="20px" MaxLength="2"></asp:TextBox>
                                 <asp:RequiredFieldValidator ForeColor="Red" 
                                     ID="rfvAgeMax" runat="server" ErrorMessage="L'âge maximum doit être spécifié." 
                                     ControlToValidate="tbAgeMax" Display="Dynamic">*</asp:RequiredFieldValidator>
@@ -377,16 +377,12 @@
     </asp:MultiView>
     <br /><asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
     </div>
-<<<<<<< HEAD
-    
-=======
->>>>>>> origin/Cours
     <%-- View Gerer Cours --%>
     <asp:LinqDataSource ID="LinqDataSourceCours" runat="server"
                     ContextTypeName="Model.ModelContainer"
                     TableName="Cours" 
                     Select="new (noCours, Nom, Catégorie.Nom As nomCategorie, Groupe.Count() AS nbGroupes)" 
-                    EnableDelete="True" OrderBy="noCours"
+                    EnableDelete="True" OrderBy="Actif DESC, noCours"
                     Where='(@recherche = "") || Nom.Contains(@recherche) || Catégorie.Nom.Contains(@recherche)' >
                     <WhereParameters>
                         <asp:ControlParameter Name="recherche" ControlID="tbRechercher" ConvertEmptyStringToNull="false" />
