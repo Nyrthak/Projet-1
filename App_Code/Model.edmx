@@ -141,6 +141,7 @@
     <Property Name="Session_noSession" Type="int" Nullable="false" />
     <Property Name="GroupeDAge_noGroupeDAge" Type="int" Nullable="false" />
     <Property Name="lePrerequis_noCours" Type="int" Nullable="true" />
+    <Property Name="Actif" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Forfait">
     <Key>
@@ -162,6 +163,7 @@
     <Property Name="Agemaximum" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Animateur_noAnimateur" Type="int" Nullable="false" />
     <Property Name="Cours_noCours" Type="int" Nullable="false" />
+    <Property Name="Actif" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="GroupeDAge">
     <Key>
@@ -603,6 +605,7 @@
           <NavigationProperty Name="Groupe" Relationship="Model.FK_GroupeCours" FromRole="Cours" ToRole="Groupe" />
           <NavigationProperty Name="GroupeDAge" Relationship="Model.FK_GroupeDAgeCours" FromRole="Cours" ToRole="GroupeDAge" />
           <NavigationProperty Name="Session" Relationship="Model.FK_SessionCours" FromRole="Cours" ToRole="Session" />
+          <Property Type="Boolean" Name="Actif" Nullable="false" />
         </EntityType>
         <EntityType Name="Forfait">
           <Key>
@@ -629,6 +632,7 @@
           <NavigationProperty Name="Paiement" Relationship="Model.FK_GroupePaiement" FromRole="Groupe" ToRole="Paiement" />
           <NavigationProperty Name="Horaire" Relationship="Model.FK_HoraireGroupe" FromRole="Groupe" ToRole="Horaire" />
           <NavigationProperty Name="ListeDAttente" Relationship="Model.FK_ListeDAttenteGroupe" FromRole="Groupe" ToRole="ListeDAttente" />
+          <Property Type="Boolean" Name="Actif" Nullable="false" />
         </EntityType>
         <EntityType Name="GroupeDAge">
           <Key>
@@ -993,6 +997,7 @@
           <ScalarProperty Name="Session_noSession" ColumnName="Session_noSession" />
           <ScalarProperty Name="GroupeDAge_noGroupeDAge" ColumnName="GroupeDAge_noGroupeDAge" />
           <ScalarProperty Name="lePrerequis_noCours" ColumnName="lePrerequis_noCours" />
+          <ScalarProperty Name="Actif" ColumnName="Actif" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1016,6 +1021,7 @@
           <ScalarProperty Name="Agemaximum" ColumnName="Agemaximum" />
           <ScalarProperty Name="Animateur_noAnimateur" ColumnName="Animateur_noAnimateur" />
           <ScalarProperty Name="Cours_noCours" ColumnName="Cours_noCours" />
+          <ScalarProperty Name="Actif" ColumnName="Actif" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1136,9 +1142,9 @@
         <EntityTypeShape EntityType="Model.Animateur" Width="1.5" PointX="3" PointY="13.25" Height="3.3263964843749818" />
         <EntityTypeShape EntityType="Model.Catégorie" Width="1.5" PointX="0.75" PointY="7.125" Height="1.5956835937499818" />
         <EntityTypeShape EntityType="Model.Compte" Width="1.5" PointX="3" PointY="0.75" Height="3.7109993489583246" />
-        <EntityTypeShape EntityType="Model.Cours" Width="1.5" PointX="3" PointY="6.125" Height="3.7109993489583246" />
+        <EntityTypeShape EntityType="Model.Cours" Width="1.5" PointX="3" PointY="6.125" Height="3.9033007812499996" />
         <EntityTypeShape EntityType="Model.Forfait" Width="1.5" PointX="7.75" PointY="10.125" Height="1.4033821614583246" />
-        <EntityTypeShape EntityType="Model.Groupe" Width="1.5" PointX="5.25" PointY="6.125" Height="3.7109993489583246" />
+        <EntityTypeShape EntityType="Model.Groupe" Width="1.5" PointX="5.25" PointY="6.125" Height="3.9033007812499978" />
         <EntityTypeShape EntityType="Model.GroupeDAge" Width="1.5" PointX="0.75" PointY="4" Height="1.5956835937499818" />
         <EntityTypeShape EntityType="Model.Horaire" Width="1.5" PointX="7.5" PointY="6.75" Height="2.3648893229166674" />
         <EntityTypeShape EntityType="Model.Jour" Width="1.5" PointX="5.25" PointY="11.125" Height="1.5956835937499818" />
@@ -1152,8 +1158,8 @@
         <AssociationConnector Association="Model.FK_AnimateurGroupe" >
           <ConnectorPoint PointX="4.5" PointY="13.251152846153847" />
           <ConnectorPoint PointX="4.875" PointY="12.876152846153847" />
-          <ConnectorPoint PointX="4.875" PointY="7.9804996744791623" />
-          <ConnectorPoint PointX="5.25" PointY="7.9804996744791623" />
+          <ConnectorPoint PointX="4.875" PointY="8.6252440388997371" />
+          <ConnectorPoint PointX="5.25" PointY="8.6252440388997371" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_AnimateurProvince" >
           <ConnectorPoint PointX="2.25" PointY="14.893992513020834" />
@@ -1180,14 +1186,14 @@
           <ConnectorPoint PointX="3" PointY="2.6054996744791623" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_CoursCours" >
-          <ConnectorPoint PointX="3.5319230769230767" PointY="9.8359993489583246" />
-          <ConnectorPoint PointX="3.5319230769230767" PointY="10.085999348958325" />
-          <ConnectorPoint PointX="3.9784615384615383" PointY="10.085999348958325" />
-          <ConnectorPoint PointX="3.9784615384615383" PointY="9.8359993489583246" />
+          <ConnectorPoint PointX="3.5319230769230767" PointY="10.02830078125" />
+          <ConnectorPoint PointX="3.5319230769230767" PointY="10.27830078125" />
+          <ConnectorPoint PointX="3.9784615384615383" PointY="10.27830078125" />
+          <ConnectorPoint PointX="3.9784615384615383" PointY="10.02830078125" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_GroupeCours" >
-          <ConnectorPoint PointX="4.5" PointY="6.9902498372395812" />
-          <ConnectorPoint PointX="5.25" PointY="6.9902498372395812" />
+          <ConnectorPoint PointX="4.5" PointY="7.3126220194498686" />
+          <ConnectorPoint PointX="5.25" PointY="7.3126220194498686" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_GroupeDAgeCours" >
           <ConnectorPoint PointX="2.25" PointY="5.5333749014422891" />
@@ -1198,11 +1204,11 @@
           <ConnectorPoint PointX="3" PointY="6.125" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_SessionCours" >
-          <ConnectorPoint PointX="2.25" PointY="11.047841796874991" />
-          <ConnectorPoint PointX="2.5416666666666665" PointY="11.047841796874991" />
-          <ConnectorPoint PointX="2.7083333333333335" PointY="11.047841796874991" />
-          <ConnectorPoint PointX="3.2347090384615385" PointY="11.047841796874991" />
-          <ConnectorPoint PointX="3.2347090384615385" PointY="9.8359993489583246" />
+          <ConnectorPoint PointX="2.25" PointY="11.061992187499991" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="11.061992187499991" />
+          <ConnectorPoint PointX="2.7083333333333335" PointY="11.061992187499991" />
+          <ConnectorPoint PointX="3.2347090384615385" PointY="11.061992187499991" />
+          <ConnectorPoint PointX="3.2347090384615385" PointY="10.02830078125" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_GroupePaiement" >
           <ConnectorPoint PointX="6.75" PointY="6.65625" />

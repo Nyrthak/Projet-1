@@ -38,9 +38,6 @@
                             <asp:Button ID="btnSupprimer" runat="server" Text="Supprimer" SkinID="btnConfirmation" CommandName="Delete" CommandArgument='<%#Eval("noCours")%>' />
                             <ajaxToolkit:ConfirmButtonExtender ID="confirmBtnExtSupprimer" runat="server" TargetControlID="btnSupprimer" ConfirmText="Voulez-vous vraiment supprimer ce cours?">
                             </ajaxToolkit:ConfirmButtonExtender>
-                            <ajaxToolkit:ModalPopupExtender ID="mPopupSupprimer" runat="server" TargetControlID="btnSupprimer" PopupControlID="confirmBtnExtSupprimer"
-                                CancelControlID="btnCancel" OkControlID="btnOK">    
-                            </ajaxToolkit:ModalPopupExtender>
                         </td>
                     </tr>
                 </ItemTemplate>
@@ -134,7 +131,11 @@
                     <tr>
                         <td><asp:LinkButton ID="lnkGroupe" runat="server" Text='<%# "Groupe " & Eval("noGroupe") %>' CommandName="Selection" CommandArgument='<%#Eval("noGroupe")%>' /></td>
                         <td><asp:Label ID="lblAge" runat="server" Text='<%#Eval("AgeMinimum") & "-" & Eval("AgeMaximum") & " ans"%>' /></td>
-                        <td><asp:Button ID="btnSupprimer" runat="server" SkinID="btnConfirmation" Text="Supprimer" CommandName="Delete" /></td>
+                        <td>
+                            <asp:Button ID="btnSupprimer" runat="server" SkinID="btnConfirmation" Text="Supprimer" CommandName="Delete" />
+                            <ajaxToolkit:ConfirmButtonExtender ID="confirmBtnExtSupprimer" runat="server" TargetControlID="btnSupprimer" ConfirmText="Voulez-vous vraiment supprimer ce groupe?">
+                            </ajaxToolkit:ConfirmButtonExtender>
+                        </td>
                     </tr>
                     <asp:HiddenField ID="hFieldnoGroupe" runat="server" Value='<%#Eval("noGroupe")%>' />
 
@@ -275,7 +276,7 @@
                                     ErrorMessage="L'âge minimum doit être un nombre." ForeColor="Red" ControlToCompare="tbAgeMax"
                                     Operator="LessThanEqual" Display="Dynamic">*</asp:CompareValidator>
                                 <asp:Label ID="lblAge" runat="server" Text="-"></asp:Label>
-                                <asp:TextBox ID="tbAgeMax" runat="server" Text='<%#Bind("AgeMaximum")%>' SkinID="tbSkin" Width="20px" MaxLength="2"></asp:TextBox>
+                                <asp:TextBox ID="tbAgeMax" runat="server" Text='<%#Bind("Agemaximum")%>' SkinID="tbSkin" Width="20px" MaxLength="2"></asp:TextBox>
                                 <asp:RequiredFieldValidator ForeColor="Red" 
                                     ID="rfvAgeMax" runat="server" ErrorMessage="L'âge maximum doit être spécifié." 
                                     ControlToValidate="tbAgeMax" Display="Dynamic">*</asp:RequiredFieldValidator>
@@ -332,6 +333,8 @@
                                 <td>
                                     <asp:Button ID="btnModifierHoraire" runat="server" Text="Modifier" CommandName="Edit" Width="80px" SkinID="btnAjoutSupprimer" />
                                     <asp:Button ID="btnSupprimerHoraire" runat="server" Text="Supprimer" CommandName="Delete" Width="80px" SkinID="btnAjoutSupprimer" />
+                                    <ajaxToolkit:ConfirmButtonExtender ID="confirmBtnExtSupprimer" runat="server" TargetControlID="btnSupprimerHoraire" ConfirmText="Voulez-vous vraiment supprimer cet horaire?">
+                                    </ajaxToolkit:ConfirmButtonExtender>
                                 </td>
                             </tr>
                         </ItemTemplate>
@@ -374,16 +377,12 @@
     </asp:MultiView>
     <br /><asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
     </div>
-<<<<<<< HEAD
-    
-=======
->>>>>>> origin/Cours
     <%-- View Gerer Cours --%>
     <asp:LinqDataSource ID="LinqDataSourceCours" runat="server"
                     ContextTypeName="Model.ModelContainer"
                     TableName="Cours" 
                     Select="new (noCours, Nom, Catégorie.Nom As nomCategorie, Groupe.Count() AS nbGroupes)" 
-                    EnableDelete="True" OrderBy="noCours"
+                    EnableDelete="True" OrderBy="Actif DESC, noCours"
                     Where='(@recherche = "") || Nom.Contains(@recherche) || Catégorie.Nom.Contains(@recherche)' >
                     <WhereParameters>
                         <asp:ControlParameter Name="recherche" ControlID="tbRechercher" ConvertEmptyStringToNull="false" />

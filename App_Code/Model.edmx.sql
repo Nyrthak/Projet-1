@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 10/23/2012 13:29:33
+-- Date Created: 10/29/2012 11:55:11
 -- Generated from EDMX file: C:\Users\Katherine\Documents\A2012\Projet I\Projet-1\App_Code\Model.edmx
 -- --------------------------------------------------
 
@@ -173,7 +173,8 @@ CREATE TABLE [dbo].[Cours] (
     [Catégorie_noCatégorie] int  NOT NULL,
     [Session_noSession] int  NOT NULL,
     [GroupeDAge_noGroupeDAge] int  NOT NULL,
-    [lePrerequis_noCours] int  NULL
+    [lePrerequis_noCours] int  NULL,
+    [Actif] bit  NOT NULL
 );
 GO
 
@@ -194,7 +195,8 @@ CREATE TABLE [dbo].[Groupe] (
     [AgeMinimum] int  NOT NULL,
     [Agemaximum] nvarchar(max)  NOT NULL,
     [Animateur_noAnimateur] int  NOT NULL,
-    [Cours_noCours] int  NOT NULL
+    [Cours_noCours] int  NOT NULL,
+    [Actif] bit  NOT NULL
 );
 GO
 

@@ -37,6 +37,8 @@ Partial Class Admin_GérerLesCours
     Protected Sub entiDataSourceCours_Updated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceChangedEventArgs) Handles entiDataSourceCours.Updated
         Dim leNoCours As Integer = hFieldNoCours.Value
     End Sub
+
+    
     'View Gérer cours
     Protected Sub lViewCours_ItemDeleted(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewDeletedEventArgs) Handles lViewCours.ItemDeleted
         If e.Exception IsNot Nothing Then
@@ -175,6 +177,7 @@ Partial Class Admin_GérerLesCours
         leCoursAjouté.Nom = "Entrez un nom"
         leCoursAjouté.Prix = 0
         leCoursAjouté.Description = ""
+        leCoursAjouté.Actif = True
         leCoursAjouté.Catégorie = (From dl In lecontext.Catégorie
                                          Where dl.noCatégorie = 1
                                          Select dl).First
@@ -201,6 +204,7 @@ Partial Class Admin_GérerLesCours
         leGroupeAjoute.DateLimiteInscription = Date.Now
         leGroupeAjoute.AgeMinimum = 0
         leGroupeAjoute.Agemaximum = 99
+        leGroupeAjoute.Actif = True
         leGroupeAjoute.Animateur = (From dl In lecontext.Animateur Select dl).FirstOrDefault
         leGroupeAjoute.Cours = (From dl In lecontext.Cours Where dl.noCours = leNoCours Select dl).First
         lecontext.AddObject("Groupe", leGroupeAjoute)
@@ -223,6 +227,18 @@ Partial Class Admin_GérerLesCours
         lecontext.SaveChanges()
         lviewHoraire.DataBind()
         lviewHoraire.EditIndex = (From dl In lecontext.Horaire Where dl.Groupe.noGroupe = leNoGroupe).Count - 1
+    End Sub
+
+    Protected Sub lViewCours_ItemDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewItemEventArgs) Handles lViewCours.ItemDataBound
+        Dim noCours As Integer = e.Item.DataItem.noCours
+        Dim leCours As Cours = (From unCours In lecontext.Cours Where unCours.noCours = noCours Select unCours).FirstOrDefault
+        If Not leCours.Actif Then
+            CType(e.Item.FindControl("lblNomCours"), Label).ForeColor = Drawing.Color.Gray
+            CType(e.Item.FindControl("lblNbGroupe"), LinkButton).ForeColor = Drawing.Color.Gray
+            CType(e.Item.FindControl("lblCategorie"), Label).ForeColor = Drawing.Color.Gray
+            CType(e.Item.FindControl("btnModifier"), Button).Enabled = False
+            CType(e.Item.FindControl("btnSupprimer"), Button).Enabled = False
+        End If
     End Sub
 
     Protected Sub btnRetour_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnRetour.Click
