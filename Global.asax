@@ -14,10 +14,10 @@
     End Sub
         
     Sub Application_Error(ByVal sender As Object, ByVal e As EventArgs)
-        Dim lastError As Exception = Server.GetLastError
-        File.AppendAllText(Server.MapPath("~\App_Data\Error.log"), "Erreur survenue le " + Now().ToLongDateString + vbCrLf)
-        File.AppendAllText(Server.MapPath("~\App_Data\Error.log"), "  " + lastError.ToString + vbCrLf + vbCrLf)
-        Response.Redirect("~\erreur.aspx", True)
+        'Dim lastError As Exception = Server.GetLastError
+        'File.AppendAllText(Server.MapPath("~\App_Data\Error.log"), "Erreur survenue le " + Now().ToLongDateString + vbCrLf)
+        'File.AppendAllText(Server.MapPath("~\App_Data\Error.log"), "  " + lastError.ToString + vbCrLf + vbCrLf)
+        'Response.Redirect("~\erreur.aspx", True)
     End Sub
 
     Sub Session_Start(ByVal sender As Object, ByVal e As EventArgs)
