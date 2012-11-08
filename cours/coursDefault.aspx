@@ -99,7 +99,7 @@
                                 DataTextField="Prénom" DataValueField="noMembre">
                             </asp:DropDownList>
                         </td>
-                        <td><asp:Button ID="btnSinscrire" runat="server" Text="S'inscrire" SkinID="btnAjoutSupprimer" CommandName="Inscription" CommandArgument='<%#Eval("noGroupe")%>' /></td>
+                        <td><asp:Button ID="btnSinscrire" runat="server" Text="S'inscrire" SkinID="btnAjoutSupprimer" Width="80px" CommandName="Inscription" CommandArgument='<%#Eval("noGroupe")%>' /></td>
                     </tr>
                     <asp:HiddenField ID="hFieldnoGroupe" runat="server" Value='<%#Eval("noGroupe")%>' />
 
@@ -205,7 +205,7 @@
                 <asp:DropDownList ID="dDListMembres" runat="server" DataSourceID="entityDataSourceMembre"
                         DataTextField="Prénom" DataValueField="noMembre">
                 </asp:DropDownList>
-                <asp:Button ID="btnSinscrire" runat="server" Text="S'inscrire" SkinID="btnAjoutSupprimer" />
+                <asp:Button ID="btnSinscrire" runat="server" Text="S'inscrire" SkinID="btnAjoutSupprimer" Width="80px" />
             </div>
             <div class="btnCentre">
                 <asp:Button ID="btnRetour" runat="server" Text="Retour" Width="80px" SkinID="btnAjoutSupprimer" />
@@ -271,9 +271,10 @@
     <asp:EntityDataSource ID="entityDataSourcePaiements" runat="server"
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
         EntitySetName="Paiement" EnableFlattening="false" Include="Groupe, Membre, Groupe.Cours"
-        Where="it.Groupe.noGroupe = @leNoGroupe">
+        Where="it.Groupe.noGroupe = @leNoGroupe AND @peutVoir">
         <WhereParameters>
             <asp:ControlParameter Name="leNoGroupe" Type="Int32" ControlID="hFieldnoGroupe2" />
+            <asp:Parameter Name="peutVoir" Type="Boolean" DefaultValue="False" />
         </WhereParameters>
     </asp:EntityDataSource>
 </asp:Content>

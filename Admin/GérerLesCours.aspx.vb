@@ -9,6 +9,11 @@ Partial Class Admin_GérerLesCours
     Private Shared lecontext As ModelContainer = Nothing
     Protected Sub page_load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         lecontext = New ModelContainer()
+
+        If Not PreviousPage Is Nothing Then
+            mViewCours.ActiveViewIndex = 3
+            hFieldnoGroupe2.Value = PreviousPage.noGroupe
+        End If
     End Sub
 
     Protected Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Unload
@@ -40,7 +45,7 @@ Partial Class Admin_GérerLesCours
     'View Gérer cours
     Protected Sub lViewCours_ItemDeleted(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewDeletedEventArgs) Handles lViewCours.ItemDeleted
         If e.Exception IsNot Nothing Then
-            lblMessage.Text = traiteErreur(e.Exception, "supprimer")
+            lblMessage.Text = traiteErreur(e.Exception, "suppression")
         Else
             lblMessage.Text = ""
         End If
@@ -50,7 +55,7 @@ Partial Class Admin_GérerLesCours
         Dim leNoCours As Integer = hFieldNoCours.Value
         Dim leCoursModifie As Cours = (From monCours In lecontext.Cours Where monCours.noCours = leNoCours Select monCours).First
         If e.Exception IsNot Nothing Then
-            lblMessage.Text = traiteErreur(e.Exception, "mise-à-jour")
+            lblMessage.Text = traiteErreur(e.Exception, "mise à jour")
             e.KeepInEditMode = True
             e.ExceptionHandled = True
         Else
@@ -65,6 +70,9 @@ Partial Class Admin_GérerLesCours
         If (From unPaiement In lecontext.Paiement Where unPaiement.Groupe.noGroupe = noGroupe Select unPaiement).Count > 0 Then
             lblMessage.Text = "Vous ne pouvez supprimer le groupe " & noGroupe & ", car il contient une(des) inscription(s)."
             e.Cancel = True
+        ElseIf (From uneListeAttente In lecontext.ListeDAttente Where uneListeAttente.Groupe.noGroupe = noGroupe Select uneListeAttente).Count > 0 Then
+            lblMessage.Text = "Vous ne pouvez supprimer le groupe " & noGroupe & ", car il possède une liste d'attente."
+            e.Cancel = True
         Else
             Dim lesHoraires As New List(Of Horaire)(From unHoraire In lecontext.Horaire Where unHoraire.Groupe.noGroupe = noGroupe Select unHoraire)
             For Each unHoraire As Horaire In lesHoraires
@@ -75,7 +83,7 @@ Partial Class Admin_GérerLesCours
     End Sub
     Protected Sub lviewGroupes_ItemDeleted(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewDeletedEventArgs) Handles lviewGroupes.ItemDeleted
         If e.Exception IsNot Nothing Then
-            lblMessage.Text = traiteErreur(e.Exception, "supprimer")
+            lblMessage.Text = traiteErreur(e.Exception, "suppression")
         Else
             lblMessage.Text = "Le groupe " & e.Keys(0) & " a été supprimé."
         End If
@@ -86,7 +94,7 @@ Partial Class Admin_GérerLesCours
     End Sub
     Protected Sub lviewLeGroupe_ItemUpdated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewUpdatedEventArgs) Handles lviewLeGroupe.ItemUpdated
         If e.Exception IsNot Nothing Then
-            lblMessage.Text = traiteErreur(e.Exception, "mise-à-jour")
+            lblMessage.Text = traiteErreur(e.Exception, "mise à jour")
             e.KeepInEditMode = True
             e.ExceptionHandled = True
         Else
@@ -119,7 +127,7 @@ Partial Class Admin_GérerLesCours
     End Sub
     Protected Sub lviewHoraire_ItemDeleted(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewDeletedEventArgs) Handles lviewHoraire.ItemDeleted
         If e.Exception IsNot Nothing Then
-            lblMessage.Text = traiteErreur(e.Exception, "supprimer")
+            lblMessage.Text = traiteErreur(e.Exception, "suppression")
         Else
             lblMessage.Text = "L'horaire a été supprimé."
         End If
@@ -129,7 +137,7 @@ Partial Class Admin_GérerLesCours
     End Sub
     Protected Sub lviewHoraire_ItemUpdated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewUpdatedEventArgs) Handles lviewHoraire.ItemUpdated
         If e.Exception IsNot Nothing Then
-            lblMessage.Text = traiteErreur(e.Exception, "mise-à-jour")
+            lblMessage.Text = traiteErreur(e.Exception, "mise à jour")
             e.KeepInEditMode = True
             e.ExceptionHandled = True
         Else
@@ -137,79 +145,78 @@ Partial Class Admin_GérerLesCours
         End If
     End Sub
 
-    Protected Function traiteErreur(ByVal ex As Exception, ByVal quoi As String) As String
-        Dim message As String = ""
-
-        If ex IsNot Nothing Then
-            message = "Il y a eut un problème lors du " & quoi & "..."
-
-            If ex.InnerException IsNot Nothing Then
-                Dim inner As Exception = ex.InnerException
-
-                If TypeOf inner Is System.Data.Common.DbException Then
-                    message &= _
-                       "Notre serveur de base de données a  actuellement des problèmes." & _
-                       "Veuillez réessayer plus tard."
-                ElseIf TypeOf inner _
-                 Is System.Data.NoNullAllowedException Then
-                    message &= _
-                       "Un des champs dont la valeur est requise n'a pas été saisit."
-                ElseIf TypeOf inner Is ArgumentException Then
-                    Dim paramName As String = CType(inner, ArgumentException).ParamName
-                    message &= _
-                        String.Concat("La valeur de ", paramName, " est illégale.")
-                ElseIf TypeOf inner Is ApplicationException Then
-                    message &= inner.Message
-                Else
-                    message &= ex.ToString
-                End If
-            Else
-                message &= ex.ToString
-            End If
-        End If
-
-        ' LE LOGGÉ DANS UN FICHIER TEXTE SERAIT AUSSI UNE BONNE IDÉE. N' en afficher que la forme abrégée.
-        Return message
-    End Function
-
 #End Region
 
 #Region "Contrôles"
     Protected Sub btnAjouterUnCours_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAjouterUnCours.Click
+        Dim messageErreur As String = ""
         Dim leCoursAjouté As Cours = New Cours()
-        leCoursAjouté.Nom = "Entrez un nom"
-        leCoursAjouté.Prix = 0
-        leCoursAjouté.Description = ""
-        leCoursAjouté.Actif = False
-        leCoursAjouté.Catégorie = (From dl In lecontext.Catégorie
-                                         Where dl.noCatégorie = 1
-                                         Select dl).First
-        leCoursAjouté.GroupeDAge = (From dl In lecontext.GroupeDAge
-                                         Where dl.noGroupeDAge = 1
-                                         Select dl).First
-        leCoursAjouté.Session = (From dl In lecontext.Session
-                                         Where dl.noSession = 1
-                                         Select dl).First
-        leCoursAjouté.lePrerequis = Nothing
-        lecontext.AddObject("Cours", leCoursAjouté)
-        lecontext.SaveChanges()
-        hFieldNoCours.Value = leCoursAjouté.noCours
-        lViewModifierCours.EditIndex = 0
-        mViewCours.ActiveViewIndex = 1
+        Dim leGroupeAjoute As Groupe = New Groupe()
+
+        If (From dl In lecontext.Catégorie Select dl).Count > 0 Then
+            leCoursAjouté.Catégorie = (From dl In lecontext.Catégorie Select dl).FirstOrDefault
+        Else
+            messageErreur += "Veuillez ajouter au moins une catégorie dans la base de données avant d'ajouter un cours.</br>"
+        End If
+
+        If (From dl In lecontext.GroupeDAge Select dl).Count > 0 Then
+            leCoursAjouté.GroupeDAge = (From dl In lecontext.GroupeDAge Select dl).FirstOrDefault
+        Else
+            messageErreur += "Veuillez ajouter au moins un groupe d'age dans la base de données avant d'ajouter un cours.</br>"
+        End If
+
+        If (From dl In lecontext.Session Select dl).Count > 0 Then
+            leCoursAjouté.Session = (From dl In lecontext.Session Select dl).FirstOrDefault
+        Else
+            messageErreur += "Veuillez ajouter au moins une session dans la base de données avant d'ajouter un cours.</br>"
+        End If
+
+        If (From dl In lecontext.Animateur Select dl).Count > 0 Then
+            leGroupeAjoute.Animateur = (From dl In lecontext.Animateur Select dl).FirstOrDefault
+        Else
+            messageErreur += "Veuillez ajouter au moins un animateur dans la base de données avant d'ajouter un cours.</br>"
+        End If
+
+        If messageErreur = "" Then
+            leCoursAjouté.Nom = "Entrez un nom"
+            leCoursAjouté.Prix = 0
+            leCoursAjouté.Description = ""
+            leCoursAjouté.Actif = False
+            leCoursAjouté.lePrerequis = Nothing
+
+            leGroupeAjoute.Nom = "Prerequis"
+            leGroupeAjoute.Local = "Prerequis"
+            leGroupeAjoute.DateDebut = Date.Now
+            leGroupeAjoute.DateFin = Date.Now
+            leGroupeAjoute.DateLimiteInscription = Date.Now
+            leGroupeAjoute.AgeMinimum = 0
+            leGroupeAjoute.Agemaximum = 99
+            leGroupeAjoute.Actif = False
+
+            leCoursAjouté.Groupe.Add(leGroupeAjoute)
+            lecontext.AddObject("Cours", leCoursAjouté)
+            lecontext.SaveChanges()
+            hFieldNoCours.Value = leCoursAjouté.noCours
+            lViewModifierCours.EditIndex = 0
+            mViewCours.ActiveViewIndex = 1
+        Else
+            lblMessage.Text = messageErreur
+        End If
     End Sub
 
     Protected Sub btnAjouterGroupe_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAjouterGroupe.Click
         Dim leGroupeAjoute As Groupe = New Groupe()
         Dim leNoCours As Integer = hFieldnoCours2.Value
+        Dim leCours As Cours = (From dl In lecontext.Cours Where dl.noCours = leNoCours Select dl).First
         leGroupeAjoute.Local = "Local"
         leGroupeAjoute.DateDebut = Date.Now
         leGroupeAjoute.DateFin = Date.Now
         leGroupeAjoute.DateLimiteInscription = Date.Now
         leGroupeAjoute.AgeMinimum = 0
         leGroupeAjoute.Agemaximum = 99
-        leGroupeAjoute.Actif = True
+        leGroupeAjoute.Actif = False
         leGroupeAjoute.Animateur = (From dl In lecontext.Animateur Select dl).FirstOrDefault
-        leGroupeAjoute.Cours = (From dl In lecontext.Cours Where dl.noCours = leNoCours Select dl).First
+        leGroupeAjoute.Cours = leCours
         lecontext.AddObject("Groupe", leGroupeAjoute)
         lecontext.SaveChanges()
         hFieldnoGroupe2.Value = leGroupeAjoute.noGroupe
@@ -299,7 +306,9 @@ Partial Class Admin_GérerLesCours
             If peutDeleter Then
                 Dim leCoursADeleter As Cours = (From monCours In lecontext.Cours Where monCours.noCours = leNoCours Select monCours).First
                 If (From unPaiement In lecontext.Paiement Where unPaiement.Groupe.Cours.noCours = leNoCours Select unPaiement).Count > 0 Then
-                    lblMessage.Text = "Le cours " & leCoursADeleter.Nom & " ne peut être supprimé, car il contient une(des) inscription(s)."
+                    lblMessage.Text = "Le cours " & leCoursADeleter.Nom & " ne peut être supprimé, car il contient une ou plusieurs inscriptions."
+                ElseIf leCoursADeleter.estLePrerequisDe.Count > 0 Then
+                    lblMessage.Text = "Le cours " & leCoursADeleter.Nom & " ne peut être supprimé, car il est le prérequis d'un ou plusieurs cours."
                 Else
                     lecontext.Cours.DeleteObject(leCoursADeleter)
                     lecontext.SaveChanges()
@@ -314,14 +323,21 @@ Partial Class Admin_GérerLesCours
             Dim leCoursADesactiver As Cours = (From monCours In lecontext.Cours Where monCours.noCours = leNoCours2 Select monCours).First
             If leCoursADesactiver.Actif Then
                 leCoursADesactiver.Actif = False
+                For Each leGroupe In leCoursADesactiver.Groupe
+                    leGroupe.Actif = False
+                Next
                 lecontext.SaveChanges()
-                lblMessage.Text = "Le Cours " & leCoursADesactiver.Nom & " a été désactivé."
+                lblMessage.Text = "Le Cours " & leCoursADesactiver.Nom & " et ses groupes ont été désactivés."
             Else
                 leCoursADesactiver.Actif = True
+                For Each leGroupe In leCoursADesactiver.Groupe
+                    leGroupe.Actif = True
+                Next
                 lecontext.SaveChanges()
-                lblMessage.Text = "Le Cours " & leCoursADesactiver.Nom & " a été activé."
+                lblMessage.Text = "Le Cours " & leCoursADesactiver.Nom & " et ses groupes ont été activés."
             End If
             lViewCours.DataBind()
+            lviewGroupes.DataBind()
         ElseIf e.CommandName = "Modifier" Then
             hFieldNoCours.Value = e.CommandArgument
             lViewModifierCours.EditIndex = 0
@@ -346,17 +362,23 @@ Partial Class Admin_GérerLesCours
                 Dim leNoCours As String = hFieldNoCours.Value
                 Dim leCoursADeleter As Cours = (From monCours In lecontext.Cours Where monCours.noCours = leNoCours Select monCours).First
                 If leCoursADeleter.Nom = "Entrez un nom" Then
+                    Dim lesGroupes As New List(Of Groupe)(From unGroupe In lecontext.Groupe Where unGroupe.Cours.noCours = leNoCours Select unGroupe)
+                    For Each unGroupe As Groupe In lesGroupes
+                        lecontext.Groupe.DeleteObject(unGroupe)
+                    Next
                     lecontext.Cours.DeleteObject(leCoursADeleter)
                     lecontext.SaveChanges()
                     mViewCours.ActiveViewIndex = 0
                     lblMessage.Text = "L'ajout a été annulé"
+                Else
+                    mViewCours.ActiveViewIndex = 0
+                    lblMessage.Text = "La modification a été annulée"
                 End If
-                lblMessage.Text = "La modification a été annulée"
             Else
+                mViewCours.ActiveViewIndex = 0
                 lblMessage.Text = "Le Cours n'existe pas dans la base de données"
             End If
-        End If
-        mViewCours.ActiveViewIndex = 0
+            End If
     End Sub
 
     Protected Sub lviewGroupes_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles lviewGroupes.ItemCommand
@@ -369,8 +391,10 @@ Partial Class Admin_GérerLesCours
             Dim leGroupe As Groupe = (From unGroupe In lecontext.Groupe Where unGroupe.noGroupe = noGroupe Select unGroupe).FirstOrDefault
             If leGroupe.Actif Then
                 leGroupe.Actif = False
+                lblMessage.Text = "Le groupe " & leGroupe.noGroupe & " a été désactivé."
             Else
                 leGroupe.Actif = True
+                lblMessage.Text = "Le groupe " & leGroupe.noGroupe & " a été activé."
             End If
             lecontext.SaveChanges()
             lviewGroupes.DataBind()

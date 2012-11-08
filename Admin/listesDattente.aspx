@@ -5,7 +5,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
     <div id="contentRight">
         <asp:MultiView ID="mViewListeDAttente" runat="server" ActiveViewIndex="0">
-            <asp:View runat="server">
+            <asp:View ID="viewListesDattente" runat="server">
                 <asp:Label ID="lblTitreListeDAttente" runat="server" Text="Listes d'attente" SkinID="lbTitrePage"></asp:Label><br />
                 <asp:ListView ID="lviewListesDattente" runat="server" DataSourceID="linqDataSourceListesDattente" DataKeyNames="noGroupe">
                     <LayoutTemplate>
@@ -39,7 +39,7 @@
                             </Fields>
                 </asp:DataPager>
             </asp:View>
-            <asp:View runat="server">     
+            <asp:View ID="viewUneListeDAttente" runat="server">     
                 <asp:Label ID="lblDetailListe" runat="server" Text="" SkinID="lbTitrePage"></asp:Label><br />           
                 <asp:ListView ID="lviewLaListeDattente" runat="server" DataSourceID="entiDataSourceLaListeDAttente" DataKeyNames="noListeDAttente">
                     <LayoutTemplate>
@@ -60,14 +60,19 @@
                             <td><asp:Label ID="lbDateAjout" runat="server" Text='<%#Eval("DateAjout", "{0:dd/MM/yyyy}")%>'></asp:Label></td>
                             <td><asp:Label ID="lbNomMembre" runat="server" Text='<%#Eval("Membre.Prénom") & " " & Eval("Membre.Nom")%>'></asp:Label></td>
                             <td><asp:Label ID="lbDatenaissance" runat="server" Text='<%#Eval("Membre.DateNaissance", "{0:dd/MM/yyyy}")%>'></asp:Label></td>              
+                            <td><asp:CheckBox ID="chkAccepte" runat="server" Checked='<%#Bind("Accepte")%>' /></td>
                         </tr>
                     </ItemTemplate>
                 </asp:ListView>
+                <div class="btnCentre">
+                    <asp:Button ID="btnEnregistrer" runat="server" Text="Enregistrer" Width="100px" SkinID="btnAjoutSupprimer" />
+                    <asp:Button ID="btnCreerGroupe" runat="server" Text="Créer un groupe" Width="120px" SkinID="btnAjoutSupprimer" />
+                    <asp:Button ID="btnRetour" runat="server" Text="Retour" Width="80px" SkinID="btnAjoutSupprimer" />
+                </div>
             </asp:View>
         </asp:MultiView>
     </div>
     <asp:HiddenField ID="hFieldNoGroupe" runat="server" />
-    <%-- Vérifier s'il est possible d'order by catégorie et cours et groupe --%>
     <asp:LinqDataSource ID="linqDataSourceListesDattente" runat="server"
                     ContextTypeName="Model.ModelContainer"
                     TableName="Groupe" 
@@ -75,7 +80,7 @@
                     Where="ListeDAttente.Count() > 0" OrderBy="noGroupe"> 
     </asp:LinqDataSource>
     <asp:EntityDataSource ID="entiDataSourceLaListeDAttente" runat="server" ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer"
-         EntitySetName="ListeDAttente" EnableFlattening="false" Include="Groupe, Groupe.Cours, Membre" Where="it.Groupe.noGroupe = @noGroupe">
+         EntitySetName="ListeDAttente" EnableFlattening="false" EnableUpdate="true" Include="Groupe, Groupe.Cours, Membre" Where="it.Groupe.noGroupe = @noGroupe">
         <WhereParameters>
             <asp:ControlParameter Name="noGroupe" Type="Int32" ControlID="hFieldNoGroupe" />
         </WhereParameters>

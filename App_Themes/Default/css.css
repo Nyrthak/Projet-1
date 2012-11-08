@@ -35,9 +35,17 @@ body{ width:1023px; margin:auto; background-color:#c5c5c5;}
         /* Page Gérer cours */
         .btnAjout{Margin-top:50px;}
         /* Page Liste d'attente Admin */
-        #tbListeAttente{width:400px;}
-            #tbListeAttente td{text-align:center;}
-       
+        #tbListeAttente{width:500px; border-collapse:collapse; margin-bottom:25px;}
+            #tbListeAttente td{text-align:center; padding-bottom:5px;}
+            #tbListeAttente th{font-size:18px;}
+            
+            #tbAnimateurs{width:500px; border-collapse:collapse; margin-bottom:25px;}
+            #tbAnimateurs td{text-align:left; padding-bottom:5px}
+            #tbAnimateurs .tdTop{border-top:1px solid black; background-color:#537EFF;padding-top:5px;}
+            #tbAnimateurs .tdGauche{border-left:1px solid black; background-color:#537EFF; padding-left:15px;}
+            #tbAnimateurs .tdDroite{border-right:1px solid black; background-color:#537EFF; padding-right:15px;}
+            #tbAnimateurs .tdBas{border-bottom:1px solid black; background-color:#537EFF;padding-bottom:10px;}
+            #tbAnimateurs .tdCentre{background-color:#537EFF;}
         .longeurPremiereColonnePW{text-align:right; padding-right:4px;}
         .longeurPremiereColonne{width:260px; text-align:right; padding-right:4px; vertical-align:top;}
         .longeurPremiereColonneNOM{width:200px; padding-right:4px; vertical-align:top;}
@@ -57,6 +65,8 @@ body{ width:1023px; margin:auto; background-color:#c5c5c5;}
     .right{float:right; margin-right:50px;}
     .left{float:left; margin-left:50px;}
     #footer a{color: White;}
+/* Boutons */
+.btn { padding: 0 4px 0 4px;}
 /* no idea what is that */
 /*#corps .TableauAdmin td{width:690px; vertical-align:top; height:50px;}    ***Semble être inutile****/
 

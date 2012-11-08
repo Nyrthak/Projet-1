@@ -28,7 +28,6 @@ Public Class page
         Return hashedPwd
     End Function
 
-
     Protected Friend Function verificationTypeUser(ByVal type As Integer) As Boolean
         Dim bonType As Boolean = False
         If Session("userType") = type Then
@@ -37,5 +36,40 @@ Public Class page
             Response.Redirect("~/pageError.aspx")
         End If
         Return bonType
+    End Function
+
+    Protected Function traiteErreur(ByVal ex As Exception, ByVal quoi As String) As String
+        Dim message As String = ""
+
+        If ex IsNot Nothing Then
+            message = "Il y a eut un problème lors de la " & quoi & "..."
+
+            If ex.InnerException IsNot Nothing Then
+                Dim inner As Exception = ex.InnerException
+
+                If TypeOf inner Is System.Data.Common.DbException Then
+                    message &= _
+                       "Notre serveur de base de données a  actuellement des problèmes." & _
+                       "Veuillez réessayer plus tard."
+                ElseIf TypeOf inner _
+                 Is System.Data.NoNullAllowedException Then
+                    message &= _
+                       "Un des champs dont la valeur est requise n'a pas été saisit."
+                ElseIf TypeOf inner Is ArgumentException Then
+                    Dim paramName As String = CType(inner, ArgumentException).ParamName
+                    message &= _
+                        String.Concat("La valeur de ", paramName, " est illégale.")
+                ElseIf TypeOf inner Is ApplicationException Then
+                    message &= inner.Message
+                Else
+                    message &= ex.ToString
+                End If
+            Else
+                message &= ex.ToString
+            End If
+        End If
+
+        ' LE LOGGÉ DANS UN FICHIER TEXTE SERAIT AUSSI UNE BONNE IDÉE. N' en afficher que la forme abrégée.
+        Return message
     End Function
 End Class

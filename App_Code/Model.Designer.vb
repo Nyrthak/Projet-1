@@ -16,7 +16,7 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("a7b69a9c-0a6f-43d2-999b-53a613e2c12d")>
+<Assembly: EdmSchemaAttribute("ee66896e-9a49-43b6-91b8-04839f23d561")>
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("Model", "FK_AnimateurGroupe", "Animateur", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Animateur), "Groupe", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Groupe), True)>
 <Assembly: EdmRelationshipAttribute("Model", "FK_AnimateurProvince", "Province", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Province), "Animateur", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Animateur), True)>
@@ -1045,31 +1045,6 @@ Namespace Model
         ''' </summary>
         <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=true)>
         <DataMemberAttribute()>
-        Public Property Abonnement() As Nullable(Of Global.System.Boolean)
-            Get
-                Return _Abonnement
-            End Get
-            Set
-                OnAbonnementChanging(value)
-                ReportPropertyChanging("Abonnement")
-                _Abonnement = StructuralObject.SetValidValue(value)
-                ReportPropertyChanged("Abonnement")
-                OnAbonnementChanged()
-            End Set
-        End Property
-    
-        Private _Abonnement As Nullable(Of Global.System.Boolean)
-        Private Partial Sub OnAbonnementChanging(value As Nullable(Of Global.System.Boolean))
-        End Sub
-    
-        Private Partial Sub OnAbonnementChanged()
-        End Sub
-    
-        ''' <summary>
-        ''' No Metadata Documentation available.
-        ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=true)>
-        <DataMemberAttribute()>
         Public Property ModePaiement() As Global.System.String
             Get
                 Return _ModePaiement
@@ -1801,7 +1776,8 @@ Namespace Model
         ''' <param name="animateur_noAnimateur">Initial value of the Animateur_noAnimateur property.</param>
         ''' <param name="cours_noCours">Initial value of the Cours_noCours property.</param>
         ''' <param name="actif">Initial value of the Actif property.</param>
-        Public Shared Function CreateGroupe(noGroupe As Global.System.Int32, local As Global.System.String, dateDebut As Global.System.DateTime, dateFin As Global.System.DateTime, dateLimiteInscription As Global.System.DateTime, ageMinimum As Global.System.Int32, agemaximum As Global.System.String, animateur_noAnimateur As Global.System.Int32, cours_noCours As Global.System.Int32, actif As Global.System.Boolean) As Groupe
+        ''' <param name="nom">Initial value of the Nom property.</param>
+        Public Shared Function CreateGroupe(noGroupe As Global.System.Int32, local As Global.System.String, dateDebut As Global.System.DateTime, dateFin As Global.System.DateTime, dateLimiteInscription As Global.System.DateTime, ageMinimum As Global.System.Int32, agemaximum As Global.System.String, animateur_noAnimateur As Global.System.Int32, cours_noCours As Global.System.Int32, actif As Global.System.Boolean, nom As Global.System.String) As Groupe
             Dim groupe as Groupe = New Groupe
             groupe.noGroupe = noGroupe
             groupe.Local = local
@@ -1813,6 +1789,7 @@ Namespace Model
             groupe.Animateur_noAnimateur = animateur_noAnimateur
             groupe.Cours_noCours = cours_noCours
             groupe.Actif = actif
+            groupe.Nom = nom
             Return groupe
         End Function
 
@@ -2069,6 +2046,31 @@ Namespace Model
         End Sub
     
         Private Partial Sub OnActifChanged()
+        End Sub
+    
+        ''' <summary>
+        ''' No Metadata Documentation available.
+        ''' </summary>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+        <DataMemberAttribute()>
+        Public Property Nom() As Global.System.String
+            Get
+                Return _Nom
+            End Get
+            Set
+                OnNomChanging(value)
+                ReportPropertyChanging("Nom")
+                _Nom = StructuralObject.SetValidValue(value, false)
+                ReportPropertyChanged("Nom")
+                OnNomChanged()
+            End Set
+        End Property
+    
+        Private _Nom As Global.System.String
+        Private Partial Sub OnNomChanging(value As Global.System.String)
+        End Sub
+    
+        Private Partial Sub OnNomChanged()
         End Sub
 
         #End Region
@@ -2638,12 +2640,14 @@ Namespace Model
         ''' <param name="noListeDAttente">Initial value of the noListeDAttente property.</param>
         ''' <param name="membre_noMembre">Initial value of the Membre_noMembre property.</param>
         ''' <param name="groupe_noGroupe">Initial value of the Groupe_noGroupe property.</param>
-        Public Shared Function CreateListeDAttente(dateAjout As Global.System.DateTime, noListeDAttente As Global.System.Int32, membre_noMembre As Global.System.Int32, groupe_noGroupe As Global.System.Int32) As ListeDAttente
+        ''' <param name="accepte">Initial value of the Accepte property.</param>
+        Public Shared Function CreateListeDAttente(dateAjout As Global.System.DateTime, noListeDAttente As Global.System.Int32, membre_noMembre As Global.System.Int32, groupe_noGroupe As Global.System.Int32, accepte As Global.System.Boolean) As ListeDAttente
             Dim listeDAttente as ListeDAttente = New ListeDAttente
             listeDAttente.DateAjout = dateAjout
             listeDAttente.noListeDAttente = noListeDAttente
             listeDAttente.Membre_noMembre = membre_noMembre
             listeDAttente.Groupe_noGroupe = groupe_noGroupe
+            listeDAttente.Accepte = accepte
             Return listeDAttente
         End Function
 
@@ -2750,6 +2754,31 @@ Namespace Model
         End Sub
     
         Private Partial Sub OnGroupe_noGroupeChanged()
+        End Sub
+    
+        ''' <summary>
+        ''' No Metadata Documentation available.
+        ''' </summary>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+        <DataMemberAttribute()>
+        Public Property Accepte() As Global.System.Boolean
+            Get
+                Return _Accepte
+            End Get
+            Set
+                OnAccepteChanging(value)
+                ReportPropertyChanging("Accepte")
+                _Accepte = StructuralObject.SetValidValue(value)
+                ReportPropertyChanged("Accepte")
+                OnAccepteChanged()
+            End Set
+        End Property
+    
+        Private _Accepte As Global.System.Boolean
+        Private Partial Sub OnAccepteChanging(value As Global.System.Boolean)
+        End Sub
+    
+        Private Partial Sub OnAccepteChanged()
         End Sub
 
         #End Region
@@ -3091,15 +3120,13 @@ Namespace Model
         ''' <summary>
         ''' Create a new Paiement object.
         ''' </summary>
-        ''' <param name="modePaiement">Initial value of the ModePaiement property.</param>
         ''' <param name="prix">Initial value of the Prix property.</param>
         ''' <param name="noPaypal">Initial value of the noPaypal property.</param>
         ''' <param name="noPaiement">Initial value of the noPaiement property.</param>
         ''' <param name="membre_noMembre">Initial value of the Membre_noMembre property.</param>
         ''' <param name="groupe_noGroupe">Initial value of the Groupe_noGroupe property.</param>
-        Public Shared Function CreatePaiement(modePaiement As Global.System.String, prix As Global.System.Double, noPaypal As Global.System.String, noPaiement As Global.System.Int32, membre_noMembre As Global.System.Int32, groupe_noGroupe As Global.System.Int32) As Paiement
+        Public Shared Function CreatePaiement(prix As Global.System.Double, noPaypal As Global.System.String, noPaiement As Global.System.Int32, membre_noMembre As Global.System.Int32, groupe_noGroupe As Global.System.Int32) As Paiement
             Dim paiement as Paiement = New Paiement
-            paiement.ModePaiement = modePaiement
             paiement.Prix = prix
             paiement.noPaypal = noPaypal
             paiement.noPaiement = noPaiement
@@ -3114,7 +3141,7 @@ Namespace Model
         ''' <summary>
         ''' No Metadata Documentation available.
         ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=true)>
         <DataMemberAttribute()>
         Public Property ModePaiement() As Global.System.String
             Get
@@ -3123,7 +3150,7 @@ Namespace Model
             Set
                 OnModePaiementChanging(value)
                 ReportPropertyChanging("ModePaiement")
-                _ModePaiement = StructuralObject.SetValidValue(value, false)
+                _ModePaiement = StructuralObject.SetValidValue(value, true)
                 ReportPropertyChanged("ModePaiement")
                 OnModePaiementChanged()
             End Set

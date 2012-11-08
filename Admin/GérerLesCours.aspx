@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="VB" AutoEventWireup="false" MasterPageFile="~/masterPage.master" CodeFile="GérerLesCours.aspx.vb" Inherits="Admin_GérerLesCours" %>
 <%@ Register TagPrefix="asp" Namespace="AjaxControlToolkit" Assembly="AjaxControlToolkit"%>
+<%@ PreviousPageType VirtualPath="~/Admin/listesDAttente.aspx" %>
 
 <asp:Content ID="ContentMenu" ContentPlaceHolderID="contentMenuClient" runat="server"></asp:Content>
 <asp:Content ID="contentMenuPrepose" ContentPlaceHolderID="contentMenuPrepose" runat="server"></asp:Content>
@@ -372,7 +373,24 @@
                             </tr>
                         </EditItemTemplate>
                     </asp:ListView>
-            <asp:Button ID="btnAjouterHoraire" runat="server" Text="Ajouter un horaire" Width="140px" SkinID="btnAjoutSupprimer"/>
+            <asp:Button ID="btnAjouterHoraire" runat="server" Text="Ajouter un horaire" Width="140px" SkinID="btnAjoutSupprimer"/><br />
+            <asp:ListView ID="lViewMembres" runat="server" DataSourceID="entityDataSourcePaiements" DataKeyNames="noPaiement" GroupItemCount="3">
+                <LayoutTemplate>
+                    <asp:Label ID="lblTitreMembres" runat="server" Text= "Liste des membres " SkinID="lbSousTitre" />
+                    <table>
+                        <asp:PlaceHolder id="GroupPlaceHolder" runat="server" /> 
+                    </table>                          
+                </LayoutTemplate>
+                <GroupTemplate>
+                    <tr>
+                        <asp:PlaceHolder id="ItemPlaceHolder" runat="server" />
+                    </tr>
+                </GroupTemplate>
+                <ItemTemplate>
+                        <td><asp:Label ID="lblNom" runat="server" Text='<%#Eval("Membre.Prénom") & " " & Eval("Membre.Nom") %>'></asp:Label></td>
+                        <td width="50px"><asp:LinkButton ID="lnkSupprimer" runat="server" CommandName="Delete">X</asp:LinkButton></td>
+                </ItemTemplate>
+            </asp:ListView>  
             <div class="btnCentre">
                 <asp:Button ID="btnRetour" runat="server" Text="Retour" Width="80px" SkinID="btnAjoutSupprimer" />
             </div>
@@ -446,6 +464,14 @@
          EntitySetName="Horaire" EnableFlattening="false" EnableUpdate="true" EnableDelete="true" Include="Groupe, Jour" Where="it.Groupe.noGroupe = @noGroupe">
         <WhereParameters>
             <asp:ControlParameter Name="noGroupe" Type="Int32" ControlID="hFieldnoGroupe2" />
+        </WhereParameters>
+    </asp:EntityDataSource>
+    <asp:EntityDataSource ID="entityDataSourcePaiements" runat="server"
+        ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
+        EntitySetName="Paiement" EnableFlattening="false" EnableDelete="true" Include="Groupe, Membre, Groupe.Cours"
+        Where="it.Groupe.noGroupe = @leNoGroupe">
+        <WhereParameters>
+            <asp:ControlParameter Name="leNoGroupe" Type="Int32" ControlID="hFieldnoGroupe2" />
         </WhereParameters>
     </asp:EntityDataSource>
     <asp:EntityDataSource ID="entiDataSourceAnimateur" runat="server" ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer"
