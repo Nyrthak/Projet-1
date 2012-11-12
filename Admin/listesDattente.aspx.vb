@@ -38,7 +38,13 @@ Partial Class Admin_listesDattente
 #End Region
 
 #Region "Contrôle d'erreur"
-
+    Protected Sub lviewLaListeDattente_ItemDeleted(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewDeletedEventArgs) Handles lviewLaListeDattente.ItemDeleted
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "suppression")
+        Else
+            lbMessage.Text = "L'inscription a été supprimée."
+        End If
+    End Sub
 #End Region
 
 #Region "Contrôles"
@@ -87,9 +93,13 @@ Partial Class Admin_listesDattente
 
     Protected Sub btnEnregistrer_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnregistrer.Click
         For Each itemTemplate In lviewLaListeDattente.Items
-            lviewLaListeDattente.UpdateItem(itemTemplate.DataItemIndex, False)
+            Dim leNoListeDattente As Integer = CType(lviewLaListeDattente.Items(itemTemplate.DataItemIndex).FindControl("hFieldNoListeAttente"), HiddenField).Value
+            Dim laListeDAttente As ListeDAttente = (From uneListeDAttente In lecontext.ListeDAttente Where uneListeDAttente.noListeDAttente = leNoListeDattente Select uneListeDAttente).FirstOrDefault
+            laListeDAttente.Accepte = CType(lviewLaListeDattente.Items(itemTemplate.DataItemIndex).FindControl("chkAccepte"), CheckBox).Checked
         Next
+        lecontext.SaveChanges()
         lviewLaListeDattente.DataBind()
+
     End Sub
 
     Protected Sub btnRetour_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnRetour.Click

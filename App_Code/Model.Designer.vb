@@ -16,7 +16,7 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("ee66896e-9a49-43b6-91b8-04839f23d561")>
+<Assembly: EdmSchemaAttribute("fe89139d-b26e-48eb-864f-4a0ac6141293")>
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("Model", "FK_AnimateurGroupe", "Animateur", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Animateur), "Groupe", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Groupe), True)>
 <Assembly: EdmRelationshipAttribute("Model", "FK_AnimateurProvince", "Province", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Province), "Animateur", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Animateur), True)>
@@ -27,7 +27,6 @@ Imports System.Runtime.Serialization
 <Assembly: EdmRelationshipAttribute("Model", "FK_CoursCours", "Cours", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(Model.Cours), "Cours1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Cours), True)>
 <Assembly: EdmRelationshipAttribute("Model", "FK_GroupeCours", "Cours", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Cours), "Groupe", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Groupe), True)>
 <Assembly: EdmRelationshipAttribute("Model", "FK_GroupeDAgeCours", "GroupeDAge", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.GroupeDAge), "Cours", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Cours), True)>
-<Assembly: EdmRelationshipAttribute("Model", "FK_SessionCours", "Session", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Session), "Cours", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Cours), True)>
 <Assembly: EdmRelationshipAttribute("Model", "FK_GroupePaiement", "Groupe", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Groupe), "Paiement", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Paiement), True)>
 <Assembly: EdmRelationshipAttribute("Model", "FK_HoraireGroupe", "Groupe", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Groupe), "Horaire", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Horaire), True)>
 <Assembly: EdmRelationshipAttribute("Model", "FK_ListeDAttenteGroupe", "Groupe", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Groupe), "ListeDAttente", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.ListeDAttente), True)>
@@ -35,6 +34,7 @@ Imports System.Runtime.Serialization
 <Assembly: EdmRelationshipAttribute("Model", "FK_ListeDAttenteMembre", "Membre", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Membre), "ListeDAttente", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.ListeDAttente), True)>
 <Assembly: EdmRelationshipAttribute("Model", "FK_MembrePaiement", "Membre", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Membre), "Paiement", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Paiement), True)>
 <Assembly: EdmRelationshipAttribute("Model", "FK_SpécialitéSpécialitéAnimateur", "Spécialité", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Spécialité), "SpécialitéAnimateur", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.SpécialitéAnimateur), True)>
+<Assembly: EdmRelationshipAttribute("Model", "SessionGroupe", "Session", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Session), "Groupe", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Groupe))>
 
 #End Region
 Namespace Model
@@ -1262,16 +1262,14 @@ Namespace Model
         ''' <param name="nom">Initial value of the Nom property.</param>
         ''' <param name="prix">Initial value of the Prix property.</param>
         ''' <param name="catégorie_noCatégorie">Initial value of the Catégorie_noCatégorie property.</param>
-        ''' <param name="session_noSession">Initial value of the Session_noSession property.</param>
         ''' <param name="groupeDAge_noGroupeDAge">Initial value of the GroupeDAge_noGroupeDAge property.</param>
         ''' <param name="actif">Initial value of the Actif property.</param>
-        Public Shared Function CreateCours(noCours As Global.System.Int32, nom As Global.System.String, prix As Global.System.Double, catégorie_noCatégorie As Global.System.Int32, session_noSession As Global.System.Int32, groupeDAge_noGroupeDAge As Global.System.Int32, actif As Global.System.Boolean) As Cours
+        Public Shared Function CreateCours(noCours As Global.System.Int32, nom As Global.System.String, prix As Global.System.Double, catégorie_noCatégorie As Global.System.Int32, groupeDAge_noGroupeDAge As Global.System.Int32, actif As Global.System.Boolean) As Cours
             Dim cours as Cours = New Cours
             cours.noCours = noCours
             cours.Nom = nom
             cours.Prix = prix
             cours.Catégorie_noCatégorie = catégorie_noCatégorie
-            cours.Session_noSession = session_noSession
             cours.GroupeDAge_noGroupeDAge = groupeDAge_noGroupeDAge
             cours.Actif = actif
             Return cours
@@ -1405,31 +1403,6 @@ Namespace Model
         End Sub
     
         Private Partial Sub OnCatégorie_noCatégorieChanged()
-        End Sub
-    
-        ''' <summary>
-        ''' No Metadata Documentation available.
-        ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
-        <DataMemberAttribute()>
-        Public Property Session_noSession() As Global.System.Int32
-            Get
-                Return _Session_noSession
-            End Get
-            Set
-                OnSession_noSessionChanging(value)
-                ReportPropertyChanging("Session_noSession")
-                _Session_noSession = StructuralObject.SetValidValue(value)
-                ReportPropertyChanged("Session_noSession")
-                OnSession_noSessionChanged()
-            End Set
-        End Property
-    
-        Private _Session_noSession As Global.System.Int32
-        Private Partial Sub OnSession_noSessionChanging(value As Global.System.Int32)
-        End Sub
-    
-        Private Partial Sub OnSession_noSessionChanged()
         End Sub
     
         ''' <summary>
@@ -1635,37 +1608,6 @@ Namespace Model
             Set
                 If (Not value Is Nothing)
                     CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of GroupeDAge)("Model.FK_GroupeDAgeCours", "GroupeDAge", value)
-                End If
-            End Set
-        End Property
-    
-        ''' <summary>
-        ''' No Metadata Documentation available.
-        ''' </summary>
-        <XmlIgnoreAttribute()>
-        <SoapIgnoreAttribute()>
-        <DataMemberAttribute()>
-        <EdmRelationshipNavigationPropertyAttribute("Model", "FK_SessionCours", "Session")>
-        Public Property Session() As Session
-            Get
-                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Session)("Model.FK_SessionCours", "Session").Value
-            End Get
-            Set
-                CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Session)("Model.FK_SessionCours", "Session").Value = value
-            End Set
-        End Property
-        ''' <summary>
-        ''' No Metadata Documentation available.
-        ''' </summary>
-        <BrowsableAttribute(False)>
-        <DataMemberAttribute()>
-        Public Property SessionReference() As EntityReference(Of Session)
-            Get
-                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Session)("Model.FK_SessionCours", "Session")
-            End Get
-            Set
-                If (Not value Is Nothing)
-                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of Session)("Model.FK_SessionCours", "Session", value)
                 End If
             End Set
         End Property
@@ -2188,6 +2130,37 @@ Namespace Model
             Set
                 If (Not value Is Nothing)
                     CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of ListeDAttente)("Model.FK_ListeDAttenteGroupe", "ListeDAttente", value)
+                End If
+            End Set
+        End Property
+    
+        ''' <summary>
+        ''' No Metadata Documentation available.
+        ''' </summary>
+        <XmlIgnoreAttribute()>
+        <SoapIgnoreAttribute()>
+        <DataMemberAttribute()>
+        <EdmRelationshipNavigationPropertyAttribute("Model", "SessionGroupe", "Session")>
+        Public Property Session() As Session
+            Get
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Session)("Model.SessionGroupe", "Session").Value
+            End Get
+            Set
+                CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Session)("Model.SessionGroupe", "Session").Value = value
+            End Set
+        End Property
+        ''' <summary>
+        ''' No Metadata Documentation available.
+        ''' </summary>
+        <BrowsableAttribute(False)>
+        <DataMemberAttribute()>
+        Public Property SessionReference() As EntityReference(Of Session)
+            Get
+                Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of Session)("Model.SessionGroupe", "Session")
+            End Get
+            Set
+                If (Not value Is Nothing)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of Session)("Model.SessionGroupe", "Session", value)
                 End If
             End Set
         End Property
@@ -3492,10 +3465,12 @@ Namespace Model
         ''' </summary>
         ''' <param name="noSession">Initial value of the noSession property.</param>
         ''' <param name="nomSession">Initial value of the NomSession property.</param>
-        Public Shared Function CreateSession(noSession As Global.System.Int32, nomSession As Global.System.String) As Session
+        ''' <param name="debutSession">Initial value of the DebutSession property.</param>
+        Public Shared Function CreateSession(noSession As Global.System.Int32, nomSession As Global.System.String, debutSession As Global.System.DateTime) As Session
             Dim session as Session = New Session
             session.noSession = noSession
             session.NomSession = nomSession
+            session.DebutSession = debutSession
             Return session
         End Function
 
@@ -3553,6 +3528,31 @@ Namespace Model
     
         Private Partial Sub OnNomSessionChanged()
         End Sub
+    
+        ''' <summary>
+        ''' No Metadata Documentation available.
+        ''' </summary>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+        <DataMemberAttribute()>
+        Public Property DebutSession() As Global.System.DateTime
+            Get
+                Return _DebutSession
+            End Get
+            Set
+                OnDebutSessionChanging(value)
+                ReportPropertyChanging("DebutSession")
+                _DebutSession = StructuralObject.SetValidValue(value)
+                ReportPropertyChanged("DebutSession")
+                OnDebutSessionChanged()
+            End Set
+        End Property
+    
+        Private _DebutSession As Global.System.DateTime
+        Private Partial Sub OnDebutSessionChanging(value As Global.System.DateTime)
+        End Sub
+    
+        Private Partial Sub OnDebutSessionChanged()
+        End Sub
 
         #End Region
         #Region "Navigation Properties"
@@ -3563,14 +3563,14 @@ Namespace Model
         <XmlIgnoreAttribute()>
         <SoapIgnoreAttribute()>
         <DataMemberAttribute()>
-        <EdmRelationshipNavigationPropertyAttribute("Model", "FK_SessionCours", "Cours")>
-         Public Property Cours() As EntityCollection(Of Cours)
+        <EdmRelationshipNavigationPropertyAttribute("Model", "SessionGroupe", "Groupe")>
+         Public Property Groupe() As EntityCollection(Of Groupe)
             Get
-                Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of Cours)("Model.FK_SessionCours", "Cours")
+                Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of Groupe)("Model.SessionGroupe", "Groupe")
             End Get
             Set
                 If (Not value Is Nothing)
-                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of Cours)("Model.FK_SessionCours", "Cours", value)
+                    CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of Groupe)("Model.SessionGroupe", "Groupe", value)
                 End If
             End Set
         End Property

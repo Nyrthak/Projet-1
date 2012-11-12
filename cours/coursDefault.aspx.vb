@@ -40,6 +40,7 @@ Partial Class coursDefault
     Protected Sub lViewListeCours_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles lViewListeCours.ItemCommand
         If e.CommandName = "Selection" Then
             hFieldnoCours.Value = e.CommandArgument
+            entityDataSourceGroupes.WhereParameters("Ya6mois").DefaultValue = Date.Now.AddMonths(-6)
             mViewCours.ActiveViewIndex = 1
             lviewCours.DataBind()
             Dim leNoCours As String = hFieldnoCours.Value

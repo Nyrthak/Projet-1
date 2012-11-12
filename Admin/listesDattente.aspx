@@ -57,10 +57,14 @@
                     </GroupTemplate>
                     <ItemTemplate>
                         <tr>
-                            <td><asp:Label ID="lbDateAjout" runat="server" Text='<%#Eval("DateAjout", "{0:dd/MM/yyyy}")%>'></asp:Label></td>
+                            <td>
+                                <asp:HiddenField ID="hFieldNoListeAttente" runat="server" Value='<%#Eval("noListeDAttente")%>'/>
+                                <asp:Label ID="lbDateAjout" runat="server" Text='<%#Eval("DateAjout", "{0:dd/MM/yyyy}")%>'></asp:Label>
+                            </td>
                             <td><asp:Label ID="lbNomMembre" runat="server" Text='<%#Eval("Membre.Prénom") & " " & Eval("Membre.Nom")%>'></asp:Label></td>
                             <td><asp:Label ID="lbDatenaissance" runat="server" Text='<%#Eval("Membre.DateNaissance", "{0:dd/MM/yyyy}")%>'></asp:Label></td>              
-                            <td><asp:CheckBox ID="chkAccepte" runat="server" Checked='<%#Bind("Accepte")%>' /></td>
+                            <td style="width:40px; text-align:center;"><asp:CheckBox ID="chkAccepte" runat="server" Checked='<%#Bind("Accepte")%>' /></td>
+                            <td><asp:Button ID="btnSupprimer" runat="server" Text="Supprimer" CommandName="Delete" SkinID="btnAjoutSupprimer" Width="78px"/></td>
                         </tr>
                     </ItemTemplate>
                 </asp:ListView>
@@ -71,6 +75,7 @@
                 </div>
             </asp:View>
         </asp:MultiView>
+        <br /><asp:Label ID="lbMessage" runat="server" Text=""></asp:Label>
     </div>
     <asp:HiddenField ID="hFieldNoGroupe" runat="server" />
     <asp:LinqDataSource ID="linqDataSourceListesDattente" runat="server"
@@ -80,7 +85,7 @@
                     Where="ListeDAttente.Count() > 0" OrderBy="noGroupe"> 
     </asp:LinqDataSource>
     <asp:EntityDataSource ID="entiDataSourceLaListeDAttente" runat="server" ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer"
-         EntitySetName="ListeDAttente" EnableFlattening="false" EnableUpdate="true" Include="Groupe, Groupe.Cours, Membre" Where="it.Groupe.noGroupe = @noGroupe">
+         EntitySetName="ListeDAttente" EnableFlattening="false" EnableUpdate="true" EnableDelete="true" Include="Groupe, Groupe.Cours, Membre" Where="it.Groupe.noGroupe = @noGroupe">
         <WhereParameters>
             <asp:ControlParameter Name="noGroupe" Type="Int32" ControlID="hFieldNoGroupe" />
         </WhereParameters>

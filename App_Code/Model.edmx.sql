@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 11/01/2012 10:19:52
+-- Date Created: 11/08/2012 14:17:10
 -- Generated from EDMX file: C:\Users\Katherine\Documents\A2012\Projet I\Projet-1\App_Code\Model.edmx
 -- --------------------------------------------------
 
@@ -170,7 +170,6 @@ CREATE TABLE [dbo].[Cours] (
     [Prix] float  NOT NULL,
     [Description] nvarchar(250)  NULL,
     [Catégorie_noCatégorie] int  NOT NULL,
-    [Session_noSession] int  NOT NULL,
     [GroupeDAge_noGroupeDAge] int  NOT NULL,
     [lePrerequis_noCours] int  NULL,
     [Actif] bit  NOT NULL
@@ -196,7 +195,8 @@ CREATE TABLE [dbo].[Groupe] (
     [Animateur_noAnimateur] int  NOT NULL,
     [Cours_noCours] int  NOT NULL,
     [Actif] bit  NOT NULL,
-    [Nom] nvarchar(10)  NOT NULL
+    [Nom] nvarchar(10)  NOT NULL,
+    [Session_noSession] int  NOT NULL
 );
 GO
 
@@ -266,7 +266,8 @@ GO
 -- Creating table 'Session'
 CREATE TABLE [dbo].[Session] (
     [noSession] int IDENTITY(1,1) NOT NULL,
-    [NomSession] nvarchar(25)  NOT NULL
+    [NomSession] nvarchar(25)  NOT NULL,
+    [DebutSession] datetime  NOT NULL
 );
 GO
 
@@ -515,20 +516,6 @@ ON [dbo].[Cours]
     ([GroupeDAge_noGroupeDAge]);
 GO
 
--- Creating foreign key on [Session_noSession] in table 'Cours'
-ALTER TABLE [dbo].[Cours]
-ADD CONSTRAINT [FK_SessionCours]
-    FOREIGN KEY ([Session_noSession])
-    REFERENCES [dbo].[Session]
-        ([noSession])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- Creating non-clustered index for FOREIGN KEY 'FK_SessionCours'
-CREATE INDEX [IX_FK_SessionCours]
-ON [dbo].[Cours]
-    ([Session_noSession]);
-GO
-
 -- Creating foreign key on [Groupe_noGroupe] in table 'Paiement'
 ALTER TABLE [dbo].[Paiement]
 ADD CONSTRAINT [FK_GroupePaiement]
@@ -625,6 +612,20 @@ ADD CONSTRAINT [FK_SpécialitéSpécialitéAnimateur]
 CREATE INDEX [IX_FK_SpécialitéSpécialitéAnimateur]
 ON [dbo].[SpécialitéAnimateur]
     ([Spécialité_noSpécialité]);
+GO
+
+-- Creating foreign key on [Session_noSession] in table 'Groupe'
+ALTER TABLE [dbo].[Groupe]
+ADD CONSTRAINT [FK_SessionGroupe]
+    FOREIGN KEY ([Session_noSession])
+    REFERENCES [dbo].[Session]
+        ([noSession])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SessionGroupe'
+CREATE INDEX [IX_FK_SessionGroupe]
+ON [dbo].[Groupe]
+    ([Session_noSession]);
 GO
 
 -- --------------------------------------------------

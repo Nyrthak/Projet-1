@@ -58,10 +58,6 @@
       <End Role="GroupeDAge" EntitySet="GroupeDAge" />
       <End Role="Cours" EntitySet="Cours" />
     </AssociationSet>
-    <AssociationSet Name="FK_SessionCours" Association="Model.Store.FK_SessionCours">
-      <End Role="Session" EntitySet="Session" />
-      <End Role="Cours" EntitySet="Cours" />
-    </AssociationSet>
     <AssociationSet Name="FK_GroupePaiement" Association="Model.Store.FK_GroupePaiement">
       <End Role="Groupe" EntitySet="Groupe" />
       <End Role="Paiement" EntitySet="Paiement" />
@@ -89,6 +85,10 @@
     <AssociationSet Name="FK_SpécialitéSpécialitéAnimateur" Association="Model.Store.FK_SpécialitéSpécialitéAnimateur">
       <End Role="Spécialité" EntitySet="Spécialité" />
       <End Role="SpécialitéAnimateur" EntitySet="SpécialitéAnimateur" />
+    </AssociationSet>
+    <AssociationSet Name="SessionGroupe" Association="Model.Store.SessionGroupe">
+      <End Role="Session" EntitySet="Session" />
+      <End Role="Groupe" EntitySet="Groupe" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Animateur">
@@ -137,7 +137,6 @@
     <Property Name="Prix" Type="float" Nullable="false" />
     <Property Name="Description" Type="nvarchar" Nullable="true" MaxLength="250" />
     <Property Name="Catégorie_noCatégorie" Type="int" Nullable="false" />
-    <Property Name="Session_noSession" Type="int" Nullable="false" />
     <Property Name="GroupeDAge_noGroupeDAge" Type="int" Nullable="false" />
     <Property Name="lePrerequis_noCours" Type="int" Nullable="true" />
     <Property Name="Actif" Type="bit" Nullable="false" />
@@ -164,6 +163,7 @@
     <Property Name="Cours_noCours" Type="int" Nullable="false" />
     <Property Name="Actif" Type="bit" Nullable="false" />
     <Property Name="Nom" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="Session_noSession" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="GroupeDAge">
     <Key>
@@ -234,6 +234,7 @@
     </Key>
     <Property Name="noSession" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="NomSession" Type="nvarchar" Nullable="false" MaxLength="25" />
+    <Property Name="DebutSession" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="Spécialité">
     <Key>
@@ -358,18 +359,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_SessionCours">
-    <End Role="Session" Type="Model.Store.Session" Multiplicity="1" />
-    <End Role="Cours" Type="Model.Store.Cours" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Session">
-        <PropertyRef Name="noSession" />
-      </Principal>
-      <Dependent Role="Cours">
-        <PropertyRef Name="Session_noSession" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_GroupePaiement">
     <End Role="Groupe" Type="Model.Store.Groupe" Multiplicity="1" />
     <End Role="Paiement" Type="Model.Store.Paiement" Multiplicity="*" />
@@ -454,6 +443,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="SessionGroupe">
+    <End Role="Session" Type="Model.Store.Session" Multiplicity="1" />
+    <End Role="Groupe" Type="Model.Store.Groupe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Session">
+        <PropertyRef Name="noSession" />
+      </Principal>
+      <Dependent Role="Groupe">
+        <PropertyRef Name="Session_noSession" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -511,10 +512,6 @@
             <End Role="GroupeDAge" EntitySet="GroupeDAge" />
             <End Role="Cours" EntitySet="Cours" />
           </AssociationSet>
-          <AssociationSet Name="FK_SessionCours" Association="Model.FK_SessionCours">
-            <End Role="Session" EntitySet="Session" />
-            <End Role="Cours" EntitySet="Cours" />
-          </AssociationSet>
           <AssociationSet Name="FK_GroupePaiement" Association="Model.FK_GroupePaiement">
             <End Role="Groupe" EntitySet="Groupe" />
             <End Role="Paiement" EntitySet="Paiement" />
@@ -542,6 +539,10 @@
           <AssociationSet Name="FK_SpécialitéSpécialitéAnimateur" Association="Model.FK_SpécialitéSpécialitéAnimateur">
             <End Role="Spécialité" EntitySet="Spécialité" />
             <End Role="SpécialitéAnimateur" EntitySet="SpécialitéAnimateur" />
+          </AssociationSet>
+          <AssociationSet Name="SessionGroupe" Association="Model.SessionGroupe">
+            <End Role="Session" EntitySet="Session" />
+            <End Role="Groupe" EntitySet="Groupe" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Animateur">
@@ -596,7 +597,6 @@
           <Property Type="Double" Name="Prix" Nullable="false" />
           <Property Type="String" Name="Description" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="Catégorie_noCatégorie" Nullable="false" />
-          <Property Type="Int32" Name="Session_noSession" Nullable="false" />
           <Property Type="Int32" Name="GroupeDAge_noGroupeDAge" Nullable="false" />
           <Property Type="Int32" Name="lePrerequis_noCours" />
           <NavigationProperty Name="Catégorie" Relationship="Model.FK_CatégorieCours" FromRole="Cours" ToRole="Catégorie" />
@@ -604,7 +604,6 @@
           <NavigationProperty Name="lePrerequis" Relationship="Model.FK_CoursCours" FromRole="Cours1" ToRole="Cours" />
           <NavigationProperty Name="Groupe" Relationship="Model.FK_GroupeCours" FromRole="Cours" ToRole="Groupe" />
           <NavigationProperty Name="GroupeDAge" Relationship="Model.FK_GroupeDAgeCours" FromRole="Cours" ToRole="GroupeDAge" />
-          <NavigationProperty Name="Session" Relationship="Model.FK_SessionCours" FromRole="Cours" ToRole="Session" />
           <Property Type="Boolean" Name="Actif" Nullable="false" />
         </EntityType>
         <EntityType Name="Forfait">
@@ -634,6 +633,7 @@
           <NavigationProperty Name="ListeDAttente" Relationship="Model.FK_ListeDAttenteGroupe" FromRole="Groupe" ToRole="ListeDAttente" />
           <Property Type="Boolean" Name="Actif" Nullable="false" />
           <Property Type="String" Name="Nom" Nullable="false" MaxLength="10" />
+          <NavigationProperty Name="Session" Relationship="Model.SessionGroupe" FromRole="Groupe" ToRole="Session" />
         </EntityType>
         <EntityType Name="GroupeDAge">
           <Key>
@@ -717,7 +717,8 @@
           </Key>
           <Property Type="Int32" Name="noSession" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="NomSession" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Cours" Relationship="Model.FK_SessionCours" FromRole="Session" ToRole="Cours" />
+          <Property Type="DateTime" Name="DebutSession" Nullable="false" />
+          <NavigationProperty Name="Groupe" Relationship="Model.SessionGroupe" FromRole="Session" ToRole="Groupe" />
         </EntityType>
         <EntityType Name="Spécialité">
           <Key>
@@ -845,18 +846,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SessionCours">
-          <End Type="Model.Session" Role="Session" Multiplicity="1" />
-          <End Type="Model.Cours" Role="Cours" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Session">
-              <PropertyRef Name="noSession" />
-            </Principal>
-            <Dependent Role="Cours">
-              <PropertyRef Name="Session_noSession" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_GroupePaiement">
           <End Type="Model.Groupe" Role="Groupe" Multiplicity="1" />
           <End Type="Model.Paiement" Role="Paiement" Multiplicity="*" />
@@ -941,6 +930,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="SessionGroupe">
+          <End Type="Model.Session" Role="Session" Multiplicity="1" />
+          <End Type="Model.Groupe" Role="Groupe" Multiplicity="*" />
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -995,7 +988,6 @@
           <ScalarProperty Name="Prix" ColumnName="Prix" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Catégorie_noCatégorie" ColumnName="Catégorie_noCatégorie" />
-          <ScalarProperty Name="Session_noSession" ColumnName="Session_noSession" />
           <ScalarProperty Name="GroupeDAge_noGroupeDAge" ColumnName="GroupeDAge_noGroupeDAge" />
           <ScalarProperty Name="lePrerequis_noCours" ColumnName="lePrerequis_noCours" />
           <ScalarProperty Name="Actif" ColumnName="Actif" />
@@ -1102,6 +1094,7 @@
         <MappingFragment StoreEntitySet="Session">
           <ScalarProperty Name="noSession" ColumnName="noSession" />
           <ScalarProperty Name="NomSession" ColumnName="NomSession" />
+          <ScalarProperty Name="DebutSession" ColumnName="DebutSession" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1122,6 +1115,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <AssociationSetMapping Name="SessionGroupe" TypeName="Model.SessionGroupe" StoreEntitySet="Groupe">
+      <EndProperty Name="Session">
+        <ScalarProperty Name="noSession" ColumnName="Session_noSession" />
+      </EndProperty>
+      <EndProperty Name="Groupe">
+        <ScalarProperty Name="noGroupe" ColumnName="noGroupe" />
+      </EndProperty>
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
@@ -1145,7 +1146,7 @@
         <EntityTypeShape EntityType="Model.Animateur" Width="1.5" PointX="3" PointY="13.25" Height="3.3263964843749818" />
         <EntityTypeShape EntityType="Model.Catégorie" Width="1.5" PointX="0.75" PointY="7.125" Height="1.5956835937499818" />
         <EntityTypeShape EntityType="Model.Compte" Width="1.5" PointX="3" PointY="0.75" Height="3.5186979166666656" />
-        <EntityTypeShape EntityType="Model.Cours" Width="1.5" PointX="3" PointY="6.125" Height="3.9033007812499996" />
+        <EntityTypeShape EntityType="Model.Cours" Width="1.5" PointX="3" PointY="6.125" Height="3.5186979166666656" />
         <EntityTypeShape EntityType="Model.Forfait" Width="1.5" PointX="7.75" PointY="10.125" Height="1.4033821614583246" />
         <EntityTypeShape EntityType="Model.Groupe" Width="1.5" PointX="5.25" PointY="6.125" Height="4.0956022135416674" />
         <EntityTypeShape EntityType="Model.GroupeDAge" Width="1.5" PointX="0.75" PointY="4" Height="1.5956835937499818" />
@@ -1155,14 +1156,14 @@
         <EntityTypeShape EntityType="Model.Membre" Width="1.5" PointX="5.25" PointY="1.875" Height="2.7494921874999818" />
         <EntityTypeShape EntityType="Model.Paiement" Width="1.5" PointX="10.5" PointY="6.625" Height="2.5571907552083246" />
         <EntityTypeShape EntityType="Model.Province" Width="1.5" PointX="0.75" PointY="14" Height="1.7879850260416674" />
-        <EntityTypeShape EntityType="Model.Session" Width="1.5" PointX="0.75" PointY="10.25" Height="1.5956835937499818" />
+        <EntityTypeShape EntityType="Model.Session" Width="1.5" PointX="0.75" PointY="10.25" Height="1.7879850260416657" />
         <EntityTypeShape EntityType="Model.Spécialité" Width="1.5" PointX="3" PointY="18.125" Height="1.5956835937499818" />
-        <EntityTypeShape EntityType="Model.SpécialitéAnimateur" Width="1.5" PointX="5.25" PointY="14" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="Model.SpécialitéAnimateur" Width="1.875" PointX="5.25" PointY="14" Height="1.9802864583333246" />
         <AssociationConnector Association="Model.FK_AnimateurGroupe" >
           <ConnectorPoint PointX="4.5" PointY="13.251152846153847" />
           <ConnectorPoint PointX="4.875" PointY="12.876152846153847" />
-          <ConnectorPoint PointX="4.875" PointY="8.76661161649577" />
-          <ConnectorPoint PointX="5.25" PointY="8.76661161649577" />
+          <ConnectorPoint PointX="4.875" PointY="8.96984414404508" />
+          <ConnectorPoint PointX="5.25" PointY="8.96984414404508" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_AnimateurProvince" >
           <ConnectorPoint PointX="2.25" PointY="14.893992513020834" />
@@ -1173,10 +1174,10 @@
           <ConnectorPoint PointX="5.25" PointY="14.990143229166662" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_CatégorieCours" >
-          <ConnectorPoint PointX="2.25" PointY="7.9228417968749909" />
-          <ConnectorPoint PointX="2.5416666666666665" PointY="7.92284179687499" />
-          <ConnectorPoint PointX="2.7083333333333335" PointY="7.9228417968749909" />
-          <ConnectorPoint PointX="3" PointY="7.9228417968749909" />
+          <ConnectorPoint PointX="2.25" PointY="7.9941958258213148" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="7.9941958258213139" />
+          <ConnectorPoint PointX="2.7083333333333335" PointY="7.9941958258213148" />
+          <ConnectorPoint PointX="3" PointY="7.9941958258213148" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_CompteMembre" >
           <ConnectorPoint PointX="4.5" PointY="3.0718489583333328" />
@@ -1189,14 +1190,14 @@
           <ConnectorPoint PointX="3" PointY="2.5093489583333328" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_CoursCours" >
-          <ConnectorPoint PointX="3.5319230769230767" PointY="10.02830078125" />
-          <ConnectorPoint PointX="3.5319230769230767" PointY="10.27830078125" />
-          <ConnectorPoint PointX="3.9784615384615383" PointY="10.27830078125" />
-          <ConnectorPoint PointX="3.9784615384615383" PointY="10.02830078125" />
+          <ConnectorPoint PointX="3.5319230769230767" PointY="9.6436979166666656" />
+          <ConnectorPoint PointX="3.5319230769230767" PointY="9.8936979166666656" />
+          <ConnectorPoint PointX="3.9784615384615383" PointY="9.8936979166666656" />
+          <ConnectorPoint PointX="3.9784615384615383" PointY="9.6436979166666656" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_GroupeCours" >
-          <ConnectorPoint PointX="4.5" PointY="7.3833058082478846" />
-          <ConnectorPoint PointX="5.25" PointY="7.3833058082478846" />
+          <ConnectorPoint PointX="4.5" PointY="7.48492207202254" />
+          <ConnectorPoint PointX="5.25" PointY="7.48492207202254" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_GroupeDAgeCours" >
           <ConnectorPoint PointX="2.25" PointY="5.5333749014422891" />
@@ -1205,13 +1206,6 @@
           <ConnectorPoint PointX="2.8125" PointY="6.0958749014422891" />
           <ConnectorPoint PointX="2.8125" PointY="5.9375" />
           <ConnectorPoint PointX="3" PointY="6.125" />
-        </AssociationConnector>
-        <AssociationConnector Association="Model.FK_SessionCours" >
-          <ConnectorPoint PointX="2.25" PointY="11.061992187499991" />
-          <ConnectorPoint PointX="2.5416666666666665" PointY="11.061992187499991" />
-          <ConnectorPoint PointX="2.7083333333333335" PointY="11.061992187499991" />
-          <ConnectorPoint PointX="3.2347090384615385" PointY="11.061992187499991" />
-          <ConnectorPoint PointX="3.2347090384615385" PointY="10.02830078125" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_GroupePaiement" >
           <ConnectorPoint PointX="6.75" PointY="6.65625" />
@@ -1243,8 +1237,19 @@
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_SpécialitéSpécialitéAnimateur" >
           <ConnectorPoint PointX="4.5" PointY="18.922841796874991" />
-          <ConnectorPoint PointX="6" PointY="18.922841796874991" />
-          <ConnectorPoint PointX="6" PointY="15.980286458333325" />
+          <ConnectorPoint PointX="6.1875" PointY="18.922841796874991" />
+          <ConnectorPoint PointX="6.1875" PointY="15.980286458333325" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.SessionGroupe" ManuallyRouted="true">
+          <ConnectorPoint PointX="2.25" PointY="11.442368358761685" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="11.442368358761685" />
+          <ConnectorPoint PointX="2.7083333333333335" PointY="11.442368358761685" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="11.442368358761685" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="11.442368358761685" />
+          <ConnectorPoint PointX="5" PointY="11.442368358761685" />
+          <ConnectorPoint PointX="5" PointY="10.875" />
+          <ConnectorPoint PointX="6" PointY="10.875" />
+          <ConnectorPoint PointX="6" PointY="10.412903645833334" />
         </AssociationConnector>
       </Diagram>
     </edmx:Diagrams>

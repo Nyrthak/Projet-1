@@ -32,9 +32,9 @@ Partial Class Admin_GererSessions
 #Region "Contrôle d'erreur"
     Protected Sub lViewSessions_ItemDeleting(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewDeleteEventArgs) Handles lViewSessions.ItemDeleting
         Dim noSession As Integer = e.Keys(0)
-        If (From unCours In lecontext.Cours Where unCours.Session.noSession = noSession Select unCours).Count > 0 Then
+        If (From unGroupe In lecontext.Groupe Where unGroupe.Session.noSession = noSession Select unGroupe).Count > 0 Then
             Dim laSession As Session = (From uneSession In lecontext.Session Where uneSession.noSession = noSession Select uneSession).FirstOrDefault
-            lbMessage.Text = "Vous ne pouvez supprimer la session " & laSession.NomSession & ", car elle est reliée à au moins un cours."
+            lbMessage.Text = "Vous ne pouvez supprimer la session " & laSession.NomSession & ", car elle est reliée à au moins un groupe."
             e.Cancel = True
         End If
     End Sub

@@ -152,7 +152,11 @@ Partial Class Admin_GérerLesCours
         Dim messageErreur As String = ""
         Dim leCoursAjouté As Cours = New Cours()
         Dim leGroupeAjoute As Groupe = New Groupe()
-
+        If (From dl In lecontext.Session Select dl).Count > 0 Then
+            leGroupeAjoute.Session = (From dl In lecontext.Session Select dl).FirstOrDefault
+        Else
+            messageErreur += "Veuillez ajouter au moins une session dans la base de données avant d'ajouter un cours.</br>"
+        End If
         If (From dl In lecontext.Catégorie Select dl).Count > 0 Then
             leCoursAjouté.Catégorie = (From dl In lecontext.Catégorie Select dl).FirstOrDefault
         Else
@@ -163,12 +167,6 @@ Partial Class Admin_GérerLesCours
             leCoursAjouté.GroupeDAge = (From dl In lecontext.GroupeDAge Select dl).FirstOrDefault
         Else
             messageErreur += "Veuillez ajouter au moins un groupe d'age dans la base de données avant d'ajouter un cours.</br>"
-        End If
-
-        If (From dl In lecontext.Session Select dl).Count > 0 Then
-            leCoursAjouté.Session = (From dl In lecontext.Session Select dl).FirstOrDefault
-        Else
-            messageErreur += "Veuillez ajouter au moins une session dans la base de données avant d'ajouter un cours.</br>"
         End If
 
         If (From dl In lecontext.Animateur Select dl).Count > 0 Then
@@ -192,7 +190,16 @@ Partial Class Admin_GérerLesCours
             leGroupeAjoute.AgeMinimum = 0
             leGroupeAjoute.Agemaximum = 99
             leGroupeAjoute.Actif = False
-
+            Dim laSessionPrerequis As Session
+            If (From uneSession In lecontext.Session Where uneSession.NomSession = "Prerequis" Select uneSession).Count = 0 Then
+                laSessionPrerequis = New Session
+                laSessionPrerequis.NomSession = "Prerequis"
+                laSessionPrerequis.DebutSession = Date.Now.AddYears(-5)
+                lecontext.Session.AddObject(laSessionPrerequis)
+            Else
+                laSessionPrerequis = (From uneSession In lecontext.Session Where uneSession.NomSession = "Prerequis" Select uneSession).FirstOrDefault
+            End If
+            leGroupeAjoute.Session = laSessionPrerequis
             leCoursAjouté.Groupe.Add(leGroupeAjoute)
             lecontext.AddObject("Cours", leCoursAjouté)
             lecontext.SaveChanges()
@@ -205,24 +212,34 @@ Partial Class Admin_GérerLesCours
     End Sub
 
     Protected Sub btnAjouterGroupe_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAjouterGroupe.Click
+        Dim messageErreur As String = ""
         Dim leGroupeAjoute As Groupe = New Groupe()
         Dim leNoCours As Integer = hFieldnoCours2.Value
         Dim leCours As Cours = (From dl In lecontext.Cours Where dl.noCours = leNoCours Select dl).First
-        leGroupeAjoute.Local = "Local"
-        leGroupeAjoute.DateDebut = Date.Now
-        leGroupeAjoute.DateFin = Date.Now
-        leGroupeAjoute.DateLimiteInscription = Date.Now
-        leGroupeAjoute.AgeMinimum = 0
-        leGroupeAjoute.Agemaximum = 99
-        leGroupeAjoute.Actif = False
-        leGroupeAjoute.Animateur = (From dl In lecontext.Animateur Select dl).FirstOrDefault
-        leGroupeAjoute.Cours = leCours
-        lecontext.AddObject("Groupe", leGroupeAjoute)
-        lecontext.SaveChanges()
-        hFieldnoGroupe2.Value = leGroupeAjoute.noGroupe
-        lviewLeGroupe.EditIndex = 0
-        mViewCours.ActiveViewIndex = 3
-
+        If (From dl In lecontext.Session Select dl).Count > 0 Then
+            leGroupeAjoute.Session = (From dl In lecontext.Session Select dl).FirstOrDefault
+        Else
+            messageErreur += "Veuillez ajouter au moins une session dans la base de données avant d'ajouter un groupe.</br>"
+        End If
+        If messageErreur = "" Then
+            leGroupeAjoute.Local = "Local"
+            leGroupeAjoute.Nom = "Groupe"
+            leGroupeAjoute.DateDebut = Date.Now
+            leGroupeAjoute.DateFin = Date.Now
+            leGroupeAjoute.DateLimiteInscription = Date.Now
+            leGroupeAjoute.AgeMinimum = 0
+            leGroupeAjoute.Agemaximum = 99
+            leGroupeAjoute.Actif = False
+            leGroupeAjoute.Animateur = (From dl In lecontext.Animateur Select dl).FirstOrDefault
+            leGroupeAjoute.Cours = leCours
+            lecontext.AddObject("Groupe", leGroupeAjoute)
+            lecontext.SaveChanges()
+            hFieldnoGroupe2.Value = leGroupeAjoute.noGroupe
+            lviewLeGroupe.EditIndex = 0
+            mViewCours.ActiveViewIndex = 3
+        Else
+            lblMessage.Text = messageErreur
+        End If
     End Sub
 
     Protected Sub btnAjouterHoraire_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAjouterHoraire.Click
@@ -309,7 +326,13 @@ Partial Class Admin_GérerLesCours
                     lblMessage.Text = "Le cours " & leCoursADeleter.Nom & " ne peut être supprimé, car il contient une ou plusieurs inscriptions."
                 ElseIf leCoursADeleter.estLePrerequisDe.Count > 0 Then
                     lblMessage.Text = "Le cours " & leCoursADeleter.Nom & " ne peut être supprimé, car il est le prérequis d'un ou plusieurs cours."
+                ElseIf (From uneListeAttente In lecontext.ListeDAttente Where uneListeAttente.Groupe.Cours.noCours = leNoCours Select uneListeAttente).Count > 0 Then
+                    lblMessage.Text = "Le cours " & leCoursADeleter.Nom & " ne peut être supprimé, car il possède une liste d'attente."
                 Else
+                    Dim lesGroupes As New List(Of Groupe)(From unGroupe In lecontext.Groupe Where unGroupe.Cours.noCours = leNoCours Select unGroupe)
+                    For Each unGroupe As Groupe In lesGroupes
+                        lecontext.Groupe.DeleteObject(unGroupe)
+                    Next
                     lecontext.Cours.DeleteObject(leCoursADeleter)
                     lecontext.SaveChanges()
                     lblMessage.Text = "Le cours a bien été supprimé."
