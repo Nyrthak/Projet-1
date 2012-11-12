@@ -35,7 +35,7 @@
                         <tr>
                             <td><asp:Label ID="lblTitreActivite" runat="server" SkinID="lbTitreInfoMembre" Text="Activité"></asp:Label></td>
                             <td><asp:Label ID="lblTitreGroupeDAge" runat="server" SkinID="lbTitreInfoMembre" Text="Groupe d'âge"></asp:Label></td>
-                            <td><asp:Label ID="lblTitreSession" runat="server" SkinID="lbTitreInfoMembre" Text="Session"></asp:Label></td>
+                            <td><asp:Label ID="lblTitrePrix" runat="server" SkinID="lbTitreInfoMembre" Text="Prix"></asp:Label></td>
                         </tr>
                         <asp:PlaceHolder id="ItemPlaceHolder" runat="server" />
                     </table>
@@ -44,7 +44,7 @@
                     <tr>
                         <td><asp:LinkButton ID="lblActivite" runat="server" Text='<%#Eval("Nom")%>' CommandName="Selection" CommandArgument='<%#Eval("noCours")%>'></asp:LinkButton></td>
                         <td><asp:Label ID="lblGroupeDAge" runat="server" Text='<%#Eval("GroupeDAge.NomGroupeDAge")%>'></asp:Label></td>
-                        <td><asp:Label ID="lblSession" runat="server" Text='<%#Eval("Session.NomSession")%>'></asp:Label></td>
+                        <td><asp:Label ID="lblPrix" runat="server" Text='<%#Eval("Prix") & "$"%>'></asp:Label></td>
                     </tr>
                 </ItemTemplate>
             </asp:ListView>
@@ -72,11 +72,10 @@
                     </tr>
                     <tr>
                         <td><asp:Label ID="lblSTitreGroupeDAge" runat="server" Text="Groupe d'âge : " SkinID="lbChampsFormulaire"></asp:Label><asp:Label ID="lblGroupeDAge" runat="server" Text='<%#Eval("GroupeDAge.NomGroupeDAge")%>'></asp:Label></td>
-                        <td><asp:Label ID="lblSTitreSession" runat="server" Text="Session : " SkinID="lbChampsFormulaire"></asp:Label><asp:Label ID="lblSession" runat="server" Text='<%#Eval("Session.NomSession")%>'></asp:Label></td>
+                        <td><asp:Label ID="lblSTitrePrerequis" runat="server" Text="Prérequis : " SkinID="lbChampsFormulaire"></asp:Label><asp:Label ID="lblPrerequis" runat="server" Text='<%#Eval("lePrerequis.Nom")%>'></asp:Label></td>
                     </tr>
                     <tr>
                         <td><asp:Label ID="lblSTitreCategorie" runat="server" Text="Catégorie : " SkinID="lbChampsFormulaire"></asp:Label><asp:Label ID="lblCategorie" runat="server" Text='<%#Eval("Catégorie.Nom")%>'></asp:Label></td>
-                        <td><asp:Label ID="lblSTitrePrerequis" runat="server" Text="Prérequis : " SkinID="lbChampsFormulaire"></asp:Label><asp:Label ID="lblPrerequis" runat="server" Text='<%#Eval("lePrerequis.Nom")%>'></asp:Label></td>
                     </tr>
                     <tr>
                         <td colspan="2"><asp:Label ID="lblSTitreDescription" runat="server" Text="Description : " SkinID="lbChampsFormulaire"></asp:Label><asp:Label ID="lblDescription" runat="server" Text='<%#Eval("Description")%>'></asp:Label></td>
@@ -92,14 +91,15 @@
                 </LayoutTemplate>
                 <ItemTemplate>
                     <tr>
-                        <td><asp:LinkButton ID="lnkGroupe" runat="server" Text='<%# "Groupe " & Eval("noGroupe") %>' CommandName="Selection" CommandArgument='<%#Eval("noGroupe")%>' /></td>
+                        <td><asp:LinkButton ID="lnkGroupe" runat="server" Text='<%#Eval("Nom") %>' CommandName="Selection" CommandArgument='<%#Eval("noGroupe")%>' /></td>
                         <td><asp:Label ID="lblAge" runat="server" Text='<%#Eval("AgeMinimum") & "-" & Eval("AgeMaximum") & " ans"%>' /></td>
+                        <td><asp:Label ID="lblSession" runat="server" Text='<%#Eval("Session.NomSession")%>'></asp:Label></td>
                         <td>
                             <asp:DropDownList ID="dDListMembres" runat="server" DataSourceID="entityDataSourceMembre"
                                 DataTextField="Prénom" DataValueField="noMembre">
                             </asp:DropDownList>
                         </td>
-                        <td><asp:Button ID="btnSinscrire" runat="server" Text="S'inscrire" SkinID="btnAjoutSupprimer" CommandName="Inscription" CommandArgument='<%#Eval("noGroupe")%>' /></td>
+                        <td><asp:Button ID="btnSinscrire" runat="server" Text="S'inscrire" SkinID="btnAjoutSupprimer" Width="80px" CommandName="Inscription" CommandArgument='<%#Eval("noGroupe")%>' /></td>
                     </tr>
                     <asp:HiddenField ID="hFieldnoGroupe" runat="server" Value='<%#Eval("noGroupe")%>' />
 
@@ -133,7 +133,7 @@
                         <asp:PlaceHolder id="ItemPlaceHolder" runat="server" />
                 </LayoutTemplate>
                 <ItemTemplate>
-                    <asp:Label ID="lblTitreAfficherGroupe" runat="server" Text='<%# "Groupe " & Eval("noGroupe") %>' SkinID="lbTitrePage"></asp:Label>
+                    <asp:Label ID="lblTitreAfficherGroupe" runat="server" Text='<%#Eval("Nom") %>' SkinID="lbTitrePage"></asp:Label>
                     <table id="tbCours">
                         <tr>
                             <td>
@@ -163,6 +163,12 @@
                             <td>
                                 <asp:Label ID="lblTitreAnimateur" runat="server" Text="Animateur: " SkinID="lbChampsFormulaire"></asp:Label>
                                 <asp:Label ID="lblAnimateur" runat="server" Text='<%#Eval("Animateur.Nom")%>'></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:Label ID="lblSTitreSession" runat="server" Text="Session : " SkinID="lbChampsFormulaire"></asp:Label>
+                                <asp:Label ID="lblSession" runat="server" Text='<%#Eval("Session.NomSession")%>'></asp:Label>
                             </td>
                         </tr>
                     </table>
@@ -205,7 +211,7 @@
                 <asp:DropDownList ID="dDListMembres" runat="server" DataSourceID="entityDataSourceMembre"
                         DataTextField="Prénom" DataValueField="noMembre">
                 </asp:DropDownList>
-                <asp:Button ID="btnSinscrire" runat="server" Text="S'inscrire" SkinID="btnAjoutSupprimer" />
+                <asp:Button ID="btnSinscrire" runat="server" Text="S'inscrire" SkinID="btnAjoutSupprimer" Width="80px" />
             </div>
             <div class="btnCentre">
                 <asp:Button ID="btnRetour" runat="server" Text="Retour" Width="80px" SkinID="btnAjoutSupprimer" />
@@ -219,8 +225,8 @@
     <asp:HiddenField ID="hFieldNoCategorie" runat="server" Value="0" />
     <asp:EntityDataSource ID="entityDataSourceListeCours" runat="server" 
     ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-    EntitySetName="Cours" EnableFlattening="false" Include="GroupeDAge, Session, Catégorie"
-        Where='(it.Nom + it.[Catégorie].Nom + it.[GroupeDAge].NomGroupeDAge like "%"+@recherche+"%" OR (@recherche = "")) AND (it.[Catégorie].[noCatégorie] = @categorie OR @categorie = 0)'>                
+    EntitySetName="Cours" EnableFlattening="false" Include="GroupeDAge, Catégorie"
+        Where='(it.Nom + it.[Catégorie].Nom + it.[GroupeDAge].NomGroupeDAge like "%"+@recherche+"%" OR (@recherche = "")) AND (it.[Catégorie].[noCatégorie] = @categorie OR @categorie = 0) AND it.Actif'>                
         <WhereParameters>
             <asp:ControlParameter Name="recherche" Type="String" ControlID="txtRechercher" ConvertEmptyStringToNull="false" />
             <asp:ControlParameter Name="categorie" Type="Int32" ControlID="hFieldNoCategorie" />
@@ -232,7 +238,7 @@
     </asp:EntityDataSource>
     <asp:EntityDataSource ID="entityDataSourceCours" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-        EntitySetName="Cours" EnableFlattening="false" Include="GroupeDAge, Session, Catégorie, lePrerequis"
+        EntitySetName="Cours" EnableFlattening="false" Include="GroupeDAge, Catégorie, lePrerequis"
         Where="it.[noCours] = @leNoCours">               
         <WhereParameters>
             <asp:ControlParameter Name="leNoCours" Type="Int32" ControlID="hFieldnoCours" />
@@ -240,15 +246,16 @@
     </asp:EntityDataSource>
     <asp:EntityDataSource ID="entityDataSourceGroupes" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-        EntitySetName="Groupe" EnableFlattening="false" Include="Cours"
-        Where="it.Cours.noCours = @leNoCours">
+        EntitySetName="Groupe" EnableFlattening="false" Include="Cours, Session"
+        Where='it.Cours.noCours = @leNoCours AND it.Actif AND it.Session.NomSession <> "Prerequis" AND it.Session.DebutSession > @Ya6mois  '>
         <WhereParameters>
             <asp:ControlParameter Name="leNoCours" Type="Int32" ControlID="hFieldnoCours" />
+            <asp:Parameter Name="Ya6Mois" Type="DateTime" />
         </WhereParameters>
     </asp:EntityDataSource>
     <asp:EntityDataSource ID="entityDataSourceLeGroupe" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-        EntitySetName="Groupe" EnableFlattening="false" Include="Cours, Animateur"
+        EntitySetName="Groupe" EnableFlattening="false" Include="Cours, Animateur, Session"
         Where="it.noGroupe = @leNoGroupe">
         <WhereParameters>
             <asp:ControlParameter Name="leNoGroupe" Type="Int32" ControlID="hFieldnoGroupe2" />
@@ -271,9 +278,10 @@
     <asp:EntityDataSource ID="entityDataSourcePaiements" runat="server"
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
         EntitySetName="Paiement" EnableFlattening="false" Include="Groupe, Membre, Groupe.Cours"
-        Where="it.Groupe.noGroupe = @leNoGroupe">
+        Where="it.Groupe.noGroupe = @leNoGroupe AND @peutVoir">
         <WhereParameters>
             <asp:ControlParameter Name="leNoGroupe" Type="Int32" ControlID="hFieldnoGroupe2" />
+            <asp:Parameter Name="peutVoir" Type="Boolean" DefaultValue="False" />
         </WhereParameters>
     </asp:EntityDataSource>
 </asp:Content>

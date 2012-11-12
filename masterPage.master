@@ -36,8 +36,8 @@
                 <asp:ContentPlaceHolder ID="contentMenuAdmin" runat="server">
                     <div class="menuFloat">
                          <asp:Menu ID="menuAdmin" runat="server" DataSourceID="siteMapDataSourceAdmin">
-                         <StaticHoverStyle BackColor="#537EFF" ForeColor="White" />
-                         <StaticSelectedStyle BackColor="#537EFF" ForeColor="White" />
+                             <StaticHoverStyle BackColor="#537EFF" ForeColor="White" />
+                             <StaticSelectedStyle BackColor="#537EFF" ForeColor="White" />
                      </asp:Menu>
                     </div>
                 </asp:ContentPlaceHolder>

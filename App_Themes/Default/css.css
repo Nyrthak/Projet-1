@@ -22,7 +22,10 @@ body{ width:1023px; margin:auto; background-color:#c5c5c5;}
             .menuFloat ul{list-style-type:none;}
                 .menuFloat ul li{line-height: 40px; border-bottom:1px solid black; text-align:center; width:180px;}
                 .menuFloat ul li a{display:block;}
-                    #corps .menuFloat ul li a:hover{color:white; background-color:#537EFF;}
+                #corps .menuFloat ul li a:hover{color:white; background-color:#537EFF;}
+                        .menuFloat ul li ul li{line-height:25px; background-color:#537eff; border: none;}
+                            #corps .menuFloat ul li ul li a{color:White;}
+                            #corps .menuFloat ul li ul li a:hover{border-top:1px solid white; border-bottom:1px solid white; line-height:23px;}
         /* Content right (lorsque menu à gauche) */
         #contentRight{float:right; width:528px; margin-left:20px;} /* width:548px kath */
             #contentRight .itemTemplate{width:235px; border-collapse:collapse; height:20px;}
@@ -35,9 +38,17 @@ body{ width:1023px; margin:auto; background-color:#c5c5c5;}
         /* Page Gérer cours */
         .btnAjout{Margin-top:50px;}
         /* Page Liste d'attente Admin */
-        #tbListeAttente{width:400px;}
-            #tbListeAttente td{text-align:center;}
-       
+        #tbListeAttente{width:500px; border-collapse:collapse; margin-bottom:25px;}
+            #tbListeAttente td{text-align:center; padding-bottom:5px;}
+            #tbListeAttente th{font-size:18px;}
+            
+            #tbAnimateurs{width:500px; border-collapse:collapse; margin-bottom:25px;}
+            #tbAnimateurs td{text-align:left; padding-bottom:5px}
+            #tbAnimateurs .trInsert{background-color:#537EFF;}
+            #tbAnimateurs .tdTop{border-top:1px solid black; padding-top:5px;}
+            #tbAnimateurs .tdGauche{border-left:1px solid black; padding-left:15px;}
+            #tbAnimateurs .tdDroite{border-right:1px solid black; padding-right:15px;}
+            #tbAnimateurs .tdBas{border-bottom:1px solid black; padding-bottom:10px;}
         .longeurPremiereColonnePW{text-align:right; padding-right:4px;}
         .longeurPremiereColonne{width:260px; text-align:right; padding-right:4px; vertical-align:top;}
         .longeurPremiereColonneNOM{width:200px; padding-right:4px; vertical-align:top;}
@@ -57,6 +68,8 @@ body{ width:1023px; margin:auto; background-color:#c5c5c5;}
     .right{float:right; margin-right:50px;}
     .left{float:left; margin-left:50px;}
     #footer a{color: White;}
+/* Boutons */
+.btn { padding: 0 4px 0 4px;}
 /* no idea what is that */
 /*#corps .TableauAdmin td{width:690px; vertical-align:top; height:50px;}    ***Semble être inutile****/
 

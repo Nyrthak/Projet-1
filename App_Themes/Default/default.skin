@@ -11,8 +11,8 @@
 <asp:TextBox runat="server" SkinId="TextBoxDescription" Width="378px" Height="100px" BorderColor="Black" BorderWidth="1px"/>
 <asp:TextBox runat="server" SkinId="tbSkin" BorderColor="Black" BorderWidth="1px" Font-Size="15px"/>
 
-<asp:Button runat="server" SkinID="btnAjoutSupprimer" BorderColor="Black" BorderStyle="Solid" BorderWidth="1px" Font-Size="15px" />
-<asp:Button runat="server" SkinID="btnEnregistrer"  BorderColor="Black" BorderStyle="Solid" BorderWidth="1px" Font-Size="18px" CssClass="paddingControl" />
+<asp:Button runat="server" SkinID="btnAjoutSupprimer" BorderColor="Black" BorderStyle="Solid" BorderWidth="1px" Font-Size="15px" CssClass="btn" />
+<asp:Button runat="server" SkinID="btnEnregistrer" BorderColor="Black" BorderStyle="Solid" BorderWidth="1px" Font-Size="18px" CssClass="paddingControl" />
 <asp:Button runat="server" SkinID="btnModiMotDePasse" BorderColor="Black" BorderStyle="Solid" BorderWidth="1px" Font-Size="18px" CssClass="paddingControl" />
 <asp:Button runat="server" SkinId="btnConfirmation" Font-Size="15px" BorderColor="Black" BorderWidth="1px" CssClass="paddingControl"/>
 <asp:Button runat="server" SkinId="btnAdmin" Font-Size="18px" BorderColor="Black" BorderWidth="1px" CssClass="paddingControl" />

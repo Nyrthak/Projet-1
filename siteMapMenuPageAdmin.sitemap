@@ -1,10 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
     <siteMapNode url="" title=""  description="">
+      <siteMapNode url="" title="Gérer"  description="Gérer">
+        <siteMapNode url="~/admin/GérerLesCours.aspx" title="Gérer les cours" description="Ajouter, modifier, supprimer un cours"/>
+        <siteMapNode url="~/admin/GererForfaits.aspx" title="Gérer les forfaits" description="Gérer les forfaits familiaux"/>
+        <siteMapNode url="~/admin/GererAnimateurs.aspx" title="Gérer les animateurs"  description="Gérer les animateurs" />
+        <siteMapNode url="~/admin/GererCategories.aspx" title="Gérer les catégories"  description="Gérer les catégories" />
+        <siteMapNode url="~/admin/GererJours.aspx" title="Gérer les jours"  description="Gérer les jours" />
+        <siteMapNode url="~/admin/GererProvinces.aspx" title="Gérer les provinces"  description="Gérer les provinces" />
+        <siteMapNode url="~/admin/GererGroupesDAge.aspx" title="Gérer les groupes d'âge"  description="Gérer les groupes d'âge" />
+        <siteMapNode url="~/admin/GererSessions.aspx" title="Gérer les sessions"  description="Gérer les sessions" />
+        <siteMapNode url="~/admin/GererSpecialites.aspx" title="Gérer les spécialités"  description="Gérer les spécialités" />
+      </siteMapNode>
       <siteMapNode url="~/admin/default.aspx" title="Mon compte" description="Modification du compte administrateur"/>
       <siteMapNode url="~/admin/ajouterComptePrepose.aspx" title="Ajouter un préposé" description="Ajouter un compte préposé"/>
-      <siteMapNode url="~/admin/GérerLesCours.aspx" title="Gérer les cours" description="Ajouter, modifier, supprimer un cours"/>
-      <siteMapNode url="" title="Gérer les forfaits" description="Gérer les forfaits familiaux"/>
-      <siteMapNode url="~/admin/listesDattente.aspx" title="Listes d'attente"  description="Afficher toutes les listes d'attente" />        
+      <siteMapNode url="~/admin/listesDattente.aspx" title="Listes d'attente"  description="Afficher toutes les listes d'attente" />
     </siteMapNode>
 </siteMap>

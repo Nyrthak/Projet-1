@@ -40,6 +40,7 @@ Partial Class coursDefault
     Protected Sub lViewListeCours_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles lViewListeCours.ItemCommand
         If e.CommandName = "Selection" Then
             hFieldnoCours.Value = e.CommandArgument
+            entityDataSourceGroupes.WhereParameters("Ya6mois").DefaultValue = Date.Now.AddMonths(-6)
             mViewCours.ActiveViewIndex = 1
             lviewCours.DataBind()
             Dim leNoCours As String = hFieldnoCours.Value
@@ -52,8 +53,8 @@ Partial Class coursDefault
 
     Protected Sub lviewGroupes_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles lviewGroupes.ItemCommand
         If e.CommandName = "Selection" Then
-            mViewCours.ActiveViewIndex = 2
             hFieldnoGroupe2.Value = e.CommandArgument
+            mViewCours.ActiveViewIndex = 2
         ElseIf e.CommandName = "Inscription" Then
             Dim leNoGroupe As Integer = e.CommandArgument
             Dim leGroupe As Groupe = (From monGroupe In lecontext.Groupe Where monGroupe.noGroupe = leNoGroupe Select monGroupe).FirstOrDefault
@@ -99,7 +100,6 @@ Partial Class coursDefault
     Protected Sub btnRechercher_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnRechercher.Click
         mViewCours.ActiveViewIndex = 0
     End Sub
-
     
     Protected Sub lviewGroupes_DataBound(ByVal sender As Object, ByVal e As System.EventArgs) Handles lviewGroupes.DataBound
         If Session("noCompte") Is Nothing Then
@@ -123,8 +123,21 @@ Partial Class coursDefault
 
     Protected Sub mViewCours_ActiveViewChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles mViewCours.ActiveViewChanged
         lbMessage.Text = ""
+        If mViewCours.ActiveViewIndex = 2 Then
+            If Session("noCompte") IsNot Nothing Then
+                Dim noCompte As Integer = Session("noCompte")
+                Dim lecompte As Compte = (From unCompte In lecontext.Compte Where unCompte.noCompte = noCompte Select unCompte).FirstOrDefault
+                For Each membre In lecompte.Membre
+                    For Each Paiement In membre.Paiement
+                        Dim noGroupe As Integer = hFieldnoGroupe2.Value
+                        If Paiement.Groupe.noGroupe = noGroupe Then
+                            entityDataSourcePaiements.WhereParameters("peutVoir").DefaultValue = True
+                        End If
+                    Next
+                Next
+            End If
+        End If
     End Sub
-#End Region
 
     Protected Sub btnSinscrire_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSinscrire.Click
         Dim leNoGroupe As Integer = hFieldnoGroupe2.Value
@@ -163,4 +176,5 @@ Partial Class coursDefault
             lecontext.SaveChanges()
         End If
     End Sub
+#End Region
 End Class

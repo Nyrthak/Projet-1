@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="VB" AutoEventWireup="false" MasterPageFile="~/masterPage.master" CodeFile="GérerLesCours.aspx.vb" Inherits="Admin_GérerLesCours" %>
 <%@ Register TagPrefix="asp" Namespace="AjaxControlToolkit" Assembly="AjaxControlToolkit"%>
+<%@ PreviousPageType VirtualPath="~/Admin/listesDAttente.aspx" %>
 
 <asp:Content ID="ContentMenu" ContentPlaceHolderID="contentMenuClient" runat="server"></asp:Content>
 <asp:Content ID="contentMenuPrepose" ContentPlaceHolderID="contentMenuPrepose" runat="server"></asp:Content>
@@ -33,17 +34,20 @@
                         <td><asp:Label ID="lblNomCours" runat="server" Text='<%#Eval("Nom")%>'></asp:Label></td>
                         <td><asp:LinkButton ID="lblNbGroupe" runat="server" Text='<%#Eval("nbGroupes")%>' CommandName="VoirGroupes" CommandArgument='<%#Eval("noCours") %>'></asp:LinkButton></td>
                         <td><asp:Label ID="lblCategorie" runat="server" Text='<%#Eval("nomCategorie")%>'></asp:Label></td>
-                        <td><asp:Button ID="btnModifier" runat="server" Text="Modifier" SkinID="btnConfirmation" CommandName="Modifier" CommandArgument='<%#Eval("noCours")%>'  /></td>
+                        <td><asp:Button ID="btnModifier" runat="server" Text="Modifier" SkinID="btnAjoutSupprimer" Width="72px" CommandName="Modifier" CommandArgument='<%#Eval("noCours")%>'  /></td>
                         <td>
-                            <asp:Button ID="btnSupprimer" runat="server" Text="Supprimer" SkinID="btnConfirmation" CommandName="Delete" CommandArgument='<%#Eval("noCours")%>' />
+                            <asp:Button ID="btnDesactiver" runat="server" Text="Désactiver" SkinID="btnAjoutSupprimer" Width="72px" CommandName="Desactiver" CommandArgument='<%#Eval("noCours")%>' />
+                        </td>
+                        <td>
+                        <asp:Button ID="btnSupprimer" runat="server" Text="Supprimer" SkinID="btnAjoutSupprimer" Width="72px" CommandName="Supprimer" CommandArgument='<%#Eval("noCours")%>' />
                             <ajaxToolkit:ConfirmButtonExtender ID="confirmBtnExtSupprimer" runat="server" TargetControlID="btnSupprimer" ConfirmText="Voulez-vous vraiment supprimer ce cours?">
-                            </ajaxToolkit:ConfirmButtonExtender>
+                            </ajaxToolkit:ConfirmButtonExtender>  
                         </td>
                     </tr>
                 </ItemTemplate>
             </asp:ListView>
             <br />
-            <asp:Button ID="btnAjouterUnCours" runat="server" Text="Ajouter" SkinID="btnConfirmation"/>
+            <asp:Button ID="btnAjouterUnCours" runat="server" Text="Ajouter" SkinID="btnAjoutSupprimer" Width="72px"/>
             <br /><br />
             <asp:DataPager ID="DataPagerGereCours" runat="server" 
                 PagedControlID="lViewCours">
@@ -84,16 +88,14 @@
                     </tr>
                     <tr>
                         <td><asp:Label ID="lblGroupeDAge" runat="server" Text="Groupe d'âge" SkinID="lbChampsFormulaire"></asp:Label></td>
-                        <td><asp:Label ID="lblSession" runat="server" Text="Session" SkinID="lbChampsFormulaire"></asp:Label></td>
+                        <td></td>
                         <td><asp:Label ID="lblCategorie" runat="server" Text="Catégorie" SkinID="lbChampsFormulaire"></asp:Label></td>
                     </tr>
                     <tr>
                         <td><asp:DropDownList ID="dDListGroupeDAge" runat="server" 
                                 SkinID="dDListFormulaire" DataSourceID="entiDataSourceGroupeDAge" 
                                 DataTextField="NomGroupeDAge" DataValueField="noGroupeDAge"  SelectedValue='<%#Bind("GroupeDAge_noGroupeDAge")%>'></asp:DropDownList></td>
-                        <td><asp:DropDownList ID="dDListSession" runat="server" SkinID="dDListFormulaire" 
-                                DataSourceID="entiDataSourceSession" DataTextField="NomSession" 
-                                DataValueField="noSession"  SelectedValue='<%#Bind("Session_noSession")%>'></asp:DropDownList></td>
+                        <td></td>
                         <td><asp:DropDownList ID="dDListCategorie" runat="server" SkinID="dDListFormulaire" 
                                 DataSourceID="entiDataSourceCategorie" DataTextField="Nom" 
                                 DataValueField="noCatégorie" SelectedValue='<%#Bind("Catégorie_noCatégorie")%>'></asp:DropDownList></td>
@@ -124,13 +126,20 @@
                 <LayoutTemplate>
                     <asp:Label ID="lblTitreModifierCours" runat="server" Text="Liste des groupes" SkinID="lbTitrePage"></asp:Label>
                     <table id="tbCours">
+                        <tr>
+                            <td><asp:Label ID="lblTitreNomGroupe" runat="server" SkinID="lbTitreInfoMembre" Text="Nom"></asp:Label></td>
+                            <td><asp:Label ID="lblTitreAge" runat="server" SkinID="lbTitreInfoMembre" Text="Âge"></asp:Label></td>
+                            <td><asp:Label ID="lblTitreSession" runat="server" SkinID="lbTitreInfoMembre" Text="Session"></asp:Label></td>
+                        </tr>
                         <asp:PlaceHolder id="ItemPlaceHolder" runat="server" />
                     </table>
                 </LayoutTemplate>
                 <ItemTemplate>
                     <tr>
-                        <td><asp:LinkButton ID="lnkGroupe" runat="server" Text='<%# "Groupe " & Eval("noGroupe") %>' CommandName="Selection" CommandArgument='<%#Eval("noGroupe")%>' /></td>
+                        <td><asp:LinkButton ID="lnkGroupe" runat="server" Text='<%# Eval("Nom") %>' CommandName="Selection" CommandArgument='<%#Eval("noGroupe")%>' /></td>
                         <td><asp:Label ID="lblAge" runat="server" Text='<%#Eval("AgeMinimum") & "-" & Eval("AgeMaximum") & " ans"%>' /></td>
+                        <td><asp:Label ID="lblSession" runat="server" Text='<%#Eval("Session.NomSession")%>' /></td>
+                        <td><asp:Button ID="btnDesactiver" runat="server" SkinID="btnConfirmation" Text="Désactiver" CommandName="Desactiver" CommandArgument='<%#Eval("noGroupe")%>' /></td>
                         <td>
                             <asp:Button ID="btnSupprimer" runat="server" SkinID="btnConfirmation" Text="Supprimer" CommandName="Delete" />
                             <ajaxToolkit:ConfirmButtonExtender ID="confirmBtnExtSupprimer" runat="server" TargetControlID="btnSupprimer" ConfirmText="Voulez-vous vraiment supprimer ce groupe?">
@@ -145,7 +154,7 @@
                         </LayoutTemplate>
                         <ItemTemplate>
                             <tr>
-                                <td></td>
+                                <td colspan="2"></td>
                                 <td  class="horaire"><asp:Label ID="lblHoraire" runat="server" Text='<%#Eval("Jour.nomJour") & " de " & Eval("HeureDebut", "{0:hh:mm}") & "h" & " à " & Eval("HeureFin", "{0:hh:mm}") & "h" %>' /></td>
                                 <td colspan="2"></td>
                             </tr>
@@ -174,12 +183,12 @@
                     <asp:PlaceHolder id="ItemPlaceHolder" runat="server" />
                 </LayoutTemplate>
                 <ItemTemplate>
-                    <asp:Label ID="lblTitreAfficherGroupe" runat="server" Text='<%# "Groupe " & Eval("noGroupe") %>' SkinID="lbTitrePage"></asp:Label>
+                    <asp:Label ID="lblTitreAfficherGroupe" runat="server" Text='<%#Eval("Cours.Nom") & " " & Eval("Nom") %>' SkinID="lbTitrePage"></asp:Label>
                     <table id="tbCours">
                         <tr>
                             <td>
-                                <asp:Label ID="lblTitreDebut" runat="server" Text="Date de début: " SkinID="lbChampsFormulaire"></asp:Label>
-                                <asp:Label ID="lblDebut" runat="server" Text='<%#Eval("DateDebut", "{0:dd/MM/yyyy}") %>'></asp:Label>
+                                <asp:Label ID="lblTitreNom" runat="server" Text="Nom: " SkinID="lbChampsFormulaire"></asp:Label>
+                                <asp:Label ID="lblTitre" runat="server" Text='<%#Eval("Nom") %>'></asp:Label>
                             </td>
                             <td>
                                 <asp:Label ID="lblTitreLocal" runat="server" Text="Local: " SkinID="lbChampsFormulaire"></asp:Label>
@@ -188,8 +197,8 @@
                         </tr>
                         <tr>
                             <td>
-                                <asp:Label ID="lblTitreFin" runat="server" Text="Date de fin: " SkinID="lbChampsFormulaire"></asp:Label>
-                                <asp:Label ID="lblFin" runat="server" Text='<%#Eval("DateFin", "{0:dd/MM/yyyy}") %>'></asp:Label>
+                                <asp:Label ID="lblTitreDebut" runat="server" Text="Date de début: " SkinID="lbChampsFormulaire"></asp:Label>
+                                <asp:Label ID="lblDebut" runat="server" Text='<%#Eval("DateDebut", "{0:dd/MM/yyyy}") %>'></asp:Label>
                             </td>
                             <td>
                                 <asp:Label ID="lblTitreAge" runat="server" Text="Âge: " SkinID="lbChampsFormulaire"></asp:Label>
@@ -198,12 +207,22 @@
                         </tr>
                         <tr>
                             <td>
-                                <asp:Label ID="lblTitreDateLimite" runat="server" Text="Date limite d'inscription: " SkinID="lbChampsFormulaire"></asp:Label>
-                                <asp:Label ID="lblDateLimite" runat="server" Text='<%#Eval("DateLimiteInscription", "{0:dd/MM/yyyy}") %>'></asp:Label>
+                                <asp:Label ID="lblTitreFin" runat="server" Text="Date de fin: " SkinID="lbChampsFormulaire"></asp:Label>
+                                <asp:Label ID="lblFin" runat="server" Text='<%#Eval("DateFin", "{0:dd/MM/yyyy}") %>'></asp:Label>
                             </td>
                             <td>
                                 <asp:Label ID="lblTitreAnimateur" runat="server" Text="Animateur: " SkinID="lbChampsFormulaire"></asp:Label>
                                 <asp:Label ID="lblAnimateur" runat="server" Text='<%#Eval("Animateur.Nom")%>'></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:Label ID="lblTitreDateLimite" runat="server" Text="Date limite d'inscription: " SkinID="lbChampsFormulaire"></asp:Label>
+                                <asp:Label ID="lblDateLimite" runat="server" Text='<%#Eval("DateLimiteInscription", "{0:dd/MM/yyyy}") %>'></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblTitreSession" runat="server" Text="Session: " SkinID="lbChampsFormulaire"></asp:Label>
+                                <asp:Label ID="Label2" runat="server" Text='<%#Eval("Session.NomSession")%>'></asp:Label>
                             </td>
                         </tr>
                         <tr>
@@ -228,15 +247,11 @@
                     <table id="tbCours">
                         <tr>
                             <td>
-                                <asp:Label ID="lblTitreDebut" runat="server" Text="Date de début: " SkinID="lbChampsFormulaire"></asp:Label>
-                                <asp:TextBox ID="tbDebut" runat="server" Text='<%#Bind("DateDebut", "{0:dd/MM/yyyy}") %>' SkinID="tbSkin" Width="90px" MaxLength="10"></asp:TextBox>
-                                <asp:ImageButton ID="imgBtnDebut" ImageUrl="~/App_Themes/Default/images/btnCalendrier.png" runat="server" CausesValidation="false" />
-                                <asp:RequiredFieldValidator ForeColor="Red"
-                                    ID="rfvDebut" runat="server" ErrorMessage="La date de début doit être spécifiée." 
-                                    ControlToValidate="tbDebut" Display="Dynamic">*</asp:RequiredFieldValidator>
-                                <asp:CompareValidator runat="server" ID="cvDebut" Type="Date" ControlToValidate="tbDebut"
-                                    ErrorMessage="La date de début n'est pas du bon format (jj-mm-aaaa)" ForeColor="Red"
-                                    Operator="DataTypeCheck" Display="Dynamic">*</asp:CompareValidator>
+                                <asp:Label ID="lblTitreNom" runat="server" Text="Nom: " SkinID="lbChampsFormulaire"></asp:Label>
+                                <asp:TextBox ID="tbNom" runat="server" Text='<%#Bind("Nom") %>' SkinID="tbSkin" Width="60px" MaxLength="8"></asp:TextBox>
+                                <asp:RequiredFieldValidator  ForeColor="Red"
+                                    ID="rfvNom" runat="server" ErrorMessage="Le nom doit être spécifié." 
+                                    ControlToValidate="tbLocal" Display="Dynamic">*</asp:RequiredFieldValidator>
                             </td>
                             <td>
                                 <asp:Label ID="lblTitreLocal" runat="server" Text="Local: " SkinID="lbChampsFormulaire"></asp:Label>
@@ -250,18 +265,15 @@
                         </tr>
                         <tr>
                             <td>
-                                <asp:Label ID="lblTitreFin" runat="server" Text="Date de fin: " SkinID="lbChampsFormulaire"></asp:Label>
-                                <asp:TextBox ID="tbFin" runat="server" Text='<%#Bind("DateFin", "{0:dd/MM/yyyy}") %>' SkinID="tbSkin" Width="90px" MaxLength="10"></asp:TextBox>
-                                <asp:ImageButton ID="imgBtnFin" ImageUrl="~/App_Themes/Default/images/btnCalendrier.png" runat="server" CausesValidation="false" />
+                                <asp:Label ID="lblTitreDebut" runat="server" Text="Date de début: " SkinID="lbChampsFormulaire"></asp:Label>
+                                <asp:TextBox ID="tbDebut" runat="server" Text='<%#Bind("DateDebut", "{0:dd/MM/yyyy}") %>' SkinID="tbSkin" Width="90px" MaxLength="10"></asp:TextBox>
+                                <asp:ImageButton ID="imgBtnDebut" ImageUrl="~/App_Themes/Default/images/btnCalendrier.png" runat="server" CausesValidation="false" />
                                 <asp:RequiredFieldValidator ForeColor="Red"
-                                    ID="rfvFin" runat="server" ErrorMessage="La date de fin doit être spécifiée." 
+                                    ID="rfvDebut" runat="server" ErrorMessage="La date de début doit être spécifiée." 
                                     ControlToValidate="tbDebut" Display="Dynamic">*</asp:RequiredFieldValidator>
-                                <asp:CompareValidator runat="server" ID="cvFin" Type="Date" ControlToValidate="tbDebut"
-                                    ErrorMessage="La date de fin n'est pas du bon format (jj-mm-aaaa)" ForeColor="Red"
+                                <asp:CompareValidator runat="server" ID="cvDebut" Type="Date" ControlToValidate="tbDebut"
+                                    ErrorMessage="La date de début n'est pas du bon format (jj-mm-aaaa)" ForeColor="Red"
                                     Operator="DataTypeCheck" Display="Dynamic">*</asp:CompareValidator>
-                                <asp:CompareValidator runat="server" ID="cvFinCompareDebut" Type="Date" ControlToValidate="tbFin"
-                                    ControlToCompare="tbDebut" ErrorMessage="La date de fin doit être avant la date de début." ForeColor="Red"
-                                    Operator="GreaterThan" Display="Dynamic">*</asp:CompareValidator>
                             </td>
                             <td>
                                 <asp:Label ID="lblTitreAge" runat="server" Text="Âge: " SkinID="lbChampsFormulaire"></asp:Label>
@@ -288,6 +300,28 @@
                         </tr>
                         <tr>
                             <td>
+                                <asp:Label ID="lblTitreFin" runat="server" Text="Date de fin: " SkinID="lbChampsFormulaire"></asp:Label>
+                                <asp:TextBox ID="tbFin" runat="server" Text='<%#Bind("DateFin", "{0:dd/MM/yyyy}") %>' SkinID="tbSkin" Width="90px" MaxLength="10"></asp:TextBox>
+                                <asp:ImageButton ID="imgBtnFin" ImageUrl="~/App_Themes/Default/images/btnCalendrier.png" runat="server" CausesValidation="false" />
+                                <asp:RequiredFieldValidator ForeColor="Red"
+                                    ID="rfvFin" runat="server" ErrorMessage="La date de fin doit être spécifiée." 
+                                    ControlToValidate="tbDebut" Display="Dynamic">*</asp:RequiredFieldValidator>
+                                <asp:CompareValidator runat="server" ID="cvFin" Type="Date" ControlToValidate="tbDebut"
+                                    ErrorMessage="La date de fin n'est pas du bon format (jj-mm-aaaa)" ForeColor="Red"
+                                    Operator="DataTypeCheck" Display="Dynamic">*</asp:CompareValidator>
+                                <asp:CompareValidator runat="server" ID="cvFinCompareDebut" Type="Date" ControlToValidate="tbFin"
+                                    ControlToCompare="tbDebut" ErrorMessage="La date de fin doit être après la date de début." ForeColor="Red"
+                                    Operator="GreaterThan" Display="Dynamic">*</asp:CompareValidator>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblTitreAnimateur" runat="server" Text="Animateur: " SkinID="lbChampsFormulaire"></asp:Label>
+                                <asp:DropDownList ID="dDListAnimateur" runat="server" DataSourceID="entiDataSourceAnimateur" SkinID="dDListFormulaire"
+                                    DataTextField="Nom" DataValueField="noAnimateur" SelectedValue='<%#Bind("Animateur_noAnimateur")%>'>
+                                </asp:DropDownList>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
                                 <asp:Label ID="lblTitreDateLimite" runat="server" Text="Date limite d'inscription: " SkinID="lbChampsFormulaire"></asp:Label>
                                 <asp:TextBox ID="tbDateLimite" runat="server" Text='<%#Bind("DateLimiteInscription", "{0:dd/MM/yyyy}") %>' SkinID="tbSkin" Width="90px" MaxLength="10"></asp:TextBox>
                                 <asp:ImageButton ID="imgBtnDateLimite" ImageUrl="~/App_Themes/Default/images/btnCalendrier.png" runat="server" CausesValidation="false" />
@@ -302,10 +336,10 @@
                                     Operator="LessThanEqual" Display="Dynamic">*</asp:CompareValidator>
                             </td>
                             <td>
-                                <asp:Label ID="lblTitreAnimateur" runat="server" Text="Animateur: " SkinID="lbChampsFormulaire"></asp:Label>
-                                <asp:DropDownList ID="dDListAnimateur" runat="server" DataSourceID="entiDataSourceAnimateur" SkinID="dDListFormulaire"
-                                    DataTextField="Nom" DataValueField="noAnimateur" SelectedValue='<%#Bind("Animateur_noAnimateur")%>'>
-                                </asp:DropDownList>
+                                <asp:Label ID="lblSession" runat="server" Text="Session" SkinID="lbChampsFormulaire"></asp:Label>
+                                <asp:DropDownList ID="dDListSession" runat="server" SkinID="dDListFormulaire" 
+                                    DataSourceID="entiDataSourceSession" DataTextField="NomSession" 
+                                    DataValueField="noSession"  SelectedValue='<%#Bind("Session.noSession")%>'></asp:DropDownList>
                             </td>
                         </tr>
                         <tr>
@@ -368,7 +402,24 @@
                             </tr>
                         </EditItemTemplate>
                     </asp:ListView>
-            <asp:Button ID="btnAjouterHoraire" runat="server" Text="Ajouter un horaire" Width="140px" SkinID="btnAjoutSupprimer"/>
+            <asp:Button ID="btnAjouterHoraire" runat="server" Text="Ajouter un horaire" Width="140px" SkinID="btnAjoutSupprimer"/><br />
+            <asp:ListView ID="lViewMembres" runat="server" DataSourceID="entityDataSourcePaiements" DataKeyNames="noPaiement" GroupItemCount="3">
+                <LayoutTemplate>
+                    <asp:Label ID="lblTitreMembres" runat="server" Text= "Liste des membres " SkinID="lbSousTitre" />
+                    <table>
+                        <asp:PlaceHolder id="GroupPlaceHolder" runat="server" /> 
+                    </table>                          
+                </LayoutTemplate>
+                <GroupTemplate>
+                    <tr>
+                        <asp:PlaceHolder id="ItemPlaceHolder" runat="server" />
+                    </tr>
+                </GroupTemplate>
+                <ItemTemplate>
+                        <td><asp:Label ID="lblNom" runat="server" Text='<%#Eval("Membre.Prénom") & " " & Eval("Membre.Nom") %>'></asp:Label></td>
+                        <td width="50px"><asp:LinkButton ID="lnkSupprimer" runat="server" CommandName="Delete">X</asp:LinkButton></td>
+                </ItemTemplate>
+            </asp:ListView>  
             <div class="btnCentre">
                 <asp:Button ID="btnRetour" runat="server" Text="Retour" Width="80px" SkinID="btnAjoutSupprimer" />
             </div>
@@ -382,7 +433,7 @@
                     ContextTypeName="Model.ModelContainer"
                     TableName="Cours" 
                     Select="new (noCours, Nom, Catégorie.Nom As nomCategorie, Groupe.Count() AS nbGroupes)" 
-                    EnableDelete="True" OrderBy="Actif DESC, noCours"
+                    OrderBy="Actif DESC, noCours"
                     Where='(@recherche = "") || Nom.Contains(@recherche) || Catégorie.Nom.Contains(@recherche)' >
                     <WhereParameters>
                         <asp:ControlParameter Name="recherche" ControlID="tbRechercher" ConvertEmptyStringToNull="false" />
@@ -394,7 +445,7 @@
     <asp:EntityDataSource ID="entiDataSourceCours" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer"
         EnableUpdate="True" EntitySetName="Cours" EnableFlattening="false"
-        Where="it.[noCours] = @noCours" Include="[Catégorie], Session, GroupeDAge, lePrerequis">
+        Where="it.[noCours] = @noCours" Include="[Catégorie], GroupeDAge, lePrerequis">
         <WhereParameters>
             <asp:ControlParameter Name="noCours" Type="Int32" ControlID="hFieldNoCours" />
         </WhereParameters>
@@ -402,10 +453,6 @@
     <asp:EntityDataSource ID="entiDataSourceGroupeDAge" runat="server" 
     ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
     EnableFlattening="False" EntitySetName="GroupeDAge">
-    </asp:EntityDataSource>
-    <asp:EntityDataSource ID="entiDataSourceSession" runat="server" 
-        ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-        EnableFlattening="False" EntitySetName="Session">
     </asp:EntityDataSource>
     <asp:EntityDataSource ID="entiDataSourceCategorie" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
@@ -422,17 +469,20 @@
     <asp:HiddenField ID="hFieldnoCours2" runat="server" />
     <asp:EntityDataSource ID="entiDataSourceGroupes" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-        EntitySetName="Groupe" EnableFlattening="false" EnableDelete="true" Include="Cours"
+        EntitySetName="Groupe" EnableFlattening="false" EnableDelete="true" Include="Cours, Session"
         Where="it.Cours.noCours = @leNoCours">
         <WhereParameters>
             <asp:ControlParameter Name="leNoCours" Type="Int32" ControlID="hFieldnoCours2" />
         </WhereParameters>
     </asp:EntityDataSource>
-
+    <asp:EntityDataSource ID="entiDataSourceSession" runat="server" 
+        ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
+        EnableFlattening="False" EntitySetName="Session">
+    </asp:EntityDataSource>
     <%-- View le groupe --%>
     <asp:EntityDataSource ID="entiDataSourceLeGroupe" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-        EntitySetName="Groupe" EnableFlattening="false" Include="Cours, Animateur"
+        EntitySetName="Groupe" EnableFlattening="false" Include="Cours, Animateur, Session"
         Where="it.noGroupe = @leNoGroupe" EnableUpdate="true">
         <WhereParameters>
             <asp:ControlParameter Name="leNoGroupe" Type="Int32" ControlID="hFieldnoGroupe2" />
@@ -442,6 +492,14 @@
          EntitySetName="Horaire" EnableFlattening="false" EnableUpdate="true" EnableDelete="true" Include="Groupe, Jour" Where="it.Groupe.noGroupe = @noGroupe">
         <WhereParameters>
             <asp:ControlParameter Name="noGroupe" Type="Int32" ControlID="hFieldnoGroupe2" />
+        </WhereParameters>
+    </asp:EntityDataSource>
+    <asp:EntityDataSource ID="entityDataSourcePaiements" runat="server"
+        ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
+        EntitySetName="Paiement" EnableFlattening="false" EnableDelete="true" Include="Groupe, Membre, Groupe.Cours"
+        Where="it.Groupe.noGroupe = @leNoGroupe">
+        <WhereParameters>
+            <asp:ControlParameter Name="leNoGroupe" Type="Int32" ControlID="hFieldnoGroupe2" />
         </WhereParameters>
     </asp:EntityDataSource>
     <asp:EntityDataSource ID="entiDataSourceAnimateur" runat="server" ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer"

@@ -53,7 +53,7 @@
                 <asp:ImageButton ID="imgBtnCalendrier" ImageUrl="~/App_Themes/Default/images/btnCalendrier.png" runat="server" CausesValidation="false" />              
                     <asp:RequiredFieldValidator SkinID="requisValidation" 
                         ID="requisValidationDateNaissance" runat="server" 
-                        ErrorMessage="Votre date de naissance doit être spécifié." 
+                        ErrorMessage="Votre date de naissance doit être spécifiée." 
                         ControlToValidate="tbDateNaissance" Display="Dynamic">*</asp:RequiredFieldValidator>
                         <asp:CompareValidator runat="server" ID="test" Type="Date" ControlToValidate="tbDateNaissance" 
                         ErrorMessage="La date de naissance n'est pas du bon format (jj-mm-aaaa)" ForeColor="Red" Operator="DataTypeCheck" 
@@ -101,7 +101,7 @@
                     </td>
                 <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="200px" ID="tbAdresse" runat="server" MaxLength="30" ></asp:TextBox>
                 <asp:RequiredFieldValidator SkinID="requisValidation" ID="requisValidationAdresse" 
-                        runat="server" ErrorMessage="Votre adresse doit être spécifié." 
+                        runat="server" ErrorMessage="Votre adresse doit être spécifiée." 
                         ControlToValidate="tbAdresse" Display="Dynamic">*</asp:RequiredFieldValidator>                      
                     </td>
             </tr>
@@ -113,8 +113,8 @@
                         ID="requisValidationCodePostal" runat="server" 
                         ErrorMessage="Votre code postal doit être spécifié." 
                         ControlToValidate="tbCodePostal" Display="Dynamic">*</asp:RequiredFieldValidator>
-                        <asp:RegularExpressionValidator ID="reguExpressionCodePostale" runat="server" 
-                            ErrorMessage="Le code postale n'est pas du bon format(X#X#X#)" 
+                        <asp:RegularExpressionValidator ID="reguExpressionCodePostal" runat="server" 
+                            ErrorMessage="Le code postal n'est pas du bon format(X#X#X#)" 
                             ControlToValidate="tbCodePostal" 
                             ValidationExpression="^[ABCEGHJKLMNPRSTVXYabceghjklmnprstvxy]{1}\d{1}[ABCEGHJKLMNPRSTVWXYZabceghjklmnprstvwxyz]{1}\d{1}[ABCEGHJKLMNPRSTVWXYZabceghjklmnprstvwxyz]{1}\d{1}$" 
                             ForeColor="Red" Display="Dynamic">*</asp:RegularExpressionValidator> 
