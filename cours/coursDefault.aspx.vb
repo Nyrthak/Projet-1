@@ -80,7 +80,7 @@ Partial Class coursDefault
                 Next
             End If
 
-            If peutSinscrire Then
+            If Not dejaInscrit And peutSinscrire Then
                 lbMessage.Text = leMembre.Prénom & " " & leMembre.Nom & " est inscrit au Groupe " & leGroupe.noGroupe & " du cours de " & leGroupe.Cours.Nom & "."
                 Dim lePaiement As New Paiement
                 lePaiement.Groupe = leGroupe

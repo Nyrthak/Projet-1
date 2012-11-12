@@ -121,7 +121,6 @@
     <Property Name="Adresse" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="Ville" Type="nvarchar" Nullable="false" MaxLength="30" />
     <Property Name="CodePostal" Type="nvarchar" Nullable="false" MaxLength="6" />
-    <Property Name="Abonnement" Type="bit" Nullable="true" />
     <Property Name="ModePaiement" Type="nvarchar" Nullable="true" MaxLength="20" />
     <Property Name="motDePasseCrypté" Type="nvarchar" Nullable="false" MaxLength="100" />
     <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="30" />
@@ -147,7 +146,7 @@
     <Key>
       <PropertyRef Name="nbInscrits" />
     </Key>
-    <Property Name="nbInscrits" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nbInscrits" Type="int" Nullable="false" />
     <Property Name="Coût" Type="float" Nullable="false" />
   </EntityType>
   <EntityType Name="Groupe">
@@ -164,6 +163,7 @@
     <Property Name="Animateur_noAnimateur" Type="int" Nullable="false" />
     <Property Name="Cours_noCours" Type="int" Nullable="false" />
     <Property Name="Actif" Type="bit" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar" Nullable="false" MaxLength="10" />
   </EntityType>
   <EntityType Name="GroupeDAge">
     <Key>
@@ -197,6 +197,7 @@
     <Property Name="noListeDAttente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Membre_noMembre" Type="int" Nullable="false" />
     <Property Name="Groupe_noGroupe" Type="int" Nullable="false" />
+    <Property Name="Accepte" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Membre">
     <Key>
@@ -213,7 +214,7 @@
     <Key>
       <PropertyRef Name="noPaiement" />
     </Key>
-    <Property Name="ModePaiement" Type="nvarchar" Nullable="false" MaxLength="15" />
+    <Property Name="ModePaiement" Type="nvarchar" Nullable="true" MaxLength="15" />
     <Property Name="Prix" Type="float" Nullable="false" />
     <Property Name="noPaypal" Type="nvarchar" Nullable="false" MaxLength="30" />
     <Property Name="noPaiement" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
@@ -577,7 +578,6 @@
           <Property Type="String" Name="Adresse" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Ville" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="CodePostal" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
-          <Property Type="Boolean" Name="Abonnement" />
           <Property Type="String" Name="ModePaiement" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="motDePasseCrypté" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Email" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
@@ -611,7 +611,7 @@
           <Key>
             <PropertyRef Name="nbInscrits" />
           </Key>
-          <Property Type="Int32" Name="nbInscrits" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="nbInscrits" Nullable="false" annotation:StoreGeneratedPattern="None" />
           <Property Type="Double" Name="Coût" Nullable="false" />
         </EntityType>
         <EntityType Name="Groupe">
@@ -633,6 +633,7 @@
           <NavigationProperty Name="Horaire" Relationship="Model.FK_HoraireGroupe" FromRole="Groupe" ToRole="Horaire" />
           <NavigationProperty Name="ListeDAttente" Relationship="Model.FK_ListeDAttenteGroupe" FromRole="Groupe" ToRole="ListeDAttente" />
           <Property Type="Boolean" Name="Actif" Nullable="false" />
+          <Property Type="String" Name="Nom" Nullable="false" MaxLength="10" />
         </EntityType>
         <EntityType Name="GroupeDAge">
           <Key>
@@ -672,6 +673,7 @@
           <Property Type="Int32" Name="Groupe_noGroupe" Nullable="false" />
           <NavigationProperty Name="Groupe" Relationship="Model.FK_ListeDAttenteGroupe" FromRole="ListeDAttente" ToRole="Groupe" />
           <NavigationProperty Name="Membre" Relationship="Model.FK_ListeDAttenteMembre" FromRole="ListeDAttente" ToRole="Membre" />
+          <Property Type="Boolean" Name="Accepte" Nullable="false" />
         </EntityType>
         <EntityType Name="Membre">
           <Key>
@@ -691,7 +693,7 @@
           <Key>
             <PropertyRef Name="noPaiement" />
           </Key>
-          <Property Type="String" Name="ModePaiement" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ModePaiement" Nullable="true" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Type="Double" Name="Prix" Nullable="false" />
           <Property Type="String" Name="noPaypal" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="noPaiement" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
@@ -976,7 +978,6 @@
           <ScalarProperty Name="Adresse" ColumnName="Adresse" />
           <ScalarProperty Name="Ville" ColumnName="Ville" />
           <ScalarProperty Name="CodePostal" ColumnName="CodePostal" />
-          <ScalarProperty Name="Abonnement" ColumnName="Abonnement" />
           <ScalarProperty Name="ModePaiement" ColumnName="ModePaiement" />
           <ScalarProperty Name="motDePasseCrypté" ColumnName="motDePasseCrypté" />
           <ScalarProperty Name="Email" ColumnName="Email" />
@@ -1022,6 +1023,7 @@
           <ScalarProperty Name="Animateur_noAnimateur" ColumnName="Animateur_noAnimateur" />
           <ScalarProperty Name="Cours_noCours" ColumnName="Cours_noCours" />
           <ScalarProperty Name="Actif" ColumnName="Actif" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1059,6 +1061,7 @@
           <ScalarProperty Name="DateAjout" ColumnName="DateAjout" />
           <ScalarProperty Name="Membre_noMembre" ColumnName="Membre_noMembre" />
           <ScalarProperty Name="Groupe_noGroupe" ColumnName="Groupe_noGroupe" />
+          <ScalarProperty Name="Accepte" ColumnName="Accepte" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1138,17 +1141,17 @@
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram Name="Model" ZoomLevel="92" >
+      <Diagram Name="Model" ZoomLevel="97" >
         <EntityTypeShape EntityType="Model.Animateur" Width="1.5" PointX="3" PointY="13.25" Height="3.3263964843749818" />
         <EntityTypeShape EntityType="Model.Catégorie" Width="1.5" PointX="0.75" PointY="7.125" Height="1.5956835937499818" />
-        <EntityTypeShape EntityType="Model.Compte" Width="1.5" PointX="3" PointY="0.75" Height="3.7109993489583246" />
+        <EntityTypeShape EntityType="Model.Compte" Width="1.5" PointX="3" PointY="0.75" Height="3.5186979166666656" />
         <EntityTypeShape EntityType="Model.Cours" Width="1.5" PointX="3" PointY="6.125" Height="3.9033007812499996" />
         <EntityTypeShape EntityType="Model.Forfait" Width="1.5" PointX="7.75" PointY="10.125" Height="1.4033821614583246" />
-        <EntityTypeShape EntityType="Model.Groupe" Width="1.5" PointX="5.25" PointY="6.125" Height="3.9033007812499978" />
+        <EntityTypeShape EntityType="Model.Groupe" Width="1.5" PointX="5.25" PointY="6.125" Height="4.0956022135416674" />
         <EntityTypeShape EntityType="Model.GroupeDAge" Width="1.5" PointX="0.75" PointY="4" Height="1.5956835937499818" />
         <EntityTypeShape EntityType="Model.Horaire" Width="1.5" PointX="7.5" PointY="6.75" Height="2.3648893229166674" />
         <EntityTypeShape EntityType="Model.Jour" Width="1.5" PointX="5.25" PointY="11.125" Height="1.5956835937499818" />
-        <EntityTypeShape EntityType="Model.ListeDAttente" Width="1.5" PointX="7.5" PointY="3.875" Height="2.1725878906249818" />
+        <EntityTypeShape EntityType="Model.ListeDAttente" Width="1.5" PointX="7.5" PointY="3.875" Height="2.3648893229166656" />
         <EntityTypeShape EntityType="Model.Membre" Width="1.5" PointX="5.25" PointY="1.875" Height="2.7494921874999818" />
         <EntityTypeShape EntityType="Model.Paiement" Width="1.5" PointX="10.5" PointY="6.625" Height="2.5571907552083246" />
         <EntityTypeShape EntityType="Model.Province" Width="1.5" PointX="0.75" PointY="14" Height="1.7879850260416674" />
@@ -1158,8 +1161,8 @@
         <AssociationConnector Association="Model.FK_AnimateurGroupe" >
           <ConnectorPoint PointX="4.5" PointY="13.251152846153847" />
           <ConnectorPoint PointX="4.875" PointY="12.876152846153847" />
-          <ConnectorPoint PointX="4.875" PointY="8.6252440388997371" />
-          <ConnectorPoint PointX="5.25" PointY="8.6252440388997371" />
+          <ConnectorPoint PointX="4.875" PointY="8.76661161649577" />
+          <ConnectorPoint PointX="5.25" PointY="8.76661161649577" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_AnimateurProvince" >
           <ConnectorPoint PointX="2.25" PointY="14.893992513020834" />
@@ -1176,14 +1179,14 @@
           <ConnectorPoint PointX="3" PointY="7.9228417968749909" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_CompteMembre" >
-          <ConnectorPoint PointX="4.5" PointY="3.1679996744791623" />
-          <ConnectorPoint PointX="5.25" PointY="3.1679996744791623" />
+          <ConnectorPoint PointX="4.5" PointY="3.0718489583333328" />
+          <ConnectorPoint PointX="5.25" PointY="3.0718489583333328" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_CompteProvince" >
           <ConnectorPoint PointX="2.25" PointY="14.001152846153847" />
           <ConnectorPoint PointX="2.625" PointY="13.626152846153847" />
-          <ConnectorPoint PointX="2.625" PointY="2.6054996744791623" />
-          <ConnectorPoint PointX="3" PointY="2.6054996744791623" />
+          <ConnectorPoint PointX="2.625" PointY="2.5093489583333328" />
+          <ConnectorPoint PointX="3" PointY="2.5093489583333328" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_CoursCours" >
           <ConnectorPoint PointX="3.5319230769230767" PointY="10.02830078125" />
@@ -1192,8 +1195,8 @@
           <ConnectorPoint PointX="3.9784615384615383" PointY="10.02830078125" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_GroupeCours" >
-          <ConnectorPoint PointX="4.5" PointY="7.3126220194498686" />
-          <ConnectorPoint PointX="5.25" PointY="7.3126220194498686" />
+          <ConnectorPoint PointX="4.5" PointY="7.3833058082478846" />
+          <ConnectorPoint PointX="5.25" PointY="7.3833058082478846" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_GroupeDAgeCours" >
           <ConnectorPoint PointX="2.25" PointY="5.5333749014422891" />
@@ -1221,8 +1224,8 @@
         <AssociationConnector Association="Model.FK_ListeDAttenteGroupe" >
           <ConnectorPoint PointX="6.75" PointY="6.125" />
           <ConnectorPoint PointX="7.125" PointY="5.75" />
-          <ConnectorPoint PointX="7.125" PointY="6.4225878906249818" />
-          <ConnectorPoint PointX="7.5" PointY="6.0475878906249818" />
+          <ConnectorPoint PointX="7.125" PointY="6.6148893229166656" />
+          <ConnectorPoint PointX="7.5" PointY="6.2398893229166656" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_JourHoraire" >
           <ConnectorPoint PointX="6.75" PointY="12.155782877604153" />

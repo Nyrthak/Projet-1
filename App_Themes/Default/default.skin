@@ -7,16 +7,17 @@
 <asp:Label runat="server" SkinId="lbInfoMembre" ForeColor="Black"  Font-Size="18px"></asp:Label>
 
 <asp:TextBox runat="server" SkinID="tbInscription" Font-Size="18px" BorderColor="Black" BorderStyle="Solid" BorderWidth="1px" />
-<asp:TextBox runat="server" SkinId="TextBoxFormulaire" BorderColor="Black" BorderWidth="1px" Width="148px"></asp:TextBox>
+<asp:TextBox runat="server" SkinId="TextBoxFormulaire" Font-size="16px" BorderColor="Black" BorderWidth="1px" Width="148px"></asp:TextBox>
 <asp:TextBox runat="server" SkinId="TextBoxDescription" Width="378px" Height="100px" BorderColor="Black" BorderWidth="1px"/>
 <asp:TextBox runat="server" SkinId="tbSkin" BorderColor="Black" BorderWidth="1px" Font-Size="15px"/>
 
 <asp:Button runat="server" SkinID="btnAjoutSupprimer" BorderColor="Black" BorderStyle="Solid" BorderWidth="1px" Font-Size="15px" />
-<asp:Button runat="server" SkinID="btnEnregistrer" width="150px" BorderColor="Black" BorderStyle="Solid" BorderWidth="1px" Font-Size="18px" />
-<asp:Button runat="server" SkinID="btnModiMotDePasse" width="180px" BorderColor="Black" BorderStyle="Solid" BorderWidth="1px" Font-Size="18px" />
-<asp:Button runat="server" SkinId="btnConfirmation" Font-Size="15px" Width="80px" BorderColor="Black" BorderWidth="1px"/>
-<asp:Button runat="server" SkinId="btnAdmin" Font-Size="18px" Width="280px" BorderColor="Black" BorderWidth="1px" />
-<asp:Button runat="server" SkinId="btnRechercher" Width="25px" BorderColor="Black" BorderWidth="1px" />
+<asp:Button runat="server" SkinID="btnEnregistrer"  BorderColor="Black" BorderStyle="Solid" BorderWidth="1px" Font-Size="18px" CssClass="paddingControl" />
+<asp:Button runat="server" SkinID="btnModiMotDePasse" BorderColor="Black" BorderStyle="Solid" BorderWidth="1px" Font-Size="18px" CssClass="paddingControl" />
+<asp:Button runat="server" SkinId="btnConfirmation" Font-Size="15px" BorderColor="Black" BorderWidth="1px" CssClass="paddingControl"/>
+<asp:Button runat="server" SkinId="btnAdmin" Font-Size="18px" BorderColor="Black" BorderWidth="1px" CssClass="paddingControl" />
+<asp:Button runat="server" SkinId="btnRechercher" BorderColor="Black" BorderWidth="1px" Font-Size="16px"/>
+<asp:Button runat="server" SkinId="btnActionPossible"  BorderColor="Black" BorderWidth="1px" Font-Size="16px" CssClass="paddingControl" />
 
 <asp:DropDownList SkinID="dropDownlistMois" runat="server" Width="85px" BorderColor="Black" BorderStyle="Solid" BorderWidth="1px" Font-Size="18px" />
 <asp:DropDownList runat="server" SkinId="dDListFormulaire" BorderColor="Black" BorderWidth="1px"></asp:DropDownList>

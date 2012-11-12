@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 10/29/2012 11:55:11
--- Generated from EDMX file: C:\Users\Katherine\Documents\A2012\Projet I\Projet-1\App_Code\Model.edmx
+-- Date Created: 11/01/2012 10:24:37
+-- Generated from EDMX file: C:\Users\Lolo\Documents\GitHub\Projet-1\App_Code\Model.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -154,7 +154,6 @@ CREATE TABLE [dbo].[Compte] (
     [Adresse] nvarchar(50)  NOT NULL,
     [Ville] nvarchar(30)  NOT NULL,
     [CodePostal] nvarchar(6)  NOT NULL,
-    [Abonnement] bit  NULL,
     [ModePaiement] nvarchar(20)  NULL,
     [motDePasseCrypté] nvarchar(100)  NOT NULL,
     [Email] nvarchar(30)  NOT NULL,
@@ -180,7 +179,7 @@ GO
 
 -- Creating table 'Forfait'
 CREATE TABLE [dbo].[Forfait] (
-    [nbInscrits] int IDENTITY(1,1) NOT NULL,
+    [nbInscrits] int  NOT NULL,
     [Coût] float  NOT NULL
 );
 GO
@@ -196,7 +195,8 @@ CREATE TABLE [dbo].[Groupe] (
     [Agemaximum] nvarchar(max)  NOT NULL,
     [Animateur_noAnimateur] int  NOT NULL,
     [Cours_noCours] int  NOT NULL,
-    [Actif] bit  NOT NULL
+    [Actif] bit  NOT NULL,
+    [Nom] nvarchar(10)  NOT NULL
 );
 GO
 
@@ -229,7 +229,8 @@ CREATE TABLE [dbo].[ListeDAttente] (
     [DateAjout] datetime  NOT NULL,
     [noListeDAttente] int IDENTITY(1,1) NOT NULL,
     [Membre_noMembre] int  NOT NULL,
-    [Groupe_noGroupe] int  NOT NULL
+    [Groupe_noGroupe] int  NOT NULL,
+    [Accepte] bit  NOT NULL
 );
 GO
 
@@ -246,7 +247,7 @@ GO
 
 -- Creating table 'Paiement'
 CREATE TABLE [dbo].[Paiement] (
-    [ModePaiement] nvarchar(15)  NOT NULL,
+    [ModePaiement] nvarchar(15)  NULL,
     [Prix] float  NOT NULL,
     [noPaypal] nvarchar(30)  NOT NULL,
     [noPaiement] int IDENTITY(1,1) NOT NULL,

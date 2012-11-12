@@ -6,7 +6,7 @@
 <asp:Content ID="contentMenu" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
     <div id="contentRight">
         <asp:Label SkinID="lbTitrePage" ID="lbTitrePage" runat="server" Text="Liste des inscriptions"></asp:Label><br />
-        <asp:ListView ID="lViewMembre" runat="server" DataSourceID="entiDataSourceMembre" DataKeyNames="noMembre">
+            <asp:ListView ID="lViewMembre" runat="server" DataSourceID="entiDataSourceMembre" DataKeyNames="noMembre">
             <LayoutTemplate>                                                   
                         <asp:PlaceHolder runat="server" id="GroupPlaceHolder"></asp:PlaceHolder>          
             </LayoutTemplate>

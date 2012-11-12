@@ -58,7 +58,6 @@ Partial Class Admin_ajouterComptePrepose
             compteAjoute.Adresse = tbAdresse.Text
             compteAjoute.Ville = tbVille.Text
             compteAjoute.CodePostal = tbCodePostal.Text
-            compteAjoute.Abonnement = False
             compteAjoute.ModePaiement = "Visa"
             compteAjoute.motDePasseCrypté = hash
             compteAjoute.Email = tbCourriel.Text

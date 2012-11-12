@@ -86,8 +86,7 @@ Partial Class prepose_ajouterCompteClient
             compteAjoute.Type = 1
             compteAjoute.Adresse = tbAdresse.Text
             compteAjoute.Ville = tbVille.Text
-            compteAjoute.CodePostal = tbCodePostal.Text
-            compteAjoute.Abonnement = False
+            compteAjoute.CodePostal = tbCodePostal.Text        
             compteAjoute.ModePaiement = rbListeTypeCarte.SelectedValue
             compteAjoute.motDePasseCrypté = hash
             compteAjoute.Email = tbCourriel.Text
