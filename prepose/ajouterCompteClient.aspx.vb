@@ -13,9 +13,9 @@ Partial Class prepose_ajouterCompteClient
         End If
     End Sub
 
-    Protected Sub Page_PreInit(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreInit
-
-    End Sub
+    'Protected Sub Page_PreInit(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreInit
+    '    verificationTypeUser(2)
+    'End Sub
 
     Protected Sub dsContextDisposing(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextDisposingEventArgs) _
     Handles entityDataSourceProvince.ContextDisposing
@@ -45,66 +45,67 @@ Partial Class prepose_ajouterCompteClient
     End Sub
 
     Protected Sub btnEnregistrerInscription_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnregistrerInscription.Click
-        Dim compteur As Integer = 0
-        Dim salt As String = "manan"
-        'Dim aCookie As New HttpCookie("online")
-        For Each courriel As String In (From dl In lecontext.Compte Select dl.Email)
-            If tbCourriel.Text = courriel Then
-                Dim validatorEmail As CustomValidator = New CustomValidator
-                validatorEmail.ErrorMessage = "L'email est déja utilisé."
-                validatorEmail.IsValid = False
-                Me.Validators.Add(validatorEmail)
+
+            Dim compteur As Integer = 0
+            Dim salt As String = "manan"
+            'Dim aCookie As New HttpCookie("online")
+            For Each courriel As String In (From dl In lecontext.Compte Select dl.Email)
+                If tbCourriel.Text = courriel Then
+                    Dim validatorEmail As CustomValidator = New CustomValidator
+                    validatorEmail.ErrorMessage = "L'email est déja utilisé."
+                    validatorEmail.IsValid = False
+                    Me.Validators.Add(validatorEmail)
+                End If
+            Next
+            If tbMotDePasse.Text.Count < 6 Then
+                Dim validatorMotDePasse As CustomValidator = New CustomValidator
+                validatorMotDePasse.ErrorMessage = "Le mot de passe doit contenir plus de 5 caractères"
+                validatorMotDePasse.IsValid = False
+                Me.Validators.Add(validatorMotDePasse)
             End If
-        Next
-        If tbMotDePasse.Text.Count < 6 Then
-            Dim validatorMotDePasse As CustomValidator = New CustomValidator
-            validatorMotDePasse.ErrorMessage = "Le mot de passe doit contenir plus de 5 caractères"
-            validatorMotDePasse.IsValid = False
-            Me.Validators.Add(validatorMotDePasse)
+            'teste sur la carte de crédit
+
+            If rbListeTypeCarte.SelectedItem.Text = "Comptant" Or rbListeTypeCarte.SelectedItem.Text = "Chèque" Then
+                requisValidationNumeroCartePaiement.Enabled = False
+                requisValidationNumeroSecurite.Enabled = False
+                requisValidationDateExpirationMois.Enabled = False
+            requisValidationDateExpirationAnnee.Enabled = False
+                requisValidationNomDétenteur.Enabled = False
+            Else
+                requisValidationNumeroCartePaiement.Enabled = True
+                requisValidationNumeroSecurite.Enabled = True
+                requisValidationDateExpirationMois.Enabled = True
+                requisValidationDateExpirationAnnee.Enabled = True
+                requisValidationNomDétenteur.Enabled = True
         End If
-        'teste sur la carte de crédit
+        Me.Validate()
+            If Me.IsValid Then
+                Dim hash As String = CreatePasswordHash(tbMotDePasse.Text, salt)
 
-        If rbListeTypeCarte.SelectedItem.Text = "Comptant" Or rbListeTypeCarte.SelectedItem.Text = "Chèque" Then
-            requisValidationNumeroCartePaiement.Enabled = False
-            requisValidationNumeroSecurite.Enabled = False
-            requisValidationDateExpirationMois.Enabled = False
-            requisValidationDateExpirationMois.Enabled = False
-            requisValidationNomDétenteur.Enabled = False
-        Else
-            requisValidationNumeroCartePaiement.Enabled = True
-            requisValidationNumeroSecurite.Enabled = True
-            requisValidationDateExpirationMois.Enabled = True
-            requisValidationDateExpirationMois.Enabled = True
-            requisValidationNomDétenteur.Enabled = True
-        End If
-        If Me.IsValid Then
-            Dim hash As String = CreatePasswordHash(tbMotDePasse.Text, salt)
+                Dim compteAjoute As Compte = New Compte()
+                Dim membreAjoute As Membre = New Membre()
 
-            Dim compteAjoute As Compte = New Compte()
-            Dim membreAjoute As Membre = New Membre()
+                compteAjoute.Type = 1
+                compteAjoute.Adresse = tbAdresse.Text
+                compteAjoute.Ville = tbVille.Text
+                compteAjoute.CodePostal = tbCodePostal.Text
+                compteAjoute.ModePaiement = rbListeTypeCarte.SelectedValue
+                compteAjoute.motDePasseCrypté = hash
+                compteAjoute.Email = tbCourriel.Text
+                compteAjoute.noTelephone = tbNumeroTelephone.Text
+                compteAjoute.Province = (From dl In lecontext.Province Where dl.noProvince = dropDownListProvince.SelectedValue Select dl).First
+                compteAjoute.Pays = tbPays.Text
 
-            compteAjoute.Type = 1
-            compteAjoute.Adresse = tbAdresse.Text
-            compteAjoute.Ville = tbVille.Text
-            compteAjoute.CodePostal = tbCodePostal.Text
-            compteAjoute.ModePaiement = rbListeTypeCarte.SelectedValue
-            compteAjoute.motDePasseCrypté = hash
-            compteAjoute.Email = tbCourriel.Text
-            compteAjoute.noTelephone = tbNumeroTelephone.Text
-            compteAjoute.Province = (From dl In lecontext.Province Where dl.noProvince = dropDownListProvince.SelectedValue Select dl).First
-            compteAjoute.Pays = tbPays.Text
+                membreAjoute.Nom = tbNom.Text
+                membreAjoute.Prénom = tbPrenom.Text
+                membreAjoute.DateNaissance = DateTime.Parse(tbDateNaissance.Text)
+                membreAjoute.Propriétaire = True
 
-            membreAjoute.Nom = tbNom.Text
-            membreAjoute.Prénom = tbPrenom.Text
-            membreAjoute.DateNaissance = DateTime.Parse(tbDateNaissance.Text)
-            membreAjoute.Propriétaire = True
+                compteAjoute.Membre.Add(membreAjoute)
+                lecontext.AddObject("Compte", compteAjoute)
+                lecontext.SaveChanges()
 
-            compteAjoute.Membre.Add(membreAjoute)
-            lecontext.AddObject("Compte", compteAjoute)
-            lecontext.SaveChanges()
-
-            Page.Response.Redirect("~/connection/inscriptionReusi.aspx")
-
+                Page.Response.Redirect("~/connection/inscriptionReusi.aspx")
         End If
     End Sub
 End Class

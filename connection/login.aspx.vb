@@ -15,16 +15,21 @@ Partial Class login
     End Sub
 
     Protected Sub loginCtrl_Authenticate(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.AuthenticateEventArgs) Handles loginCtrl.Authenticate
-        For Each compte As Compte In (From dl In lecontext.Compte Where dl.Email = loginCtrl.UserName)
-            Dim salt = "manan"
-
-            If compte.motDePasseCrypté = CreatePasswordHash(loginCtrl.Password, salt) Then
-                e.Authenticated = True
-                Session.Add("userOnline", loginCtrl.UserName)
-                Session.Add("userType", compte.Type)
-                Session.Add("noCompte", compte.noCompte)
-            End If
-        Next
+        If (From dl In lecontext.Compte Where dl.Email = loginCtrl.UserName).Count > 0 Then
+            For Each compte As Compte In (From dl In lecontext.Compte Where dl.Email = loginCtrl.UserName)
+                Dim salt = "manan"
+                If compte.motDePasseCrypté = CreatePasswordHash(loginCtrl.Password, salt) Then
+                    e.Authenticated = True
+                    Session.Add("userOnline", loginCtrl.UserName)
+                    Session.Add("userType", compte.Type)
+                    Session.Add("noCompte", compte.noCompte)
+                Else
+                    loginCtrl.FailureText = "Le mot de passe ou l'adresse courriel n'est pas valide"
+                End If
+            Next
+        Else
+            loginCtrl.FailureText = "Le mot de passe ou l'adresse n'est pas valide"
+        End If
     End Sub
 
 

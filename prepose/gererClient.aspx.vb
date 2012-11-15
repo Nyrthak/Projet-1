@@ -21,11 +21,15 @@ Partial Class prepose_gererClient
         lecontext = New ModelContainer()
     End Sub
 
+    Protected Sub Page_PreInit(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreInit
+        verificationTypeUser(2)
+    End Sub
+
     Protected Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Unload
         lecontext = Nothing
     End Sub
 
-    Protected Sub lviewCompte_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles lviewCompte.ItemCommand
+    Protected Sub lviewListeCompte_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles lviewListeCompte.ItemCommand
         If e.CommandName = "inscription" Then
             lviewCompte.DataBind()
             hFieldNoCompte.Value = e.CommandArgument
@@ -48,9 +52,45 @@ Partial Class prepose_gererClient
         End If
     End Sub
 
-    Protected Sub btnRetour_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnRetourInscription.Click, _
-        btnRetourModifier.Click, btnRetourPrerequis.Click
+    Protected Sub btnRetour_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnRetourInscription.Click, btnRetourPrerequis.Click
         mViewActionCompte.ActiveViewIndex = 0
+    End Sub
+
+    Protected Sub btnAnnuler_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAnnuler.Click
+        multiViewModiCompte.ActiveViewIndex = 0
+    End Sub
+    Protected Sub btnEnregistrer_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnregistrer.Click
+        Dim noCompte As String = Session("noCompte")
+        If Me.IsValid Then
+            lViewCompte.UpdateItem(0, True)
+            lViewCompte.EditIndex = 0
+        End If
+    End Sub
+
+    Protected Sub btnModiMotDePasse_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnModiMotDePasse.Click
+        multiViewModiCompte.ActiveViewIndex = 1
+    End Sub
+
+    Protected Sub btnEnregistrerPW_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnregistrerPW.Click
+        Dim salt = "manan"
+        Dim noCompte As String = Session("noCompte")
+        Dim compte As Compte = (From monCompte In lecontext.Compte Where monCompte.noCompte = noCompte).First
+        If tbNouvMotDePasse.Text.Count < 6 Then
+            Dim validatorMotDePasse As CustomValidator = New CustomValidator
+            validatorMotDePasse.ErrorMessage = "Votre nouveau mot de passe doit contenir plus de 5 caractères"
+            validatorMotDePasse.IsValid = False
+            Me.Validators.Add(validatorMotDePasse)
+        End If
+        If compte.motDePasseCrypté = CreatePasswordHash(tbMotDePasse.Text, salt) Then
+            Dim hash As String = CreatePasswordHash(tbNouvMotDePasse.Text, salt)
+            compte.motDePasseCrypté = hash
+            lbMessage.Text = "Votre mot de passe à bien été changé."
+        Else
+            lbMessage.Text = "Votre ancient mot de passe n'est pas valide."
+        End If
+        If Me.IsValid Then
+            lecontext.SaveChanges()
+        End If
     End Sub
 
     Protected Sub deletePaiement()

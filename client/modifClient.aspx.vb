@@ -45,14 +45,6 @@ Partial Class client_modifClient
 
     Protected Sub btnEnregistrer_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnregistrer.Click
         Dim noCompte As String = Session("noCompte")
-        For Each courriel As String In (From dl In lecontext.Compte Where dl.noCompte <> noCompte Select dl.Email)
-            If CType(lViewCompte.Items(0).FindControl("tbCourriel"), TextBox).Text = courriel Then
-                Dim validatorEmail As CustomValidator = New CustomValidator
-                validatorEmail.ErrorMessage = "Votre email est déja utilisé."
-                validatorEmail.IsValid = False
-                Me.Validators.Add(validatorEmail)
-            End If
-        Next
         If Me.IsValid Then
             lViewCompte.UpdateItem(0, True)
             lViewCompte.EditIndex = 0

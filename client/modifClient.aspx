@@ -21,18 +21,6 @@
             <GroupTemplate><asp:PlaceHolder runat="server" ID="ItemPlaceHolder"></asp:PlaceHolder></GroupTemplate>
             <ItemTemplate></ItemTemplate>
             <EditItemTemplate>
-                       <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbCourriel" runat="server" Text="Adresse courriel"></asp:Label>
-                            </td>
-                        <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="210px" ID="tbCourriel" Text='<%# Bind("Email") %>' runat="server" MaxLength="35" ></asp:TextBox>
-                            <asp:RequiredFieldValidator SkinID="requisValidation" 
-                                ID="requisValidationCourriel" runat="server" 
-                                ErrorMessage="Votre courriel doit être spécifié." 
-                                ControlToValidate="tbCourriel" Display="Dynamic">*</asp:RequiredFieldValidator>
-                                <asp:RegularExpressionValidator ID="reguExpressionEmail" runat="server" 
-                                ErrorMessage="L'email n'est pas du bon format." ControlToValidate="tbCourriel"  
-                                ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" Display="Dynamic" ForeColor="Red">*</asp:RegularExpressionValidator> 
-                            </td>
-                    </tr>
                      <tr>
                         <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbNumeroTelephone" runat="server" Text="Numéro de téléphone"></asp:Label>
                             </td>
