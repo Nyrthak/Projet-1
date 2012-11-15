@@ -74,7 +74,7 @@
                     <asp:EntityDataSource ID="entiDataSourcePaiement" runat="server" 
                         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
                         EntitySetName="Paiement" Where="it.Membre.noMembre = @noMembre" Include="Membre, Groupe.Cours" 
-                        EnableDelete="True" OnDeleted="deletePaiement" >
+                        EnableDelete="True" OnDeleted="deletePaiement" OnDeleting="deletingPaiement" >
                      <WhereParameters>
                         <asp:ControlParameter Type="int32" Name="noMembre" ControlID="hFielNoMembre"/>
                      </WhereParameters>

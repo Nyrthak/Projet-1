@@ -53,7 +53,7 @@ Partial Class prepose_gererClient
         mViewActionCompte.ActiveViewIndex = 0
     End Sub
 
-    Protected Sub deletePaiement()
+    Protected Sub deletePaiement(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceChangedEventArgs)
         Response.Redirect("~/prepose/gererClient.aspx")
     End Sub
 
@@ -62,4 +62,21 @@ Partial Class prepose_gererClient
         Response.Redirect("~/prepose/gererClient.aspx")
     End Sub
 
+    Protected Sub deletingPaiement(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceChangingEventArgs)
+        Dim leNoPaiement As Integer = CType(e.Entity, Paiement).noPaiement
+        Dim lePaiement As Paiement = (From unPaiement In lecontext.Paiement Where unPaiement.noPaiement = leNoPaiement Select unPaiement).FirstOrDefault
+        Dim leGroupe As Groupe = (From unGroupe In lecontext.Groupe Where unGroupe.noGroupe = lePaiement.Groupe.noGroupe Select unGroupe).FirstOrDefault
+        If leGroupe.ListeDAttente IsNot Nothing Then
+            Dim lAttente As ListeDAttente = (From uneAttente In leGroupe.ListeDAttente Select uneAttente Order By uneAttente.DateAjout).FirstOrDefault
+            Dim paiementAjout As Paiement = New Paiement
+            paiementAjout.Groupe = leGroupe
+            paiementAjout.Membre = lAttente.Membre
+            paiementAjout.ModePaiement = "Non Payé"
+            paiementAjout.noPaypal = "Non payé"
+            paiementAjout.Prix = leGroupe.Cours.Prix
+            lecontext.Paiement.AddObject(paiementAjout)
+            lecontext.ListeDAttente.DeleteObject(lAttente)
+            lecontext.SaveChanges()
+        End If
+    End Sub
 End Class
