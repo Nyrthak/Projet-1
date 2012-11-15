@@ -163,6 +163,7 @@
     <Property Name="Cours_noCours" Type="int" Nullable="false" />
     <Property Name="Actif" Type="bit" Nullable="false" />
     <Property Name="Nom" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="nbMaxInscrits" Type="int" Nullable="false" />
     <Property Name="Session_noSession" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="GroupeDAge">
@@ -634,6 +635,7 @@
           <Property Type="Boolean" Name="Actif" Nullable="false" />
           <Property Type="String" Name="Nom" Nullable="false" MaxLength="10" />
           <NavigationProperty Name="Session" Relationship="Model.SessionGroupe" FromRole="Groupe" ToRole="Session" />
+          <Property Type="Int32" Name="nbMaxInscrits" Nullable="false" />
         </EntityType>
         <EntityType Name="GroupeDAge">
           <Key>
@@ -1016,6 +1018,7 @@
           <ScalarProperty Name="Cours_noCours" ColumnName="Cours_noCours" />
           <ScalarProperty Name="Actif" ColumnName="Actif" />
           <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="nbMaxInscrits" ColumnName="nbMaxInscrits" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1148,7 +1151,7 @@
         <EntityTypeShape EntityType="Model.Compte" Width="1.5" PointX="3" PointY="0.75" Height="3.5186979166666656" />
         <EntityTypeShape EntityType="Model.Cours" Width="1.5" PointX="3" PointY="6.125" Height="3.5186979166666656" />
         <EntityTypeShape EntityType="Model.Forfait" Width="1.5" PointX="7.75" PointY="10.125" Height="1.4033821614583246" />
-        <EntityTypeShape EntityType="Model.Groupe" Width="1.5" PointX="5.25" PointY="6.125" Height="4.0956022135416674" />
+        <EntityTypeShape EntityType="Model.Groupe" Width="1.5" PointX="5.25" PointY="6.125" Height="4.480205078125" />
         <EntityTypeShape EntityType="Model.GroupeDAge" Width="1.5" PointX="0.75" PointY="4" Height="1.5956835937499818" />
         <EntityTypeShape EntityType="Model.Horaire" Width="1.5" PointX="7.5" PointY="6.75" Height="2.3648893229166674" />
         <EntityTypeShape EntityType="Model.Jour" Width="1.5" PointX="5.25" PointY="11.125" Height="1.5956835937499818" />
@@ -1162,8 +1165,8 @@
         <AssociationConnector Association="Model.FK_AnimateurGroupe" >
           <ConnectorPoint PointX="4.5" PointY="13.251152846153847" />
           <ConnectorPoint PointX="4.875" PointY="12.876152846153847" />
-          <ConnectorPoint PointX="4.875" PointY="8.96984414404508" />
-          <ConnectorPoint PointX="5.25" PointY="8.96984414404508" />
+          <ConnectorPoint PointX="4.875" PointY="9.0398301287944847" />
+          <ConnectorPoint PointX="5.25" PointY="9.0398301287944847" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_AnimateurProvince" >
           <ConnectorPoint PointX="2.25" PointY="14.893992513020834" />
@@ -1196,8 +1199,8 @@
           <ConnectorPoint PointX="3.9784615384615383" PointY="9.6436979166666656" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_GroupeCours" >
-          <ConnectorPoint PointX="4.5" PointY="7.48492207202254" />
-          <ConnectorPoint PointX="5.25" PointY="7.48492207202254" />
+          <ConnectorPoint PointX="4.5" PointY="7.5199150643972423" />
+          <ConnectorPoint PointX="5.25" PointY="7.5199150643972423" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_GroupeDAgeCours" >
           <ConnectorPoint PointX="2.25" PointY="5.5333749014422891" />
@@ -1240,16 +1243,13 @@
           <ConnectorPoint PointX="6.1875" PointY="18.922841796874991" />
           <ConnectorPoint PointX="6.1875" PointY="15.980286458333325" />
         </AssociationConnector>
-        <AssociationConnector Association="Model.SessionGroupe" ManuallyRouted="true">
-          <ConnectorPoint PointX="2.25" PointY="11.442368358761685" />
-          <ConnectorPoint PointX="2.5416666666666665" PointY="11.442368358761685" />
-          <ConnectorPoint PointX="2.7083333333333335" PointY="11.442368358761685" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="11.442368358761685" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="11.442368358761685" />
-          <ConnectorPoint PointX="5" PointY="11.442368358761685" />
-          <ConnectorPoint PointX="5" PointY="10.875" />
-          <ConnectorPoint PointX="6" PointY="10.875" />
-          <ConnectorPoint PointX="6" PointY="10.412903645833334" />
+        <AssociationConnector Association="Model.SessionGroupe" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="10.4276025390625" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="10.4276025390625" />
+          <ConnectorPoint PointX="2.7083333333333335" PointY="10.4276025390625" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="10.4276025390625" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="10.4276025390625" />
+          <ConnectorPoint PointX="5.25" PointY="10.4276025390625" />
         </AssociationConnector>
       </Diagram>
     </edmx:Diagrams>
