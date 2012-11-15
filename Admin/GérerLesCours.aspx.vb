@@ -74,11 +74,15 @@ Partial Class Admin_GérerLesCours
             lblMessage.Text = "Vous ne pouvez supprimer le groupe " & noGroupe & ", car il possède une liste d'attente."
             e.Cancel = True
         Else
+            Dim leGroupeADeleter As Groupe = (From unGroupe In lecontext.Groupe Where unGroupe.noGroupe = noGroupe Select unGroupe).FirstOrDefault
             Dim lesHoraires As New List(Of Horaire)(From unHoraire In lecontext.Horaire Where unHoraire.Groupe.noGroupe = noGroupe Select unHoraire)
             For Each unHoraire As Horaire In lesHoraires
                 lecontext.Horaire.DeleteObject(unHoraire)
             Next
+            lecontext.Groupe.DeleteObject(leGroupeADeleter)
             lecontext.SaveChanges()
+            lviewGroupes.DataBind()
+            e.Cancel = True
         End If
     End Sub
     Protected Sub lviewGroupes_ItemDeleted(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewDeletedEventArgs) Handles lviewGroupes.ItemDeleted
@@ -166,7 +170,7 @@ Partial Class Admin_GérerLesCours
         If (From dl In lecontext.GroupeDAge Select dl).Count > 0 Then
             leCoursAjouté.GroupeDAge = (From dl In lecontext.GroupeDAge Select dl).FirstOrDefault
         Else
-            messageErreur += "Veuillez ajouter au moins un groupe d'age dans la base de données avant d'ajouter un cours.</br>"
+            messageErreur += "Veuillez ajouter au moins un groupe d'âge dans la base de données avant d'ajouter un cours.</br>"
         End If
 
         If (From dl In lecontext.Animateur Select dl).Count > 0 Then
@@ -190,6 +194,7 @@ Partial Class Admin_GérerLesCours
             leGroupeAjoute.AgeMinimum = 0
             leGroupeAjoute.Agemaximum = 99
             leGroupeAjoute.Actif = False
+            leGroupeAjoute.nbMaxInscrits = 999
             Dim laSessionPrerequis As Session
             If (From uneSession In lecontext.Session Where uneSession.NomSession = "Prerequis" Select uneSession).Count = 0 Then
                 laSessionPrerequis = New Session
@@ -232,6 +237,7 @@ Partial Class Admin_GérerLesCours
             leGroupeAjoute.Actif = False
             leGroupeAjoute.Animateur = (From dl In lecontext.Animateur Select dl).FirstOrDefault
             leGroupeAjoute.Cours = leCours
+            leGroupeAjoute.nbMaxInscrits = 0
             lecontext.AddObject("Groupe", leGroupeAjoute)
             lecontext.SaveChanges()
             hFieldnoGroupe2.Value = leGroupeAjoute.noGroupe
