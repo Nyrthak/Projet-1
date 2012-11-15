@@ -1,8 +1,8 @@
-
+﻿
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 11/12/2012 15:07:32
+-- Date Created: 11/08/2012 14:17:10
 -- Generated from EDMX file: C:\Users\Katherine\Documents\A2012\Projet I\Projet-1\App_Code\Model.edmx
 -- --------------------------------------------------
 
@@ -44,6 +44,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_GroupeDAgeCours]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Cours] DROP CONSTRAINT [FK_GroupeDAgeCours];
 GO
+IF OBJECT_ID(N'[dbo].[FK_SessionCours]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Cours] DROP CONSTRAINT [FK_SessionCours];
+GO
 IF OBJECT_ID(N'[dbo].[FK_GroupePaiement]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Paiement] DROP CONSTRAINT [FK_GroupePaiement];
 GO
@@ -64,9 +67,6 @@ IF OBJECT_ID(N'[dbo].[FK_MembrePaiement]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_SpécialitéSpécialitéAnimateur]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[SpécialitéAnimateur] DROP CONSTRAINT [FK_SpécialitéSpécialitéAnimateur];
-GO
-IF OBJECT_ID(N'[dbo].[FK_SessionGroupe]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Groupe] DROP CONSTRAINT [FK_SessionGroupe];
 GO
 
 -- --------------------------------------------------
@@ -196,7 +196,6 @@ CREATE TABLE [dbo].[Groupe] (
     [Cours_noCours] int  NOT NULL,
     [Actif] bit  NOT NULL,
     [Nom] nvarchar(10)  NOT NULL,
-    [nbMaxInscrits] int  NOT NULL,
     [Session_noSession] int  NOT NULL
 );
 GO

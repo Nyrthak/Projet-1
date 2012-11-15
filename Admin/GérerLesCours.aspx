@@ -212,7 +212,7 @@
                             </td>
                             <td>
                                 <asp:Label ID="lblTitreAnimateur" runat="server" Text="Animateur: " SkinID="lbChampsFormulaire"></asp:Label>
-                                <asp:Label ID="lblAnimateur" runat="server" Text='<%#Eval("Animateur.Prénom") & " " & Eval("Animateur.Nom")%>'></asp:Label>
+                                <asp:Label ID="lblAnimateur" runat="server" Text='<%#Eval("Animateur.Nom")%>'></asp:Label>
                             </td>
                         </tr>
                         <tr>
@@ -223,12 +223,6 @@
                             <td>
                                 <asp:Label ID="lblTitreSession" runat="server" Text="Session: " SkinID="lbChampsFormulaire"></asp:Label>
                                 <asp:Label ID="Label2" runat="server" Text='<%#Eval("Session.NomSession")%>'></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="lblTitreNbMaxInscrits" runat="server" Text="Nombre de places : " SkinID="lbChampsFormulaire"></asp:Label>
-                                <asp:Label ID="lblNbMaxInscrits" runat="server" Text='<%#Eval("nbMaxInscrits")%>'></asp:Label>
                             </td>
                         </tr>
                         <tr>
@@ -291,7 +285,7 @@
                                     ErrorMessage="L'âge minimum doit être un nombre." ForeColor="Red"
                                     Operator="DataTypeCheck" Display="Dynamic">*</asp:CompareValidator>
                                 <asp:CompareValidator runat="server" ID="cvAgeMin2" Type="Integer" ControlToValidate="tbAgeMin"
-                                    ErrorMessage="L'âge minimum doit être plus petit que l'âge maximum." ForeColor="Red" ControlToCompare="tbAgeMax"
+                                    ErrorMessage="L'âge minimum doit être un nombre." ForeColor="Red" ControlToCompare="tbAgeMax"
                                     Operator="LessThanEqual" Display="Dynamic">*</asp:CompareValidator>
                                 <asp:Label ID="lblAge" runat="server" Text="-"></asp:Label>
                                 <asp:TextBox ID="tbAgeMax" runat="server" Text='<%#Bind("Agemaximum")%>' SkinID="tbSkin" Width="20px" MaxLength="2"></asp:TextBox>
@@ -322,7 +316,7 @@
                             <td>
                                 <asp:Label ID="lblTitreAnimateur" runat="server" Text="Animateur: " SkinID="lbChampsFormulaire"></asp:Label>
                                 <asp:DropDownList ID="dDListAnimateur" runat="server" DataSourceID="entiDataSourceAnimateur" SkinID="dDListFormulaire"
-                                    DataTextField="leNom" DataValueField="noAnimateur" SelectedValue='<%#Bind("Animateur_noAnimateur")%>'>
+                                    DataTextField="Nom" DataValueField="noAnimateur" SelectedValue='<%#Bind("Animateur_noAnimateur")%>'>
                                 </asp:DropDownList>
                             </td>
                         </tr>
@@ -346,18 +340,6 @@
                                 <asp:DropDownList ID="dDListSession" runat="server" SkinID="dDListFormulaire" 
                                     DataSourceID="entiDataSourceSession" DataTextField="NomSession" 
                                     DataValueField="noSession"  SelectedValue='<%#Bind("Session.noSession")%>'></asp:DropDownList>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="lblTitreNbMaxInscrits" runat="server" Text="Nombre de places : " SkinID="lbChampsFormulaire"></asp:Label>
-                                <asp:TextBox ID="tbNbMaxInscrits" runat="server" Text='<%#Bind("nbMaxInscrits")%>' SkinID="tbSkin" MaxLength="4" Width="50px"></asp:TextBox>
-                                <asp:RequiredFieldValidator ForeColor="Red" 
-                                    ID="rfvNbMaxInscrits" runat="server" ErrorMessage="Le nombre de participants maximum doit être spécifié." 
-                                    ControlToValidate="tbNbMaxInscrits" Display="Dynamic">*</asp:RequiredFieldValidator>
-                                <asp:CompareValidator runat="server" ID="cvNbMaxInscrits" Type="Integer" ControlToValidate="tbNbMaxInscrits"
-                                    ErrorMessage="Le nombre de participants maximum doit être un nombre." ForeColor="Red"
-                                    Operator="DataTypeCheck" Display="Dynamic">*</asp:CompareValidator>
                             </td>
                         </tr>
                         <tr>
@@ -521,7 +503,7 @@
         </WhereParameters>
     </asp:EntityDataSource>
     <asp:EntityDataSource ID="entiDataSourceAnimateur" runat="server" ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer"
-         EntitySetName="Animateur" EnableFlattening="false" Select='(it.[Prénom] + " " + it.Nom) As leNom, it.noAnimateur'>
+         EntitySetName="Animateur" EnableFlattening="false">
     </asp:EntityDataSource>
     <asp:EntityDataSource ID="entiDataSourceJour" runat="server" ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer"
          EntitySetName="Jour" EnableFlattening="false">

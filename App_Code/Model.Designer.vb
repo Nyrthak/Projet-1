@@ -16,7 +16,7 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("a8220096-32de-416c-b4d9-9da7bf37fd9f")>
+<Assembly: EdmSchemaAttribute("c6c7d8e1-b0df-4447-94af-3221bf42c6d7")>
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("Model", "FK_AnimateurGroupe", "Animateur", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Animateur), "Groupe", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Groupe), True)>
 <Assembly: EdmRelationshipAttribute("Model", "FK_AnimateurProvince", "Province", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Province), "Animateur", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Animateur), True)>
@@ -1719,8 +1719,7 @@ Namespace Model
         ''' <param name="cours_noCours">Initial value of the Cours_noCours property.</param>
         ''' <param name="actif">Initial value of the Actif property.</param>
         ''' <param name="nom">Initial value of the Nom property.</param>
-        ''' <param name="nbMaxInscrits">Initial value of the nbMaxInscrits property.</param>
-        Public Shared Function CreateGroupe(noGroupe As Global.System.Int32, local As Global.System.String, dateDebut As Global.System.DateTime, dateFin As Global.System.DateTime, dateLimiteInscription As Global.System.DateTime, ageMinimum As Global.System.Int32, agemaximum As Global.System.String, animateur_noAnimateur As Global.System.Int32, cours_noCours As Global.System.Int32, actif As Global.System.Boolean, nom As Global.System.String, nbMaxInscrits As Global.System.Int32) As Groupe
+        Public Shared Function CreateGroupe(noGroupe As Global.System.Int32, local As Global.System.String, dateDebut As Global.System.DateTime, dateFin As Global.System.DateTime, dateLimiteInscription As Global.System.DateTime, ageMinimum As Global.System.Int32, agemaximum As Global.System.String, animateur_noAnimateur As Global.System.Int32, cours_noCours As Global.System.Int32, actif As Global.System.Boolean, nom As Global.System.String) As Groupe
             Dim groupe as Groupe = New Groupe
             groupe.noGroupe = noGroupe
             groupe.Local = local
@@ -1733,7 +1732,6 @@ Namespace Model
             groupe.Cours_noCours = cours_noCours
             groupe.Actif = actif
             groupe.Nom = nom
-            groupe.nbMaxInscrits = nbMaxInscrits
             Return groupe
         End Function
 
@@ -2015,31 +2013,6 @@ Namespace Model
         End Sub
     
         Private Partial Sub OnNomChanged()
-        End Sub
-    
-        ''' <summary>
-        ''' No Metadata Documentation available.
-        ''' </summary>
-        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
-        <DataMemberAttribute()>
-        Public Property nbMaxInscrits() As Global.System.Int32
-            Get
-                Return _nbMaxInscrits
-            End Get
-            Set
-                OnnbMaxInscritsChanging(value)
-                ReportPropertyChanging("nbMaxInscrits")
-                _nbMaxInscrits = StructuralObject.SetValidValue(value)
-                ReportPropertyChanged("nbMaxInscrits")
-                OnnbMaxInscritsChanged()
-            End Set
-        End Property
-    
-        Private _nbMaxInscrits As Global.System.Int32
-        Private Partial Sub OnnbMaxInscritsChanging(value As Global.System.Int32)
-        End Sub
-    
-        Private Partial Sub OnnbMaxInscritsChanged()
         End Sub
 
         #End Region

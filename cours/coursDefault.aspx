@@ -100,7 +100,6 @@
                             </asp:DropDownList>
                         </td>
                         <td><asp:Button ID="btnSinscrire" runat="server" Text="S'inscrire" SkinID="btnAjoutSupprimer" Width="80px" CommandName="Inscription" CommandArgument='<%#Eval("noGroupe")%>' /></td>
-                        <td><asp:LinkButton ID="lnkInscriptionListeDAttente" runat="server" Text="S'inscrire à la liste d'attente" Width="100px" SkinID="btnAjoutSupprimer" CommandName="InscriptionAttente" CommandArgument='<%#Eval("noGroupe")%>' /></td>
                     </tr>
                     <asp:HiddenField ID="hFieldnoGroupe" runat="server" Value='<%#Eval("noGroupe")%>' />
 
@@ -171,10 +170,6 @@
                                 <asp:Label ID="lblSTitreSession" runat="server" Text="Session : " SkinID="lbChampsFormulaire"></asp:Label>
                                 <asp:Label ID="lblSession" runat="server" Text='<%#Eval("Session.NomSession")%>'></asp:Label>
                             </td>
-                            <td>
-                                <asp:Label ID="lblTitreNbMaxInscrits" runat="server" Text="Nombre de places : " SkinID="lbChampsFormulaire"></asp:Label>
-                                <asp:Label ID="lblNbMaxInscrits" runat="server" Text='<%#Eval("nbMaxInscrits")%>'></asp:Label>
-                            </td>
                         </tr>
                     </table>
                 </ItemTemplate>
@@ -217,8 +212,6 @@
                         DataTextField="Prénom" DataValueField="noMembre">
                 </asp:DropDownList>
                 <asp:Button ID="btnSinscrire" runat="server" Text="S'inscrire" SkinID="btnAjoutSupprimer" Width="80px" />
-                <asp:LinkButton ID="lnkInscriptionListeDAttente" runat="server" Text="S'inscrire à la liste d'attente" Width="100px" 
-                    SkinID="btnAjoutSupprimer"/>
             </div>
             <div class="btnCentre">
                 <asp:Button ID="btnRetour" runat="server" Text="Retour" Width="80px" SkinID="btnAjoutSupprimer" />
