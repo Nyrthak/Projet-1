@@ -46,17 +46,18 @@ Partial Class prepose_ajouterCompteClient
 
     Protected Sub btnEnregistrerInscription_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnregistrerInscription.Click
 
-            Dim compteur As Integer = 0
-            Dim salt As String = "manan"
+        Dim compteur As Integer = 0
+
+        Dim salt As String = "manan"
             'Dim aCookie As New HttpCookie("online")
-            For Each courriel As String In (From dl In lecontext.Compte Select dl.Email)
-                If tbCourriel.Text = courriel Then
-                    Dim validatorEmail As CustomValidator = New CustomValidator
-                    validatorEmail.ErrorMessage = "L'email est déja utilisé."
-                    validatorEmail.IsValid = False
-                    Me.Validators.Add(validatorEmail)
-                End If
-            Next
+        For Each courriel As String In (From dl In lecontext.Compte Select dl.Email)
+            If tbCourriel.Text = courriel Then
+                Dim validatorEmail As CustomValidator = New CustomValidator
+                validatorEmail.ErrorMessage = "L'email est déja utilisé."
+                validatorEmail.IsValid = False
+                Me.Validators.Add(validatorEmail)
+            End If
+        Next
             If tbMotDePasse.Text.Count < 6 Then
                 Dim validatorMotDePasse As CustomValidator = New CustomValidator
                 validatorMotDePasse.ErrorMessage = "Le mot de passe doit contenir plus de 5 caractères"
@@ -79,33 +80,34 @@ Partial Class prepose_ajouterCompteClient
                 requisValidationNomDétenteur.Enabled = True
         End If
         Me.Validate()
-            If Me.IsValid Then
-                Dim hash As String = CreatePasswordHash(tbMotDePasse.Text, salt)
+        If Me.IsValid Then
+            Dim hash As String = CreatePasswordHash(tbMotDePasse.Text, salt)
 
-                Dim compteAjoute As Compte = New Compte()
-                Dim membreAjoute As Membre = New Membre()
+            Dim compteAjoute As Compte = New Compte()
+            Dim membreAjoute As Membre = New Membre()
 
-                compteAjoute.Type = 1
-                compteAjoute.Adresse = tbAdresse.Text
-                compteAjoute.Ville = tbVille.Text
-                compteAjoute.CodePostal = tbCodePostal.Text
-                compteAjoute.ModePaiement = rbListeTypeCarte.SelectedValue
-                compteAjoute.motDePasseCrypté = hash
-                compteAjoute.Email = tbCourriel.Text
-                compteAjoute.noTelephone = tbNumeroTelephone.Text
-                compteAjoute.Province = (From dl In lecontext.Province Where dl.noProvince = dropDownListProvince.SelectedValue Select dl).First
-                compteAjoute.Pays = tbPays.Text
+            compteAjoute.Type = 1
+            compteAjoute.Adresse = tbAdresse.Text
+            compteAjoute.Ville = tbVille.Text
+            compteAjoute.CodePostal = tbCodePostal.Text
+            compteAjoute.ModePaiement = rbListeTypeCarte.SelectedValue
+            compteAjoute.motDePasseCrypté = hash
+            compteAjoute.Email = tbCourriel.Text
+            compteAjoute.noTelephone = tbNumeroTelephone.Text
+            compteAjoute.Province = (From dl In lecontext.Province Where dl.noProvince = dropDownListProvince.SelectedValue Select dl).First
+            compteAjoute.Pays = tbPays.Text
 
-                membreAjoute.Nom = tbNom.Text
-                membreAjoute.Prénom = tbPrenom.Text
-                membreAjoute.DateNaissance = DateTime.Parse(tbDateNaissance.Text)
-                membreAjoute.Propriétaire = True
+            membreAjoute.Parent = True
+            membreAjoute.Nom = tbNom.Text
+            membreAjoute.Prénom = tbPrenom.Text
+            membreAjoute.DateNaissance = DateTime.Parse(tbDateNaissance.Text)
+            membreAjoute.Propriétaire = True
 
-                compteAjoute.Membre.Add(membreAjoute)
-                lecontext.AddObject("Compte", compteAjoute)
-                lecontext.SaveChanges()
+            compteAjoute.Membre.Add(membreAjoute)
+            lecontext.AddObject("Compte", compteAjoute)
+            lecontext.SaveChanges()
 
-                Page.Response.Redirect("~/connection/inscriptionReusi.aspx")
+            Page.Response.Redirect("~/connection/inscriptionReusi.aspx")
         End If
     End Sub
 End Class

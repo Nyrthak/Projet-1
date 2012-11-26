@@ -12,7 +12,7 @@
      CssClass="MyCalendar" PopupPosition="Right" Format="d-MM-yyyy" >
     </asp:CalendarExtender>               
         <h1><asp:Label SkinID="lbTitrePage" ID="lbInscription" runat="server" Text="Inscription"></asp:Label></h1>
-        <asp:ValidationSummary SkinID="valiSummary" ID="valiSummaryInscription" runat="server" /> 
+        <asp:ValidationSummary SkinID="valiSummary" ID="valiSummaryInscription" runat="server" />
     <table class="tableau">
             <tr>
                 <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbNom" runat="server" Text="Nom"></asp:Label>
@@ -49,7 +49,7 @@
             <tr>
                 <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbDateNaissance" runat="server" Text="Date de naissance"></asp:Label>
                     </td>
-                <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="90px" ID="tbDateNaissance" runat="server" MaxLength="10" ReadOnly="false" ></asp:TextBox>
+                <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="90px" ID="tbDateNaissance" runat="server" MaxLength="10" ToolTip="JJ-MM-AAAA" ></asp:TextBox>
                 <asp:ImageButton ID="imgBtnCalendrier" ImageUrl="~/App_Themes/Default/images/btnCalendrier.png" runat="server" CausesValidation="false" />              
                     <asp:RequiredFieldValidator SkinID="requisValidation" 
                         ID="requisValidationDateNaissance" runat="server" 
@@ -87,7 +87,7 @@
             <tr>
                 <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbNumeroTelephone" runat="server" Text="Numéro de téléphone"></asp:Label>
                     </td>
-                <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="100px" ID="tbNumeroTelephone" runat="server"  MaxLength="10" ></asp:TextBox>
+                <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="100px" ID="tbNumeroTelephone" runat="server"  MaxLength="10" ToolTip="Chiffres collés : 4503782424" ></asp:TextBox>
                     <asp:RequiredFieldValidator SkinID="requisValidation" 
                         ID="requisValidationNumeroTelephone" runat="server" 
                         ErrorMessage="Votre numéro de téléphone doit être spécifié." 
@@ -108,7 +108,7 @@
             <tr>
                 <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbCodePostale" runat="server" Text="Code Postal"></asp:Label>
                     </td>
-                <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="60px" ID="tbCodePostal" runat="server" MaxLength="6" ></asp:TextBox>
+                <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="60px" ID="tbCodePostal" runat="server" MaxLength="6" ToolTip="X#X#X#" ></asp:TextBox>
                     <asp:RequiredFieldValidator SkinID="requisValidation" 
                         ID="requisValidationCodePostal" runat="server" 
                         ErrorMessage="Votre code postal doit être spécifié." 

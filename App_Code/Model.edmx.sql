@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 11/12/2012 15:07:32
+-- Date Created: 11/19/2012 15:58:00
 -- Generated from EDMX file: C:\Users\Katherine\Documents\A2012\Projet I\Projet-1\App_Code\Model.edmx
 -- --------------------------------------------------
 
@@ -242,7 +242,8 @@ CREATE TABLE [dbo].[Membre] (
     [Prénom] nvarchar(25)  NOT NULL,
     [DateNaissance] datetime  NOT NULL,
     [Propriétaire] bit  NOT NULL,
-    [Compte_noCompte] int  NOT NULL
+    [Compte_noCompte] int  NOT NULL,
+    [Parent] bit  NOT NULL
 );
 GO
 

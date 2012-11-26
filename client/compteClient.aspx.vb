@@ -67,25 +67,24 @@ Partial Class CompteClient
         lecontext.AddObject("Membre", ajouterMembre)
         lecontext.SaveChanges()
         multiViewMembre.ActiveViewIndex = 1
-        listViewAjoutMembre.EditIndex = 0
+        lViewAjoutMembre.EditIndex = 0
         hiddenFieldNoMembre.Value = ajouterMembre.noMembre
     End Sub
 
 
-    Protected Sub listViewAjoutMembre_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles listViewAjoutMembre.ItemCommand
+    Protected Sub lViewAjoutMembre_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles lViewAjoutMembre.ItemCommand
+        Dim noCompteCourant As Integer = Session("noCompte")
         If e.CommandName = "Cancel" Then
-            'Teste si le membre a déleter est bien dans la base de donnée.
+            'Teste si le membre a déleter est bien dans la base de donnée
             Dim noMembre As String = hiddenFieldNoMembre.Value
             Dim present As Boolean = False
             For Each membreDeleter As Membre In lecontext.Membre
                 If membreDeleter.noMembre = noMembre Then
                     present = True
-                Else
-                    present = False
                 End If
             Next
             If present = True Then
-                'Supprime le membre qui dont le nom est "Entrez un nom"
+                'Supprime le membre qui dont le nom est "Entrez un nom" lorsqu'on cancel un ajout
                 Dim leMembreADeleter As Membre = (From monMembre In lecontext.Membre Where monMembre.noMembre = noMembre Select monMembre).First
                 If leMembreADeleter.Nom = "Entrez un nom" Then
                     lecontext.Membre.DeleteObject(leMembreADeleter)
@@ -94,16 +93,29 @@ Partial Class CompteClient
             End If
             multiViewMembre.ActiveViewIndex = 0
         End If
+        'Vérifie si le compte à déjà 2 parents, si oui, il ne peut pas ajouter un membre "parent". Il peut tout de même ajouter un membre "Enfant"
+        If CType(lViewAjoutMembre.Items(0).FindControl("rbListeTypeMembre"), RadioButtonList).SelectedValue = "True" Then
+            If e.CommandName = "Update" Then
+                Dim nombreParent As Integer = (From unMembre As Membre In lecontext.Membre Where (unMembre.Compte.noCompte = noCompteCourant And unMembre.Parent = True) Select unMembre).Count
+                If nombreParent >= 2 Then
+                    Dim validatorNombreParent As CustomValidator = New CustomValidator
+                    validatorNombreParent.ValidationGroup = "A"
+                    validatorNombreParent.ErrorMessage = "Il ne peut pas y avoir plus de deux parents."
+                    validatorNombreParent.IsValid = False
+                    Me.Validators.Add(validatorNombreParent)
+                End If
+            End If
+        End If
     End Sub
 
-    Protected Sub listViewAjoutMembre_ItemUpdated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewUpdatedEventArgs) Handles listViewAjoutMembre.ItemUpdated
+    Protected Sub lViewAjoutMembre_ItemUpdated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewUpdatedEventArgs) Handles lViewAjoutMembre.ItemUpdated
         multiViewMembre.ActiveViewIndex = 0
         listViewMembres.DataBind()
     End Sub
 
-    Protected Sub listViewAjoutMembre_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles listViewAjoutMembre.PreRender
-        CType(listViewAjoutMembre.Items(0).FindControl("rangeValidatorDateNaissance"), RangeValidator).MaximumValue = Now.Date.ToShortDateString
-        CType(listViewAjoutMembre.Items(0).FindControl("rangeValidatorDateNaissance"), RangeValidator).MinimumValue = Now.AddYears(-150).ToShortDateString
+    Protected Sub lViewAjoutMembre_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles lViewAjoutMembre.PreRender
+        CType(lViewAjoutMembre.Items(0).FindControl("rangeValidatorDateNaissance"), RangeValidator).MaximumValue = Now.Date.ToShortDateString
+        CType(lViewAjoutMembre.Items(0).FindControl("rangeValidatorDateNaissance"), RangeValidator).MinimumValue = Now.AddYears(-150).ToShortDateString
     End Sub
 
     Protected Sub viewMembres_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles viewMembres.Load

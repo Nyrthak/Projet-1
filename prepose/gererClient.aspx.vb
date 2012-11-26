@@ -34,13 +34,11 @@ Partial Class prepose_gererClient
             lviewCompte.DataBind()
             hFieldNoCompte.Value = e.CommandArgument
             mViewActionCompte.ActiveViewIndex = 1
-
         End If
-
         If e.CommandName = "modifier" Then
+            hFieldNoCompte.Value = e.CommandArgument
             mViewActionCompte.ActiveViewIndex = 2
         End If
-
         If e.CommandName = "prerequis" Then
             hFieldNoCompte.Value = e.CommandArgument
             lViewMembrePrerequis.DataBind()
@@ -48,22 +46,38 @@ Partial Class prepose_gererClient
                 CType(item.FindControl("lViewPaiementPrerequis"), ListView).DataBind()
             Next
             mViewActionCompte.ActiveViewIndex = 3
-
+        End If
+        If e.CommandName = "supprimerMembre" Then
+            hFieldNoCompte.Value = e.CommandArgument
+            mViewActionCompte.ActiveViewIndex = 4
         End If
     End Sub
 
-    Protected Sub btnRetour_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnRetourInscription.Click, btnRetourPrerequis.Click
+    Protected Sub btnRetour_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnRetourInscription.Click, btnRetourPrerequis.Click, _
+        btnRetourModifier.Click, btnRetourGererMembre.Click
+        lbMessage.Text = ""
         mViewActionCompte.ActiveViewIndex = 0
     End Sub
 
     Protected Sub btnAnnuler_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAnnuler.Click
         multiViewModiCompte.ActiveViewIndex = 0
+        lbMessage.Text = ""
     End Sub
+
     Protected Sub btnEnregistrer_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnregistrer.Click
-        Dim noCompte As String = Session("noCompte")
+        Dim noCompteCourant As String = hFieldNoCompte.Value
+        For Each courriel As String In (From unCompte In lecontext.Compte Where unCompte.noCompte <> noCompteCourant Select unCompte.Email)
+            If CType(lViewCompte.Items(0).FindControl("tbCourriel"), TextBox).Text = courriel Then
+                Dim validatorEmail As CustomValidator = New CustomValidator
+                validatorEmail.ErrorMessage = "L'email est déja utilisé."
+                validatorEmail.IsValid = False
+                Me.Validators.Add(validatorEmail)
+            End If
+        Next
         If Me.IsValid Then
             lViewCompte.UpdateItem(0, True)
             lViewCompte.EditIndex = 0
+            lbMessage.Text = "Votre compte a bien été modifié."
         End If
     End Sub
 
@@ -73,7 +87,7 @@ Partial Class prepose_gererClient
 
     Protected Sub btnEnregistrerPW_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnregistrerPW.Click
         Dim salt = "manan"
-        Dim noCompte As String = Session("noCompte")
+        Dim noCompte As String = hFieldNoCompte.Value
         Dim compte As Compte = (From monCompte In lecontext.Compte Where monCompte.noCompte = noCompte).First
         If tbNouvMotDePasse.Text.Count < 6 Then
             Dim validatorMotDePasse As CustomValidator = New CustomValidator
@@ -98,7 +112,7 @@ Partial Class prepose_gererClient
     End Sub
 
     Protected Sub ajoutePaiement()
-        lviewCompte.DataBind()
+        lViewCompte.DataBind()
         Response.Redirect("~/prepose/gererClient.aspx")
     End Sub
 
@@ -106,7 +120,7 @@ Partial Class prepose_gererClient
         Dim leNoPaiement As Integer = CType(e.Entity, Paiement).noPaiement
         Dim lePaiement As Paiement = (From unPaiement In lecontext.Paiement Where unPaiement.noPaiement = leNoPaiement Select unPaiement).FirstOrDefault
         Dim leGroupe As Groupe = (From unGroupe In lecontext.Groupe Where unGroupe.noGroupe = lePaiement.Groupe.noGroupe Select unGroupe).FirstOrDefault
-        If leGroupe.ListeDAttente IsNot Nothing Then
+        If leGroupe.ListeDAttente.Count > 0 Then
             Dim lAttente As ListeDAttente = (From uneAttente In leGroupe.ListeDAttente Select uneAttente Order By uneAttente.DateAjout).FirstOrDefault
             Dim paiementAjout As Paiement = New Paiement
             paiementAjout.Groupe = leGroupe
@@ -117,6 +131,59 @@ Partial Class prepose_gererClient
             lecontext.Paiement.AddObject(paiementAjout)
             lecontext.ListeDAttente.DeleteObject(lAttente)
             lecontext.SaveChanges()
+        End If
+    End Sub
+
+    Protected Sub lViewGererMembres_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles lViewGererMembres.ItemCommand
+        If e.CommandName = "Supprimer" Then
+            Dim noMembreASupprimer As Integer = e.CommandArgument
+            Dim present As Boolean = False
+            Dim lesMembres As New List(Of Membre)(From unMembre In lecontext.Membre Select unMembre)
+            For Each membreADeleter In lesMembres
+                If membreADeleter.noMembre = noMembreASupprimer Then
+                    present = True
+                    If membreADeleter.Propriétaire = False Then
+                        lecontext.Membre.DeleteObject(membreADeleter)
+                        lecontext.SaveChanges()
+                        lViewGererMembres.DataBind()
+                        lbMessage.Text = "Vous avez bien supprimer le membre " & membreADeleter.Prénom & " " & membreADeleter.Nom & "."
+                    Else
+                        Dim validatorPropriétaire As CustomValidator = New CustomValidator
+                        validatorPropriétaire.ErrorMessage = "Vous ne pouvez pas supprimer le propriétaire d'un compte."
+                        validatorPropriétaire.IsValid = False
+                        Me.Validators.Add(validatorPropriétaire)
+                    End If
+
+                End If
+            Next
+        End If
+
+    End Sub
+
+
+
+    Protected Sub entiDataSourceMembre_Deleted(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceChangedEventArgs) Handles entiDataSourceMembre.Deleted
+        Response.Redirect("~/prepose/gererClient.aspx")
+    End Sub
+
+    Protected Sub lViewGererMembres_ItemUpdated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewUpdatedEventArgs) Handles lViewGererMembres.ItemUpdated
+        lbMessage.Text = "Vous avez modifier le membre " & e.NewValues(1) & " " & e.NewValues(0) & "."
+    End Sub
+
+    Protected Sub lViewGererMembres_ItemUpdating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewUpdateEventArgs) Handles lViewGererMembres.ItemUpdating
+        Dim noCompteCourant As String = hFieldNoCompte.Value
+        Dim noMembreCourant As Integer = e.Keys(0)
+        If e.NewValues(3) = "True" Then
+            Dim nombreParent As Integer = (From unMembre As Membre In lecontext.Membre Where (unMembre.Compte.noCompte = noCompteCourant And
+                                                                                              unMembre.Parent = True And Not unMembre.noMembre = noMembreCourant) Select unMembre).Count
+            If nombreParent >= 2 Then
+                Dim validatorNombreParent As CustomValidator = New CustomValidator
+                validatorNombreParent.ValidationGroup = "A"
+                validatorNombreParent.ErrorMessage = "Il ne peut pas y avoir plus de deux parents."
+                validatorNombreParent.IsValid = False
+                Me.Validators.Add(validatorNombreParent)
+                e.Cancel = True
+            End If
         End If
     End Sub
 End Class

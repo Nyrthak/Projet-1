@@ -86,6 +86,7 @@ Partial Class inscription
             membreAjoute.Prénom = tbPrenom.Text
             membreAjoute.DateNaissance = DateTime.Parse(tbDateNaissance.Text)
             membreAjoute.Propriétaire = True
+            membreAjoute.Parent = True
 
             compteAjoute.Membre.Add(membreAjoute)
             lecontext.AddObject("Compte", compteAjoute)
