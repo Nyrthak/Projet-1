@@ -60,7 +60,7 @@ Partial Class coursDefault
             Dim leGroupe As Groupe = (From monGroupe In lecontext.Groupe Where monGroupe.noGroupe = leNoGroupe Select monGroupe).FirstOrDefault
             Dim leNoMembre As Integer = CType(e.Item.FindControl("dDListMembres"), DropDownList).SelectedValue
             Dim leMembre As Membre = (From monMembre In lecontext.Membre Where monMembre.noMembre = leNoMembre Select monMembre).FirstOrDefault
-
+            Dim leNoCompte As Integer = leMembre.Compte.noCompte
             'Valider si le client s'est déja inscrit
             Dim dejaInscrit As Boolean = False
             For Each lePaiementBD As Paiement In lecontext.Paiement
@@ -97,7 +97,18 @@ Partial Class coursDefault
                 lePaiement.Membre = leMembre
                 lePaiement.ModePaiement = "Comptant"
                 lePaiement.noPaypal = "3jfh3jdh"
-                lePaiement.Prix = CType(lviewCours.Items(0).FindControl("lblPrix"), Label).Text
+
+                Dim laSession As Integer = leGroupe.Session.noSession
+                Dim coutForfait As Double
+                Dim nbInscriptionsEnfants As Integer = (From unPaiement In lecontext.Paiement Where unPaiement.Membre.Parent = False And unPaiement.Membre.Compte.noCompte = leNoCompte And unPaiement.Groupe.Session.noSession = laSession Select unPaiement).Count + 1
+                If (From unForfait In lecontext.Forfait Where unForfait.nbInscrits = nbInscriptionsEnfants Select unForfait).Count > 0 Then
+                    Dim leForfait As Forfait = (From unForfait In lecontext.Forfait Where unForfait.nbInscrits = nbInscriptionsEnfants Select unForfait).FirstOrDefault
+                    coutForfait = leForfait.Coût
+                Else
+                    coutForfait = 1
+                End If
+                lePaiement.Prix = CType(lviewCours.Items(0).FindControl("lblPrix"), Label).Text * coutForfait
+
                 lecontext.Paiement.AddObject(lePaiement)
                 lecontext.SaveChanges()
             End If
@@ -183,10 +194,16 @@ Partial Class coursDefault
             dDListMembres.Visible = False
             btnSinscrire.Visible = False
             lnkInscriptionListeDAttente.Visible = False
+        ElseIf leGroupe.DateLimiteInscription < Date.Today Then
+            btnSinscrire.Text = "Fermé"
+            btnSinscrire.Enabled = False
+            lnkInscriptionListeDAttente.Visible = False
         ElseIf leGroupe.Paiement.Count >= leGroupe.nbMaxInscrits Then
             btnSinscrire.Text = "Complet"
             btnSinscrire.Enabled = False
             lnkInscriptionListeDAttente.Visible = True
+        Else
+            lnkInscriptionListeDAttente.Visible = False
         End If
     End Sub
 
@@ -213,7 +230,7 @@ Partial Class coursDefault
         Dim leGroupe As Groupe = (From monGroupe In lecontext.Groupe Where monGroupe.noGroupe = leNoGroupe Select monGroupe).FirstOrDefault
         Dim leNoMembre As Integer = dDListMembres.SelectedValue
         Dim leMembre As Membre = (From monMembre In lecontext.Membre Where monMembre.noMembre = leNoMembre Select monMembre).FirstOrDefault
-
+        Dim leNoCompte As Integer = leMembre.Compte.noCompte
         'Valider si le client s'est déja inscrit
         Dim dejaInscrit As Boolean = False
         For Each lePaiementBD As Paiement In lecontext.Paiement
@@ -251,14 +268,27 @@ Partial Class coursDefault
             lePaiement.Membre = leMembre
             lePaiement.ModePaiement = "Comptant"
             lePaiement.noPaypal = "3jfh3jdh"
-            lePaiement.Prix = CType(lviewCours.Items(0).FindControl("lblPrix"), Label).Text
+            Dim laSession As Integer = leGroupe.Session.noSession
+            Dim coutForfait As Double
+            Dim nbInscriptionsEnfants As Integer = (From unPaiement In lecontext.Paiement Where unPaiement.Membre.Parent = False And unPaiement.Membre.Compte.noCompte = leNoCompte And unPaiement.Groupe.Session.noSession = laSession Select unPaiement).Count + 1
+            If (From unForfait In lecontext.Forfait Where unForfait.nbInscrits = nbInscriptionsEnfants Select unForfait).Count > 0 Then
+                Dim leForfait As Forfait = (From unForfait In lecontext.Forfait Where unForfait.nbInscrits = nbInscriptionsEnfants Select unForfait).FirstOrDefault
+                coutForfait = leForfait.Coût
+            Else
+                coutForfait = 1
+            End If
+            lePaiement.Prix = CType(lviewCours.Items(0).FindControl("lblPrix"), Label).Text * coutForfait
             lecontext.Paiement.AddObject(lePaiement)
             lecontext.SaveChanges()
         End If
     End Sub
 
     Protected Sub lviewGroupes_ItemDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewItemEventArgs) Handles lviewGroupes.ItemDataBound
-        If CType(e.Item.DataItem, Groupe).Paiement.Count >= CType(e.Item.DataItem, Groupe).nbMaxInscrits And Not Session("noCompte") Is Nothing Then
+        If CType(e.Item.DataItem, Groupe).DateLimiteInscription < Date.Today And Not Session("noCompte") Is Nothing Then
+            CType(e.Item.FindControl("btnSinscrire"), Button).Text = "Fermé"
+            CType(e.Item.FindControl("btnSinscrire"), Button).Enabled = False
+            CType(e.Item.FindControl("lnkInscriptionListeDAttente"), LinkButton).Visible = False
+        ElseIf CType(e.Item.DataItem, Groupe).Paiement.Count >= CType(e.Item.DataItem, Groupe).nbMaxInscrits And Not Session("noCompte") Is Nothing Then
             CType(e.Item.FindControl("btnSinscrire"), Button).Text = "Complet"
             CType(e.Item.FindControl("btnSinscrire"), Button).Enabled = False
         Else

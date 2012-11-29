@@ -4,6 +4,9 @@
 <asp:Content ID="contentMenuPrepose" ContentPlaceHolderID="contentMenuPrepose" runat="server"></asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
+    <asp:Button ID="btnRechercher" runat="server" Text="Ok" CssClass="rechercher" />
+    <asp:TextBox ID="txtRechercher" runat="server" SkinID="TextBoxFormulaire" CssClass="rechercher"></asp:TextBox>
+    <asp:Label ID="lblRechercher" runat="server" Text="Rechercher" CssClass="lbRechercher"></asp:Label>
     <div id="contentRight">
         <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="Server" />
         <asp:Label ID="lblTitreAnimateurs" runat="server" Text="Gérer les animateurs" SkinID="lbTitrePage"></asp:Label><br />
@@ -311,8 +314,11 @@
     </div>
     <asp:HiddenField ID="hFieldNoAnimateur" runat="server" />
     <asp:EntityDataSource ID="entiDataSourceAnimateurs" runat="server" 
-    ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
+    ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" Where='(it.Nom + it.[Prénom] + it.Ville + it.[noTéléphone] like "%"+@recherche+"%" OR (@recherche = ""))'
     EnableFlattening="False" EntitySetName="Animateur" EnableDelete="true" EnableUpdate="true" EnableInsert="true" Include="Province">
+    <WhereParameters>
+            <asp:ControlParameter Name="recherche" Type="String" ControlID="txtRechercher" ConvertEmptyStringToNull="false" />
+    </WhereParameters>
     </asp:EntityDataSource>
     <asp:EntityDataSource ID="entiDataSourceProvince" runat="server" 
     ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 

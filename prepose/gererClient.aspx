@@ -300,7 +300,7 @@
     
     <asp:EntityDataSource ID="entiDataSourceCompte" runat="server" 
             ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-            EnableFlattening="False" EntitySetName="Compte" Where='it.Email = @recherche OR (@recherche ="") AND it.Type = 1' EnableUpdate="true">
+            EnableFlattening="False" EntitySetName="Compte" Where='it.Email like "%"+@recherche+"%" OR (@recherche ="") AND it.Type = 1' EnableUpdate="true">
         <WhereParameters>
             <asp:ControlParameter ControlID="tbRechercher" ConvertEmptyStringToNull="false" Name="recherche" Type="String" />
         </WhereParameters>    

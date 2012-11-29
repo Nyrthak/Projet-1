@@ -1,5 +1,6 @@
 ﻿*{ border:0px; margin:0px; padding:0px; font-family:calibri, Arial, Sans-Serif;}
 body{ width:1023px; margin:auto; background-color:#c5c5c5;}
+#imprimable{margin:0; background-color:White; width:100%;}
 /* Banière */
 #header{ height:125px; background-color:#293F7F; background-image:url('images/baniere.jpg');  border-right:1px solid black; border-left:1px solid black;}
     .ddlLangue{ text-align:right;}
@@ -55,11 +56,19 @@ body{ width:1023px; margin:auto; background-color:#c5c5c5;}
         .longeurDeuxiemeColonneNOM{width:200px; padding-bottom:0px; }
         .borderInscription{border-top:1px solid black; clear:both;}
         .boutonMenuPager{border:1px solid black; width:75px; height:20px; margin-right:20px;}
-               
+    /*Rapports */
+    .criteres td{padding-left:6px;}
+    .imgCSL{float:left;}
+    .lbCSL{display:block; height:109px; float:right; vertical-align:bottom; line-height:109px; font-size:20px; margin-right:10px;}
+    .lbTrier{ display:block; clear:both; margin-top:7px;}
+    .lbCentrer{display:block; width:100%; text-align:center; clear:both;}
+    .tableRapportClients{text-align:center; border-collapse:collapse; margin:auto;}
+    .tableRapportClients .tdAvecTable{border:0;}
+        .tableRapportClients td{border:solid 1px black;}
+                .tableRapportClients .tableRapportClients td{border:0;}
     /* Côté droit (Heure ourverture) */ 
     #heureOuverture{float:right; background:url('images/backgroundcorps.jpg') repeat-x top center; width: 208px; height:400px; border-left:1px solid black; border-right:1px solid black; border-top:1px solid black;} 
-        #topHeureOuverture{width:208px; height:55px; background-color:#293F7F; text-align:center;}
-            #topheureOuverture h2{font-size:1.2em; line-height:55px; color:White;}
+        #topHeureOuverture{width:208px; height:43px; background-color:#293F7F; text-align:center; padding-top:12px;}
         #heureOuverture li{margin:5px 0 0 20px;}
             #heureOuverture li p{margin:0 0 0 40px;}
         .heure{margin-left: 40px;}

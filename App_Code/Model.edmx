@@ -210,6 +210,7 @@
     <Property Name="DateNaissance" Type="datetime" Nullable="false" />
     <Property Name="Propriétaire" Type="bit" Nullable="false" />
     <Property Name="Compte_noCompte" Type="int" Nullable="false" />
+    <Property Name="Parent" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Paiement">
     <Key>
@@ -690,6 +691,7 @@
           <NavigationProperty Name="Compte" Relationship="Model.FK_CompteMembre" FromRole="Membre" ToRole="Compte" />
           <NavigationProperty Name="ListeDAttente" Relationship="Model.FK_ListeDAttenteMembre" FromRole="Membre" ToRole="ListeDAttente" />
           <NavigationProperty Name="Paiement" Relationship="Model.FK_MembrePaiement" FromRole="Membre" ToRole="Paiement" />
+          <Property Type="Boolean" Name="Parent" Nullable="false" />
         </EntityType>
         <EntityType Name="Paiement">
           <Key>
@@ -1069,6 +1071,7 @@
           <ScalarProperty Name="DateNaissance" ColumnName="DateNaissance" />
           <ScalarProperty Name="Propriétaire" ColumnName="Propriétaire" />
           <ScalarProperty Name="Compte_noCompte" ColumnName="Compte_noCompte" />
+          <ScalarProperty Name="Parent" ColumnName="Parent" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1156,7 +1159,7 @@
         <EntityTypeShape EntityType="Model.Horaire" Width="1.5" PointX="7.5" PointY="6.75" Height="2.3648893229166674" />
         <EntityTypeShape EntityType="Model.Jour" Width="1.5" PointX="5.25" PointY="11.125" Height="1.5956835937499818" />
         <EntityTypeShape EntityType="Model.ListeDAttente" Width="1.5" PointX="7.5" PointY="3.875" Height="2.3648893229166656" />
-        <EntityTypeShape EntityType="Model.Membre" Width="1.5" PointX="5.25" PointY="1.875" Height="2.7494921874999818" />
+        <EntityTypeShape EntityType="Model.Membre" Width="1.5" PointX="5.25" PointY="1.875" Height="2.9417936197916656" />
         <EntityTypeShape EntityType="Model.Paiement" Width="1.5" PointX="10.5" PointY="6.625" Height="2.5571907552083246" />
         <EntityTypeShape EntityType="Model.Province" Width="1.5" PointX="0.75" PointY="14" Height="1.7879850260416674" />
         <EntityTypeShape EntityType="Model.Session" Width="1.5" PointX="0.75" PointY="10.25" Height="1.7879850260416657" />
@@ -1230,8 +1233,8 @@
           <ConnectorPoint PointX="7.59375" PointY="9.1148893229166674" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_ListeDAttenteMembre" >
-          <ConnectorPoint PointX="6.75" PointY="4.2497460937499909" />
-          <ConnectorPoint PointX="7.5" PointY="4.2497460937499909" />
+          <ConnectorPoint PointX="6.75" PointY="4.3458968098958328" />
+          <ConnectorPoint PointX="7.5" PointY="4.3458968098958328" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_MembrePaiement" >
           <ConnectorPoint PointX="6.75" PointY="2.84375" />

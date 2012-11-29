@@ -16,7 +16,7 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("a8220096-32de-416c-b4d9-9da7bf37fd9f")>
+<Assembly: EdmSchemaAttribute("fb6c775c-0eb4-4bdb-9a26-5c030fc84c2d")>
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("Model", "FK_AnimateurGroupe", "Animateur", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Animateur), "Groupe", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Groupe), True)>
 <Assembly: EdmRelationshipAttribute("Model", "FK_AnimateurProvince", "Province", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(Model.Province), "Animateur", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(Model.Animateur), True)>
@@ -2868,7 +2868,8 @@ Namespace Model
         ''' <param name="dateNaissance">Initial value of the DateNaissance property.</param>
         ''' <param name="propriétaire">Initial value of the Propriétaire property.</param>
         ''' <param name="compte_noCompte">Initial value of the Compte_noCompte property.</param>
-        Public Shared Function CreateMembre(noMembre As Global.System.Int32, nom As Global.System.String, prénom As Global.System.String, dateNaissance As Global.System.DateTime, propriétaire As Global.System.Boolean, compte_noCompte As Global.System.Int32) As Membre
+        ''' <param name="parent">Initial value of the Parent property.</param>
+        Public Shared Function CreateMembre(noMembre As Global.System.Int32, nom As Global.System.String, prénom As Global.System.String, dateNaissance As Global.System.DateTime, propriétaire As Global.System.Boolean, compte_noCompte As Global.System.Int32, parent As Global.System.Boolean) As Membre
             Dim membre as Membre = New Membre
             membre.noMembre = noMembre
             membre.Nom = nom
@@ -2876,6 +2877,7 @@ Namespace Model
             membre.DateNaissance = dateNaissance
             membre.Propriétaire = propriétaire
             membre.Compte_noCompte = compte_noCompte
+            membre.Parent = parent
             Return membre
         End Function
 
@@ -3032,6 +3034,31 @@ Namespace Model
         End Sub
     
         Private Partial Sub OnCompte_noCompteChanged()
+        End Sub
+    
+        ''' <summary>
+        ''' No Metadata Documentation available.
+        ''' </summary>
+        <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+        <DataMemberAttribute()>
+        Public Property Parent() As Global.System.Boolean
+            Get
+                Return _Parent
+            End Get
+            Set
+                OnParentChanging(value)
+                ReportPropertyChanging("Parent")
+                _Parent = StructuralObject.SetValidValue(value)
+                ReportPropertyChanged("Parent")
+                OnParentChanged()
+            End Set
+        End Property
+    
+        Private _Parent As Global.System.Boolean
+        Private Partial Sub OnParentChanging(value As Global.System.Boolean)
+        End Sub
+    
+        Private Partial Sub OnParentChanged()
         End Sub
 
         #End Region

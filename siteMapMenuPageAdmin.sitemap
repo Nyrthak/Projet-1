@@ -10,6 +10,10 @@
         <siteMapNode url="~/admin/GererSessions.aspx" title="Sessions"  description="Gérer les sessions" />
         <siteMapNode url="~/admin/GererSpecialites.aspx" title="Spécialités"  description="Gérer les spécialités" />
       </siteMapNode>
+      <siteMapNode url="" title="Rapports"  description="Les rapports">
+        <siteMapNode url="~/Rapports/listeClients.aspx" title="Clients"  description="Afficher tous les clients" />
+        <siteMapNode url="~/Rapports/listeCours.aspx" title="Cours"  description="Afficher tous les cours" />
+      </siteMapNode>
       <siteMapNode url="~/admin/default.aspx" title="Mon compte" description="Modification du compte administrateur"/>
       <siteMapNode url="~/admin/ajouterComptePrepose.aspx" title="Ajouter un préposé" description="Ajouter un compte préposé"/>
       <siteMapNode url="~/admin/listesDattente.aspx" title="Listes d'attente"  description="Afficher toutes les listes d'attente" />

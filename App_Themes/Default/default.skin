@@ -5,6 +5,8 @@
 <asp:Label runat="server" SkinId="lbChampsFormulaire" ForeColor="Black" Font-Size="18px" Font-bold="True"></asp:Label>
 <asp:Label runat="server" SkinId="lbTitreInfoMembre" ForeColor="Black" Font-Bold="true" Font-Size="18px"></asp:Label>
 <asp:Label runat="server" SkinId="lbInfoMembre" ForeColor="Black"  Font-Size="18px"></asp:Label>
+<asp:Label runat="server" SkinId="lbTitreTableau" ForeColor="Black" Font-bold="True"></asp:Label>
+<asp:Label runat="server" SkinId="lbHeureOuverture" ForeColor="White" Font-Size="22px"></asp:Label>
 
 <asp:TextBox runat="server" SkinID="tbInscription" Font-Size="18px" BorderColor="Black" BorderStyle="Solid" BorderWidth="1px" />
 <asp:TextBox runat="server" SkinId="TextBoxFormulaire" Font-size="16px" BorderColor="Black" BorderWidth="1px" Width="148px"></asp:TextBox>

@@ -35,6 +35,37 @@ Partial Class login
 
     Protected Sub loginCtrl_LoggedIn(ByVal sender As Object, ByVal e As System.EventArgs) Handles loginCtrl.LoggedIn
         If Session("userType") = 1 Then
+            Dim noCompte As Integer = Session("noCompte")
+            Dim compteParent As Compte = (From unCompte In lecontext.Compte Where unCompte.noCompte = noCompte Select unCompte).FirstOrDefault
+            For Each leMembre As Membre In compteParent.Membre
+                If Not leMembre.Parent And leMembre.DateNaissance <= Date.Now.AddYears(-18) Then
+                    Dim compteAjoute As Compte = New Compte()
+                    Dim membreAjoute As Membre = New Membre()
+
+                    compteAjoute.Type = 1
+                    compteAjoute.Adresse = compteParent.Adresse
+                    compteAjoute.Ville = compteParent.Ville
+                    compteAjoute.CodePostal = compteParent.CodePostal
+                    compteAjoute.ModePaiement = "Non payé"
+                    compteAjoute.motDePasseCrypté = "Adulte"
+                    compteAjoute.Email = "Entrez un email"
+                    compteAjoute.noTelephone = compteParent.noTelephone
+                    compteAjoute.Province = compteParent.Province
+                    compteAjoute.Pays = compteParent.Pays
+
+                    membreAjoute.Nom = leMembre.Nom
+                    membreAjoute.Prénom = leMembre.Prénom
+                    membreAjoute.DateNaissance = leMembre.DateNaissance
+                    membreAjoute.Propriétaire = True
+                    membreAjoute.Parent = True
+
+                    lecontext.Membre.DeleteObject(leMembre)
+                    compteAjoute.Membre.Add(membreAjoute)
+                    lecontext.AddObject("Compte", compteAjoute)
+                    lecontext.SaveChanges()
+                    'Envoyer un email pour qu'il set son mot de passe
+                End If
+            Next
             Page.Response.Redirect("~/Default.aspx")
         End If
         If Session("userType") = 2 Then

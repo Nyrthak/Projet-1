@@ -62,6 +62,7 @@ Partial Class CompteClient
         ajouterMembre.Prénom = "Entrez un prénom"
         ajouterMembre.DateNaissance = Date.Now
         ajouterMembre.Propriétaire = False
+        ajouterMembre.Parent = True
         ajouterMembre.Compte = (From dl In lecontext.Compte Where dl.noCompte = noCompte Select dl).First
 
         lecontext.AddObject("Membre", ajouterMembre)
