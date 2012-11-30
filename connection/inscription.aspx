@@ -9,7 +9,7 @@
 <asp:Content ID="contentLogin" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">    
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="Server" />
     <asp:CalendarExtender ID="calendarExtenderDateNaissance" runat="server" TargetControlID="tbDateNaissance" PopupButtonID="imgBtnCalendrier" 
-     CssClass="MyCalendar" PopupPosition="Right" Format="d-MM-yyyy" >
+     CssClass="MyCalendar" PopupPosition="Right" Format="d-MM-yyyy"  >
     </asp:CalendarExtender>               
         <h1><asp:Label SkinID="lbTitrePage" ID="lbInscription" runat="server" Text="Inscription"></asp:Label></h1>
         <asp:ValidationSummary SkinID="valiSummary" ID="valiSummaryInscription" runat="server" />
@@ -164,7 +164,7 @@
             <tr>
                 <td class="longeurPremiereColonne"><asp:Label skinid="lbInscription" ID="lbNumeroCartePaiement" runat="server" Text="Numéro de la carte"></asp:Label>
                 </td>
-                <td><asp:TextBox SkinID="tbInscription" ID="tbNumeroCartePaiement" Text="" runat="server"></asp:TextBox>
+                <td><asp:TextBox SkinID="tbInscription" ID="tbNumeroCartePaiement" MaxLength="16" Text="" runat="server"></asp:TextBox>
                 <asp:RequiredFieldValidator SkinID="requisValidation" 
                         ID="requisValidationNumeroCartePaiement" runat="server" 
                         ErrorMessage="Votre numéro de carte doit être spécifié." 
@@ -211,7 +211,17 @@
                     </td>
                 <td>
                     <asp:TextBox SkinID="tbInscription" Width="210px" ID="tbNomPaiement" runat="server" MaxLength="40"></asp:TextBox>
-                        <asp:RequiredFieldValidator SkinID="requisValidation" ID="requisValidationNomDétenteur" runat="server" ErrorMessage="Le nom du détenteur doit être spécifié." ControlToValidate="tbNomPaiement" Display="Dynamic">*</asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator SkinID="requisValidation" ID="requisValidationNomDetenteur" runat="server" ErrorMessage="Le nom du détenteur doit être spécifié." 
+                        ControlToValidate="tbNomPaiement" Display="Dynamic">*</asp:RequiredFieldValidator>
+                </td>
+            </tr>
+            <tr>
+                <td class="longeurPremiereColonne"><asp:Label skinid="lbInscription" ID="lbPrenomPaiement" runat="server" Text="Prénom du détenteur"></asp:Label>
+                    </td>
+                <td>
+                    <asp:TextBox SkinID="tbInscription" Width="210px" ID="tbPrenomPaiement" runat="server" MaxLength="40"></asp:TextBox>
+                        <asp:RequiredFieldValidator SkinID="requisValidation" ID="requisVlidationPrenomDetendeur" runat="server" ErrorMessage="Le prénom du détenteur doit être spécifié." 
+                        ControlToValidate="tbPrenomPaiement" Display="Dynamic">*</asp:RequiredFieldValidator>
                 </td>
             </tr>
         </table>

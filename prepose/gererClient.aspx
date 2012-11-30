@@ -339,11 +339,14 @@
                         <td>
                             <asp:Label SkinID="lbInfoMembre" id="tbDateNaissance" runat="server" Text='<%#Eval("DateNaissance", "{0:dd/MM/yyyy}") %>'></asp:Label>
                         </td>
-                        <td ">
+                        <td >
                             <asp:Button SkinID="btnAjoutSupprimer" ID="btnModifier" runat="server" Text="Modifier" CommandName="Edit" CommandArgument='<%#Eval("noMembre") %>' />
                         </td>
                         <td>
-                            <asp:Button SkinID="btnAjoutSupprimer" ID="btnSupprimer" runat="server" Text="Supprimer" CommandName="Supprimer" CommandArgument='<%#Eval("noMembre") %>' />
+                            <asp:Button SkinID="btnAjoutSupprimer" ID="btnInscription" runat="server" Text="Inscription" CommandName="Inscription" CommandArgument='<%#Eval("noMembre") %>' />
+                        </td>
+                        <td>
+                            <asp:Button SkinID="btnAjoutSupprimer" ID="btnSupprimer" runat="server" Text="-" CommandName="Supprimer" CommandArgument='<%#Eval("noMembre") %>' />
                             <ajaxToolkit:ConfirmButtonExtender ID="confirmBtnExtSupprimer" runat="server" TargetControlID="btnSupprimer" ConfirmText="Voulez-vous vraiment supprimer ce membre?">
                             </ajaxToolkit:ConfirmButtonExtender>    
                         </td>
@@ -393,6 +396,13 @@
             </asp:ListView>  
             <br /> 
                 <asp:Button SkinID="btnActionPossible" ID="btnRetourGererMembre" runat="server" Text="Retour" CausesValidation="false" /> 
+            </asp:View>
+            <asp:View ID="viewInscrireMembre" runat="server">
+                <asp:ListView ID="lviewInscrireMembre" runat="server"  DataSourceID="entiDataSourceMembre" DataKeyNames="noMembre">
+                    <LayoutTemplate>
+                        
+                    </LayoutTemplate>
+                </asp:ListView>
             </asp:View>
         </asp:MultiView><br />   
         <asp:Label  ID="lbMessage" runat="server" Text=""></asp:Label> 

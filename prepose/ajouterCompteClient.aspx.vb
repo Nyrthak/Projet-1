@@ -23,13 +23,6 @@ Partial Class prepose_ajouterCompteClient
     End Sub
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        'Remplissage du dropdownlist annee en fonction de l'année en cours.
-        Dim i As Integer = 0
-        dropDownListAnnee.Items.Add("")
-        While i < 12
-            dropDownListAnnee.Items.Add(Now.AddYears(i).Year)
-            i += 1
-        End While
 
         rangeValidatorDateNaissance.MinimumValue = Now.AddYears(-150).ToShortDateString
         rangeValidatorDateNaissance.MaximumValue = Now.Date.ToShortDateString
@@ -64,22 +57,7 @@ Partial Class prepose_ajouterCompteClient
                 validatorMotDePasse.IsValid = False
                 Me.Validators.Add(validatorMotDePasse)
             End If
-            'teste sur la carte de crédit
-
-            If rbListeTypeCarte.SelectedItem.Text = "Comptant" Or rbListeTypeCarte.SelectedItem.Text = "Chèque" Then
-                requisValidationNumeroCartePaiement.Enabled = False
-                requisValidationNumeroSecurite.Enabled = False
-                requisValidationDateExpirationMois.Enabled = False
-            requisValidationDateExpirationAnnee.Enabled = False
-                requisValidationNomDétenteur.Enabled = False
-            Else
-                requisValidationNumeroCartePaiement.Enabled = True
-                requisValidationNumeroSecurite.Enabled = True
-                requisValidationDateExpirationMois.Enabled = True
-                requisValidationDateExpirationAnnee.Enabled = True
-                requisValidationNomDétenteur.Enabled = True
-        End If
-        Me.Validate()
+            
         If Me.IsValid Then
             Dim hash As String = CreatePasswordHash(tbMotDePasse.Text, salt)
 
