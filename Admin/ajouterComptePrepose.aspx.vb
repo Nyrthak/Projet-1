@@ -65,6 +65,7 @@ Partial Class Admin_ajouterComptePrepose
             compteAjoute.Province = (From dl In lecontext.Province Where dl.noProvince = dropDownListProvince.SelectedValue Select dl).First
             compteAjoute.Pays = tbPays.Text
 
+            membreAjoute.Parent = True
             membreAjoute.Nom = tbNom.Text
             membreAjoute.Prénom = tbPrenom.Text
             membreAjoute.DateNaissance = DateTime.Parse(tbDateNaissance.Text)

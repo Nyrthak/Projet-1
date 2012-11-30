@@ -29,7 +29,8 @@ body{ width:1023px; margin:auto; background-color:#c5c5c5;}
                             #corps .menuFloat ul li ul li a:hover{border-top:1px solid white; border-bottom:1px solid white; line-height:23px;}
         /* Content right (lorsque menu à gauche) */
         #contentRight{float:right; width:528px; margin-left:20px;} /* width:548px kath */
-            #contentRight .itemTemplate{width:235px; border-collapse:collapse; height:20px;}
+            #contentRight .itemTemplate{width:170px; border-collapse:collapse; height:20px;}
+            #contentRight .colonne{height:20px}
             #contentRight .btnCentre{margin:40px; text-align:center;}
             #contentRight table td{vertical-align:top;} 
         /* Page d'accueil */
@@ -94,9 +95,11 @@ body{ width:1023px; margin:auto; background-color:#c5c5c5;}
         #contentLeft{float:left; width:370px; } 
             #corps #tbCours{width:540px; margin-top:10px; margin-bottom:20px;}
 .paddingControl{ padding:1px 2px 1px 2px; }
+.flowLeftTb{float:left}
 /* Ajax calendrier */
 .MyCalendar .ajax__calendar_container{background-color:#293F7F; border:1px solid black;}
 .MyCalendar .ajax__calendar_header{ text-decoration:underline; font-size:16px; color:white; background-color:#293F7F; font-weight:bold;}
+.MyCalendar .ajax__calendar_prev{}
 .MyCalendar .ajax__calendar_body{ background-color:#e8ebfa;} 
 .MyCalendar .ajax__calendar_days { color:#537EFF; font-size:14px; font-weight:bold; border:2px solid black;}
 .MyCalendar .ajax__calendar_day {}

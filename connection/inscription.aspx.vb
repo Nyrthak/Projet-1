@@ -66,34 +66,42 @@ Partial Class inscription
         'teste sur la carte de crédit
 
         If Me.IsValid Then
-            Dim hash As String = CreatePasswordHash(tbMotDePasse.Text, salt)
+            If doTransaction("4583279825118372", rbListeTypeCarte.SelectedItem.Text, dropDownListMois.SelectedItem.Text & dropDownListAnnee.SelectedItem.Text, tbNumeroSecuriteCarte.Text, "50", tbPrenomPaiement.Text, tbNomPaiement.Text, tbAdresse.Text, _
+                             tbVille.Text, dropDownListProvince.SelectedItem.Text, tbCodePostal.Text) Then
 
-            Dim compteAjoute As Compte = New Compte()
-            Dim membreAjoute As Membre = New Membre()
+                Dim hash As String = CreatePasswordHash(tbMotDePasse.Text, salt)
 
-            compteAjoute.Type = 1
-            compteAjoute.Adresse = tbAdresse.Text
-            compteAjoute.Ville = tbVille.Text
-            compteAjoute.CodePostal = tbCodePostal.Text
-            compteAjoute.ModePaiement = rbListeTypeCarte.SelectedValue
-            compteAjoute.motDePasseCrypté = hash
-            compteAjoute.Email = tbCourriel.Text
-            compteAjoute.noTelephone = tbNumeroTelephone.Text
-            compteAjoute.Province = (From dl In lecontext.Province Where dl.noProvince = dropDownListProvince.SelectedValue Select dl).First
-            compteAjoute.Pays = tbPays.Text
+                Dim compteAjoute As Compte = New Compte()
+                Dim membreAjoute As Membre = New Membre()
 
-            membreAjoute.Nom = tbNom.Text
-            membreAjoute.Prénom = tbPrenom.Text
-            membreAjoute.DateNaissance = DateTime.Parse(tbDateNaissance.Text)
-            membreAjoute.Propriétaire = True
-            membreAjoute.Parent = True
+                compteAjoute.Type = 1
+                compteAjoute.Adresse = tbAdresse.Text
+                compteAjoute.Ville = tbVille.Text
+                compteAjoute.CodePostal = tbCodePostal.Text
+                compteAjoute.ModePaiement = rbListeTypeCarte.SelectedValue
+                compteAjoute.motDePasseCrypté = hash
+                compteAjoute.Email = tbCourriel.Text
+                compteAjoute.noTelephone = tbNumeroTelephone.Text
+                compteAjoute.Province = (From dl In lecontext.Province Where dl.noProvince = dropDownListProvince.SelectedValue Select dl).First
+                compteAjoute.Pays = tbPays.Text
 
-            compteAjoute.Membre.Add(membreAjoute)
-            lecontext.AddObject("Compte", compteAjoute)
-            lecontext.SaveChanges()
+                membreAjoute.Nom = tbNom.Text
+                membreAjoute.Prénom = tbPrenom.Text
+                membreAjoute.DateNaissance = DateTime.Parse(tbDateNaissance.Text)
+                membreAjoute.Propriétaire = True
+                membreAjoute.Parent = True
 
-            Page.Response.Redirect("~/connection/inscriptionReusi.aspx")
-            
+                compteAjoute.Membre.Add(membreAjoute)
+                lecontext.AddObject("Compte", compteAjoute)
+                lecontext.SaveChanges()
+
+                Page.Response.Redirect("~/connection/inscriptionReusi.aspx")
+            Else
+                Dim validatorErrorPaiement As CustomValidator = New CustomValidator
+                validatorErrorPaiement.ErrorMessage = "Les informations de paiement que vous avez entré ne sont pas valide."
+                validatorErrorPaiement.IsValid = False
+                Me.Validators.Add(validatorErrorPaiement)
+            End If
         End If
     End Sub
 

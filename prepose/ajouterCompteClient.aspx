@@ -50,7 +50,7 @@
             <tr>
                 <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbDateNaissance" runat="server" Text="Date de naissance"></asp:Label>
                     </td>
-                <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="90px" ID="tbDateNaissance" runat="server" MaxLength="10" ReadOnly="false" ></asp:TextBox>
+                <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="90px" ID="tbDateNaissance" runat="server" MaxLength="10" ReadOnly="false" ToolTip="JJ-MM-AAAA" ></asp:TextBox>
                 <asp:ImageButton ID="imgBtnCalendrier" ImageUrl="~/App_Themes/Default/images/btnCalendrier.png" 
                     runat="server" CausesValidation="false" />              
                     <asp:RequiredFieldValidator SkinID="requisValidation" 
@@ -62,8 +62,7 @@
                             Display="Dynamic">*</asp:CompareValidator>
                         <asp:RangeValidator ID="rangeValidatorDateNaissance" Type="Date" runat="server" 
                             ErrorMessage="La date de naissance doit précèder la date d'aujourd'hui." 
-                            ControlToValidate="tbDateNaissance" Display="Dynamic" ForeColor="Red">*</asp:RangeValidator>
-                            
+                            ControlToValidate="tbDateNaissance" Display="Dynamic" ForeColor="Red">*</asp:RangeValidator>                 
                     </td>
             </tr>
             <tr>
@@ -90,7 +89,7 @@
             <tr>
                 <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbNumeroTelephone" runat="server" Text="Numéro de téléphone"></asp:Label>
                     </td>
-                <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="100px" ID="tbNumeroTelephone" runat="server"  MaxLength="10" ></asp:TextBox>
+                <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="100px" ID="tbNumeroTelephone" runat="server"  MaxLength="10" ToolTip="Chiffres collés : 4503782424" ></asp:TextBox>
                     <asp:RequiredFieldValidator SkinID="requisValidation" 
                         ID="requisValidationNumeroTelephone" runat="server" 
                         ErrorMessage="Le numéro de téléphone doit être spécifié." 
@@ -111,7 +110,7 @@
             <tr>
                 <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbCodePostale" runat="server" Text="Code Postal"></asp:Label>
                     </td>
-                <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="60px" ID="tbCodePostal" runat="server" MaxLength="6" ></asp:TextBox>
+                <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="60px" ID="tbCodePostal" runat="server" MaxLength="6" ToolTip="X#X#X#" ></asp:TextBox>
                     <asp:RequiredFieldValidator SkinID="requisValidation" 
                         ID="requisValidationCodePostal" runat="server" 
                         ErrorMessage="Le code postal doit être spécifié." 
@@ -163,7 +162,7 @@
             <asp:ListItem>Comptant</asp:ListItem>
             <asp:ListItem>Chèque</asp:ListItem>
         </asp:RadioButtonList>  
-        <table class="style1">
+        <%--<table class="style1">
             <tr>
                 <td class="longeurPremiereColonne"><asp:Label skinid="lbInscription" ID="lbNumeroCartePaiement" runat="server" Text="Numéro de la carte"></asp:Label>
                 </td>
@@ -218,9 +217,9 @@
                 </td>
             </tr>
         </table>
+--%>
 
-
-        <asp:Button SkinID="btnEnregistrer" ID="btnEnregistrerInscription" runat="server" Text="S'inscrire" CausesValidation="false" /><br />
+        <asp:Button SkinID="btnEnregistrer" ID="btnEnregistrerInscription" runat="server" Text="S'inscrire" /><br />
          <asp:Label ID="lbNote1" runat="server" Text="*: Ce sera votre nom d'utilisateur lors de future connection. Il doit être valide pour que nous vous communiquions des informations."></asp:Label><br />
 </div>         
         
