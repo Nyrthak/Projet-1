@@ -1,12 +1,13 @@
 ﻿Imports Model
 
 Partial Class coursDefault
-    Inherits System.Web.UI.Page
+    Inherits page
 
 #Region "Page"
     Private Shared lecontext As ModelContainer = Nothing
     Protected Sub page_load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         lecontext = New ModelContainer()
+
     End Sub
 
     Protected Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Unload
@@ -57,8 +58,10 @@ Partial Class coursDefault
             mViewCours.ActiveViewIndex = 2
         ElseIf e.CommandName = "Inscription" Then
             Dim leNoGroupe As Integer = e.CommandArgument
+            hFieldnoGroupe2.Value = e.CommandArgument
             Dim leGroupe As Groupe = (From monGroupe In lecontext.Groupe Where monGroupe.noGroupe = leNoGroupe Select monGroupe).FirstOrDefault
             Dim leNoMembre As Integer = CType(e.Item.FindControl("dDListMembres"), DropDownList).SelectedValue
+            hFieldnoMembre.Value = leNoMembre
             Dim leMembre As Membre = (From monMembre In lecontext.Membre Where monMembre.noMembre = leNoMembre Select monMembre).FirstOrDefault
             Dim leNoCompte As Integer = leMembre.Compte.noCompte
             'Valider si le client s'est déja inscrit
@@ -73,7 +76,7 @@ Partial Class coursDefault
             Dim peutSinscrire As Boolean = True
             If Not leGroupe.Cours.lePrerequis Is Nothing Then
                 peutSinscrire = False
-                lbMessage.Text = "Vous ne possédez pas le prérequis " & leGroupe.Cours.lePrerequis.Nom & ", nécéssaire au cours."
+
                 For Each lePaiementBd As Paiement In leMembre.Paiement
                     If lePaiementBd.Groupe.Cours.noCours = leGroupe.Cours.lePrerequis.noCours Then
                         peutSinscrire = True
@@ -91,26 +94,8 @@ Partial Class coursDefault
             End If
 
             If Not dejaInscrit And peutSinscrire And ageCorrect Then
-                lbMessage.Text = leMembre.Prénom & " " & leMembre.Nom & " est inscrit au Groupe " & leGroupe.noGroupe & " du cours de " & leGroupe.Cours.Nom & "."
-                Dim lePaiement As New Paiement
-                lePaiement.Groupe = leGroupe
-                lePaiement.Membre = leMembre
-                lePaiement.ModePaiement = "Comptant"
-                lePaiement.noPaypal = "3jfh3jdh"
-
-                Dim laSession As Integer = leGroupe.Session.noSession
-                Dim coutForfait As Double
-                Dim nbInscriptionsEnfants As Integer = (From unPaiement In lecontext.Paiement Where unPaiement.Membre.Parent = False And unPaiement.Membre.Compte.noCompte = leNoCompte And unPaiement.Groupe.Session.noSession = laSession Select unPaiement).Count + 1
-                If (From unForfait In lecontext.Forfait Where unForfait.nbInscrits = nbInscriptionsEnfants Select unForfait).Count > 0 Then
-                    Dim leForfait As Forfait = (From unForfait In lecontext.Forfait Where unForfait.nbInscrits = nbInscriptionsEnfants Select unForfait).FirstOrDefault
-                    coutForfait = leForfait.Coût
-                Else
-                    coutForfait = 1
-                End If
-                lePaiement.Prix = CType(lviewCours.Items(0).FindControl("lblPrix"), Label).Text * coutForfait
-
-                lecontext.Paiement.AddObject(lePaiement)
-                lecontext.SaveChanges()
+                'hfield + changement de view
+                mViewCours.ActiveViewIndex = 3
             End If
         ElseIf e.CommandName = "InscriptionAttente" Then
             Dim leNoGroupe As Integer = e.CommandArgument
@@ -208,7 +193,7 @@ Partial Class coursDefault
     End Sub
 
     Protected Sub mViewCours_ActiveViewChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles mViewCours.ActiveViewChanged
-        lbMessage.Text = ""
+        'lbMessage.Text = ""
         If mViewCours.ActiveViewIndex = 2 Then
             If Session("noCompte") IsNot Nothing Then
                 Dim noCompte As Integer = Session("noCompte")
@@ -223,12 +208,22 @@ Partial Class coursDefault
                 Next
             End If
         End If
+        If mViewCours.ActiveViewIndex = 3 Then
+            'Remplissage du dropdownlist annee
+            Dim i As Integer = 0
+            dropDownListAnnee.Items.Add("")
+            While i < 12
+                dropDownListAnnee.Items.Add(Now.AddYears(i).Year)
+                i += 1
+            End While
+        End If
     End Sub
 
     Protected Sub btnSinscrire_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSinscrire.Click
         Dim leNoGroupe As Integer = hFieldnoGroupe2.Value
         Dim leGroupe As Groupe = (From monGroupe In lecontext.Groupe Where monGroupe.noGroupe = leNoGroupe Select monGroupe).FirstOrDefault
         Dim leNoMembre As Integer = dDListMembres.SelectedValue
+        hFieldnoMembre.Value = dDListMembres.SelectedValue
         Dim leMembre As Membre = (From monMembre In lecontext.Membre Where monMembre.noMembre = leNoMembre Select monMembre).FirstOrDefault
         Dim leNoCompte As Integer = leMembre.Compte.noCompte
         'Valider si le client s'est déja inscrit
@@ -260,27 +255,12 @@ Partial Class coursDefault
             ageCorrect = False
             lbMessage.Text = "Vous n'êtes pas dans la tranche d'âge requis pour vous inscrire à ce cours."
         End If
-
+        'Changement de view pour aller a la view paiement
         If Not dejaInscrit And peutSinscrire And ageCorrect Then
-            lbMessage.Text = leMembre.Prénom & " " & leMembre.Nom & " est inscrit au Groupe " & leGroupe.noGroupe & " du cours de " & leGroupe.Cours.Nom & "."
-            Dim lePaiement As New Paiement
-            lePaiement.Groupe = leGroupe
-            lePaiement.Membre = leMembre
-            lePaiement.ModePaiement = "Comptant"
-            lePaiement.noPaypal = "3jfh3jdh"
-            Dim laSession As Integer = leGroupe.Session.noSession
-            Dim coutForfait As Double
-            Dim nbInscriptionsEnfants As Integer = (From unPaiement In lecontext.Paiement Where unPaiement.Membre.Parent = False And unPaiement.Membre.Compte.noCompte = leNoCompte And unPaiement.Groupe.Session.noSession = laSession Select unPaiement).Count + 1
-            If (From unForfait In lecontext.Forfait Where unForfait.nbInscrits = nbInscriptionsEnfants Select unForfait).Count > 0 Then
-                Dim leForfait As Forfait = (From unForfait In lecontext.Forfait Where unForfait.nbInscrits = nbInscriptionsEnfants Select unForfait).FirstOrDefault
-                coutForfait = leForfait.Coût
-            Else
-                coutForfait = 1
+            mViewCours.ActiveViewIndex = 3
+
             End If
-            lePaiement.Prix = CType(lviewCours.Items(0).FindControl("lblPrix"), Label).Text * coutForfait
-            lecontext.Paiement.AddObject(lePaiement)
-            lecontext.SaveChanges()
-        End If
+
     End Sub
 
     Protected Sub lviewGroupes_ItemDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewItemEventArgs) Handles lviewGroupes.ItemDataBound
@@ -350,5 +330,49 @@ Partial Class coursDefault
             lecontext.SaveChanges()
         End If
     End Sub
+
+    Protected Sub btnEnregistrerInscription_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnregistrerInscription.Click
+        Dim leNoGroupe As Integer = hFieldnoGroupe2.Value
+        Dim leGroupe As Groupe = (From monGroupe In lecontext.Groupe Where monGroupe.noGroupe = leNoGroupe Select monGroupe).FirstOrDefault
+        Dim leNoMembre As Integer = hFieldnoMembre.Value
+        Dim leMembre As Membre = (From monMembre In lecontext.Membre Where monMembre.noMembre = leNoMembre Select monMembre).FirstOrDefault
+        Dim lePaiement As New Paiement
+        Dim leNoCompte As Integer = leMembre.Compte.noCompte
+
+        lePaiement.Groupe = leGroupe
+        lePaiement.Membre = leMembre
+        lePaiement.ModePaiement = rbListeTypeCarte.SelectedValue
+        lePaiement.noPaypal = "3jfh3jdh"
+
+        'Vérification du prix en fonction des forfaits
+        Dim laSession As Integer = leGroupe.Session.noSession
+        Dim coutForfait As Double
+        Dim nbInscriptionsEnfants As Integer = (From unPaiement In lecontext.Paiement Where unPaiement.Membre.Parent = False And unPaiement.Membre.Compte.noCompte = leNoCompte And unPaiement.Groupe.Session.noSession = laSession Select unPaiement).Count + 1
+        If (From unForfait In lecontext.Forfait Where unForfait.nbInscrits <= nbInscriptionsEnfants Select unForfait).Count > 0 Then
+            Dim leForfait As Forfait = New Forfait
+            leForfait.Coût = (From unForfait In lecontext.Forfait Where unForfait.nbInscrits <= nbInscriptionsEnfants Select unForfait.Coût).Min
+            coutForfait = leForfait.Coût
+        Else
+            coutForfait = 1
+        End If
+        If doTransaction("4583279825118372", rbListeTypeCarte.SelectedItem.Text, dropDownListMois.SelectedItem.Text & dropDownListAnnee.SelectedItem.Text, tbNumeroSecuriteCarte.Text, leGroupe.Cours.Prix * coutForfait, tbPrenomPaiement.Text, tbNomPaiement.Text, tbAdresse.Text, _
+                             tbVille.Text, dropDownListProvince.SelectedItem.Text, tbCodePostal.Text) Then
+            lbMessage.Text = "Le paiement pour le cours " & leGroupe.Cours.Nom & " a passé. La facture sera envoyé à l'adresse courriel de votre compte.'"
+            lePaiement.Prix = CType(lviewCours.Items(0).FindControl("lblPrix"), Label).Text * coutForfait
+            lecontext.Paiement.AddObject(lePaiement)
+            lecontext.SaveChanges()
+            mViewCours.ActiveViewIndex = 0
+        Else
+            Dim validatorErrorPaiement As CustomValidator = New CustomValidator
+            validatorErrorPaiement.ErrorMessage = "Les informations de paiement que vous avez entré ne sont pas valide."
+            validatorErrorPaiement.IsValid = False
+            Me.Validators.Add(validatorErrorPaiement)
+        End If
+
+    End Sub
+
+
 #End Region
+
+    
 End Class

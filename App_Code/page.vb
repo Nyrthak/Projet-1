@@ -148,7 +148,7 @@ Public Class page
                 Return True
 
             Else
-                
+
                 'For Each i In htResponse
                 '    Response.Write(i.Key & ": " & i.Value & "<br />")
                 'Next
