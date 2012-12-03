@@ -169,7 +169,7 @@
                         ID="requisValidationNumeroCartePaiement" runat="server" 
                         ErrorMessage="Votre numéro de carte doit être spécifié." 
                         ControlToValidate="tbNumeroCartePaiement" Display="Dynamic">*</asp:RequiredFieldValidator>
-                <asp:CompareValidator ID="compareNumeroCarte" runat="server" ControlToValidate="tbNumeroCartePaiement" 
+                <asp:CompareValidator ID="compareNumeroCarte" runat="server" ControlToValidate="tbNumeroCartePaiement" Display="Dynamic"
                 Operator="DataTypeCheck" ErrorMessage="Le numéro de la carte de crédit n'est pas du bon format(seulement des chiffres)" Type="Integer"></asp:CompareValidator>
                     </td>
             </tr>
