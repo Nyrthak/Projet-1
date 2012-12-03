@@ -122,9 +122,16 @@
             </asp:ListView>
         </asp:View>
         <asp:View ID="viewGroupes" runat="server">
+            <asp:Label ID="lblTitreModifierCours" runat="server" Text="Liste des groupes" SkinID="lbTitrePage"></asp:Label>
+            <asp:Button ID="btnRechercherG" runat="server" Text="OK" CssClass="rechercher" SkinID="btnRechercher" />
+            <asp:DropDownList ID="dDListRechercherG" runat="server" CssClass="rechercher" DataSourceID="entiDataSourceSession"
+                DataTextField="NomSession" DataValueField="noSession" SkinID="dDListFormulaire">
+                <asp:ListItem Text="Aucun" Value="42"></asp:ListItem>
+            </asp:DropDownList>
+            <asp:Label ID="lblRechercherG" runat="server" Text="Rechercher : " CssClass="lbRechercher"></asp:Label>
             <asp:ListView ID="lviewGroupes" runat="server" DataSourceID="entiDataSourceGroupes" DataKeyNames="noGroupe">
                 <LayoutTemplate>
-                    <asp:Label ID="lblTitreModifierCours" runat="server" Text="Liste des groupes" SkinID="lbTitrePage"></asp:Label>
+                    
                     <table id="tbCours">
                         <tr>
                             <td><asp:Label ID="lblTitreNomGroupe" runat="server" SkinID="lbTitreInfoMembre" Text="Nom"></asp:Label></td>
@@ -488,9 +495,10 @@
     <asp:EntityDataSource ID="entiDataSourceGroupes" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
         EntitySetName="Groupe" EnableFlattening="false" EnableDelete="true" Include="Cours, Session"
-        Where="it.Cours.noCours = @leNoCours">
+        Where='it.Cours.noCours = @leNoCours And (it.Session.noSession = @session or @session = -1)'>
         <WhereParameters>
             <asp:ControlParameter Name="leNoCours" Type="Int32" ControlID="hFieldnoCours2" />
+            <asp:ControlParameter Name="session" Type="Int32" ControlID="dDListRechercherG" PropertyName="SelectedValue" />
         </WhereParameters>
     </asp:EntityDataSource>
     <asp:EntityDataSource ID="entiDataSourceSession" runat="server" 
