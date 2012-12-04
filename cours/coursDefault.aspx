@@ -215,11 +215,14 @@
             </asp:ListView>
             <div class="btnCentre">
                 <asp:DropDownList ID="dDListMembres" runat="server" DataSourceID="entityDataSourceMembre"
-                        DataTextField="Prénom" DataValueField="noMembre">
+                        DataTextField="Prénom" DataValueField="noMembre" SkinID="dDListFormulaire">
                 </asp:DropDownList>
                 <asp:Button ID="btnSinscrire" runat="server" Text="S'inscrire" SkinID="btnAjoutSupprimer" Width="80px" />
                 <asp:LinkButton ID="lnkInscriptionListeDAttente" runat="server" Text="S'inscrire à la liste d'attente" Width="100px" 
                     SkinID="btnAjoutSupprimer"/>
+                <asp:DropDownList ID="dDListCompteP" runat="server" DataSourceID="entiDataSourceComptesP" DataTextField="Email" DataValueField="noCompte" AutoPostBack="true" SkinID="dDListFormulaire"/>
+                <asp:DropDownList ID="dDListMembreP" runat="server" DataSourceID="entiDataSourceMembresP" DataTextField="leNom" DataValueField="noMembre" SkinID="dDListFormulaire"/>
+                <asp:Button ID="btninscrirePrepose" runat="server" Text="Inscrire le membre" SkinID="btnAjoutSupprimer" Width="130px" />
             </div>
             <div class="btnCentre">
                 <asp:Button ID="btnRetour" runat="server" Text="Retour" Width="80px" SkinID="btnAjoutSupprimer" />
@@ -360,6 +363,7 @@
     </asp:MultiView><br />
         <asp:Label skinid="lbSousTitre" ID="lbMessage" runat="server" Text=""></asp:Label>
     </div>
+    <asp:HiddenField ID="hFieldNoCompte" runat="server" />
     <asp:HiddenField ID="hFieldnoGroupe2" runat="server" />
     <asp:HiddenField ID="hFieldnoMembre" runat="server" />
     <asp:HiddenField ID="hFieldNoCategorie" runat="server" Value="0" />
@@ -428,6 +432,18 @@
         ConnectionString="name=ModelContainer" 
         DefaultContainerName="ModelContainer" EntitySetName="Province" 
         EnableFlattening="False">
+    </asp:EntityDataSource>
+    <asp:EntityDataSource ID="entiDataSourceComptesP" runat="server"
+        ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
+        EntitySetName="Compte" EnableFlattening="false">
+    </asp:EntityDataSource>
+    <asp:EntityDataSource ID="entiDataSourceMembresP" runat="server"
+        ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
+        EntitySetName="Membre" EnableFlattening="false" Select='(it.[Prénom] + " " + it.Nom) As leNom, it.noMembre, it.Compte.noCompte'
+        Where="it.Compte.noCompte = @leNoCompte">
+        <WhereParameters>
+            <asp:ControlParameter Name="leNoCompte" Type="Int32" ControlID="hFieldnoCompte" />
+        </WhereParameters>
     </asp:EntityDataSource>
 </asp:Content>
 

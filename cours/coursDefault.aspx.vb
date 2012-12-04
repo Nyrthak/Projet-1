@@ -158,9 +158,9 @@ Partial Class coursDefault
     Protected Sub btnRechercher_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnRechercher.Click
         mViewCours.ActiveViewIndex = 0
     End Sub
-    
+
     Protected Sub lviewGroupes_DataBound(ByVal sender As Object, ByVal e As System.EventArgs) Handles lviewGroupes.DataBound
-        If Session("noCompte") Is Nothing Then
+        If Session("noCompte") Is Nothing Or Session("userType") = 2 Then
             For Each leGroupe As ListViewDataItem In lviewGroupes.Items
                 CType(leGroupe.FindControl("dDListMembres"), DropDownList).Visible = False
                 CType(leGroupe.FindControl("btnSinscrire"), Button).Visible = False
@@ -175,7 +175,7 @@ Partial Class coursDefault
     Protected Sub lviewLeGroupe_DataBound(ByVal sender As Object, ByVal e As System.EventArgs) Handles lviewLeGroupe.DataBound
         Dim leNoGroupe As Integer = hFieldnoGroupe2.Value
         Dim leGroupe As Groupe = (From unGroupe In lecontext.Groupe Where unGroupe.noGroupe = leNoGroupe Select unGroupe).FirstOrDefault
-        If Session("noCompte") Is Nothing Then
+        If Session("noCompte") Is Nothing Or Session("userType") = 2 Then
             dDListMembres.Visible = False
             btnSinscrire.Visible = False
             lnkInscriptionListeDAttente.Visible = False
@@ -206,7 +206,17 @@ Partial Class coursDefault
                         End If
                     Next
                 Next
+                If Not Session("userType") = 2 Then
+                    dDListCompteP.Visible = False
+                    dDListMembreP.Visible = False
+                    btninscrirePrepose.Visible = False
+                End If
+            Else
+                dDListCompteP.Visible = False
+                dDListMembreP.Visible = False
+                btninscrirePrepose.Visible = False
             End If
+
         End If
         If mViewCours.ActiveViewIndex = 3 Then
             'Remplissage du dropdownlist annee
@@ -259,16 +269,16 @@ Partial Class coursDefault
         If Not dejaInscrit And peutSinscrire And ageCorrect Then
             mViewCours.ActiveViewIndex = 3
 
-            End If
+        End If
 
     End Sub
 
     Protected Sub lviewGroupes_ItemDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewItemEventArgs) Handles lviewGroupes.ItemDataBound
-        If CType(e.Item.DataItem, Groupe).DateLimiteInscription < Date.Today And Not Session("noCompte") Is Nothing Then
+        If CType(e.Item.DataItem, Groupe).DateLimiteInscription < Date.Today And Not Session("noCompte") Is Nothing And Not Session("userType") = "2" Then
             CType(e.Item.FindControl("btnSinscrire"), Button).Text = "Fermé"
             CType(e.Item.FindControl("btnSinscrire"), Button).Enabled = False
             CType(e.Item.FindControl("lnkInscriptionListeDAttente"), LinkButton).Visible = False
-        ElseIf CType(e.Item.DataItem, Groupe).Paiement.Count >= CType(e.Item.DataItem, Groupe).nbMaxInscrits And Not Session("noCompte") Is Nothing Then
+        ElseIf CType(e.Item.DataItem, Groupe).Paiement.Count >= CType(e.Item.DataItem, Groupe).nbMaxInscrits And Not Session("noCompte") Is Nothing And Not Session("userType") = "2" Then
             CType(e.Item.FindControl("btnSinscrire"), Button).Text = "Complet"
             CType(e.Item.FindControl("btnSinscrire"), Button).Enabled = False
         Else
@@ -371,8 +381,76 @@ Partial Class coursDefault
 
     End Sub
 
+    Protected Sub dDListCompteP_DataBound(ByVal sender As Object, ByVal e As System.EventArgs) Handles dDListCompteP.DataBound
+        hFieldNoCompte.Value = dDListCompteP.SelectedValue
+    End Sub
 
+    Protected Sub dDListCompteP_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles dDListCompteP.SelectedIndexChanged
+        hFieldNoCompte.Value = dDListCompteP.SelectedValue
+        entiDataSourceMembresP.DataBind()
+    End Sub
+
+    Protected Sub btninscrirePrepose_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btninscrirePrepose.Click
+        Dim leNoGroupe As Integer = hFieldnoGroupe2.Value
+        Dim leGroupe As Groupe = (From monGroupe In lecontext.Groupe Where monGroupe.noGroupe = leNoGroupe Select monGroupe).FirstOrDefault
+        Dim leNoMembre As Integer = dDListMembreP.SelectedValue
+        hFieldnoMembre.Value = dDListMembreP.SelectedValue
+        Dim leMembre As Membre = (From monMembre In lecontext.Membre Where monMembre.noMembre = leNoMembre Select monMembre).FirstOrDefault
+        Dim leNoCompte As Integer = leMembre.Compte.noCompte
+        'Valider si le client s'est déja inscrit
+        Dim dejaInscrit As Boolean = False
+        For Each lePaiementBD As Paiement In lecontext.Paiement
+            If lePaiementBD.Groupe.Cours.noCours = leGroupe.Cours.noCours And lePaiementBD.Membre.noMembre = leMembre.noMembre Then
+                dejaInscrit = True
+                lbMessage.Text = "Le membre ne peut s'inscrire 2 fois au même cours."
+            End If
+        Next
+        'Valider si le client possède le prérequis
+        Dim peutSinscrire As Boolean = True
+        If Not leGroupe.Cours.lePrerequis Is Nothing Then
+            peutSinscrire = False
+            For Each lePaiementBd As Paiement In leMembre.Paiement
+                If lePaiementBd.Groupe.Cours.noCours = leGroupe.Cours.lePrerequis.noCours Then
+                    peutSinscrire = True
+                End If
+            Next
+        End If
+        If peutSinscrire = False Then
+            lbMessage.Text = "Le membre ne possède pas le prérequis pour ce cours."
+        End If
+
+        'Valider si le client est dans la tranche dage requise
+        Dim ageCorrect As Boolean = True
+        Dim ageMembre As Integer = (Date.Now - leMembre.DateNaissance).TotalDays / 365.25
+        If Not leGroupe.AgeMinimum <= ageMembre Or Not leGroupe.Agemaximum >= ageMembre Then
+            ageCorrect = False
+            lbMessage.Text = "Le membre n'est pas dans la tranche d'âge requise pour s'inscrire à ce cours."
+        End If
+
+        If Not dejaInscrit And peutSinscrire And ageCorrect Then
+            Dim lePaiement As New Paiement
+            lePaiement.Groupe = leGroupe
+            lePaiement.Membre = leMembre
+            lePaiement.ModePaiement = "Sur place"
+            lePaiement.noPaypal = "Aucun"
+
+            Dim laSession As Integer = leGroupe.Session.noSession
+            Dim coutForfait As Double
+            Dim nbInscriptionsEnfants As Integer = (From unPaiement In lecontext.Paiement Where unPaiement.Membre.Parent = False And unPaiement.Membre.Compte.noCompte = leNoCompte And unPaiement.Groupe.Session.noSession = laSession Select unPaiement).Count + 1
+            If (From unForfait In lecontext.Forfait Where unForfait.nbInscrits <= nbInscriptionsEnfants Select unForfait).Count > 0 Then
+                Dim leForfait As Forfait = New Forfait
+                leForfait.Coût = (From unForfait In lecontext.Forfait Where unForfait.nbInscrits <= nbInscriptionsEnfants Select unForfait.Coût).Min
+                coutForfait = leForfait.Coût
+            Else
+                coutForfait = 1
+            End If
+            lePaiement.Prix = CType(lviewCours.Items(0).FindControl("lblPrix"), Label).Text * coutForfait
+            lecontext.Paiement.AddObject(lePaiement)
+            lecontext.SaveChanges()
+            lbMessage.Text = "Le membre " & leMembre.Prénom & " " & leMembre.Nom & " a bien été inscrit au groupe."
+        End If
+
+    End Sub
 #End Region
-
-    
 End Class
+

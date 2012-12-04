@@ -36,10 +36,10 @@
                         <td><asp:Label ID="lblCategorie" runat="server" Text='<%#Eval("nomCategorie")%>'></asp:Label></td>
                         <td><asp:Button ID="btnModifier" runat="server" Text="Modifier" SkinID="btnAjoutSupprimer" Width="72px" CommandName="Modifier" CommandArgument='<%#Eval("noCours")%>'  /></td>
                         <td>
-                            <asp:Button ID="btnDesactiver" runat="server" Text="Désactiver" SkinID="btnAjoutSupprimer" Width="72px" CommandName="Desactiver" CommandArgument='<%#Eval("noCours")%>' />
+                            <asp:Button ID="btnDesactiver" runat="server" Text="Désactiver" SkinID="btnAjoutSupprimer" Width="76px" CommandName="Desactiver" CommandArgument='<%#Eval("noCours")%>' />
                         </td>
                         <td>
-                        <asp:Button ID="btnSupprimer" runat="server" Text="Supprimer" SkinID="btnAjoutSupprimer" Width="72px" CommandName="Supprimer" CommandArgument='<%#Eval("noCours")%>' />
+                        <asp:Button ID="btnSupprimer" runat="server" Text="Supprimer" SkinID="btnAjoutSupprimer" Width="74px" CommandName="Supprimer" CommandArgument='<%#Eval("noCours")%>' />
                             <ajaxToolkit:ConfirmButtonExtender ID="confirmBtnExtSupprimer" runat="server" TargetControlID="btnSupprimer" ConfirmText="Voulez-vous vraiment supprimer ce cours?">
                             </ajaxToolkit:ConfirmButtonExtender>  
                         </td>
@@ -170,7 +170,15 @@
                         </WhereParameters>
                     </asp:EntityDataSource>
                 </ItemTemplate>
-            </asp:ListView>            
+            </asp:ListView>
+            <asp:DataPager ID="DataPagerGroupes" runat="server" 
+                PagedControlID="lViewGroupes">
+                <Fields>
+                    <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="True" 
+                        ShowLastPageButton="True" FirstPageText="Premier" LastPageText="Dernier" 
+                        NextPageText="Suivant" PreviousPageText="Précédent" ButtonCssClass="boutonMenuPager"/>
+                </Fields>
+            </asp:DataPager>
             <div class="btnCentre">
                 <asp:Button ID="btnAjouterGroupe" runat="server" Text="Ajouter un groupe" CssClass="btnAjout" Width="140px" SkinID="btnAjoutSupprimer"/>
                 <asp:Button ID="btnRetour2" runat="server" Text="Retour" Width="80px" SkinID="btnAjoutSupprimer" />
