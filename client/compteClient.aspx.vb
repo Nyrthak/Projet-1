@@ -21,7 +21,6 @@ Partial Class CompteClient
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         lbErreur.Text = ""
         lecontext = New ModelContainer()
-       
     End Sub
 
     Protected Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Unload

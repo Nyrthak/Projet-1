@@ -35,8 +35,8 @@ body{ width:1023px; margin:auto; background-color:#c5c5c5;}
             #contentRight table td{vertical-align:top;} 
         /* Page d'accueil */
         #corps h1{margin-bottom:10px; margin-right:250px;}
-        #corps #imageAccueil{float:right; margin-right:20px;}  
-        #corps #texteAccueil{float:left;}   /* Fin page d'accueil */
+        #corps #imageAccueil{float:right; margin-right:20px; margin-top:100px;}  
+        #corps #texteAccueil{float:left; width:450px;}   /* Fin page d'accueil */
         /* Page Gérer cours */
         .btnAjout{Margin-top:50px;}
         /* Page Liste d'attente Admin */
