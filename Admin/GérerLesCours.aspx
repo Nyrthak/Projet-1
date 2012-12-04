@@ -122,11 +122,6 @@
             </asp:ListView>
         </asp:View>
         <asp:View ID="viewGroupes" runat="server">
-<<<<<<< HEAD
-            <asp:ListView ID="lviewGroupes" runat="server" DataSourceID="entiDataSourceGroupes" DataKeyNames="noGroupe">
-                <LayoutTemplate>
-                    <asp:Label ID="lblTitreModifierCours" runat="server" Text="Liste des groupes" SkinID="lbTitrePage"></asp:Label>
-=======
             <asp:Label ID="lblTitreModifierCours" runat="server" Text="Liste des groupes" SkinID="lbTitrePage"></asp:Label>
             <asp:Button ID="btnRechercherG" runat="server" Text="OK" CssClass="rechercher" SkinID="btnRechercher" />
             <asp:DropDownList ID="dDListRechercherG" runat="server" CssClass="rechercher" DataSourceID="entiDataSourceSession"
@@ -136,8 +131,6 @@
             <asp:Label ID="lblRechercherG" runat="server" Text="Rechercher : " CssClass="lbRechercher"></asp:Label>
             <asp:ListView ID="lviewGroupes" runat="server" DataSourceID="entiDataSourceGroupes" DataKeyNames="noGroupe">
                 <LayoutTemplate>
-                    
->>>>>>> origin/Cours
                     <table id="tbCours">
                         <tr>
                             <td><asp:Label ID="lblTitreNomGroupe" runat="server" SkinID="lbTitreInfoMembre" Text="Nom"></asp:Label></td>
@@ -183,7 +176,6 @@
                         </WhereParameters>
                     </asp:EntityDataSource>
                 </ItemTemplate>
-<<<<<<< HEAD
             </asp:ListView>
             <asp:DataPager ID="DataPagerGroupes" runat="server" 
                 PagedControlID="lViewGroupes">
@@ -193,9 +185,6 @@
                         NextPageText="Suivant" PreviousPageText="Précédent" ButtonCssClass="boutonMenuPager"/>
                 </Fields>
             </asp:DataPager>
-=======
-            </asp:ListView>            
->>>>>>> origin/Cours
             <div class="btnCentre">
                 <asp:Button ID="btnAjouterGroupe" runat="server" Text="Ajouter un groupe" CssClass="btnAjout" Width="140px" SkinID="btnAjoutSupprimer"/>
                 <asp:Button ID="btnRetour2" runat="server" Text="Retour" Width="80px" SkinID="btnAjoutSupprimer" />
@@ -513,16 +502,10 @@
     <asp:EntityDataSource ID="entiDataSourceGroupes" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
         EntitySetName="Groupe" EnableFlattening="false" EnableDelete="true" Include="Cours, Session"
-<<<<<<< HEAD
-        Where="it.Cours.noCours = @leNoCours">
-        <WhereParameters>
-            <asp:ControlParameter Name="leNoCours" Type="Int32" ControlID="hFieldnoCours2" />
-=======
         Where='it.Cours.noCours = @leNoCours And (it.Session.noSession = @session or @session = -1)'>
         <WhereParameters>
             <asp:ControlParameter Name="leNoCours" Type="Int32" ControlID="hFieldnoCours2" />
             <asp:ControlParameter Name="session" Type="Int32" ControlID="dDListRechercherG" PropertyName="SelectedValue" />
->>>>>>> origin/Cours
         </WhereParameters>
     </asp:EntityDataSource>
     <asp:EntityDataSource ID="entiDataSourceSession" runat="server" 
