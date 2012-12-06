@@ -64,6 +64,7 @@ Partial Class coursDefault
             hFieldnoMembre.Value = leNoMembre
             Dim leMembre As Membre = (From monMembre In lecontext.Membre Where monMembre.noMembre = leNoMembre Select monMembre).FirstOrDefault
             Dim leNoCompte As Integer = leMembre.Compte.noCompte
+
             'Valider si le client s'est déja inscrit
             Dim dejaInscrit As Boolean = False
             For Each lePaiementBD As Paiement In lecontext.Paiement
@@ -94,7 +95,6 @@ Partial Class coursDefault
             End If
 
             If Not dejaInscrit And peutSinscrire And ageCorrect Then
-                'hfield + changement de view
                 mViewCours.ActiveViewIndex = 3
             End If
         ElseIf e.CommandName = "InscriptionAttente" Then
@@ -193,7 +193,7 @@ Partial Class coursDefault
     End Sub
 
     Protected Sub mViewCours_ActiveViewChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles mViewCours.ActiveViewChanged
-        'lbMessage.Text = ""
+        lbMessage.Text = ""
         If mViewCours.ActiveViewIndex = 2 Then
             If Session("noCompte") IsNot Nothing Then
                 Dim noCompte As Integer = Session("noCompte")
@@ -338,11 +338,12 @@ Partial Class coursDefault
         Dim leMembre As Membre = (From monMembre In lecontext.Membre Where monMembre.noMembre = leNoMembre Select monMembre).FirstOrDefault
         Dim lePaiement As New Paiement
         Dim leNoCompte As Integer = leMembre.Compte.noCompte
+        Dim leCompte As Compte = leMembre.Compte
+        Dim leCours As Cours = leGroupe.Cours
 
         lePaiement.Groupe = leGroupe
         lePaiement.Membre = leMembre
         lePaiement.ModePaiement = rbListeTypeCarte.SelectedValue
-        lePaiement.noPaypal = "3jfh3jdh"
 
         'Vérification du prix en fonction des forfaits
         Dim laSession As Integer = leGroupe.Session.noSession
@@ -355,18 +356,24 @@ Partial Class coursDefault
         Else
             coutForfait = 1
         End If
-        If doTransaction("4583279825118372", rbListeTypeCarte.SelectedItem.Text, dropDownListMois.SelectedItem.Text & dropDownListAnnee.SelectedItem.Text, tbNumeroSecuriteCarte.Text, leGroupe.Cours.Prix * coutForfait, tbPrenomPaiement.Text, tbNomPaiement.Text, tbAdresse.Text, _
-                             tbVille.Text, dropDownListProvince.SelectedItem.Text, tbCodePostal.Text) Then
-            lbMessage.Text = "Le paiement pour le cours " & leGroupe.Cours.Nom & " a passé. La facture sera envoyé à l'adresse courriel de votre compte.'"
-            lePaiement.Prix = CType(lviewCours.Items(0).FindControl("lblPrix"), Label).Text * coutForfait
-            lecontext.Paiement.AddObject(lePaiement)
-            lecontext.SaveChanges()
-            mViewCours.ActiveViewIndex = 0
-        Else
-            Dim validatorErrorPaiement As CustomValidator = New CustomValidator
-            validatorErrorPaiement.ErrorMessage = "Les informations de paiement que vous avez entré ne sont pas valide."
-            validatorErrorPaiement.IsValid = False
-            Me.Validators.Add(validatorErrorPaiement)
+        If Me.IsValid Then
+            Dim noPaypal = doTransaction("4583279825118372", rbListeTypeCarte.SelectedItem.Text, dropDownListMois.SelectedItem.Text & dropDownListAnnee.SelectedItem.Text, tbNumeroSecuriteCarte.Text, _
+                             leGroupe.Cours.Prix * coutForfait, tbPrenomPaiement.Text, tbNomPaiement.Text, tbAdresse.Text, _
+                                 tbVille.Text, dropDownListProvince.SelectedItem.Text, tbCodePostal.Text)
+            If Not noPaypal = "" Then
+                lePaiement.Prix = CType(lviewCours.Items(0).FindControl("lblPrix"), Label).Text * coutForfait
+                lePaiement.noPaypal = noPaypal
+                lecontext.Paiement.AddObject(lePaiement)
+                lecontext.SaveChanges()
+                envoyerMailPaiementInscription(leCompte.Email, leCours.Nom, leGroupe.Nom, lePaiement.Prix, lePaiement.ModePaiement, _
+                                               tbVille.Text, dropDownListProvince.SelectedItem.Text, tbCodePostal.Text, tbAdresse.Text)
+                Response.Redirect("~/paiement/paiementSucess.aspx")
+            Else
+                Dim validatorErrorPaiement As CustomValidator = New CustomValidator
+                validatorErrorPaiement.ErrorMessage = "Les informations de paiement que vous avez entré ne sont pas valide."
+                validatorErrorPaiement.IsValid = False
+                Me.Validators.Add(validatorErrorPaiement)
+            End If
         End If
 
     End Sub

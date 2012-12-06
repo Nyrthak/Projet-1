@@ -5,7 +5,7 @@ Partial Class CompteClient
     Private Shared lecontext As ModelContainer = Nothing
 
     Protected Sub dsContextCreating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextCreatingEventArgs) _
-    Handles entiDataSourceCompte.ContextCreating, entiDataSourceMembre.ContextCreating, entiDataSourceAjouterMembre.ContextCreating
+    Handles entiDataSourceMembre.ContextCreating, entiDataSourceAjouterMembre.ContextCreating
 
         'RÉCUPÈRE LE CONTEXTE DE FACON À N'EN AVOIR QU'UN
         If Not lecontext Is Nothing Then
@@ -14,7 +14,7 @@ Partial Class CompteClient
     End Sub
 
     Protected Sub dsContextDisposing(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextDisposingEventArgs) _
-    Handles entiDataSourceCompte.ContextDisposing, entiDataSourceMembre.ContextDisposing, entiDataSourceAjouterMembre.ContextDisposing
+    Handles entiDataSourceMembre.ContextDisposing, entiDataSourceAjouterMembre.ContextDisposing
         e.Cancel = True
     End Sub
 
@@ -112,11 +112,6 @@ Partial Class CompteClient
     Protected Sub lViewAjoutMembre_ItemUpdated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewUpdatedEventArgs) Handles lViewAjoutMembre.ItemUpdated
         multiViewMembre.ActiveViewIndex = 0
         listViewMembres.DataBind()
-    End Sub
-
-    Protected Sub lViewAjoutMembre_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles lViewAjoutMembre.PreRender
-        CType(lViewAjoutMembre.Items(0).FindControl("rangeValidatorDateNaissance"), RangeValidator).MaximumValue = Now.Date.ToShortDateString
-        CType(lViewAjoutMembre.Items(0).FindControl("rangeValidatorDateNaissance"), RangeValidator).MinimumValue = Now.AddYears(-150).ToShortDateString
     End Sub
 
     Protected Sub viewMembres_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles viewMembres.Load

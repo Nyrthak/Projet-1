@@ -1,6 +1,7 @@
 ﻿Imports Model
 Partial Class prepose_gererClient
     Inherits page
+
     Private Shared lecontext As ModelContainer = Nothing
 
     Protected Sub dsContextCreating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextCreatingEventArgs) _
@@ -71,6 +72,7 @@ Partial Class prepose_gererClient
                 Dim validatorEmail As CustomValidator = New CustomValidator
                 validatorEmail.ErrorMessage = "L'email est déja utilisé."
                 validatorEmail.IsValid = False
+                validatorEmail.ValidationGroup = "A"
                 Me.Validators.Add(validatorEmail)
             End If
         Next
@@ -91,18 +93,21 @@ Partial Class prepose_gererClient
         Dim compte As Compte = (From monCompte In lecontext.Compte Where monCompte.noCompte = noCompte).First
         If tbNouvMotDePasse.Text.Count < 6 Then
             Dim validatorMotDePasse As CustomValidator = New CustomValidator
-            validatorMotDePasse.ErrorMessage = "Votre nouveau mot de passe doit contenir plus de 5 caractères"
+            validatorMotDePasse.ErrorMessage = "Le nouveau mot de passe doit contenir plus de 5 caractères"
             validatorMotDePasse.IsValid = False
             Me.Validators.Add(validatorMotDePasse)
         End If
-        If compte.motDePasseCrypté = CreatePasswordHash(tbMotDePasse.Text, salt) Then
-            Dim hash As String = CreatePasswordHash(tbNouvMotDePasse.Text, salt)
-            compte.motDePasseCrypté = hash
-            lbMessage.Text = "Votre mot de passe à bien été changé."
-        Else
-            lbMessage.Text = "Votre ancient mot de passe n'est pas valide."
+
+        If compte.motDePasseCrypté = CreatePasswordHash(tbNouvMotDePasse.Text, salt) Then
+            Dim validatorNouveauPasse As CustomValidator = New CustomValidator
+            validatorNouveauPasse.ErrorMessage = "Le nouveau mot de passe doit être différent de l'ancient"
+            validatorNouveauPasse.IsValid = False
+            Me.Validators.Add(validatorNouveauPasse)
         End If
         If Me.IsValid Then
+            Dim hash As String = CreatePasswordHash(tbNouvMotDePasse.Text, salt)
+            compte.motDePasseCrypté = hash
+            lbMessage.Text = "Le mot de passe à bien été changé."
             lecontext.SaveChanges()
         End If
     End Sub
@@ -126,11 +131,13 @@ Partial Class prepose_gererClient
             paiementAjout.Groupe = leGroupe
             paiementAjout.Membre = lAttente.Membre
             paiementAjout.ModePaiement = "Non Payé"
-            paiementAjout.noPaypal = "Non payé"
+            paiementAjout.noPaypal = "Non Payé"
             paiementAjout.Prix = leGroupe.Cours.Prix
             lecontext.Paiement.AddObject(paiementAjout)
             lecontext.ListeDAttente.DeleteObject(lAttente)
             lecontext.SaveChanges()
+            envoyerMailPayerInscription(lePaiement.Membre.Compte.Email, lePaiement.Groupe.Cours.Nom, lePaiement.Groupe.Nom, lePaiement.Membre.Nom)
+
         End If
     End Sub
 
@@ -142,25 +149,26 @@ Partial Class prepose_gererClient
             For Each membreADeleter In lesMembres
                 If membreADeleter.noMembre = noMembreASupprimer Then
                     present = True
-                    If membreADeleter.Propriétaire = False Then
-                        lecontext.Membre.DeleteObject(membreADeleter)
-                        lecontext.SaveChanges()
-                        lViewGererMembres.DataBind()
-                        lbMessage.Text = "Vous avez bien supprimer le membre " & membreADeleter.Prénom & " " & membreADeleter.Nom & "."
+                    If Not membreADeleter.Paiement.Count > 0 Then
+                        If membreADeleter.Propriétaire = False Then
+                            lecontext.Membre.DeleteObject(membreADeleter)
+                            lecontext.SaveChanges()
+                            lViewGererMembres.DataBind()
+                            lbMessage.Text = "Vous avez bien supprimer le membre " & membreADeleter.Prénom & " " & membreADeleter.Nom
+                        Else
+                            Dim validatorPropriétaire As CustomValidator = New CustomValidator
+                            validatorPropriétaire.ErrorMessage = "Vous ne pouvez pas supprimer le propriétaire d'un compte."
+                            validatorPropriétaire.IsValid = False
+                            Me.Validators.Add(validatorPropriétaire)
+                        End If
                     Else
-                        Dim validatorPropriétaire As CustomValidator = New CustomValidator
-                        validatorPropriétaire.ErrorMessage = "Vous ne pouvez pas supprimer le propriétaire d'un compte."
-                        validatorPropriétaire.IsValid = False
-                        Me.Validators.Add(validatorPropriétaire)
+                        lbMessage.Text = "Vous avez bien supprimer le membre " & membreADeleter.Prénom & " " & membreADeleter.Nom & "."
                     End If
-
                 End If
             Next
         End If
 
     End Sub
-
-
 
     Protected Sub entiDataSourceMembre_Deleted(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceChangedEventArgs) Handles entiDataSourceMembre.Deleted
         Response.Redirect("~/prepose/gererClient.aspx")
