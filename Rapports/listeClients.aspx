@@ -26,10 +26,10 @@
             <asp:Label ID="lbChkMembre" runat="server" Text="Critères côté membre" Font-Bold="true"></asp:Label>
             <asp:CheckBoxList ID="chkBoxMembre" runat="server" RepeatColumns="2" CellSpacing="-1" RepeatLayout="Table" CellPadding="-1">
                 <asp:ListItem Text="No de membre" Value="noMembre"></asp:ListItem>
-                <asp:ListItem Text="Prénom" Value="Prénom"></asp:ListItem>
+                <asp:ListItem Text="Prénom" Value="Prenom"></asp:ListItem>
                 <asp:ListItem Text="Nom" Value="Nom"></asp:ListItem>
                 <asp:ListItem Text="Date de naissance" Value="DateNaissance"></asp:ListItem>
-                <asp:ListItem Text="Propriétaire" Value="Propriétaire"></asp:ListItem>
+                <asp:ListItem Text="Propriétaire" Value="Proprietaire"></asp:ListItem>
                 <asp:ListItem Text="Parent/Enfant" Value="Parent"></asp:ListItem>
             </asp:CheckBoxList>
         </div>
@@ -50,9 +50,9 @@
         <asp:DropDownList ID="ddListTriMembres" runat="server" SkinID="dDListFormulaire">
             <asp:ListItem Text="No de membre" Value="noMembre"></asp:ListItem>
             <asp:ListItem Text="Nom" Value="Nom"></asp:ListItem>
-            <asp:ListItem Text="Prénom" Value="Prénom"></asp:ListItem>
+            <asp:ListItem Text="Prénom" Value="Prenom"></asp:ListItem>
             <asp:ListItem Text="Date de naissance" Value="DateNaissance"></asp:ListItem>
-            <asp:ListItem Text="Propriétaire" Value="Propriétaire"></asp:ListItem>
+            <asp:ListItem Text="Propriétaire" Value="Proprietaire"></asp:ListItem>
             <asp:ListItem Text="Parent/Enfant" Value="Parent"></asp:ListItem>
         </asp:DropDownList><br /><br />
         <asp:LinkButton ID="lnkGenerer" runat="server" Text="Générer le rapport"></asp:LinkButton>

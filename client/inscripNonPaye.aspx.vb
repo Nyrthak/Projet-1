@@ -43,8 +43,8 @@ Partial Class client_inscripNonPaye
         Dim nbInscriptionsEnfants As Integer = (From unPaiement In lecontext.Paiement Where unPaiement.Membre.Parent = False And unPaiement.Membre.Compte.noCompte = leNoCompte And unPaiement.Groupe.Session.noSession = laSession Select unPaiement).Count + 1
         If (From unForfait In lecontext.Forfait Where unForfait.nbInscrits <= nbInscriptionsEnfants Select unForfait).Count > 0 Then
             Dim leForfait As Forfait = New Forfait
-            leForfait.Coût = (From unForfait In lecontext.Forfait Where unForfait.nbInscrits <= nbInscriptionsEnfants Select unForfait.Coût).Min
-            coutForfait = leForfait.Coût
+            leForfait.Cout = (From unForfait In lecontext.Forfait Where unForfait.nbInscrits <= nbInscriptionsEnfants Select unForfait.Cout).Min
+            coutForfait = leForfait.Cout
         Else
             coutForfait = 1
         End If

@@ -64,10 +64,10 @@
                             <ItemTemplate>
                                 <tr>
                                     <td id="tdNoMembre" runat="server"><asp:Label ID="lbNoMembre" runat="server" Text='<%#Eval("noMembre")%>' Width="31px"></asp:Label></td>
-                                    <td id="tdPrenom" runat="server"><asp:Label ID="lbPrenom" runat="server" Text='<%#Eval("Prénom")%>' Width="81px"></asp:Label></td>
+                                    <td id="tdPrenom" runat="server"><asp:Label ID="lbPrenom" runat="server" Text='<%#Eval("Prenom")%>' Width="81px"></asp:Label></td>
                                     <td id="tdNom" runat="server"><asp:Label ID="lbNom" runat="server" Text='<%#Eval("Nom")%>' Width="81px"></asp:Label></td>
                                     <td id="tdDateNaissance" runat="server"><asp:Label ID="lbDateNaissance" runat="server" Text='<%#Eval("DateNaissance", "{0:dd-MM-yyyy}")%>' Width="101px"></asp:Label></td>
-                                    <td id="tdProprio" runat="server"><asp:Label ID="lbProprio" runat="server" Text='<%#IIF(Eval("Propriétaire"), "Oui", "Non")%>' Width="91px"></asp:Label></td>
+                                    <td id="tdProprio" runat="server"><asp:Label ID="lbProprio" runat="server" Text='<%#IIF(Eval("Proprietaire"), "Oui", "Non")%>' Width="91px"></asp:Label></td>
                                     <td id="tdTypeMembre" runat="server"><asp:Label ID="lbParent" runat="server" Text='<%#IIF(Eval("Parent"), "Parent", "Enfant")%>' Width="51px"></asp:Label></td>
                                 </tr>
                             </ItemTemplate>

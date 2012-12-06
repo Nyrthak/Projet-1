@@ -43,8 +43,8 @@ Partial Class Admin_GererCategories
 
     Protected Sub lViewCategorie_ItemDeleting(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewDeleteEventArgs) Handles lViewCategorie.ItemDeleting
         Dim noCategorie As Integer = e.Keys(0)
-        If (From unCours In lecontext.Cours Where unCours.Catégorie.noCatégorie = noCategorie Select unCours).Count > 0 Then
-            Dim laCategorie As Catégorie = (From uneCategorie In lecontext.Catégorie Where uneCategorie.noCatégorie = noCategorie Select uneCategorie).FirstOrDefault
+        If (From unCours In lecontext.Cours Where unCours.Categorie.noCategorie = noCategorie Select unCours).Count > 0 Then
+            Dim laCategorie As Categorie = (From uneCategorie In lecontext.Catégorie Where uneCategorie.noCategorie = noCategorie Select uneCategorie).FirstOrDefault
             lbMessage.Text = "Vous ne pouvez supprimer la catégorie " & laCategorie.Nom & ", car elle est reliée à au moins un cours."
             e.Cancel = True
         End If

@@ -91,7 +91,7 @@ Partial Class Admin_GererAnimateurs
         Dim noAnimateur As Integer = e.Keys(0)
         If (From unGroupe In lecontext.Groupe Where unGroupe.Animateur.noAnimateur = noAnimateur Select unGroupe).Count > 0 Then
             Dim lAnimateur As Animateur = (From unAnimateur In lecontext.Animateur Where unAnimateur.noAnimateur = noAnimateur Select unAnimateur).FirstOrDefault
-            lbMessage.Text = "Vous ne pouvez supprimer l'animateur " & lAnimateur.Prénom & " " & lAnimateur.Nom & ", car il est relié à au moins un groupe."
+            lbMessage.Text = "Vous ne pouvez supprimer l'animateur " & lAnimateur.Prenom & " " & lAnimateur.Nom & ", car il est relié à au moins un groupe."
             e.Cancel = True
         End If
     End Sub
@@ -108,8 +108,8 @@ Partial Class Admin_GererAnimateurs
         End If
         Dim leNoAnimateur As Integer = hFieldNoAnimateur.Value
         Dim leNoSpecialite As Integer = e.Values(1)
-        For Each laSpecAnimateur As SpécialitéAnimateur In lecontext.SpécialitéAnimateur
-            If laSpecAnimateur.Animateur.noAnimateur = leNoAnimateur And laSpecAnimateur.Spécialité.noSpécialité = leNoSpecialite Then
+        For Each laSpecAnimateur As SpecialiteAnimateur In lecontext.SpécialitéAnimateur
+            If laSpecAnimateur.Animateur.noAnimateur = leNoAnimateur And laSpecAnimateur.Specialite.noSpecialite = leNoSpecialite Then
                 lbMessage.Text = "Vous ne pouvez pas vous ajouter 2 fois la même spécialité."
                 e.Cancel = True
             End If
@@ -145,7 +145,7 @@ Partial Class Admin_GererAnimateurs
             Dim noAnimateur As Integer = e.CommandArgument
             hFieldNoAnimateur.Value = noAnimateur
             Dim lAnimateur As Animateur = (From unAnimateur In lecontext.Animateur Where unAnimateur.noAnimateur = noAnimateur Select unAnimateur).FirstOrDefault
-            lbSousTitreSpecialites.Text &= lAnimateur.Prénom & " " & lAnimateur.Nom
+            lbSousTitreSpecialites.Text &= lAnimateur.Prenom & " " & lAnimateur.Nom
             mViewAnimateurs.ActiveViewIndex = 1
         End If
     End Sub

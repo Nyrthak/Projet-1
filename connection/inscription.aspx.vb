@@ -110,12 +110,12 @@ Partial Class inscription
                 compteAjoute.noTelephone = tbNumeroTelephone.Text
                 compteAjoute.Province = (From dl In lecontext.Province Where dl.noProvince = dropDownListProvince.SelectedValue Select dl).First
                 compteAjoute.Pays = tbPays.Text
-
+                compteAjoute.Actif = True
 
                 membreAjoute.Nom = tbNom.Text
-                membreAjoute.Prénom = tbPrenom.Text
+                membreAjoute.Prenom = tbPrenom.Text
                 membreAjoute.DateNaissance = DateTime.Parse(tbDateNaissance.Text)
-                membreAjoute.Propriétaire = True
+                membreAjoute.Proprietaire = True
                 membreAjoute.Parent = True
 
                 compteAjoute.Membre.Add(membreAjoute)

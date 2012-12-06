@@ -32,7 +32,7 @@
             <ItemTemplate>
                 <tr>
                     <td id="itemTemplate">
-                        <asp:Label SkinID="lbInfoMembre" id="lbNomMembre" runat="server" Text='<%#Eval("Prénom") &" " & Eval("Nom") %>'></asp:Label>
+                        <asp:Label SkinID="lbInfoMembre" id="lbNomMembre" runat="server" Text='<%#Eval("Prenom") &" " & Eval("Nom") %>'></asp:Label>
                     </td>
                     <td style="width:200px;">
                         <asp:Label SkinID="lbInfoMembre" id="tbDateNaissance" runat="server" Text='<%#Eval("DateNaissance", "{0:dd/MM/yyyy}") %>'></asp:Label>
@@ -60,7 +60,7 @@
                             <asp:Label SkinID="lbTitreInfoMembre" ID="lbPrenom" runat="server" Text="Prénom:"></asp:Label>
                             <asp:RequiredFieldValidator SkinID="requisValidation" Display="Dynamic" ID="RequiredFieldValidator1" ControlToValidate="tbNomMembre" runat="server" 
                                 ErrorMessage="Veuillez entrer un nom" ValidatlToValidate="tbPrenomMembre" ForeColor="Red">*</asp:RequiredFieldValidator>
-                            <asp:TextBox SkinID="tbInscription" id="tbPrenomMembre" Width="150px" runat="server" Text='<%#Bind("Prénom") %>'></asp:TextBox>
+                            <asp:TextBox SkinID="tbInscription" id="tbPrenomMembre" Width="150px" runat="server" Text='<%#Bind("Prenom") %>'></asp:TextBox>
                             <asp:CompareValidator ID="compareValidatorPrenom" runat="server" ValidationGroup="A" controlToValidate="tbPrenomMembre" ErrorMessage="Veuillez entrer un prénom différent de Entrez un prénom" 
                             ValueToCompare="Entrez un prénom" Display="Dynamic" Operator="NotEqual" ForeColor="Red">*</asp:CompareValidator>
                         </td>

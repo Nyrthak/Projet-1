@@ -53,7 +53,7 @@
                     <GroupTemplate><asp:PlaceHolder runat="server" ID="ItemPlaceHolder"></asp:PlaceHolder></GroupTemplate>
                     <ItemTemplate>
                        <div class="borderInscription">            
-                        <asp:Label SkinID="lbInscription" ID="lbNomMembre" runat="server" Text='<%#Eval("Prénom") &" " & Eval("Nom") %>'></asp:Label>
+                        <asp:Label SkinID="lbInscription" ID="lbNomMembre" runat="server" Text='<%#Eval("Prenom") &" " & Eval("Nom") %>'></asp:Label>
                
                         <asp:HiddenField ID="hFielNoMembre" runat="server" Value='<%#Eval("noMembre") %>' />
                 
@@ -235,7 +235,7 @@
                     <GroupTemplate><asp:PlaceHolder runat="server" ID="ItemPlaceHolder"></asp:PlaceHolder></GroupTemplate>
                     <ItemTemplate>
                        <div class="borderInscription">            
-                        <asp:Label SkinID="lbInscription" ID="lbNomMembre" runat="server" Text='<%#Eval("Prénom") &" " & Eval("Nom") %>'></asp:Label>
+                        <asp:Label SkinID="lbInscription" ID="lbNomMembre" runat="server" Text='<%#Eval("Prenom") &" " & Eval("Nom") %>'></asp:Label>
                         <asp:ListView ID="lViewPaiementPrerequis" runat="server" 
                             DataSourceID="entiDataSourcePaiement" DataKeyNames="noPaiement" 
                             InsertItemPosition="LastItem" >
@@ -318,7 +318,7 @@
                 <ItemTemplate>
                     <tr>
                         <td>
-                            <asp:Label SkinID="lbInfoMembre" id="lbNomMembre" runat="server" Text='<%#Eval("Prénom") &" " & Eval("Nom") %>'></asp:Label>
+                            <asp:Label SkinID="lbInfoMembre" id="lbNomMembre" runat="server" Text='<%#Eval("Prenom") &" " & Eval("Nom") %>'></asp:Label>
                         </td>
                         <td>
                             <asp:Label SkinID="lbInfoMembre" id="tbDateNaissance" runat="server" Text='<%#Eval("DateNaissance", "{0:dd/MM/yyyy}") %>'></asp:Label>
@@ -340,7 +340,7 @@
                             <asp:RegularExpressionValidator SkinID="requisValiation" runat="server" ID="requisNom" 
                              ErrorMessage="Le nom du membre doit être spécifié." ValidationGroup="A"
                              ControlToValidate="tbNom" Display="Dynamic"></asp:RegularExpressionValidator>
-                            <asp:TextBox SkinID="tbInscription" Width="100px" ID="tbPrenom" Text='<%#Bind("Prénom") %>' runat="server"></asp:TextBox>
+                            <asp:TextBox SkinID="tbInscription" Width="100px" ID="tbPrenom" Text='<%#Bind("Prenom") %>' runat="server"></asp:TextBox>
                             <asp:RegularExpressionValidator SkinID="requisValiation" ID="requisPrenom" runat="server"
                              ErrorMessage="Le prenom du membre doit être spécifié." ValidationGroup="A"
                              ControlToValidate="tbNom" Display="Dynamic"></asp:RegularExpressionValidator>

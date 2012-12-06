@@ -61,7 +61,7 @@
                                 <asp:HiddenField ID="hFieldNoListeAttente" runat="server" Value='<%#Eval("noListeDAttente")%>'/>
                                 <asp:Label ID="lbDateAjout" runat="server" Text='<%#Eval("DateAjout", "{0:dd/MM/yyyy}")%>'></asp:Label>
                             </td>
-                            <td><asp:Label ID="lbNomMembre" runat="server" Text='<%#Eval("Membre.Prénom") & " " & Eval("Membre.Nom")%>'></asp:Label></td>
+                            <td><asp:Label ID="lbNomMembre" runat="server" Text='<%#Eval("Membre.Prenom") & " " & Eval("Membre.Nom")%>'></asp:Label></td>
                             <td><asp:Label ID="lbDatenaissance" runat="server" Text='<%#Eval("Membre.DateNaissance", "{0:dd/MM/yyyy}")%>'></asp:Label></td>              
                             <td style="width:40px; text-align:center;"><asp:CheckBox ID="chkAccepte" runat="server" Checked='<%#Bind("Accepte")%>' /></td>
                             <td><asp:Button ID="btnSupprimer" runat="server" Text="Supprimer" CommandName="Delete" SkinID="btnAjoutSupprimer" Width="78px"/></td>
@@ -81,7 +81,7 @@
     <asp:LinqDataSource ID="linqDataSourceListesDattente" runat="server"
                     ContextTypeName="Model.ModelContainer"
                     TableName="Groupe" 
-                    Select="new (noGroupe, Cours.noCours As noCours, Cours.Nom As nomCours, Cours.Catégorie.noCatégorie As noCategorie, Cours.Catégorie.Nom As nomCategorie, ListeDAttente.Count() AS nbClients)"
+                    Select="new (noGroupe, Cours.noCours As noCours, Cours.Nom As nomCours, Cours.Categorie.noCategorie As noCategorie, Cours.Categorie.Nom As nomCategorie, ListeDAttente.Count() AS nbClients)"
                     Where="ListeDAttente.Count() > 0" OrderBy="noGroupe"> 
     </asp:LinqDataSource>
     <asp:EntityDataSource ID="entiDataSourceLaListeDAttente" runat="server" ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer"

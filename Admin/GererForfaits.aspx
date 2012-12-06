@@ -21,7 +21,7 @@
             <ItemTemplate>
                 <tr>
                     <td><asp:Label ID="lbNbInscrits" runat="server" Text='<%#Eval("nbInscrits")%>'></asp:Label></td>
-                    <td><asp:Label ID="lbCout" runat="server" Text='<%#Eval("Coût","{0:#%}")%>'></asp:Label></td>
+                    <td><asp:Label ID="lbCout" runat="server" Text='<%#Eval("Cout","{0:#%}")%>'></asp:Label></td>
                     <td><asp:Button ID="btnModifier" runat="server" Text="Modifier" CommandName="Edit" SkinID="btnAjoutSupprimer" Width="78px" /></td>
                     <td><asp:Button ID="btnSupprimer" runat="server" Text="Supprimer" CommandName="Delete" SkinID="btnAjoutSupprimer"/></td>
                 </tr>
@@ -30,7 +30,7 @@
                 <tr>
                     <td><asp:Label ID="lbNbInscrits" runat="server" Text='<%#Bind("nbInscrits")%>'></asp:Label></td>
                     <td>
-                        <asp:TextBox ID="tbCout" runat="server" Text='<%#Bind("Coût")%>' SkinID="tbSkin" Width="80px"></asp:TextBox>
+                        <asp:TextBox ID="tbCout" runat="server" Text='<%#Bind("Cout")%>' SkinID="tbSkin" Width="80px"></asp:TextBox>
                         <asp:CompareValidator ID="cvCout" runat="server" ErrorMessage="Le cout doit être écrit sous le format 0,00" ControlToValidate="tbCout" Type="Double" Text="*" Operator="DataTypeCheck" ForeColor="Red" Display="Dynamic" ValidationGroup="Edit" />
                         <asp:RequiredFieldValidator ForeColor="Red" ValidationGroup="Edit"
                                     ID="rfvCout" runat="server" ErrorMessage="Le coût doit être spécifié." 
@@ -51,7 +51,7 @@
                                     ControlToValidate="tbNbInscrits" Display="Dynamic">*</asp:RequiredFieldValidator>
                     </td>
                     <td>
-                        <asp:TextBox ID="tbCout" runat="server" Text='<%#Bind("Coût")%>' SkinID="tbSkin" Width="80px"></asp:TextBox>
+                        <asp:TextBox ID="tbCout" runat="server" Text='<%#Bind("Cout")%>' SkinID="tbSkin" Width="80px"></asp:TextBox>
                         <asp:CompareValidator ID="cvCout" runat="server" ValidationGroup="Insert" ErrorMessage="Le cout doit être écrit sous le format 0,00" ControlToValidate="tbCout" Type="Double" Text="*" Operator="DataTypeCheck"  ForeColor="Red" Display="Dynamic" />
                         <asp:RequiredFieldValidator ForeColor="Red" ValidationGroup="Insert"
                                     ID="rfvCout" runat="server" ErrorMessage="Le coût doit être spécifié." 

@@ -77,9 +77,9 @@ Partial Class prepose_ajouterCompteClient
 
             membreAjoute.Parent = True
             membreAjoute.Nom = tbNom.Text
-            membreAjoute.Prénom = tbPrenom.Text
+            membreAjoute.Prenom = tbPrenom.Text
             membreAjoute.DateNaissance = DateTime.Parse(tbDateNaissance.Text)
-            membreAjoute.Propriétaire = True
+            membreAjoute.Proprietaire = True
 
             compteAjoute.Membre.Add(membreAjoute)
             lecontext.AddObject("Compte", compteAjoute)

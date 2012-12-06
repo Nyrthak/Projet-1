@@ -6,7 +6,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
     <div id="contentRight">
         <asp:Label ID="lblTitreCategorie" runat="server" Text="Gérer les Catégories" SkinID="lbTitrePage"></asp:Label><br />
-        <asp:ListView ID="lViewCategorie" runat="server" DataSourceID="entiDataSourceCategorie" DataKeyNames="noCatégorie" InsertItemPosition="LastItem">
+        <asp:ListView ID="lViewCategorie" runat="server" DataSourceID="entiDataSourceCategorie" DataKeyNames="noCategorie" InsertItemPosition="LastItem">
             <LayoutTemplate>
             <table id="tbListeAttente">
                 <tr>
@@ -20,7 +20,7 @@
             </LayoutTemplate>
             <ItemTemplate>
                 <tr>
-                    <td><asp:Label ID="lbNoCategorie" runat="server" Text='<%#Eval("noCatégorie")%>'></asp:Label></td>
+                    <td><asp:Label ID="lbNoCategorie" runat="server" Text='<%#Eval("noCategorie")%>'></asp:Label></td>
                     <td><asp:Label ID="lbNom" runat="server" Text='<%#Eval("Nom")%>'></asp:Label></td>
                     <td><asp:Button ID="btnModifier" runat="server" Text="Modifier" CommandName="Edit" SkinID="btnAjoutSupprimer" Width="78px" /></td>
                     <td><asp:Button ID="btnSupprimer" runat="server" Text="Supprimer" CommandName="Delete" SkinID="btnAjoutSupprimer" Width="78px"/></td>
@@ -28,7 +28,7 @@
             </ItemTemplate>
             <EditItemTemplate>
                 <tr>
-                    <td><asp:Label ID="lbNoCategorie" runat="server" Text='<%#Eval("noCatégorie")%>'></asp:Label></td>
+                    <td><asp:Label ID="lbNoCategorie" runat="server" Text='<%#Eval("noCategorie")%>'></asp:Label></td>
                     <td>
                         <asp:TextBox ID="tbNom" runat="server" Text='<%#Bind("Nom")%>' SkinID="tbSkin" Width="80px" MaxLength="15"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfvNom" ForeColor="Red" runat="server" Display="Dynamic"

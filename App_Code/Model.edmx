@@ -97,19 +97,19 @@
     </Key>
     <Property Name="noAnimateur" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Nom" Type="nvarchar" Nullable="false" MaxLength="25" />
-    <Property Name="Prénom" Type="nvarchar" Nullable="false" MaxLength="25" />
+    <Property Name="Prenom" Type="nvarchar" Nullable="false" MaxLength="25" />
     <Property Name="DateNaissance" Type="datetime" Nullable="false" />
     <Property Name="Adresse" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="Ville" Type="nvarchar" Nullable="false" MaxLength="30" />
     <Property Name="CodePostal" Type="nvarchar" Nullable="false" MaxLength="6" />
-    <Property Name="noTéléphone" Type="nvarchar" Nullable="false" MaxLength="12" />
+    <Property Name="noTelephone" Type="nvarchar" Nullable="false" MaxLength="12" />
     <Property Name="Province_noProvince" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Catégorie">
     <Key>
-      <PropertyRef Name="noCatégorie" />
+      <PropertyRef Name="noCategorie" />
     </Key>
-    <Property Name="noCatégorie" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="noCategorie" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Nom" Type="nvarchar" Nullable="false" MaxLength="15" />
   </EntityType>
   <EntityType Name="Compte">
@@ -127,6 +127,7 @@
     <Property Name="noTelephone" Type="nvarchar" Nullable="false" MaxLength="12" />
     <Property Name="Pays" Type="nvarchar" Nullable="false" MaxLength="20" />
     <Property Name="Province_noProvince" Type="int" Nullable="false" />
+    <Property Name="Actif" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="Cours">
     <Key>
@@ -136,7 +137,7 @@
     <Property Name="Nom" Type="nvarchar" Nullable="false" MaxLength="25" />
     <Property Name="Prix" Type="float" Nullable="false" />
     <Property Name="Description" Type="nvarchar" Nullable="true" MaxLength="250" />
-    <Property Name="Catégorie_noCatégorie" Type="int" Nullable="false" />
+    <Property Name="Categorie_noCatégorie" Type="int" Nullable="false" />
     <Property Name="GroupeDAge_noGroupeDAge" Type="int" Nullable="false" />
     <Property Name="lePrerequis_noCours" Type="int" Nullable="true" />
     <Property Name="Actif" Type="bit" Nullable="false" />
@@ -146,7 +147,7 @@
       <PropertyRef Name="nbInscrits" />
     </Key>
     <Property Name="nbInscrits" Type="int" Nullable="false" />
-    <Property Name="Coût" Type="float" Nullable="false" />
+    <Property Name="Cout" Type="float" Nullable="false" />
   </EntityType>
   <EntityType Name="Groupe">
     <Key>
@@ -206,9 +207,9 @@
     </Key>
     <Property Name="noMembre" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Nom" Type="nvarchar" Nullable="false" MaxLength="25" />
-    <Property Name="Prénom" Type="nvarchar" Nullable="false" MaxLength="25" />
+    <Property Name="Prenom" Type="nvarchar" Nullable="false" MaxLength="25" />
     <Property Name="DateNaissance" Type="datetime" Nullable="false" />
-    <Property Name="Propriétaire" Type="bit" Nullable="false" />
+    <Property Name="Proprietaire" Type="bit" Nullable="false" />
     <Property Name="Compte_noCompte" Type="int" Nullable="false" />
     <Property Name="Parent" Type="bit" Nullable="false" />
   </EntityType>
@@ -240,10 +241,10 @@
   </EntityType>
   <EntityType Name="Spécialité">
     <Key>
-      <PropertyRef Name="noSpécialité" />
+      <PropertyRef Name="noSpecialite" />
     </Key>
-    <Property Name="noSpécialité" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="nomSpécialité" Type="nvarchar" Nullable="false" MaxLength="25" />
+    <Property Name="noSpecialite" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nomSpecialite" Type="nvarchar" Nullable="false" MaxLength="25" />
   </EntityType>
   <EntityType Name="SpécialitéAnimateur">
     <Key>
@@ -251,7 +252,7 @@
     </Key>
     <Property Name="Id" Type="int" Nullable="false" />
     <Property Name="Animateur_noAnimateur" Type="int" Nullable="false" />
-    <Property Name="Spécialité_noSpécialité" Type="int" Nullable="false" />
+    <Property Name="Specialite_noSpecialite" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="FK_AnimateurGroupe">
     <End Role="Animateur" Type="Model.Store.Animateur" Multiplicity="1" />
@@ -294,10 +295,10 @@
     <End Role="Cours" Type="Model.Store.Cours" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Catégorie">
-        <PropertyRef Name="noCatégorie" />
+        <PropertyRef Name="noCategorie" />
       </Principal>
       <Dependent Role="Cours">
-        <PropertyRef Name="Catégorie_noCatégorie" />
+        <PropertyRef Name="Categorie_noCatégorie" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -438,10 +439,10 @@
     <End Role="SpécialitéAnimateur" Type="Model.Store.SpécialitéAnimateur" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Spécialité">
-        <PropertyRef Name="noSpécialité" />
+        <PropertyRef Name="noSpecialite" />
       </Principal>
       <Dependent Role="SpécialitéAnimateur">
-        <PropertyRef Name="Spécialité_noSpécialité" />
+        <PropertyRef Name="Specialite_noSpecialite" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -463,7 +464,7 @@
       <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
         <EntityContainer Name="ModelContainer" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Animateur" EntityType="Model.Animateur" />
-          <EntitySet Name="Catégorie" EntityType="Model.Catégorie" />
+          <EntitySet Name="Catégorie" EntityType="Model.Categorie" />
           <EntitySet Name="Compte" EntityType="Model.Compte" />
           <EntitySet Name="Cours" EntityType="Model.Cours" />
           <EntitySet Name="Forfait" EntityType="Model.Forfait" />
@@ -476,8 +477,8 @@
           <EntitySet Name="Paiement" EntityType="Model.Paiement" />
           <EntitySet Name="Province" EntityType="Model.Province" />
           <EntitySet Name="Session" EntityType="Model.Session" />
-          <EntitySet Name="Spécialité" EntityType="Model.Spécialité" />
-          <EntitySet Name="SpécialitéAnimateur" EntityType="Model.SpécialitéAnimateur" />
+          <EntitySet Name="Spécialité" EntityType="Model.Specialite" />
+          <EntitySet Name="SpécialitéAnimateur" EntityType="Model.SpecialiteAnimateur" />
           <AssociationSet Name="FK_AnimateurGroupe" Association="Model.FK_AnimateurGroupe">
             <End Role="Animateur" EntitySet="Animateur" />
             <End Role="Groupe" EntitySet="Groupe" />
@@ -553,22 +554,22 @@
           </Key>
           <Property Type="Int32" Name="noAnimateur" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Nom" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Prénom" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Prenom" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="DateNaissance" Nullable="false" />
           <Property Type="String" Name="Adresse" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Ville" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="CodePostal" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="noTéléphone" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="noTelephone" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="Province_noProvince" Nullable="false" />
           <NavigationProperty Name="Groupe" Relationship="Model.FK_AnimateurGroupe" FromRole="Animateur" ToRole="Groupe" />
           <NavigationProperty Name="Province" Relationship="Model.FK_AnimateurProvince" FromRole="Animateur" ToRole="Province" />
-          <NavigationProperty Name="SpécialitéAnimateur" Relationship="Model.FK_AnimateurSpécialitéAnimateur" FromRole="Animateur" ToRole="SpécialitéAnimateur" />
+          <NavigationProperty Name="SpecialiteAnimateur" Relationship="Model.FK_AnimateurSpécialitéAnimateur" FromRole="Animateur" ToRole="SpécialitéAnimateur" />
         </EntityType>
-        <EntityType Name="Catégorie">
+        <EntityType Name="Categorie">
           <Key>
-            <PropertyRef Name="noCatégorie" />
+            <PropertyRef Name="noCategorie" />
           </Key>
-          <Property Type="Int32" Name="noCatégorie" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="noCategorie" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Nom" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Cours" Relationship="Model.FK_CatégorieCours" FromRole="Catégorie" ToRole="Cours" />
         </EntityType>
@@ -589,6 +590,7 @@
           <Property Type="Int32" Name="Province_noProvince" Nullable="false" />
           <NavigationProperty Name="Membre" Relationship="Model.FK_CompteMembre" FromRole="Compte" ToRole="Membre" />
           <NavigationProperty Name="Province" Relationship="Model.FK_CompteProvince" FromRole="Compte" ToRole="Province" />
+          <Property Type="String" Name="Actif" Nullable="false" />
         </EntityType>
         <EntityType Name="Cours">
           <Key>
@@ -598,10 +600,10 @@
           <Property Type="String" Name="Nom" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Type="Double" Name="Prix" Nullable="false" />
           <Property Type="String" Name="Description" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="Catégorie_noCatégorie" Nullable="false" />
+          <Property Type="Int32" Name="Categorie_noCatégorie" Nullable="false" />
           <Property Type="Int32" Name="GroupeDAge_noGroupeDAge" Nullable="false" />
           <Property Type="Int32" Name="lePrerequis_noCours" />
-          <NavigationProperty Name="Catégorie" Relationship="Model.FK_CatégorieCours" FromRole="Cours" ToRole="Catégorie" />
+          <NavigationProperty Name="Categorie" Relationship="Model.FK_CatégorieCours" FromRole="Cours" ToRole="Catégorie" />
           <NavigationProperty Name="estLePrerequisDe" Relationship="Model.FK_CoursCours" FromRole="Cours" ToRole="Cours1" />
           <NavigationProperty Name="lePrerequis" Relationship="Model.FK_CoursCours" FromRole="Cours1" ToRole="Cours" />
           <NavigationProperty Name="Groupe" Relationship="Model.FK_GroupeCours" FromRole="Cours" ToRole="Groupe" />
@@ -613,7 +615,7 @@
             <PropertyRef Name="nbInscrits" />
           </Key>
           <Property Type="Int32" Name="nbInscrits" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <Property Type="Double" Name="Coût" Nullable="false" />
+          <Property Type="Double" Name="Cout" Nullable="false" />
         </EntityType>
         <EntityType Name="Groupe">
           <Key>
@@ -684,9 +686,9 @@
           </Key>
           <Property Type="Int32" Name="noMembre" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Nom" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Prénom" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Prenom" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="DateNaissance" Nullable="false" />
-          <Property Type="Boolean" Name="Propriétaire" Nullable="false" />
+          <Property Type="Boolean" Name="Proprietaire" Nullable="false" />
           <Property Type="Int32" Name="Compte_noCompte" Nullable="false" />
           <NavigationProperty Name="Compte" Relationship="Model.FK_CompteMembre" FromRole="Membre" ToRole="Compte" />
           <NavigationProperty Name="ListeDAttente" Relationship="Model.FK_ListeDAttenteMembre" FromRole="Membre" ToRole="ListeDAttente" />
@@ -724,23 +726,23 @@
           <Property Type="DateTime" Name="DebutSession" Nullable="false" />
           <NavigationProperty Name="Groupe" Relationship="Model.SessionGroupe" FromRole="Session" ToRole="Groupe" />
         </EntityType>
-        <EntityType Name="Spécialité">
+        <EntityType Name="Specialite">
           <Key>
-            <PropertyRef Name="noSpécialité" />
+            <PropertyRef Name="noSpecialite" />
           </Key>
-          <Property Type="Int32" Name="noSpécialité" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="nomSpécialité" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="SpécialitéAnimateur" Relationship="Model.FK_SpécialitéSpécialitéAnimateur" FromRole="Spécialité" ToRole="SpécialitéAnimateur" />
+          <Property Type="Int32" Name="noSpecialite" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="nomSpecialite" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SpecialiteAnimateur" Relationship="Model.FK_SpécialitéSpécialitéAnimateur" FromRole="Spécialité" ToRole="SpécialitéAnimateur" />
         </EntityType>
-        <EntityType Name="SpécialitéAnimateur">
+        <EntityType Name="SpecialiteAnimateur">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" />
           <Property Type="Int32" Name="Animateur_noAnimateur" Nullable="false" />
-          <Property Type="Int32" Name="Spécialité_noSpécialité" Nullable="false" />
+          <Property Type="Int32" Name="Specialite_noSpecialite" Nullable="false" />
           <NavigationProperty Name="Animateur" Relationship="Model.FK_AnimateurSpécialitéAnimateur" FromRole="SpécialitéAnimateur" ToRole="Animateur" />
-          <NavigationProperty Name="Spécialité" Relationship="Model.FK_SpécialitéSpécialitéAnimateur" FromRole="SpécialitéAnimateur" ToRole="Spécialité" />
+          <NavigationProperty Name="Specialite" Relationship="Model.FK_SpécialitéSpécialitéAnimateur" FromRole="SpécialitéAnimateur" ToRole="Spécialité" />
         </EntityType>
         <Association Name="FK_AnimateurGroupe">
           <End Type="Model.Animateur" Role="Animateur" Multiplicity="1" />
@@ -768,7 +770,7 @@
         </Association>
         <Association Name="FK_AnimateurSpécialitéAnimateur">
           <End Type="Model.Animateur" Role="Animateur" Multiplicity="1" />
-          <End Type="Model.SpécialitéAnimateur" Role="SpécialitéAnimateur" Multiplicity="*" />
+          <End Type="Model.SpecialiteAnimateur" Role="SpécialitéAnimateur" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Animateur">
               <PropertyRef Name="noAnimateur" />
@@ -779,14 +781,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CatégorieCours">
-          <End Type="Model.Catégorie" Role="Catégorie" Multiplicity="1" />
+          <End Type="Model.Categorie" Role="Catégorie" Multiplicity="1" />
           <End Type="Model.Cours" Role="Cours" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Catégorie">
-              <PropertyRef Name="noCatégorie" />
+              <PropertyRef Name="noCategorie" />
             </Principal>
             <Dependent Role="Cours">
-              <PropertyRef Name="Catégorie_noCatégorie" />
+              <PropertyRef Name="Categorie_noCatégorie" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -923,14 +925,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SpécialitéSpécialitéAnimateur">
-          <End Type="Model.Spécialité" Role="Spécialité" Multiplicity="1" />
-          <End Type="Model.SpécialitéAnimateur" Role="SpécialitéAnimateur" Multiplicity="*" />
+          <End Type="Model.Specialite" Role="Spécialité" Multiplicity="1" />
+          <End Type="Model.SpecialiteAnimateur" Role="SpécialitéAnimateur" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Spécialité">
-              <PropertyRef Name="noSpécialité" />
+              <PropertyRef Name="noSpecialite" />
             </Principal>
             <Dependent Role="SpécialitéAnimateur">
-              <PropertyRef Name="Spécialité_noSpécialité" />
+              <PropertyRef Name="Specialite_noSpecialite" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -949,20 +951,20 @@
         <MappingFragment StoreEntitySet="Animateur">
           <ScalarProperty Name="noAnimateur" ColumnName="noAnimateur" />
           <ScalarProperty Name="Nom" ColumnName="Nom" />
-          <ScalarProperty Name="Prénom" ColumnName="Prénom" />
+          <ScalarProperty Name="Prenom" ColumnName="Prenom" />
           <ScalarProperty Name="DateNaissance" ColumnName="DateNaissance" />
           <ScalarProperty Name="Adresse" ColumnName="Adresse" />
           <ScalarProperty Name="Ville" ColumnName="Ville" />
           <ScalarProperty Name="CodePostal" ColumnName="CodePostal" />
-          <ScalarProperty Name="noTéléphone" ColumnName="noTéléphone" />
+          <ScalarProperty Name="noTelephone" ColumnName="noTelephone" />
           <ScalarProperty Name="Province_noProvince" ColumnName="Province_noProvince" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Catégorie">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.Catégorie)">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Categorie)">
         <MappingFragment StoreEntitySet="Catégorie">
-          <ScalarProperty Name="noCatégorie" ColumnName="noCatégorie" />
+          <ScalarProperty Name="noCategorie" ColumnName="noCategorie" />
           <ScalarProperty Name="Nom" ColumnName="Nom" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -981,6 +983,7 @@
           <ScalarProperty Name="noTelephone" ColumnName="noTelephone" />
           <ScalarProperty Name="Pays" ColumnName="Pays" />
           <ScalarProperty Name="Province_noProvince" ColumnName="Province_noProvince" />
+          <ScalarProperty Name="Actif" ColumnName="Actif" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -991,7 +994,7 @@
           <ScalarProperty Name="Nom" ColumnName="Nom" />
           <ScalarProperty Name="Prix" ColumnName="Prix" />
           <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="Catégorie_noCatégorie" ColumnName="Catégorie_noCatégorie" />
+          <ScalarProperty Name="Categorie_noCatégorie" ColumnName="Categorie_noCatégorie" />
           <ScalarProperty Name="GroupeDAge_noGroupeDAge" ColumnName="GroupeDAge_noGroupeDAge" />
           <ScalarProperty Name="lePrerequis_noCours" ColumnName="lePrerequis_noCours" />
           <ScalarProperty Name="Actif" ColumnName="Actif" />
@@ -1002,7 +1005,7 @@
       <EntityTypeMapping TypeName="IsTypeOf(Model.Forfait)">
         <MappingFragment StoreEntitySet="Forfait">
           <ScalarProperty Name="nbInscrits" ColumnName="nbInscrits" />
-          <ScalarProperty Name="Coût" ColumnName="Coût" />
+          <ScalarProperty Name="Cout" ColumnName="Cout" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1067,9 +1070,9 @@
         <MappingFragment StoreEntitySet="Membre">
           <ScalarProperty Name="noMembre" ColumnName="noMembre" />
           <ScalarProperty Name="Nom" ColumnName="Nom" />
-          <ScalarProperty Name="Prénom" ColumnName="Prénom" />
+          <ScalarProperty Name="Prenom" ColumnName="Prenom" />
           <ScalarProperty Name="DateNaissance" ColumnName="DateNaissance" />
-          <ScalarProperty Name="Propriétaire" ColumnName="Propriétaire" />
+          <ScalarProperty Name="Proprietaire" ColumnName="Proprietaire" />
           <ScalarProperty Name="Compte_noCompte" ColumnName="Compte_noCompte" />
           <ScalarProperty Name="Parent" ColumnName="Parent" />
         </MappingFragment>
@@ -1105,19 +1108,19 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Spécialité">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.Spécialité)">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Specialite)">
         <MappingFragment StoreEntitySet="Spécialité">
-          <ScalarProperty Name="noSpécialité" ColumnName="noSpécialité" />
-          <ScalarProperty Name="nomSpécialité" ColumnName="nomSpécialité" />
+          <ScalarProperty Name="noSpecialite" ColumnName="noSpecialite" />
+          <ScalarProperty Name="nomSpecialite" ColumnName="nomSpecialite" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="SpécialitéAnimateur">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.SpécialitéAnimateur)">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.SpecialiteAnimateur)">
         <MappingFragment StoreEntitySet="SpécialitéAnimateur">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Animateur_noAnimateur" ColumnName="Animateur_noAnimateur" />
-          <ScalarProperty Name="Spécialité_noSpécialité" ColumnName="Spécialité_noSpécialité" />
+          <ScalarProperty Name="Specialite_noSpecialite" ColumnName="Specialite_noSpecialite" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1148,10 +1151,10 @@
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram Name="Model" ZoomLevel="97" >
+      <Diagram Name="Model" ZoomLevel="85" >
         <EntityTypeShape EntityType="Model.Animateur" Width="1.5" PointX="3" PointY="13.25" Height="3.3263964843749818" />
-        <EntityTypeShape EntityType="Model.Catégorie" Width="1.5" PointX="0.75" PointY="7.125" Height="1.5956835937499818" />
-        <EntityTypeShape EntityType="Model.Compte" Width="1.5" PointX="3" PointY="0.75" Height="3.5186979166666656" />
+        <EntityTypeShape EntityType="Model.Categorie" Width="1.5" PointX="0.75" PointY="7.125" Height="1.5956835937499818" />
+        <EntityTypeShape EntityType="Model.Compte" Width="1.5" PointX="3" PointY="0.75" Height="3.7109993489583326" />
         <EntityTypeShape EntityType="Model.Cours" Width="1.5" PointX="3" PointY="6.125" Height="3.5186979166666656" />
         <EntityTypeShape EntityType="Model.Forfait" Width="1.5" PointX="7.75" PointY="10.125" Height="1.4033821614583246" />
         <EntityTypeShape EntityType="Model.Groupe" Width="1.5" PointX="5.25" PointY="6.125" Height="4.480205078125" />
@@ -1163,8 +1166,8 @@
         <EntityTypeShape EntityType="Model.Paiement" Width="1.5" PointX="10.5" PointY="6.625" Height="2.5571907552083246" />
         <EntityTypeShape EntityType="Model.Province" Width="1.5" PointX="0.75" PointY="14" Height="1.7879850260416674" />
         <EntityTypeShape EntityType="Model.Session" Width="1.5" PointX="0.75" PointY="10.25" Height="1.7879850260416657" />
-        <EntityTypeShape EntityType="Model.Spécialité" Width="1.5" PointX="3" PointY="18.125" Height="1.5956835937499818" />
-        <EntityTypeShape EntityType="Model.SpécialitéAnimateur" Width="1.875" PointX="5.25" PointY="14" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="Model.Specialite" Width="1.5" PointX="3" PointY="18.125" Height="1.5956835937499818" />
+        <EntityTypeShape EntityType="Model.SpecialiteAnimateur" Width="1.875" PointX="5.25" PointY="14" Height="1.9802864583333246" />
         <AssociationConnector Association="Model.FK_AnimateurGroupe" >
           <ConnectorPoint PointX="4.5" PointY="13.251152846153847" />
           <ConnectorPoint PointX="4.875" PointY="12.876152846153847" />
@@ -1186,14 +1189,14 @@
           <ConnectorPoint PointX="3" PointY="7.9941958258213148" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_CompteMembre" >
-          <ConnectorPoint PointX="4.5" PointY="3.0718489583333328" />
-          <ConnectorPoint PointX="5.25" PointY="3.0718489583333328" />
+          <ConnectorPoint PointX="4.5" PointY="3.1679996744791659" />
+          <ConnectorPoint PointX="5.25" PointY="3.1679996744791659" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_CompteProvince" >
           <ConnectorPoint PointX="2.25" PointY="14.001152846153847" />
           <ConnectorPoint PointX="2.625" PointY="13.626152846153847" />
-          <ConnectorPoint PointX="2.625" PointY="2.5093489583333328" />
-          <ConnectorPoint PointX="3" PointY="2.5093489583333328" />
+          <ConnectorPoint PointX="2.625" PointY="2.6054996744791663" />
+          <ConnectorPoint PointX="3" PointY="2.6054996744791663" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_CoursCours" >
           <ConnectorPoint PointX="3.5319230769230767" PointY="9.6436979166666656" />

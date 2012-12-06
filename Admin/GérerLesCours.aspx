@@ -98,7 +98,7 @@
                         <td></td>
                         <td><asp:DropDownList ID="dDListCategorie" runat="server" SkinID="dDListFormulaire" 
                                 DataSourceID="entiDataSourceCategorie" DataTextField="Nom" 
-                                DataValueField="noCatégorie" SelectedValue='<%#Bind("Catégorie_noCatégorie")%>'></asp:DropDownList></td>
+                                DataValueField="noCategorie" SelectedValue='<%#Bind("Categorie_noCatégorie")%>'></asp:DropDownList></td>
                     </tr>
                     <tr>
                         <td><asp:Label ID="lblPrerequis" runat="server" Text="Prérequis" SkinID="lbChampsFormulaire"></asp:Label></td>
@@ -226,7 +226,7 @@
                             </td>
                             <td>
                                 <asp:Label ID="lblTitreAnimateur" runat="server" Text="Animateur: " SkinID="lbChampsFormulaire"></asp:Label>
-                                <asp:Label ID="lblAnimateur" runat="server" Text='<%#Eval("Animateur.Prénom") & " " & Eval("Animateur.Nom")%>'></asp:Label>
+                                <asp:Label ID="lblAnimateur" runat="server" Text='<%#Eval("Animateur.Prenom") & " " & Eval("Animateur.Nom")%>'></asp:Label>
                             </td>
                         </tr>
                         <tr>
@@ -448,7 +448,7 @@
                     </tr>
                 </GroupTemplate>
                 <ItemTemplate>
-                        <td><asp:Label ID="lblNom" runat="server" Text='<%#Eval("Membre.Prénom") & " " & Eval("Membre.Nom") %>'></asp:Label></td>
+                        <td><asp:Label ID="lblNom" runat="server" Text='<%#Eval("Membre.Prenom") & " " & Eval("Membre.Nom") %>'></asp:Label></td>
                         <td width="50px"><asp:LinkButton ID="lnkSupprimer" runat="server" CommandName="Delete">X</asp:LinkButton></td>
                 </ItemTemplate>
             </asp:ListView>  
@@ -464,9 +464,9 @@
     <asp:LinqDataSource ID="LinqDataSourceCours" runat="server"
                     ContextTypeName="Model.ModelContainer"
                     TableName="Cours" 
-                    Select="new (noCours, Nom, Catégorie.Nom As nomCategorie, Groupe.Count() AS nbGroupes)" 
+                    Select="new (noCours, Nom, Categorie.Nom As nomCategorie, Groupe.Count() AS nbGroupes)" 
                     OrderBy="Actif DESC, noCours"
-                    Where='(@recherche = "") || Nom.Contains(@recherche) || Catégorie.Nom.Contains(@recherche)' >
+                    Where='(@recherche = "") || Nom.Contains(@recherche) || Categorie.Nom.Contains(@recherche)' >
                     <WhereParameters>
                         <asp:ControlParameter Name="recherche" ControlID="tbRechercher" ConvertEmptyStringToNull="false" />
                     </WhereParameters>
@@ -477,7 +477,7 @@
     <asp:EntityDataSource ID="entiDataSourceCours" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer"
         EnableUpdate="True" EntitySetName="Cours" EnableFlattening="false"
-        Where="it.[noCours] = @noCours" Include="[Catégorie], GroupeDAge, lePrerequis">
+        Where="it.[noCours] = @noCours" Include="[Categorie], GroupeDAge, lePrerequis">
         <WhereParameters>
             <asp:ControlParameter Name="noCours" Type="Int32" ControlID="hFieldNoCours" />
         </WhereParameters>
@@ -536,7 +536,7 @@
         </WhereParameters>
     </asp:EntityDataSource>
     <asp:EntityDataSource ID="entiDataSourceAnimateur" runat="server" ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer"
-         EntitySetName="Animateur" EnableFlattening="false" Select='(it.[Prénom] + " " + it.Nom) As leNom, it.noAnimateur'>
+         EntitySetName="Animateur" EnableFlattening="false" Select='(it.[Prenom] + " " + it.Nom) As leNom, it.noAnimateur'>
     </asp:EntityDataSource>
     <asp:EntityDataSource ID="entiDataSourceJour" runat="server" ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer"
          EntitySetName="Jour" EnableFlattening="false">

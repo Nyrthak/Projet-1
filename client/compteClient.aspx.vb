@@ -1,4 +1,4 @@
-Imports Model
+﻿Imports Model
 
 Partial Class CompteClient
     Inherits page
@@ -35,9 +35,9 @@ Partial Class CompteClient
         Dim noCompte As Integer = Session("noCompte")
 
         ajouterMembre.Nom = "Entrez un nom"
-        ajouterMembre.Prénom = "Entrez un prénom"
+        ajouterMembre.Prenom = "Entrez un prénom"
         ajouterMembre.DateNaissance = Date.Now
-        ajouterMembre.Propriétaire = False
+        ajouterMembre.Proprietaire = False
         ajouterMembre.Parent = True
         ajouterMembre.Compte = (From dl In lecontext.Compte Where dl.noCompte = noCompte Select dl).First
 

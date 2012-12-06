@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 11/19/2012 15:58:00
+-- Date Created: 12/06/2012 13:50:54
 -- Generated from EDMX file: C:\Users\Katherine\Documents\A2012\Projet I\Projet-1\App_Code\Model.edmx
 -- --------------------------------------------------
 
@@ -130,19 +130,19 @@ GO
 CREATE TABLE [dbo].[Animateur] (
     [noAnimateur] int IDENTITY(1,1) NOT NULL,
     [Nom] nvarchar(25)  NOT NULL,
-    [Prénom] nvarchar(25)  NOT NULL,
+    [Prenom] nvarchar(25)  NOT NULL,
     [DateNaissance] datetime  NOT NULL,
     [Adresse] nvarchar(50)  NOT NULL,
     [Ville] nvarchar(30)  NOT NULL,
     [CodePostal] nvarchar(6)  NOT NULL,
-    [noTéléphone] nvarchar(12)  NOT NULL,
+    [noTelephone] nvarchar(12)  NOT NULL,
     [Province_noProvince] int  NOT NULL
 );
 GO
 
 -- Creating table 'Catégorie'
 CREATE TABLE [dbo].[Catégorie] (
-    [noCatégorie] int IDENTITY(1,1) NOT NULL,
+    [noCategorie] int IDENTITY(1,1) NOT NULL,
     [Nom] nvarchar(15)  NOT NULL
 );
 GO
@@ -159,7 +159,8 @@ CREATE TABLE [dbo].[Compte] (
     [Email] nvarchar(30)  NOT NULL,
     [noTelephone] nvarchar(12)  NOT NULL,
     [Pays] nvarchar(20)  NOT NULL,
-    [Province_noProvince] int  NOT NULL
+    [Province_noProvince] int  NOT NULL,
+    [Actif] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -169,7 +170,7 @@ CREATE TABLE [dbo].[Cours] (
     [Nom] nvarchar(25)  NOT NULL,
     [Prix] float  NOT NULL,
     [Description] nvarchar(250)  NULL,
-    [Catégorie_noCatégorie] int  NOT NULL,
+    [Categorie_noCatégorie] int  NOT NULL,
     [GroupeDAge_noGroupeDAge] int  NOT NULL,
     [lePrerequis_noCours] int  NULL,
     [Actif] bit  NOT NULL
@@ -179,7 +180,7 @@ GO
 -- Creating table 'Forfait'
 CREATE TABLE [dbo].[Forfait] (
     [nbInscrits] int  NOT NULL,
-    [Coût] float  NOT NULL
+    [Cout] float  NOT NULL
 );
 GO
 
@@ -239,9 +240,9 @@ GO
 CREATE TABLE [dbo].[Membre] (
     [noMembre] int IDENTITY(1,1) NOT NULL,
     [Nom] nvarchar(25)  NOT NULL,
-    [Prénom] nvarchar(25)  NOT NULL,
+    [Prenom] nvarchar(25)  NOT NULL,
     [DateNaissance] datetime  NOT NULL,
-    [Propriétaire] bit  NOT NULL,
+    [Proprietaire] bit  NOT NULL,
     [Compte_noCompte] int  NOT NULL,
     [Parent] bit  NOT NULL
 );
@@ -275,8 +276,8 @@ GO
 
 -- Creating table 'Spécialité'
 CREATE TABLE [dbo].[Spécialité] (
-    [noSpécialité] int IDENTITY(1,1) NOT NULL,
-    [nomSpécialité] nvarchar(25)  NOT NULL
+    [noSpecialite] int IDENTITY(1,1) NOT NULL,
+    [nomSpecialite] nvarchar(25)  NOT NULL
 );
 GO
 
@@ -284,7 +285,7 @@ GO
 CREATE TABLE [dbo].[SpécialitéAnimateur] (
     [Id] int  NOT NULL,
     [Animateur_noAnimateur] int  NOT NULL,
-    [Spécialité_noSpécialité] int  NOT NULL
+    [Specialite_noSpecialite] int  NOT NULL
 );
 GO
 
@@ -298,10 +299,10 @@ ADD CONSTRAINT [PK_Animateur]
     PRIMARY KEY CLUSTERED ([noAnimateur] ASC);
 GO
 
--- Creating primary key on [noCatégorie] in table 'Catégorie'
+-- Creating primary key on [noCategorie] in table 'Catégorie'
 ALTER TABLE [dbo].[Catégorie]
 ADD CONSTRAINT [PK_Catégorie]
-    PRIMARY KEY CLUSTERED ([noCatégorie] ASC);
+    PRIMARY KEY CLUSTERED ([noCategorie] ASC);
 GO
 
 -- Creating primary key on [noCompte] in table 'Compte'
@@ -376,10 +377,10 @@ ADD CONSTRAINT [PK_Session]
     PRIMARY KEY CLUSTERED ([noSession] ASC);
 GO
 
--- Creating primary key on [noSpécialité] in table 'Spécialité'
+-- Creating primary key on [noSpecialite] in table 'Spécialité'
 ALTER TABLE [dbo].[Spécialité]
 ADD CONSTRAINT [PK_Spécialité]
-    PRIMARY KEY CLUSTERED ([noSpécialité] ASC);
+    PRIMARY KEY CLUSTERED ([noSpecialite] ASC);
 GO
 
 -- Creating primary key on [Id] in table 'SpécialitéAnimateur'
@@ -434,18 +435,18 @@ ON [dbo].[SpécialitéAnimateur]
     ([Animateur_noAnimateur]);
 GO
 
--- Creating foreign key on [Catégorie_noCatégorie] in table 'Cours'
+-- Creating foreign key on [Categorie_noCatégorie] in table 'Cours'
 ALTER TABLE [dbo].[Cours]
 ADD CONSTRAINT [FK_CatégorieCours]
-    FOREIGN KEY ([Catégorie_noCatégorie])
+    FOREIGN KEY ([Categorie_noCatégorie])
     REFERENCES [dbo].[Catégorie]
-        ([noCatégorie])
+        ([noCategorie])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_CatégorieCours'
 CREATE INDEX [IX_FK_CatégorieCours]
 ON [dbo].[Cours]
-    ([Catégorie_noCatégorie]);
+    ([Categorie_noCatégorie]);
 GO
 
 -- Creating foreign key on [Compte_noCompte] in table 'Membre'
@@ -602,18 +603,18 @@ ON [dbo].[Paiement]
     ([Membre_noMembre]);
 GO
 
--- Creating foreign key on [Spécialité_noSpécialité] in table 'SpécialitéAnimateur'
+-- Creating foreign key on [Specialite_noSpecialite] in table 'SpécialitéAnimateur'
 ALTER TABLE [dbo].[SpécialitéAnimateur]
 ADD CONSTRAINT [FK_SpécialitéSpécialitéAnimateur]
-    FOREIGN KEY ([Spécialité_noSpécialité])
+    FOREIGN KEY ([Specialite_noSpecialite])
     REFERENCES [dbo].[Spécialité]
-        ([noSpécialité])
+        ([noSpecialite])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_SpécialitéSpécialitéAnimateur'
 CREATE INDEX [IX_FK_SpécialitéSpécialitéAnimateur]
 ON [dbo].[SpécialitéAnimateur]
-    ([Spécialité_noSpécialité]);
+    ([Specialite_noSpecialite]);
 GO
 
 -- Creating foreign key on [Session_noSession] in table 'Groupe'

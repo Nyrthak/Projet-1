@@ -11,7 +11,7 @@
     <div>
         <asp:EntityDataSource ID="entiDataSourceCours" runat="server" 
             ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-            EnableFlattening="False" EntitySetName="Cours" Include="Catégorie, GroupeDAge, lePrerequis">
+            EnableFlattening="False" EntitySetName="Cours" Include="Categorie, GroupeDAge, lePrerequis">
         </asp:EntityDataSource>
         <img src="../App_Themes/Default/images/logo.jpg" alt="Logo CSL." class="imgCSL" /><br />
         <asp:Label ID="lbCSL" runat="server" Text="CSL inc." CssClass="lbCSL"></asp:Label><br />
@@ -50,7 +50,7 @@
                     <td id="tdNomCours" runat="server"><asp:Label ID="lbNom" runat="server" Text='<%#Eval("Nom")%>'></asp:Label></td>
                     <td id="tdPrix" runat="server"><asp:Label ID="lbPrix" runat="server" Text='<%#Eval("Prix")%>'></asp:Label></td>
                     <td id="tdActifCours" runat="server"><asp:Label ID="lbActif" runat="server" Text='<%#IIF(Eval("Actif"), "Oui", "Non")%>'></asp:Label></td>
-                    <td id="tdCategorie" runat="server"><asp:Label ID="lbCategorie" runat="server" Text='<%#Eval("Catégorie.Nom")%>'></asp:Label></td>
+                    <td id="tdCategorie" runat="server"><asp:Label ID="lbCategorie" runat="server" Text='<%#Eval("Categorie.Nom")%>'></asp:Label></td>
                     <td id="tdGroupeDAge" runat="server"><asp:Label ID="lbGroupeDAge" runat="server" Text='<%#Eval("GroupeDAge.NomGroupeDAge")%>'></asp:Label></td>
                     <td id="tdPrerequis" runat="server"><asp:Label ID="lbPrerequis" runat="server" Text='<%#IIF(Eval("lePrerequis.noCours") isnot Nothing, Eval("lePrerequis.Nom"), "Aucun")%>'></asp:Label></td>
                     <td id="tdDescription" runat="server"><asp:Label ID="lbDescription" runat="server" Text='<%#Eval("Description")%>'></asp:Label></td>

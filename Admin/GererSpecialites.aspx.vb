@@ -32,9 +32,9 @@ Partial Class Admin_GererSpecialites
 #Region "Contrôle d'erreur"
     Protected Sub lViewSpecialites_ItemDeleting(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewDeleteEventArgs) Handles lViewSpecialites.ItemDeleting
         Dim noSpecialite As Integer = e.Keys(0)
-        If (From uneSpecAnimateur In lecontext.SpécialitéAnimateur Where uneSpecAnimateur.Spécialité.noSpécialité = noSpecialite Select uneSpecAnimateur).Count > 0 Then
-            Dim laSpecialite As Spécialité = (From uneSpecialite In lecontext.Spécialité Where uneSpecialite.noSpécialité = noSpecialite Select uneSpecialite).FirstOrDefault
-            lbMessage.Text = "Vous ne pouvez supprimer la spécialité " & laSpecialite.nomSpécialité & ", car elle est reliée à au moins un animateur."
+        If (From uneSpecAnimateur In lecontext.SpécialitéAnimateur Where uneSpecAnimateur.Specialite.noSpecialite = noSpecialite Select uneSpecAnimateur).Count > 0 Then
+            Dim laSpecialite As Specialite = (From uneSpecialite In lecontext.Spécialité Where uneSpecialite.noSpecialite = noSpecialite Select uneSpecialite).FirstOrDefault
+            lbMessage.Text = "Vous ne pouvez supprimer la spécialité " & laSpecialite.nomSpecialite & ", car elle est reliée à au moins un animateur."
             e.Cancel = True
         End If
     End Sub

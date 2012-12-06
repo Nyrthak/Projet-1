@@ -6,7 +6,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
     <div id="contentRight">
         <asp:Label ID="lblTitreSpecialites" runat="server" Text="Gérer les spécialités" SkinID="lbTitrePage"></asp:Label><br />
-        <asp:ListView ID="lViewSpecialites" runat="server" DataSourceID="entiDataSourceSpecialites" DataKeyNames="noSpécialité" InsertItemPosition="LastItem">
+        <asp:ListView ID="lViewSpecialites" runat="server" DataSourceID="entiDataSourceSpecialites" DataKeyNames="noSpecialite" InsertItemPosition="LastItem">
             <LayoutTemplate>
             <table id="tbListeAttente">
                 <tr>
@@ -20,17 +20,17 @@
             </LayoutTemplate>
             <ItemTemplate>
                 <tr>
-                    <td><asp:Label ID="lbNoSpecialite" runat="server" Text='<%#Eval("noSpécialité")%>'></asp:Label></td>
-                    <td><asp:Label ID="lbNom" runat="server" Text='<%#Eval("nomSpécialité")%>'></asp:Label></td>
+                    <td><asp:Label ID="lbNoSpecialite" runat="server" Text='<%#Eval("noSpecialite")%>'></asp:Label></td>
+                    <td><asp:Label ID="lbNom" runat="server" Text='<%#Eval("nomSpecialite")%>'></asp:Label></td>
                     <td><asp:Button ID="btnModifier" runat="server" Text="Modifier" CommandName="Edit" SkinID="btnAjoutSupprimer" Width="78px" /></td>
                     <td><asp:Button ID="btnSupprimer" runat="server" Text="Supprimer" CommandName="Delete" SkinID="btnAjoutSupprimer" Width="78px"/></td>
                 </tr>
             </ItemTemplate>
             <EditItemTemplate>
                 <tr>
-                    <td><asp:Label ID="lbNoSpecialite" runat="server" Text='<%#Eval("noSpécialité")%>'></asp:Label></td>
+                    <td><asp:Label ID="lbNoSpecialite" runat="server" Text='<%#Eval("noSpecialite")%>'></asp:Label></td>
                     <td>
-                        <asp:TextBox ID="tbNom" runat="server" Text='<%#Bind("nomSpécialité")%>' SkinID="tbSkin" Width="80px" MaxLength="15"></asp:TextBox>
+                        <asp:TextBox ID="tbNom" runat="server" Text='<%#Bind("nomSpecialite")%>' SkinID="tbSkin" Width="80px" MaxLength="15"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfvNom" ForeColor="Red" runat="server" Display="Dynamic"
                             ErrorMessage="Le nom de la spécialité doit être spécifié." ControlToValidate="tbNom" ValidationGroup="Edit">*
                         </asp:RequiredFieldValidator>
@@ -43,7 +43,7 @@
                 <tr>
                     <td></td>
                     <td>
-                        <asp:TextBox ID="tbNom" runat="server" Text='<%#Bind("nomSpécialité")%>' SkinID="tbSkin" Width="80px" MaxLength="15"></asp:TextBox>
+                        <asp:TextBox ID="tbNom" runat="server" Text='<%#Bind("nomSpecialite")%>' SkinID="tbSkin" Width="80px" MaxLength="15"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfvNom" ForeColor="Red" runat="server" Display="Dynamic"
                             ErrorMessage="Le nom de la spécialité doit être spécifié." ControlToValidate="tbNom" ValidationGroup="Insert">*
                         </asp:RequiredFieldValidator>

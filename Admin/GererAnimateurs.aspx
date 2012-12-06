@@ -28,7 +28,7 @@
             </LayoutTemplate>
             <ItemTemplate>
                 <tr>
-                    <td><asp:LinkButton ID="lbPrenom" runat="server" Text='<%#Eval("Prénom")%>' CommandName="Select"></asp:LinkButton></td>
+                    <td><asp:LinkButton ID="lbPrenom" runat="server" Text='<%#Eval("Prenom")%>' CommandName="Select"></asp:LinkButton></td>
                     <td><asp:Label ID="lbNom" runat="server" Text='<%#Eval("Nom")%>'></asp:Label></td>
                     <td><asp:Label ID="lbDatenaissance" runat="server" Text='<%#Eval("DateNaissance", "{0:dd/MM/yyyy}")%>'></asp:Label></td>
                     <td><asp:Button ID="btnDelete" runat="server" Text="Supprimer" CommandName="Delete" SkinID="btnAjoutSupprimer" /></td>
@@ -42,7 +42,7 @@
                     <td class="tdTop tdDroite" colspan="2"><asp:Label ID="lbTitreDatenaissance" runat="server" Text="Date de naissance" SkinID="lbChampsFormulaire"  Width="160px"></asp:Label></td>                    
                 </tr>
                 <tr>
-                    <td class="tdGauche"><asp:Label ID="lbPrenom" runat="server" Text='<%#Eval("Prénom")%>' ></asp:Label></td>
+                    <td class="tdGauche"><asp:Label ID="lbPrenom" runat="server" Text='<%#Eval("Prenom")%>' ></asp:Label></td>
                     <td><asp:Label ID="lbNom" runat="server" Text='<%#Eval("Nom")%>'></asp:Label></td>
                     <td colspan="2" class="tdDroite"><asp:Label ID="lbDatenaissance" runat="server" Text='<%#Eval("DateNaissance", "{0:dd/MM/yyyy}")%>'></asp:Label></td>
                 </tr>
@@ -53,7 +53,7 @@
                     <td class="tdDroite"><asp:Label ID="lbTitreProvince" runat="server" Text="Province" SkinID="lbChampsFormulaire"></asp:Label></td>
                 </tr>
                 <tr>
-                    <td class="tdGauche"><asp:Label ID="lbNoTelephone" runat="server" Text='<%#Eval("noTéléphone")%>'></asp:Label></td>
+                    <td class="tdGauche"><asp:Label ID="lbNoTelephone" runat="server" Text='<%#Eval("noTelephone")%>'></asp:Label></td>
                     <td><asp:Label ID="lbCodePostal" runat="server" Text='<%#Eval("CodePostal")%>'></asp:Label></td>
                     <td><asp:Label ID="lbVille" runat="server" Text='<%#Eval("Ville")%>'></asp:Label></td>
                     <td class="tdDroite"><asp:Label ID="lbProvince" runat="server" Text='<%#Eval("Province.Nom")%>'></asp:Label></td>
@@ -82,7 +82,7 @@
                 </tr>
                 <tr>
                     <td class="tdGauche">
-                        <asp:TextBox ID="tbPrenom" runat="server" Text='<%#Bind("Prénom")%>' SkinID="tbSkin" Width="80px"></asp:TextBox>
+                        <asp:TextBox ID="tbPrenom" runat="server" Text='<%#Bind("Prenom")%>' SkinID="tbSkin" Width="80px"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfvPrenom" ForeColor="Red" runat="server" Display="Dynamic"
                             ErrorMessage="Le prénom doit être spécifié." ControlToValidate="tbPrenom" ValidationGroup="Edit">*
                         </asp:RequiredFieldValidator>
@@ -116,7 +116,7 @@
                 </tr>
                 <tr>
                     <td class="tdGauche">
-                        <asp:TextBox ID="tbNoTelephone" runat="server" Text='<%#Bind("noTéléphone")%>' SkinID="tbSkin"  Width="80px"></asp:TextBox>
+                        <asp:TextBox ID="tbNoTelephone" runat="server" Text='<%#Bind("noTelephone")%>' SkinID="tbSkin"  Width="80px"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfvNoTelephone" runat="server" ControlToValidate="tbNoTelephone" ValidationGroup="Edit"
                             ErrorMessage="Le numéro de téléphone doit être spécifié." Display="Dynamic" ForeColor="Red">*
                         </asp:RequiredFieldValidator>
@@ -176,7 +176,7 @@
                 </tr>
                 <tr class="trInsert">
                     <td class="tdGauche">
-                        <asp:TextBox ID="tbPrenom" runat="server" Text='<%#Bind("Prénom")%>' SkinID="tbSkin" Width="80px"></asp:TextBox>
+                        <asp:TextBox ID="tbPrenom" runat="server" Text='<%#Bind("Prenom")%>' SkinID="tbSkin" Width="80px"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfvPrenom" ForeColor="Red" runat="server" Display="Dynamic"
                             ErrorMessage="Le prénom doit être spécifié." ControlToValidate="tbPrenom" ValidationGroup="Insert">*
                         </asp:RequiredFieldValidator>
@@ -210,7 +210,7 @@
                 </tr>
                 <tr class="trInsert">
                     <td class="tdGauche">
-                        <asp:TextBox ID="tbNoTelephone" runat="server" Text='<%#Bind("noTéléphone")%>' SkinID="tbSkin"  Width="80px"></asp:TextBox>
+                        <asp:TextBox ID="tbNoTelephone" runat="server" Text='<%#Bind("noTelephone")%>' SkinID="tbSkin"  Width="80px"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfvNoTelephone" runat="server" ControlToValidate="tbNoTelephone" ValidationGroup="Insert"
                             ErrorMessage="Le numéro de téléphone doit être spécifié." Display="Dynamic" ForeColor="Red">*
                         </asp:RequiredFieldValidator>
@@ -284,8 +284,8 @@
                     </LayoutTemplate>
                     <ItemTemplate>
                         <tr>
-                            <td><asp:Label ID="lbNoSpecialite" runat="server" Text='<%#Eval("Spécialité.noSpécialité")%>'></asp:Label></td>
-                            <td><asp:Label ID="lbNom" runat="server" Text='<%#Eval("Spécialité.nomSpécialité")%>'></asp:Label></td>
+                            <td><asp:Label ID="lbNoSpecialite" runat="server" Text='<%#Eval("Specialite.noSpecialite")%>'></asp:Label></td>
+                            <td><asp:Label ID="lbNom" runat="server" Text='<%#Eval("Specialite.nomSpecialite")%>'></asp:Label></td>
                             <td><asp:Button ID="btnSupprimer" runat="server" Text="Supprimer" CommandName="Delete" SkinID="btnAjoutSupprimer" Width="78px"/></td>
                         </tr>
                     </ItemTemplate>
@@ -295,7 +295,7 @@
                             <td>
                                 <asp:DropDownList ID="dDListSpecialiteInsert" runat="server" 
                                 SkinID="dDListFormulaire" DataSourceID="entiDataSourceSpecialite" 
-                                DataTextField="nomSpécialité" DataValueField="noSpécialité"  SelectedValue='<%#Bind("Spécialité_noSpécialité")%>'></asp:DropDownList>
+                                DataTextField="nomSpecialite" DataValueField="noSpecialite"  SelectedValue='<%#Bind("Specialite_noSpecialite")%>'></asp:DropDownList>
                             </td>
                             <td><asp:Button ID="btnInsert" runat="server" Text="Ajouter" ValidationGroup="Insert" CommandName="Insert" SkinID="btnAjoutSupprimer" Width="78px" /></td>
                         </tr>
@@ -314,7 +314,7 @@
     </div>
     <asp:HiddenField ID="hFieldNoAnimateur" runat="server" />
     <asp:EntityDataSource ID="entiDataSourceAnimateurs" runat="server" 
-    ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" Where='(it.Nom + it.[Prénom] + it.Ville + it.[noTéléphone] like "%"+@recherche+"%" OR (@recherche = ""))'
+    ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" Where='(it.Nom + it.[Prenom] + it.Ville + it.[noTelephone] like "%"+@recherche+"%" OR (@recherche = ""))'
     EnableFlattening="False" EntitySetName="Animateur" EnableDelete="true" EnableUpdate="true" EnableInsert="true" Include="Province">
     <WhereParameters>
             <asp:ControlParameter Name="recherche" Type="String" ControlID="txtRechercher" ConvertEmptyStringToNull="false" />
@@ -330,7 +330,7 @@
     </asp:EntityDataSource>
     <asp:EntityDataSource ID="entiDataSourceSpecialites" runat="server" 
     ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" EnableInsert="true" EnableDelete="true"
-    EnableFlattening="False" EntitySetName="SpécialitéAnimateur" Where="it.Animateur_noAnimateur = @leNoAnimateur" Include="Spécialité" >
+    EnableFlattening="False" EntitySetName="SpécialitéAnimateur" Where="it.Animateur_noAnimateur = @leNoAnimateur" Include="Specialite" >
         <WhereParameters>
             <asp:ControlParameter ConvertEmptyStringToNull="false" ControlID="hFieldNoAnimateur" Name="leNoAnimateur" Type="Int32" />
         </WhereParameters>

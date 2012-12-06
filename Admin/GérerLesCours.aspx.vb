@@ -162,7 +162,7 @@ Partial Class Admin_GérerLesCours
             messageErreur += "Veuillez ajouter au moins une session dans la base de données avant d'ajouter un cours.</br>"
         End If
         If (From dl In lecontext.Catégorie Select dl).Count > 0 Then
-            leCoursAjouté.Catégorie = (From dl In lecontext.Catégorie Select dl).FirstOrDefault
+            leCoursAjouté.Categorie = (From dl In lecontext.Catégorie Select dl).FirstOrDefault
         Else
             messageErreur += "Veuillez ajouter au moins une catégorie dans la base de données avant d'ajouter un cours.</br>"
         End If

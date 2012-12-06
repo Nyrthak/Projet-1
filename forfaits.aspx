@@ -21,7 +21,7 @@
         <ItemTemplate>
             <tr>
                     <td><asp:Label ID="lbNbInscrits" runat="server" Text='<%#Eval("nbInscrits")%>'></asp:Label></td>
-                    <td><asp:Label ID="lbCout" runat="server" Text='<%#Eval("Coût","{0:#%}")%>'></asp:Label></td>
+                    <td><asp:Label ID="lbCout" runat="server" Text='<%#Eval("Cout","{0:#%}")%>'></asp:Label></td>
                 </tr>
         </ItemTemplate>
     </asp:ListView>

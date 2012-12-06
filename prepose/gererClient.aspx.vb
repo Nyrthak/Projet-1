@@ -150,11 +150,11 @@ Partial Class prepose_gererClient
                 If membreADeleter.noMembre = noMembreASupprimer Then
                     present = True
                     If Not membreADeleter.Paiement.Count > 0 Then
-                        If membreADeleter.Propriétaire = False Then
+                        If membreADeleter.Proprietaire = False Then
                             lecontext.Membre.DeleteObject(membreADeleter)
                             lecontext.SaveChanges()
                             lViewGererMembres.DataBind()
-                            lbMessage.Text = "Vous avez bien supprimer le membre " & membreADeleter.Prénom & " " & membreADeleter.Nom
+                            lbMessage.Text = "Vous avez bien supprimer le membre " & membreADeleter.Prenom & " " & membreADeleter.Nom
                         Else
                             Dim validatorPropriétaire As CustomValidator = New CustomValidator
                             validatorPropriétaire.ErrorMessage = "Vous ne pouvez pas supprimer le propriétaire d'un compte."
@@ -162,7 +162,7 @@ Partial Class prepose_gererClient
                             Me.Validators.Add(validatorPropriétaire)
                         End If
                     Else
-                        lbMessage.Text = "Vous avez bien supprimer le membre " & membreADeleter.Prénom & " " & membreADeleter.Nom & "."
+                        lbMessage.Text = "Vous avez bien supprimer le membre " & membreADeleter.Prenom & " " & membreADeleter.Nom & "."
                     End If
                 End If
             Next

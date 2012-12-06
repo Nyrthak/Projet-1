@@ -51,15 +51,15 @@ Partial Class login
                     compteAjoute.CodePostal = compteParent.CodePostal
                     compteAjoute.ModePaiement = "Non payé"
                     compteAjoute.motDePasseCrypté = compteParent.motDePasseCrypté
-                    compteAjoute.Email = leMembre.Prénom & "@csl.csl"
+                    compteAjoute.Email = leMembre.Prenom & "@csl.csl"
                     compteAjoute.noTelephone = compteParent.noTelephone
                     compteAjoute.Province = compteParent.Province
                     compteAjoute.Pays = compteParent.Pays
 
                     membreAjoute.Nom = leMembre.Nom
-                    membreAjoute.Prénom = leMembre.Prénom
+                    membreAjoute.Prenom = leMembre.Prenom
                     membreAjoute.DateNaissance = leMembre.DateNaissance
-                    membreAjoute.Propriétaire = True
+                    membreAjoute.Proprietaire = True
                     membreAjoute.Parent = True
 
                     lecontext.Membre.DeleteObject(leMembre)

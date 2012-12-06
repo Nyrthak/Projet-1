@@ -1,4 +1,4 @@
-Imports Model
+﻿Imports Model
 
 Partial Class coursDefault
     Inherits page
@@ -17,7 +17,7 @@ Partial Class coursDefault
 
 #Region "EntityDataSource"
     Protected Sub dsContextCreating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextCreatingEventArgs) _
-        Handles entityDataSourceCatégorie.ContextCreating, entityDataSourceCours.ContextCreating, entityDataSourceGroupes.ContextCreating, entityDataSourceListeCours.ContextCreating
+        Handles entityDataSourceCategorie.ContextCreating, entityDataSourceCours.ContextCreating, entityDataSourceGroupes.ContextCreating, entityDataSourceListeCours.ContextCreating
         'RÉCUPÈRE LE CONTEXTE DE FACON À N'EN AVOIR QU'UN
         If Not lecontext Is Nothing Then
             e.Context = lecontext
@@ -25,13 +25,13 @@ Partial Class coursDefault
     End Sub
 
     Protected Sub dsContextDisposing(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextDisposingEventArgs) _
-       Handles entityDataSourceCatégorie.ContextDisposing, entityDataSourceCours.ContextDisposing, entityDataSourceGroupes.ContextDisposing, entityDataSourceListeCours.ContextDisposing
+       Handles entityDataSourceCategorie.ContextDisposing, entityDataSourceCours.ContextDisposing, entityDataSourceGroupes.ContextDisposing, entityDataSourceListeCours.ContextDisposing
         e.Cancel = True
     End Sub
 #End Region
 
 #Region "Contrôle d'erreur"
-    Protected Sub lViewCatégorie_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles lViewCatégorie.ItemCommand
+    Protected Sub lViewCategorie_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles lViewCategorie.ItemCommand
         If e.CommandName = "ClickCatégorie" Then
             hFieldNoCategorie.Value = e.CommandArgument
             mViewCours.ActiveViewIndex = 0
@@ -141,7 +141,7 @@ Partial Class coursDefault
             End If
 
             If Not dejaInscrit And Not dejaInscritAttente And peutSinscrire And ageCorrect Then
-                lbMessage.Text = leMembre.Prénom & " " & leMembre.Nom & " est inscrit sur la liste d'attente du Groupe " & leGroupe.noGroupe & " du cours de " & leGroupe.Cours.Nom & "."
+                lbMessage.Text = leMembre.Prenom & " " & leMembre.Nom & " est inscrit sur la liste d'attente du Groupe " & leGroupe.noGroupe & " du cours de " & leGroupe.Cours.Nom & "."
                 Dim laListeAttente As New ListeDAttente
                 laListeAttente.Accepte = False
                 laListeAttente.DateAjout = Date.Now
@@ -329,7 +329,7 @@ Partial Class coursDefault
         End If
 
         If Not dejaInscrit And peutSinscrire And Not dejaInscritAttente And ageCorrect Then
-            lbMessage.Text = leMembre.Prénom & " " & leMembre.Nom & " est inscrit sur la liste d'attente du Groupe " & leGroupe.noGroupe & " du cours de " & leGroupe.Cours.Nom & "."
+            lbMessage.Text = leMembre.Prenom & " " & leMembre.Nom & " est inscrit sur la liste d'attente du Groupe " & leGroupe.noGroupe & " du cours de " & leGroupe.Cours.Nom & "."
             Dim laListeAttente As New ListeDAttente
             laListeAttente.Accepte = False
             laListeAttente.DateAjout = Date.Now
@@ -360,8 +360,8 @@ Partial Class coursDefault
         Dim nbInscriptionsEnfants As Integer = (From unPaiement In lecontext.Paiement Where unPaiement.Membre.Parent = False And unPaiement.Membre.Compte.noCompte = leNoCompte And unPaiement.Groupe.Session.noSession = laSession Select unPaiement).Count + 1
         If (From unForfait In lecontext.Forfait Where unForfait.nbInscrits <= nbInscriptionsEnfants Select unForfait).Count > 0 Then
             Dim leForfait As Forfait = New Forfait
-            leForfait.Coût = (From unForfait In lecontext.Forfait Where unForfait.nbInscrits <= nbInscriptionsEnfants Select unForfait.Coût).Min
-            coutForfait = leForfait.Coût
+            leForfait.Cout = (From unForfait In lecontext.Forfait Where unForfait.nbInscrits <= nbInscriptionsEnfants Select unForfait.Cout).Min
+            coutForfait = leForfait.Cout
         Else
             coutForfait = 1
         End If
@@ -445,15 +445,15 @@ Partial Class coursDefault
             Dim nbInscriptionsEnfants As Integer = (From unPaiement In lecontext.Paiement Where unPaiement.Membre.Parent = False And unPaiement.Membre.Compte.noCompte = leNoCompte And unPaiement.Groupe.Session.noSession = laSession Select unPaiement).Count + 1
             If (From unForfait In lecontext.Forfait Where unForfait.nbInscrits <= nbInscriptionsEnfants Select unForfait).Count > 0 Then
                 Dim leForfait As Forfait = New Forfait
-                leForfait.Coût = (From unForfait In lecontext.Forfait Where unForfait.nbInscrits <= nbInscriptionsEnfants Select unForfait.Coût).Min
-                coutForfait = leForfait.Coût
+                leForfait.Cout = (From unForfait In lecontext.Forfait Where unForfait.nbInscrits <= nbInscriptionsEnfants Select unForfait.Cout).Min
+                coutForfait = leForfait.Cout
             Else
                 coutForfait = 1
             End If
             lePaiement.Prix = CType(lviewCours.Items(0).FindControl("lblPrix"), Label).Text * coutForfait
             lecontext.Paiement.AddObject(lePaiement)
             lecontext.SaveChanges()
-            lbMessage.Text = "Le membre " & leMembre.Prénom & " " & leMembre.Nom & " a bien été inscrit au groupe."
+            lbMessage.Text = "Le membre " & leMembre.Prenom & " " & leMembre.Nom & " a bien été inscrit au groupe."
         End If
 
     End Sub
