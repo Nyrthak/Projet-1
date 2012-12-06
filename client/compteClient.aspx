@@ -15,11 +15,14 @@
             <LayoutTemplate>
                 <table>
                     <tr>
-                        <td class="itemTemplate">
+                        <td class="itemTemplate" style="width:250px" >
                             <asp:Label SkinID="lbTitreInfoMembre" ID="lbNomPrenom" runat="server" Text="Nom:"></asp:Label>
                         </td>
-                        <td class="itemTemplate" >
+                        <td class="itemTemplate">
                             <asp:Label SkinID="lbTitreInfoMembre" id="lbDate" runat="server" Text="Date de naissance:"></asp:Label>
+                        </td>
+                        <td>
+
                         </td>
                     </tr>
                     <asp:PlaceHolder runat="server" ID="GroupPlaceHolder"></asp:PlaceHolder>
@@ -88,14 +91,15 @@
                                     CssClass="MyCalendar" PopupPosition="Right" Format="d-MM-yyyy">
                             </asp:CalendarExtender>                           
                             <asp:Label SkinID="lbTitreInfoMembre" id="lbDate" runat="server" Text="Date de naissance:"></asp:Label>
-                            <asp:Textbox SkinID="tbinscription" Width="100px" id="tbDateNaissance" runat="server" Text='<%#Bind("DateNaissance" , "{0:dd-MM-yyyy}") %>' ToolTip="JJ-MM-AAAA"></asp:TextBox>
+                            <asp:textbox SkinID="tbinscription" Width="100px" id="tbDateNaissance" runat="server" Text='<%#Bind("DateNaissance" , "{0:dd-MM-yyyy}") %>' ToolTip="JJ-MM-AAAA"></asp:TextBox>
                             <asp:ImageButton ID="imgBtnCalendrier" ImageUrl="~/App_Themes/Default/images/btnCalendrier.png" runat="server" CausesValidation="false" />
-                            <asp:CompareValidator runat="server" ID="test" Type="Date" ControlToValidate="tbDateNaissance" ErrorMessage="La date de naissance n'est pas du bon format (jj-mm-aaaa)" ForeColor="Red" Operator="DataTypeCheck" Display="Dynamic">*</asp:CompareValidator>     
+                            <asp:CompareValidator runat="server" ID="test" Type="Date" ControlToValidate="tbDateNaissance" ErrorMessage="La date de naissance n'est pas du bon format (jj-mm-aaaa)" ForeColor="Red" Operator="DataTypeCheck" Display="Dynamic">*</asp:CompareValidator>
+                            <asp:RangeValidator ID="rangeValidatorDateNaissance" runat="server" Type="Date" ErrorMessage="La date de naissance doit précèder la date d'aujourd'hui." ControlToValidate="tbDateNaissance" Display="Dynamic" ForeColor="Red">*</asp:RangeValidator>                 
                             <asp:RequiredFieldValidator SkinID="requisValidation" 
                                 ID="requisValidationDateNaissance" runat="server" 
                                 ErrorMessage="Votre date de naissance doit être spécifié." 
-                                ControlToValidate="tbDateNaissance" Display="Dynamic" ValidationGroup="A">*</asp:RequiredFieldValidator>  
-                     </td>
+                                ControlToValidate="tbDateNaissance" Display="Dynamic" ValidationGroup="A">*</asp:RequiredFieldValidator>           
+                        </td>
                      </tr>
                      <tr>
                         <td>
@@ -113,6 +117,10 @@
     </asp:View>
     </asp:MultiView>
 </div>
+<asp:EntityDataSource ID="entiDataSourceCompte" runat="server" 
+        ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
+        EntitySetName="Compte">
+</asp:EntityDataSource>
 
 <asp:EntityDataSource ID="entiDataSourceAjouterMembre" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
@@ -131,5 +139,3 @@
     </asp:EntityDataSource>
 
 </asp:Content>
-
-

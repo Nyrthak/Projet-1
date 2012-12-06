@@ -216,7 +216,6 @@ Partial Class coursDefault
                 dDListMembreP.Visible = False
                 btninscrirePrepose.Visible = False
             End If
-
         End If
         If mViewCours.ActiveViewIndex = 3 Then
             'Remplissage du dropdownlist annee

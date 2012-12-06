@@ -1,11 +1,6 @@
-<<<<<<< HEAD
 Erreur survenue le 29 octobre 2012
   System.Web.HttpUnhandledException (0x80004005): Une exception de type 'System.Web.HttpUnhandledException' a été levée. ---> System.Data.UpdateException: Une erreur s'est produite lors de la mise à jour des entrées. Pour plus d'informations, consultez l'exception interne. ---> System.Data.SqlClient.SqlException: The DELETE statement conflicted with the REFERENCE constraint "FK_ListeDAttenteMembre". The conflict occurred in database "ProjetRegulier2012_05", table "dbo.ListeDAttente", column 'Membre_noMembre'.
 The statement has been terminated.
-=======
-Erreur survenue le 25 octobre 2012
-  System.Web.HttpUnhandledException (0x80004005): Une exception de type 'System.Web.HttpUnhandledException' a été levée. ---> System.Data.UpdateException: Une erreur s'est produite lors de la mise à jour des entrées. Pour plus d'informations, consultez l'exception interne. ---> System.Data.SqlClient.SqlException: Cannot insert explicit value for identity column in table 'Paiement' when IDENTITY_INSERT is set to OFF.
->>>>>>> origin/Cours
    à System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
    à System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
    à System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
