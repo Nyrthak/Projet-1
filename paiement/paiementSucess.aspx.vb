@@ -1,5 +1,5 @@
 ﻿
-Partial Class client_histoInscriptionClient
+Partial Class paiement_paiementSucess
     Inherits System.Web.UI.Page
 
 End Class

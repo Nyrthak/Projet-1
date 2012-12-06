@@ -5,8 +5,8 @@
 <asp:Content ID="contentMenuPrepose" ContentPlaceHolderID="contentMenuPrepose" runat="server"></asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
-<asp:Label runat="server" ID="lbText" SkinID="lbTitrePage" Text='Votre compte à bien été créé. Pour vous connecter, cliquez sur "Se connecter" situé en haut à gauche.'></asp:Label>
-
+<asp:Label runat="server" ID="lbText" SkinID="lbSousTitre" Text='Votre compte à bien été créé. Pour vous connecter, cliquez sur "Se connecter" situé en haut à gauche.'></asp:Label><br />
+<asp:Label SkinID="lbSousTitre" ID="lbPaiementSucess" runat="server" Text="Le paiement que vous venez de passer à fonctionner."></asp:Label>
 </asp:Content>
 
 

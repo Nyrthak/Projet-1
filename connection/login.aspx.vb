@@ -1,4 +1,5 @@
 ﻿Imports Model
+Imports System.Net.Mail
 
 Partial Class login
     Inherits page
@@ -23,6 +24,7 @@ Partial Class login
                     Session.Add("userOnline", loginCtrl.UserName)
                     Session.Add("userType", compte.Type)
                     Session.Add("noCompte", compte.noCompte)
+                    Session.Timeout = 25
                 Else
                     loginCtrl.FailureText = "Le mot de passe ou l'adresse courriel n'est pas valide"
                 End If
@@ -37,7 +39,8 @@ Partial Class login
         If Session("userType") = 1 Then
             Dim noCompte As Integer = Session("noCompte")
             Dim compteParent As Compte = (From unCompte In lecontext.Compte Where unCompte.noCompte = noCompte Select unCompte).FirstOrDefault
-            For Each leMembre As Membre In compteParent.Membre
+            Dim lesMembres As New List(Of Membre)(From unMembre In lecontext.Membre Where unMembre.Compte.noCompte = noCompte Select unMembre)
+            For Each leMembre As Membre In lesMembres
                 If Not leMembre.Parent And leMembre.DateNaissance <= Date.Now.AddYears(-18) Then
                     Dim compteAjoute As Compte = New Compte()
                     Dim membreAjoute As Membre = New Membre()
@@ -47,8 +50,8 @@ Partial Class login
                     compteAjoute.Ville = compteParent.Ville
                     compteAjoute.CodePostal = compteParent.CodePostal
                     compteAjoute.ModePaiement = "Non payé"
-                    compteAjoute.motDePasseCrypté = "Adulte"
-                    compteAjoute.Email = "Entrez un email"
+                    compteAjoute.motDePasseCrypté = compteParent.motDePasseCrypté
+                    compteAjoute.Email = leMembre.Prénom & "@csl.csl"
                     compteAjoute.noTelephone = compteParent.noTelephone
                     compteAjoute.Province = compteParent.Province
                     compteAjoute.Pays = compteParent.Pays
@@ -63,7 +66,25 @@ Partial Class login
                     compteAjoute.Membre.Add(membreAjoute)
                     lecontext.AddObject("Compte", compteAjoute)
                     lecontext.SaveChanges()
-                    'Envoyer un email pour qu'il set son mot de passe
+
+                    Dim strFrom As String = "nyrthak24@gmail.com"
+                    Dim SmtpServer As New SmtpClient()
+                    SmtpServer.Credentials = New Net.NetworkCredential(strFrom, "faladomi")
+                    SmtpServer.Port = 587
+                    SmtpServer.Host = "smtp.gmail.com"
+                    SmtpServer.EnableSsl = True
+                    Dim mail As New MailMessage(strFrom, compteParent.Email)
+                    mail.IsBodyHtml = True
+                    mail.Body = "<h2>CSL - Nouveau compte.</h2><br />" &
+                                "Nous avons créé automatiquement un compte pour " & leMembre.Nom & ", car il vient d'avoir 18 ans aujourd'hui. <br /> " &
+                                "Nous lui souhaitons bonne fête.<br />" &
+                                "Pour l'activé vous devez entrer en contact avec un préposé par téléphone ou en personne." &
+                                "Numéro de téléphone: (450) 111-2222 <br />" &
+                                "Adresse: 48 rue Principal, Granby, Québec <br />" &
+                                "<h2>Merci de nous faire confiance!</h2>"
+
+                    mail.Subject = "Nouveau compte - " & leMembre.Nom
+                    SmtpServer.Send(mail)
                 End If
             Next
             Page.Response.Redirect("~/Default.aspx")

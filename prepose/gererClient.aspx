@@ -194,18 +194,6 @@
                       <table>                  
                             <tr>
                                 <td class="longeurPremiereColonnePW">
-                                    <asp:Label SkinID="lbInscription" ID="lbAncientMotDePasse" runat="server" Text="Ancient mot de passe"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:TextBox SkinID="tbInscription" Width="160px" ID="tbMotDePasse" runat="server" TextMode="Password" MaxLength="20"></asp:TextBox>                     
-                                    <asp:RequiredFieldValidator SkinID="requisValidation" 
-                                        ID="requisValidationMotDePasse" runat="server" 
-                                        ErrorMessage="Votre mot de passe doit être spécifié." 
-                                        ControlToValidate="tbMotDePasse" Display="Dynamic">*</asp:RequiredFieldValidator>
-                                </td>               
-                            </tr>
-                            <tr>
-                                <td class="longeurPremiereColonnePW">
                                     <asp:Label SkinID="lbInscription" ID="lbNouvMotDePasse" runat="server" Text="Nouveau mot de passe"></asp:Label>
                                 </td>
                                 <td>
@@ -214,10 +202,6 @@
                                         ID="requisValidationNouvMot" runat="server" 
                                         ErrorMessage="Votre nouveau mot de passe doit être spécifié." 
                                         ControlToValidate="tbNouvMotDePasse" Display="Dynamic">*</asp:RequiredFieldValidator>
-                                        <asp:CompareValidator ID="compareNouvMotDePasse" runat="server" 
-                                         ErrorMessage="Votre nouveau mot de passe doit être différent de l'ancient." 
-                                         Display="Dynamic" ControlToCompare="tbMotDePasse" ControlToValidate="tbNouvMotDePasse" 
-                                         Operator="NotEqual">*</asp:CompareValidator>
                                 </td>               
                             </tr>
                              <tr>
@@ -343,9 +327,6 @@
                             <asp:Button SkinID="btnAjoutSupprimer" ID="btnModifier" runat="server" Text="Modifier" CommandName="Edit" CommandArgument='<%#Eval("noMembre") %>' />
                         </td>
                         <td>
-                            <asp:Button SkinID="btnAjoutSupprimer" ID="btnInscription" runat="server" Text="Inscription" CommandName="Inscription" CommandArgument='<%#Eval("noMembre") %>' />
-                        </td>
-                        <td>
                             <asp:Button SkinID="btnAjoutSupprimer" ID="btnSupprimer" runat="server" Text="-" CommandName="Supprimer" CommandArgument='<%#Eval("noMembre") %>' />
                             <ajaxToolkit:ConfirmButtonExtender ID="confirmBtnExtSupprimer" runat="server" TargetControlID="btnSupprimer" ConfirmText="Voulez-vous vraiment supprimer ce membre?">
                             </ajaxToolkit:ConfirmButtonExtender>    
@@ -396,13 +377,6 @@
             </asp:ListView>  
             <br /> 
                 <asp:Button SkinID="btnActionPossible" ID="btnRetourGererMembre" runat="server" Text="Retour" CausesValidation="false" /> 
-            </asp:View>
-            <asp:View ID="viewInscrireMembre" runat="server">
-                <asp:ListView ID="lviewInscrireMembre" runat="server"  DataSourceID="entiDataSourceMembre" DataKeyNames="noMembre">
-                    <LayoutTemplate>
-                        
-                    </LayoutTemplate>
-                </asp:ListView>
             </asp:View>
         </asp:MultiView><br />   
         <asp:Label  ID="lbMessage" runat="server" Text=""></asp:Label> 

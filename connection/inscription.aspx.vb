@@ -1,15 +1,39 @@
-﻿'Cette class permet de s'inscrire sur notre site avec des validations sur les champs.
-'Lawrence Dubé et Katherine Vandal
-
+﻿'Systeme: Permet de s'incrire à des activitées pour le site CSL
+'Auteurs: Lawrence Dubé et Katherine Vandal
+'Fonctionnalités:
+'       -Inscription d'un client et paiement de l'inscription
+'Intrants:
+'       le nom
+'       le prénom
+'       le courriel
+'       la date de naissance
+'       le mot de passe
+'       le mot de passe de confirmation
+'       le numéro de téléphone
+'       l'adresse
+'       le code postale
+'       la ville
+'       la province
+'       le pays
+'       le type de carte
+'       le numéro de sécurité
+'       la date d'expiration
+'       le nom du détenteur
+'       le prénom du détenteur
+'Extrants: Aucun, cette page n'est qu'un formulaire
+'Dernière mise à jours: 6 novembre 2012
+'Ajout de la bonne adresse pour s'inscrire
 Imports System.Reflection
 Imports System.Drawing
 Imports Model
 Imports System.Windows.Forms
+Imports System.Net.Mail
 
 Partial Class inscription
     Inherits page
     Private Shared lecontext As ModelContainer = Nothing
 
+#Region "Page"
     Protected Sub page_load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Session("userOnline") = "" Then
             Page.Response.Redirect("~/Default.aspx")
@@ -25,8 +49,13 @@ Partial Class inscription
             i += 1
         End While
         rangeValidatorDateNaissance.MinimumValue = Now.AddYears(-150).ToShortDateString
-        rangeValidatorDateNaissance.MaximumValue = Now.Date.ToShortDateString
+        rangeValidatorDateNaissance.MaximumValue = Now.AddYears(-18).ToShortDateString
     End Sub
+    Protected Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Unload
+        lecontext = Nothing
+    End Sub
+#End Region
+#Region "EntityDataSource"
     Protected Sub dsContextCreating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextCreatingEventArgs) _
     Handles entityDataSourceProvince.ContextCreating
 
@@ -40,11 +69,8 @@ Partial Class inscription
         e.Cancel = True
     End Sub
 
-    Protected Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Unload
-        lecontext = Nothing
-    End Sub
-
-
+#End Region        
+#Region "Controle"
     Protected Sub btnEnregistrerInscription_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnregistrerInscription.Click
         Dim compteur As Integer = 0
         Dim salt As String = "manan"
@@ -66,9 +92,9 @@ Partial Class inscription
         'teste sur la carte de crédit
 
         If Me.IsValid Then
-            If doTransaction("4583279825118372", rbListeTypeCarte.SelectedItem.Text, dropDownListMois.SelectedItem.Text & dropDownListAnnee.SelectedItem.Text, tbNumeroSecuriteCarte.Text, "50", tbPrenomPaiement.Text, tbNomPaiement.Text, tbAdresse.Text, _
-                             tbVille.Text, dropDownListProvince.SelectedItem.Text, tbCodePostal.Text) Then
-
+            Dim noPaypal As String = doTransaction(tbNumeroCartePaiement.Text, rbListeTypeCarte.SelectedItem.Text, dropDownListMois.SelectedItem.Text & dropDownListAnnee.SelectedItem.Text, tbNumeroSecuriteCarte.Text, "50", tbPrenomPaiement.Text, tbNomPaiement.Text, tbAdresse.Text, _
+                             tbVille.Text, dropDownListProvince.SelectedItem.Text, tbCodePostal.Text)
+            If Not noPaypal = "" Then
                 Dim hash As String = CreatePasswordHash(tbMotDePasse.Text, salt)
 
                 Dim compteAjoute As Compte = New Compte()
@@ -85,6 +111,7 @@ Partial Class inscription
                 compteAjoute.Province = (From dl In lecontext.Province Where dl.noProvince = dropDownListProvince.SelectedValue Select dl).First
                 compteAjoute.Pays = tbPays.Text
 
+
                 membreAjoute.Nom = tbNom.Text
                 membreAjoute.Prénom = tbPrenom.Text
                 membreAjoute.DateNaissance = DateTime.Parse(tbDateNaissance.Text)
@@ -95,6 +122,22 @@ Partial Class inscription
                 lecontext.AddObject("Compte", compteAjoute)
                 lecontext.SaveChanges()
 
+                Dim strFrom As String = "nyrthak24@gmail.com"
+                Dim SmtpServer As New SmtpClient()
+                SmtpServer.Credentials = New Net.NetworkCredential(strFrom, "faladomi")
+                SmtpServer.Port = 587
+                SmtpServer.Host = "smtp.gmail.com"
+                SmtpServer.EnableSsl = True
+                Dim mail As New MailMessage(strFrom, tbCourriel.Text)
+                mail.IsBodyHtml = True
+                mail.Body = "<h2>CSL - Bienvenue!.</h2><br />" &
+                            "Votre email de connection: " & compteAjoute.Email & ".<br />" &
+                            "Vous avez payer votre inscription de 50$ de la façon suivante : " & compteAjoute.ModePaiement &
+                            "Pour commencer à vous inscrire à une activitée, rendez vous à l'adresse suivante :"
+                mail.Subject = "Nouvelle inscription"
+                SmtpServer.Send(mail)
+
+
                 Page.Response.Redirect("~/connection/inscriptionReusi.aspx")
             Else
                 Dim validatorErrorPaiement As CustomValidator = New CustomValidator
@@ -104,9 +147,15 @@ Partial Class inscription
             End If
         End If
     End Sub
-
-
     Protected Sub dropDownListProvince_DataBound(ByVal sender As Object, ByVal e As System.EventArgs) Handles dropDownListProvince.DataBound
         dropDownListProvince.Items.Insert(0, "")
     End Sub
+#End Region
+#Region "Controle d'erreur"
+    Protected Sub entityDataSourceProvince_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entityDataSourceProvince.Selected
+        If e.Exception IsNot Nothing Then
+            traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+#End Region
 End Class

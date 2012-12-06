@@ -1,4 +1,24 @@
-﻿'Cette page permet d'afficher, ajouter, modifier et supprimer les animateurs.
+﻿'Systeme: Permet de s'incrire à des activitées pour le site CSL
+'Auteurs: Lawrence Dubé et Katherine Vandal
+'Fonctionnalités:
+'       -Ajout/suppression d'un animateur par un admin
+'Intrants:
+'       le nom
+'       le prénom
+'       le courriel
+'       la date de naissance
+'       le mot de passe
+'       le mot de passe de confirmation
+'       le numéro de téléphone
+'       l'adresse
+'       le code postale
+'       la ville
+'       la province
+'Extrants: Elle affiche une liste d'animateur:
+'       le nom
+'       le prénom
+'       la date de naissance
+'Dernière mise à jours: 6 novembre 2012
 Imports Model
 Partial Class Admin_GererAnimateurs
     Inherits page
@@ -109,6 +129,11 @@ Partial Class Admin_GererAnimateurs
             lbMessage.Text = "La spécialité " & e.Values(1) & " a été ajoutée."
         End If
     End Sub
+    Protected Sub entiDataSourceProvince_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceProvince.Selected
+        If e.Exception IsNot Nothing Then
+            traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
 #End Region
 
 #Region "Contrôles"
@@ -129,4 +154,6 @@ Partial Class Admin_GererAnimateurs
         lbMessage.Text = ""
     End Sub
 #End Region
+
+
 End Class

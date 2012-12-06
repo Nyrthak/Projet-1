@@ -301,7 +301,7 @@
                         </tr>
                     </InsertItemTemplate>
                 </asp:ListView>
-                <asp:DataPager ID="DataPagerGererProvinces" runat="server" PagedControlID="lViewSpecialites">
+                <asp:DataPager ID="DataPagerGererAnimateur" runat="server" PagedControlID="lViewSpecialites">
                     <Fields>
                         <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="True" 
                             ShowLastPageButton="True" FirstPageText="Premier" LastPageText="Dernier" 

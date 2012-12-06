@@ -1,5 +1,7 @@
 ﻿Imports Microsoft.VisualBasic
 Imports System.Drawing.ColorTranslator
+Imports System.Net.Mail
+
 Public Class page
     Inherits System.Web.UI.Page
     Protected Friend Function validationRequisToutLesChamps(ByVal page As Control, ByVal validator As CustomValidator, ByVal compteur As Integer) As Boolean
@@ -83,7 +85,7 @@ Public Class page
                                     ByVal street As String,
                                     ByVal city As String,
                                     ByVal state As String,
-                                    ByVal zip As String) As Boolean
+                                    ByVal zip As String) As string
 
         Dim strUsername As String = "law_du_1354029082_biz_api1.hotmail.com"
         Dim strPassword As String = "1354029149"
@@ -134,6 +136,7 @@ Public Class page
             Next
 
             Dim strAck As String = htResponse("ACK").ToString()
+            Dim noPaypal As String = htResponse("TRANSACTIONID").ToString()
             'AFFICHE LA RÉPONSE
 
             If strAck = "Success" OrElse
@@ -145,21 +148,79 @@ Public Class page
                 'For Each i In htResponse
                 '    Response.Write(i.Key & ": " & i.Value & "<br />")
                 'Next
-                Return True
+                Return noPaypal
 
             Else
 
                 'For Each i In htResponse
                 '    Response.Write(i.Key & ": " & i.Value & "<br />")
                 'Next
-                Return False
+                Return ""
             End If
 
         Catch
 
             ' FAITES QQCHOSE
         End Try
-        Return False
+        Return ""
     End Function
+
+    Sub envoyerMailPaiementInscription(ByVal email As String,
+                                       ByVal nomCours As String,
+                                       ByVal nomGroupe As String,
+                                       ByVal cout As Double,
+                                       ByVal modePaiement As String,
+                                       ByVal ville As String,
+                                       ByVal province As String,
+                                       ByVal codePostale As String,
+                                       ByVal adresse As String)
+
+        Dim strFrom As String = "nyrthak24@gmail.com"
+        Dim SmtpServer As New SmtpClient()
+        SmtpServer.Credentials = New Net.NetworkCredential(strFrom, "faladomi")
+        SmtpServer.Port = 587
+        SmtpServer.Host = "smtp.gmail.com"
+        SmtpServer.EnableSsl = True
+        Dim mail As New MailMessage(strFrom, "law_dube8@hotmail.com")
+        mail.IsBodyHtml = True
+        mail.Body = "<h2>CSL - Voici votre facture pour le cours " & nomCours & ".</h2><br />" &
+                    "<h3>Information du cours</h3>" &
+                    "Nom du cours: " & nomCours & "<br />" &
+                    "Nom du groupe: " & nomGroupe & "<br />" &
+                    "Total: " & cout & "$." &
+                    "<br /><br />" &
+                    "<h3>Informations de facturation" & "</h3><br />" &
+                    "Adresse: " & adresse & "<br />" &
+                    "Ville : " & ville & "<br />" &
+                    "Province : " & province & "<br />" &
+                    "Code postale : " & codePostale & "<br />" &
+                    "Mode de paiement : " & modePaiement & "<br/>" &
+                    "<h2>Merci de nous faire confiance!</h2>"
+        mail.Subject = "Facture Cours " & nomCours
+        SmtpServer.Send(mail)
+    End Sub
+
+    Sub envoyerMailPayerInscription(ByVal email As String,
+                                     ByVal nomCours As String,
+                                     ByVal nomGroupe As String,
+                                     ByVal nomMembre As String)
+
+        Dim strFrom As String = "nyrthak24@gmail.com"
+        Dim SmtpServer As New SmtpClient()
+        SmtpServer.Credentials = New Net.NetworkCredential(strFrom, "faladomi")
+        SmtpServer.Port = 587
+        SmtpServer.Host = "smtp.gmail.com"
+        SmtpServer.EnableSsl = True
+        Dim mail As New MailMessage(strFrom, "law_dube8@hotmail.com")
+        mail.IsBodyHtml = True
+        mail.Body = "<h2>CSL - Nouvelle place.</h2><br />" &
+                    "<h3>Une nouvelle place est disponible pour " & nomMembre & " pour le " & nomGroupe & " du cours " & nomCours & ".</h3><br />" &
+                    "Veulliez vous rendre sur votre page de compte, ensuite dans 'Inscriptions non payés' pour payer votre inscription.<br />" &
+                    "<a href='http://localhost:60101/Projet-1/connection/login.aspx?ReturnUrl=%2fProjet-1%2fdefault.aspx'>Connection.</a><br />" &
+                    "<h2>Merci de nous faire confiance!</h2>"
+
+        mail.Subject = "Nouvelle place - " & nomCours
+        SmtpServer.Send(mail)
+    End Sub
 
 End Class

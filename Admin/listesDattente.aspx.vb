@@ -1,4 +1,4 @@
-﻿Imports Model
+Imports Model
 Partial Class Admin_listesDattente
     Inherits page
 
@@ -68,6 +68,7 @@ Partial Class Admin_listesDattente
             Dim leGroupeAjoute As Groupe = New Groupe()
             Dim leNoGroupeDepart As Integer = hFieldNoGroupe.Value
             Dim leGroupeDepart As Groupe = (From unGroupe In lecontext.Groupe Where unGroupe.noGroupe = leNoGroupeDepart Select unGroupe).FirstOrDefault
+            'Création du groupe
             leGroupeAjoute.Local = leGroupeDepart.Local
             leGroupeAjoute.DateDebut = leGroupeDepart.DateDebut
             leGroupeAjoute.DateFin = leGroupeDepart.DateFin
@@ -75,20 +76,25 @@ Partial Class Admin_listesDattente
             leGroupeAjoute.AgeMinimum = leGroupeDepart.AgeMinimum
             leGroupeAjoute.Agemaximum = leGroupeDepart.Agemaximum
             leGroupeAjoute.Actif = False
+            leGroupeAjoute.Session = leGroupeDepart.Session
+            leGroupeAjoute.Nom = "Groupe"
             leGroupeAjoute.Animateur = (From dl In lecontext.Animateur Where dl.noAnimateur = leGroupeDepart.Animateur.noAnimateur Select dl).FirstOrDefault
             leGroupeAjoute.Cours = (From dl In lecontext.Cours Where dl.noCours = leGroupeDepart.Cours.noCours Select dl).First
             lecontext.AddObject("Groupe", leGroupeAjoute)
-
+            lecontext.SaveChanges()
 
             For Each inscription In lesInscriptions
                 Dim lePaiement As Paiement = New Paiement()
                 lePaiement.ModePaiement = "Non payé"
-                lePaiement.noPaypal = "00000"
+                lePaiement.noPaypal = "Non payé"
                 lePaiement.Membre = inscription.Membre
                 lePaiement.Groupe = leGroupeAjoute
+                lePaiement.Prix = leGroupeAjoute.Cours.Prix
                 lecontext.ListeDAttente.DeleteObject(inscription)
+                lecontext.SaveChanges()
+                envoyerMailPayerInscription(lePaiement.Membre.Compte.Email, lePaiement.Groupe.Cours.Nom, lePaiement.Groupe.Nom, lePaiement.Membre.Nom)
             Next
-            lecontext.SaveChanges()
+
 
             Server.Transfer("~/Admin/GérerLesCours.aspx")
         End If
