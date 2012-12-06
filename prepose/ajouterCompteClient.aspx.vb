@@ -74,6 +74,7 @@ Partial Class prepose_ajouterCompteClient
             compteAjoute.noTelephone = tbNumeroTelephone.Text
             compteAjoute.Province = (From dl In lecontext.Province Where dl.noProvince = dropDownListProvince.SelectedValue Select dl).First
             compteAjoute.Pays = tbPays.Text
+            compteAjoute.Actif = True
 
             membreAjoute.Parent = True
             membreAjoute.Nom = tbNom.Text
