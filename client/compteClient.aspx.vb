@@ -96,7 +96,8 @@ Partial Class CompteClient
         'Vérifie si le compte à déjà 2 parents, si oui, il ne peut pas ajouter un membre "parent". Il peut tout de même ajouter un membre "Enfant"
         If CType(lViewAjoutMembre.Items(0).FindControl("rbListeTypeMembre"), RadioButtonList).SelectedValue = "True" Then
             If e.CommandName = "Update" Then
-                Dim nombreParent As Integer = (From unMembre As Membre In lecontext.Membre Where (unMembre.Compte.noCompte = noCompteCourant And unMembre.Parent = True) Select unMembre).Count
+                Dim noMembre As String = hiddenFieldNoMembre.Value
+                Dim nombreParent As Integer = (From unMembre As Membre In lecontext.Membre Where (unMembre.Compte.noCompte = noCompteCourant And unMembre.Parent = True And Not unMembre.noMembre = noMembre) Select unMembre).Count
                 If nombreParent >= 2 Then
                     Dim validatorNombreParent As CustomValidator = New CustomValidator
                     validatorNombreParent.ValidationGroup = "A"

@@ -15,10 +15,10 @@
             <LayoutTemplate>
                 <table>
                     <tr>
-                        <td class="itemTemplate">
+                        <td class="itemTemplate" style="width:250px" >
                             <asp:Label SkinID="lbTitreInfoMembre" ID="lbNomPrenom" runat="server" Text="Nom:"></asp:Label>
                         </td>
-                        <td class="itemTemplate" >
+                        <td class="itemTemplate">
                             <asp:Label SkinID="lbTitreInfoMembre" id="lbDate" runat="server" Text="Date de naissance:"></asp:Label>
                         </td>
                         <td>
