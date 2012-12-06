@@ -1,8 +1,46 @@
-﻿Imports Model
+﻿'Systeme: Permet de s'incrire à des activitées pour le site CSL
+'Auteurs: Lawrence Dubé et Katherine Vandal
+'Fonctionnalités:
+'       -Inscription d'un compte préposé par l'admin
+'Intrants:
+'       le nom
+'       le prénom
+'       le courriel
+'       la date de naissance
+'       le mot de passe
+'       le mot de passe de confirmation
+'       le numéro de téléphone
+'       l'adresse
+'       le code postale
+'       la ville
+'       la province
+'       le pays
+'Extrants: Aucun, cette page n'est qu'un formulaire
+'Dernière mise à jours: 6 novembre 2012
+
+
+Imports Model
 Partial Class Admin_ajouterComptePrepose
     Inherits page
     Private Shared lecontext As ModelContainer = Nothing
+#Region "Page"
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        lecontext = New ModelContainer()
 
+        rangeValidatorDateNaissance.MinimumValue = Now.AddYears(-150).ToShortDateString
+        rangeValidatorDateNaissance.MaximumValue = Now.Date.ToShortDateString
+    End Sub
+
+    Protected Sub Page_PreInit(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreInit
+        verificationTypeUser(2)
+    End Sub
+
+    Protected Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Unload
+        lecontext = Nothing
+    End Sub
+
+#End Region
+#Region "EntityDataSource"
     Protected Sub dsContextCreating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextCreatingEventArgs) _
     Handles entityDataSourceProvince.ContextCreating
 
@@ -15,18 +53,7 @@ Partial Class Admin_ajouterComptePrepose
     Handles entityDataSourceProvince.ContextDisposing
         e.Cancel = True
     End Sub
-
-    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        lecontext = New ModelContainer()
-
-        rangeValidatorDateNaissance.MinimumValue = Now.AddYears(-150).ToShortDateString
-        rangeValidatorDateNaissance.MaximumValue = Now.Date.ToShortDateString
-    End Sub
-
-    Protected Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Unload
-        lecontext = Nothing
-    End Sub
-
+#End Region
 
     Protected Sub btnEnregistrerInscription_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnregistrerInscription.Click
         Dim compteur As Integer = 0
@@ -73,13 +100,20 @@ Partial Class Admin_ajouterComptePrepose
 
             compteAjoute.Membre.Add(membreAjoute)
             lecontext.AddObject("Compte", compteAjoute)
-            lecontext.SaveChanges()
+            Try
+                lecontext.SaveChanges()
+            Catch ex As Exception
+                traiteErreur(ex, "ajout")
+            End Try
+
 
             Page.Response.Redirect("~/connection/inscriptionReusi.aspx")
 
         End If
     End Sub
-    Protected Sub dropDownListProvince_DataBound(ByVal sender As Object, ByVal e As System.EventArgs) Handles dropDownListProvince.DataBound
-        dropDownListProvince.Items.Insert(0, "")
+    Protected Sub entityDataSourceProvince_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entityDataSourceProvince.Selected
+        If e.Exception IsNot Nothing Then
+            traiteErreur(e.Exception, "sélection")
+        End If
     End Sub
 End Class

@@ -150,7 +150,6 @@
         </table>
         <br />
         <asp:Label ID="lbFraisOuverture" runat="server" Text="Des frais de 50$ s'applique pour l'ouverture d'un compte." SkinID="lbTitrePage"></asp:Label><br />
-        <asp:Label ID="lbInformationsFrais" runat="server" Text="Les frais ne seront pas crédités avant que votre inscription soit approuvée." Font-Size="12px"></asp:Label><br />
  
         <asp:Label  SkinID="lbInscription" id="lbTypeDeCarte" runat="server" Text="Type de carte"></asp:Label>
         <asp:RequiredFieldValidator SkinID="requisValidation" ID="requisValidationModePaiement" runat="server" ErrorMessage="Le mode de paiement doit être spécifié." ControlToValidate="rbListeTypeCarte" Display="Dynamic" >*</asp:RequiredFieldValidator>
