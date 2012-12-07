@@ -26,6 +26,7 @@
                         <td id="tdTitreModePaiement" runat="server"><asp:Label ID="lbTitreModePaiement" runat="server" Text="Mode de paiement" SkinID="lbTitreTableau" Width="80px"></asp:Label></td>
                         <td id="tdTitreTelephone" runat="server"><asp:Label ID="lbTitreTelephone" runat="server" Text="Téléphone" SkinID="lbTitreTableau" Width="90px"></asp:Label></td>
                         <td id="tdTitreAdresse" runat="server"><asp:Label ID="lbTitreAdresse" runat="server" Text="Adresse" SkinID="lbTitreTableau" Width="150px"></asp:Label></td>
+                        <td id="tdTitreActif" runat="server"><asp:Label ID="lbTitreActif" runat="server" Text="Actif" SkinID="lbTitreTableau" Width="70px"></asp:Label></td>
                         <td id="tdTitreCodePostal" runat="server"><asp:Label ID="lbTitreCodePostal" runat="server" Text="Code postal" SkinID="lbTitreTableau" Width="90px"></asp:Label></td>
                         <td id="tdTitreVille" runat="server"><asp:Label ID="lbTitreVille" runat="server" Text="Ville" SkinID="lbTitreTableau" Width="70px"></asp:Label></td>
                         <td id="tdTitreProvince" runat="server"><asp:Label ID="lbTitreProvince" runat="server" Text="Province" SkinID="lbTitreTableau" Width="70px"></asp:Label></td>
@@ -49,6 +50,7 @@
                     <td id="tdModePaiement" runat="server"><asp:Label ID="lbModePaiement" runat="server" Text='<%#Eval("ModePaiement")%>'></asp:Label></td>
                     <td id="tdTelephone" runat="server"><asp:Label ID="lbTelephone" runat="server" Text='<%#Eval("noTelephone")%>'></asp:Label></td>
                     <td id="tdAdresse" runat="server"><asp:Label ID="lbAdresse" runat="server" Text='<%#Eval("Adresse")%>'></asp:Label></td>
+                    <td id="tdActif" runat="server"><asp:Label ID="lbActif" runat="server" Text='<%#IIF(Eval("Actif"), "Oui", "Non")%>'></asp:Label></td>
                     <td id="tdCodePostal" runat="server"><asp:Label ID="lbCodePostal" runat="server" Text='<%#Eval("CodePostal")%>'></asp:Label></td>
                     <td id="tdVille" runat="server"><asp:Label ID="lbVille" runat="server" Text='<%#Eval("Ville")%>'></asp:Label></td>
                     <td id="tdProvince" runat="server"><asp:Label ID="lbProvince" runat="server" Text='<%#Eval("Province.Nom")%>'></asp:Label></td>

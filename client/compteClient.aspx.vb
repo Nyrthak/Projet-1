@@ -48,7 +48,6 @@ Partial Class CompteClient
         hiddenFieldNoMembre.Value = ajouterMembre.noMembre
     End Sub
 
-
     Protected Sub lViewAjoutMembre_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles lViewAjoutMembre.ItemCommand
         Dim noCompteCourant As Integer = Session("noCompte")
         If e.CommandName = "Cancel" Then
@@ -73,7 +72,8 @@ Partial Class CompteClient
         'Vérifie si le compte à déjà 2 parents, si oui, il ne peut pas ajouter un membre "parent". Il peut tout de même ajouter un membre "Enfant"
         If CType(lViewAjoutMembre.Items(0).FindControl("rbListeTypeMembre"), RadioButtonList).SelectedValue = "True" Then
             If e.CommandName = "Update" Then
-                Dim nombreParent As Integer = (From unMembre As Membre In lecontext.Membre Where (unMembre.Compte.noCompte = noCompteCourant And unMembre.Parent = True) Select unMembre).Count
+                Dim noMembre As Integer = e.CommandArgument
+                Dim nombreParent As Integer = (From unMembre As Membre In lecontext.Membre Where (unMembre.Compte.noCompte = noCompteCourant And unMembre.Parent = True And Not unMembre.noMembre = noMembre) Select unMembre).Count
                 If nombreParent >= 2 Then
                     Dim validatorNombreParent As CustomValidator = New CustomValidator
                     validatorNombreParent.ValidationGroup = "A"
@@ -102,8 +102,20 @@ Partial Class CompteClient
         End If
     End Sub
 
-    Protected Sub lViewAjoutMembre_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles lViewAjoutMembre.PreRender
-        CType(lViewAjoutMembre.Items(0).FindControl("rangeValidatorDateNaissance"), RangeValidator).MaximumValue = Now.Date.ToShortDateString
-        CType(lViewAjoutMembre.Items(0).FindControl("rangeValidatorDateNaissance"), RangeValidator).MinimumValue = Now.AddYears(-150).ToShortDateString
+    Sub custom_vDateNaissance(ByVal sender As Object, ByVal e As ServerValidateEventArgs)
+        Dim dateNaissance As Date = e.Value
+        If CType(lViewAjoutMembre.EditItem.FindControl("rbListeTypeMembre"), RadioButtonList).SelectedValue Then
+            If dateNaissance > Date.Now.AddYears(-150) And dateNaissance <= Date.Now.AddYears(-18) Then
+                e.IsValid = True
+            Else
+                e.IsValid = False
+            End If
+        Else
+            If dateNaissance > Date.Now.AddYears(-18) And dateNaissance <= Date.Now Then
+                e.IsValid = True
+            Else
+                e.IsValid = False
+            End If
+        End If
     End Sub
 End Class

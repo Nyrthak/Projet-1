@@ -1,4 +1,5 @@
-﻿'Systeme: Permet de s'incrire à des activitées pour le site CSL
+Imports Model
+'Systeme: Permet de s'incrire à des activitées pour le site CSL
 'Auteurs: Lawrence Dubé et Katherine Vandal
 'Fonctionnalités:
 '       -Permet d'ajouter un compte client
@@ -19,7 +20,7 @@
 'Extrants: Aucun, ce n'est qu'un formulaire
 'Dernière mise à jours: 6 novembre 2012
 
-Imports Model
+
 Partial Class prepose_ajouterCompteClient
     Inherits page
     Private Shared lecontext As ModelContainer = Nothing

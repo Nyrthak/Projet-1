@@ -16,6 +16,7 @@
                 <asp:ListItem Text="Mode de paiement" Value="ModePaiement"></asp:ListItem>
                 <asp:ListItem Text="No de téléphone" Value="noTelephone"></asp:ListItem>
                 <asp:ListItem Text="Adresse" Value="Adresse"></asp:ListItem>
+                <asp:ListItem Text="Actif" Value="Actif"></asp:ListItem>
                 <asp:ListItem Text="Code postal" Value="CodePostal"></asp:ListItem>
                 <asp:ListItem Text="Ville" Value="Ville"></asp:ListItem>
                 <asp:ListItem Text="Province" Value="Province.Nom"></asp:ListItem>
@@ -38,6 +39,7 @@
             <asp:ListItem Text="No de compte" Value="noCompte"></asp:ListItem>
             <asp:ListItem Text="Type de compte" Value="Type"></asp:ListItem>
             <asp:ListItem Text="Adresse" Value="Adresse"></asp:ListItem>
+            <asp:ListItem Text="Actif" Value="Actif"></asp:ListItem>
             <asp:ListItem Text="Ville" Value="Ville"></asp:ListItem>
             <asp:ListItem Text="Code postal" Value="CodePostal"></asp:ListItem>
             <asp:ListItem Text="Mode de paiement" Value="ModePaiement"></asp:ListItem>
