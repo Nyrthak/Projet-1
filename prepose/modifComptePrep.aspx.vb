@@ -1,4 +1,27 @@
-﻿Imports Model
+﻿'Systeme: Permet de s'incrire à des activitées pour le site CSL
+'Auteurs: Lawrence Dubé et Katherine Vandal
+'Fonctionnalités:
+'       -Modifier un compte préposé par un préposé
+'Intrants:
+'       numéro de téléphone
+'       adresse
+'       code postal
+'       ville
+'       province
+'       pays
+'       mot de passe
+'       confirmation de mot de passe
+'Extrants: 
+'       numéro de téléphone
+'       adresse
+'       code postal
+'       ville
+'       province
+'       pays
+
+'Dernière mise à jours: 6 novembre 2012
+
+Imports Model
 Partial Class prepose_modifComptePrep
     Inherits page
     Private Shared lecontext As ModelContainer = Nothing

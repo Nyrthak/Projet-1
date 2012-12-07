@@ -181,7 +181,7 @@ Public Class page
         SmtpServer.Port = 587
         SmtpServer.Host = "smtp.gmail.com"
         SmtpServer.EnableSsl = True
-        Dim mail As New MailMessage(strFrom, "law_dube8@hotmail.com")
+        Dim mail As New MailMessage(strFrom, email)
         mail.IsBodyHtml = True
         mail.Body = "<h2>CSL - Voici votre facture pour le cours " & nomCours & ".</h2><br />" &
                     "<h3>Information du cours</h3>" &
@@ -207,16 +207,17 @@ Public Class page
 
         Dim strFrom As String = "nyrthak24@gmail.com"
         Dim SmtpServer As New SmtpClient()
+        'Dim lien As String = +"/connection/login.aspx"
         SmtpServer.Credentials = New Net.NetworkCredential(strFrom, "faladomi")
         SmtpServer.Port = 587
         SmtpServer.Host = "smtp.gmail.com"
         SmtpServer.EnableSsl = True
-        Dim mail As New MailMessage(strFrom, "law_dube8@hotmail.com")
+        Dim mail As New MailMessage(strFrom, email)
         mail.IsBodyHtml = True
         mail.Body = "<h2>CSL - Nouvelle place.</h2><br />" &
                     "<h3>Une nouvelle place est disponible pour " & nomMembre & " pour le " & nomGroupe & " du cours " & nomCours & ".</h3><br />" &
                     "Veulliez vous rendre sur votre page de compte, ensuite dans 'Inscriptions non payés' pour payer votre inscription.<br />" &
-                    "<a href='http://localhost:60101/Projet-1/connection/login.aspx?ReturnUrl=%2fProjet-1%2fdefault.aspx'>Connection.</a><br />" &
+                    "<a href=''>Connection.</a><br />" &
                     "<h2>Merci de nous faire confiance!</h2>"
 
         mail.Subject = "Nouvelle place - " & nomCours

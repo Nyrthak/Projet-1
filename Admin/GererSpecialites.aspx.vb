@@ -1,4 +1,13 @@
-﻿'Cette page permet d'afficher, ajouter, modifier et supprimer les specialités.
+﻿'Systeme: Permet de s'incrire à des activitées pour le site CSL
+'Auteurs: Lawrence Dubé et Katherine Vandal
+'Fonctionnalités:
+'       -Ajoute/suppression d'une spécialité
+'Intrants:
+'       le nom
+'Extrants: Elle affiche une liste des catégorie déjà ajouté
+'       -le numéro
+'       -le nom
+'Dernière mise à jours: 6 novembre 2012
 Imports Model
 Partial Class Admin_GererSpecialites
     Inherits page

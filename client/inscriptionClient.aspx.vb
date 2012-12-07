@@ -1,4 +1,15 @@
-﻿
+﻿'Systeme: Permet de s'incrire à des activitées pour le site CSL
+'Auteurs: Lawrence Dubé et Katherine Vandal
+'Fonctionnalités:
+'       -Affichage de la liste d'inscription
+'Intrants:
+'       Aucun
+'Extrants: 
+'       -Nom
+'       -Prénom
+'       -nom du cours
+'       -nom du groupe
+'Dernière mise à jours: 6 novembre 2012
 Imports Model
 Partial Class client_inscriptionClient
     Inherits page

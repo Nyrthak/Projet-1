@@ -16,7 +16,7 @@
     <div id="bigDiv">
         
         <div id="header">
-            <asp:LoginStatus ID="laginStatus" runat="server" LogoutPageUrl="Default.aspx" forecolor="Red"/>
+            <asp:LoginStatus ID="laginStatus" runat="server" LogoutPageUrl="Default.aspx" forecolor="Red" />
         </div>
         <div id="menu">
             <asp:Menu ID="menuTop" runat="server" Orientation="Horizontal" DataSourceID="siteMapDataSource" >
@@ -64,9 +64,7 @@
             </div>
         </div>
         <div id="footer">
-            <p class="left">Copyright KeL © 2012</p>
-            <p class="right">
-                <asp:LinkButton ID="lnkBtLangue" Text="English" runat="server"></asp:LinkButton></p>
+            <p class="left">Copyright KeL © 2012</p
         </div>       
     </div>
     <asp:SiteMapDataSource ID="siteMapDataSource" runat="server" ShowStartingNode="false"  SiteMapProvider="siteMapLogged"/>

@@ -4,7 +4,7 @@
 <asp:Content ID="contentMenuPrepose" ContentPlaceHolderID="contentMenuPrepose" runat="server"></asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="contentPlaceMasterPage" runat="server">
-    <asp:Button ID="btnRechercher" runat="server" Text="Ok" CssClass="rechercher" />
+    <asp:Button SkinID="btnRechercher" ID="btnRechercher" runat="server" Text="Ok" CssClass="rechercher" />
     <asp:TextBox ID="txtRechercher" runat="server" SkinID="TextBoxFormulaire" CssClass="rechercher"></asp:TextBox>
     <asp:Label ID="lblRechercher" runat="server" Text="Rechercher" CssClass="lbRechercher"></asp:Label>
     <div id="contentRight">

@@ -1,4 +1,13 @@
-﻿'Cette page permet d'afficher, ajouter, modifier et supprimer les groupes d'âge.
+﻿'Systeme: Permet de s'incrire à des activitées pour le site CSL
+'Auteurs: Lawrence Dubé et Katherine Vandal
+'Fonctionnalités:
+'       -Ajout/modification/suppression d'un groupe d'âge
+'Intrants:
+'       le nom
+'Extrants: Elle affiche une de groupe d'âge
+'       le nom
+'       le numéro
+'Dernière mise à jours: 6 novembre 2012
 Imports Model
 Partial Class Admin_GererGroupesDAge
     Inherits page

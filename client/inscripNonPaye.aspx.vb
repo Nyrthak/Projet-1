@@ -1,4 +1,19 @@
-﻿Imports Model
+﻿'Systeme: Permet de s'incrire à des activitées pour le site CSL
+'Auteurs: Lawrence Dubé et Katherine Vandal
+'Fonctionnalités:
+'       -Payer les inscriptions non payés
+'Intrants:
+'       le nom
+'       le prénom
+'       adresse
+'       numéro de carte de crédit
+'       date d'expiration
+'Extrants: Elle affiche une d'inscriptions non payé
+'       -le numéro
+'       -le nom
+'Dernière mise à jours: 6 novembre 2012
+
+Imports Model
 
 Partial Class client_inscripNonPaye
     Inherits page

@@ -1,7 +1,55 @@
-﻿'Cette page permet à l'administrateur de gérer les cours, les groupes et les horaires
+﻿'Systeme: Permet de s'incrire à des activitées pour le site CSL
+'Auteurs: Lawrence Dubé et Katherine Vandal
+'Fonctionnalités:
+'       -Ajout/modification/suppression des objects suivants:
+'           Cours
+'           Groupe
+'           Horaire
+'Intrants:
+'       -Pour l'ajout/modification/suppression d'un cours
+'           Nom
+'           Prix
+'           Groupe d'âge
+'           Prérequis
+'           Catégorie
+'           Description
+'       -Pour l'ajout/modification/suppression d'un groupe
+'           Nom
+'           Date de début
+'           Date de fin
+'           Date limite d'inscrption
+'           Nombre de places
+'           Local
+'           Âge
+'           Animateur
+'           Session
+'       -Pour l'ajout/modification/suppression d'un horaire
+'           Journée
+'           Heure de début
+'           Heure de fin
+'Extrants: 
+'       -Pour l'ajout/modification/suppression d'un cours
+'           Nom
+'           Nombre de groupe
+'           Catégorie
+'       -Pour l'ajout/modification/suppression d'un groupe
+'           Nom
+'           Date de début
+'           Date de fin
+'           Date limite d'inscrption
+'           Nombre de places
+'           Local
+'           Âge
+'           Animateur
+'           Session
+'           Liste de membre
+'       -Pour l'ajout/modification/suppression d'un horaire
+'           Journée
+'           Heure de début
+'           Heure de fin
+'Dernière mise à jours: 6 novembre 2012
 
 Imports Model
-
 Partial Class Admin_GérerLesCours
     Inherits page
 #Region "Page"
@@ -186,7 +234,7 @@ Partial Class Admin_GérerLesCours
             leCoursAjouté.Actif = False
             leCoursAjouté.lePrerequis = Nothing
 
-            leGroupeAjoute.Nom = "Prerequis"
+            leGroupeAjoute.Nom = "Préréquis"
             leGroupeAjoute.Local = "Prerequis"
             leGroupeAjoute.DateDebut = Date.Now
             leGroupeAjoute.DateFin = Date.Now
@@ -196,13 +244,13 @@ Partial Class Admin_GérerLesCours
             leGroupeAjoute.Actif = False
             leGroupeAjoute.nbMaxInscrits = 999
             Dim laSessionPrerequis As Session
-            If (From uneSession In lecontext.Session Where uneSession.NomSession = "Prerequis" Select uneSession).Count = 0 Then
+            If (From uneSession In lecontext.Session Where uneSession.NomSession = "Préréquis" Select uneSession).Count = 0 Then
                 laSessionPrerequis = New Session
-                laSessionPrerequis.NomSession = "Prerequis"
+                laSessionPrerequis.NomSession = "Préréquis"
                 laSessionPrerequis.DebutSession = Date.Now.AddYears(-5)
                 lecontext.Session.AddObject(laSessionPrerequis)
             Else
-                laSessionPrerequis = (From uneSession In lecontext.Session Where uneSession.NomSession = "Prerequis" Select uneSession).FirstOrDefault
+                laSessionPrerequis = (From uneSession In lecontext.Session Where uneSession.NomSession = "Préréquis" Select uneSession).FirstOrDefault
             End If
             leGroupeAjoute.Session = laSessionPrerequis
             leCoursAjouté.Groupe.Add(leGroupeAjoute)

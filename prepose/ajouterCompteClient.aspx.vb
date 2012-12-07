@@ -1,5 +1,25 @@
-﻿Imports Model
+﻿'Systeme: Permet de s'incrire à des activitées pour le site CSL
+'Auteurs: Lawrence Dubé et Katherine Vandal
+'Fonctionnalités:
+'       -Permet d'ajouter un compte client
+'Intrants:
+'       le nom
+'       le prénom
+'       adresse courriel
+'       date de naissance
+'       mot de passe
+'       confirmation de mot de passe
+'       numéro de téléphone
+'       adresse
+'       code postale
+'       ville
+'       province
+'       pays
+'       type de paiement
+'Extrants: Aucun, ce n'est qu'un formulaire
+'Dernière mise à jours: 6 novembre 2012
 
+Imports Model
 Partial Class prepose_ajouterCompteClient
     Inherits page
     Private Shared lecontext As ModelContainer = Nothing
@@ -25,16 +45,12 @@ Partial Class prepose_ajouterCompteClient
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         rangeValidatorDateNaissance.MinimumValue = Now.AddYears(-150).ToShortDateString
-        rangeValidatorDateNaissance.MaximumValue = Now.Date.ToShortDateString
+        rangeValidatorDateNaissance.MaximumValue = Now.AddYears(-18).ToShortDateString
         lecontext = New ModelContainer()
     End Sub
 
     Protected Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Unload
         lecontext = Nothing
-    End Sub
-
-    Protected Sub dropDownListProvince_DataBound(ByVal sender As Object, ByVal e As System.EventArgs) Handles dropDownListProvince.DataBound
-        dropDownListProvince.Items.Insert(0, "")
     End Sub
 
     Protected Sub btnEnregistrerInscription_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnregistrerInscription.Click
@@ -74,6 +90,7 @@ Partial Class prepose_ajouterCompteClient
             compteAjoute.noTelephone = tbNumeroTelephone.Text
             compteAjoute.Province = (From dl In lecontext.Province Where dl.noProvince = dropDownListProvince.SelectedValue Select dl).First
             compteAjoute.Pays = tbPays.Text
+            compteAjoute.Actif = True
 
             membreAjoute.Parent = True
             membreAjoute.Nom = tbNom.Text

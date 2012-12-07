@@ -29,20 +29,35 @@
                                 <asp:Label SkinID="lbInscription" ID="lbNomCompte" runat="server" Text='<%#Eval("Email") %>'></asp:Label>
                             </td>
                             <td>
-                                <asp:Button skinid="btnActionPossible" ID="btnSupprimerMembre" runat="server" Text="Gérer" CommandName="supprimerMembre" CommandArgument='<%#Eval("noCompte") %>'/>
+                                <asp:Button skinid="btnAjoutSupprimer" ID="btnSupprimerMembre" runat="server"  Width="83px" Text="Gérer" CommandName="supprimerMembre" CommandArgument='<%#Eval("noCompte") %>'/>
                             </td>
+                            <td colspan="2">
+                                <asp:Button skinid="btnAjoutSupprimer" ID="btnModifier" runat="server" Text="Modifier compte" CommandName="modifier" CommandArgument='<%#Eval("noCompte") %>'/>
+                            </td>
+                             <td >
+                                <asp:Button skinid="btnAjoutSupprimer" ID="btnDesactiver" runat="server" Text="-" CommandName="desactiver" CommandArgument='<%#Eval("noCompte") %>'/>
+                            </td>   
+                          </tr>
+                          <tr>
+                          <td></td>
+                          <td>
+                                <asp:Button skinid="btnAjoutSupprimer" ID="btInscription" runat="server" Text="Inscription" CommandName="inscription" CommandArgument='<%#Eval("noCompte") %>'/>
+                            </td>
+                            
                             <td>
-                                <asp:Button skinid="btnActionPossible" ID="btInscription" runat="server" Text="Inscription" CommandName="inscription" CommandArgument='<%#Eval("noCompte") %>'/>
-                            </td>
-                            <td>
-                                <asp:Button skinid="btnActionPossible" ID="btnModifier" runat="server" Text="Modifier compte" CommandName="modifier" CommandArgument='<%#Eval("noCompte") %>'/>
-                            </td>
-                            <td>
-                                <asp:Button skinid="btnActionPossible" ID="btnPrerequis" runat="server" Text="Pérequis" CommandName="prerequis" CommandArgument='<%#Eval("noCompte") %>'/>
-                            </td>
+                                <asp:Button skinid="btnAjoutSupprimer" ID="btnPrerequis" runat="server" Text="Pérequis" CommandName="prerequis" CommandArgument='<%#Eval("noCompte") %>'/>
+                            </td>                           
                         </tr>
                     </ItemTemplate>
-                </asp:ListView>
+                </asp:ListView><br />
+                
+                <asp:DataPager ID="dpListeCours" runat="server" PagedControlID="lViewListeCompte" PageSize="6">
+                <Fields>
+                    <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="True" 
+                        ShowLastPageButton="True" FirstPageText="Premier" LastPageText="Dernier" 
+                        NextPageText="Suivant" PreviousPageText="Précédent" ButtonCssClass="boutonMenuPager" />
+                </Fields>
+            </asp:DataPager>
             </asp:View>
             <asp:View runat="server" ID="viewInscription">
                 <asp:Label SkinID="lbTitrePage" ID="lbListeInscription" runat="server" Text="Liste d'inscriptions par membres" Width="600px"></asp:Label>
@@ -67,7 +82,7 @@
                             <ItemTemplate>
                                 <tr>
                                     <td class="longeurDeuxiemeColonneNOM">
-                                        <asp:Label SkinID="lbInscription" ID="lbNomMembre" runat="server" Text='<%#Eval("Groupe.Cours.Nom") & " Groupe " & Eval("Groupe.noGroupe") %>'></asp:Label>                                    
+                                        <asp:Label SkinID="lbInscription" ID="lbNomMembre" runat="server" Text='<%#Eval("Groupe.Cours.Nom") & " " & Eval("Groupe.Nom") %>'></asp:Label>                                    
                                     </td>
                                     <td>
                                         <asp:Button skinid="btnActionPossible" ID="btnDesinscrire" runat="server" 
@@ -94,7 +109,7 @@
                 <asp:Label SkinID="lbTitrePage" ID="lbTitreModiCompte" runat="server" Text="Modification de compte"></asp:Label>
                 <asp:MultiView ID="multiViewModiCompte" runat="server" ActiveViewIndex="0">
                 <asp:View ID="viewModiCompte" runat="server">               
-                    <asp:ListView ID="lViewCompte" runat="server" DataKeyNames="noCompte" DataSourceID="entiDataSourceCompte" EditIndex="0">
+                    <asp:ListView ID="lViewCompte" runat="server" DataKeyNames="noCompte" DataSourceID="entiDataSourceCompteModifier" EditIndex="0">
                     <LayoutTemplate>
                                 <table>
                                     <asp:PlaceHolder runat="server" ID="GroupPlaceHolder"></asp:PlaceHolder>
@@ -248,7 +263,7 @@
                             <ItemTemplate>
                                 <tr>
                                     <td class="longeurDeuxiemeColonneNOM">
-                                        <asp:Label SkinID="lbInscription" ID="lbNomMembre" runat="server" Text='<%#Eval("Groupe.Cours.Nom") & " Groupe " & Eval("Groupe.noGroupe") %>'></asp:Label>                                    
+                                        <asp:Label SkinID="lbInscription" ID="lbNomMembre" runat="server" Text='<%#Eval("Groupe.Cours.Nom") & " " & Eval("Groupe.Nom") %>'></asp:Label>                                    
                                     </td>                                                                                          
                                </tr>
                             </ItemTemplate>
@@ -372,8 +387,6 @@
                         </td>
                     </tr>
                 </EditItemTemplate>
-                
-        
             </asp:ListView>  
             <br /> 
                 <asp:Button SkinID="btnActionPossible" ID="btnRetourGererMembre" runat="server" Text="Retour" CausesValidation="false" /> 
@@ -386,14 +399,22 @@
     
     <asp:EntityDataSource ID="entiDataSourceCompte" runat="server" 
             ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-            EnableFlattening="False" EntitySetName="Compte" Where='it.Email like "%"+@recherche+"%" OR (@recherche ="") AND it.Type = 1' EnableUpdate="true">
+            EnableFlattening="False" EntitySetName="Compte" Where='it.Type = 1 AND (it.Email like "%"+@recherche+"%" OR (@recherche =""))'
+             OrderBy="it.Actif DESC">
         <WhereParameters>
             <asp:ControlParameter ControlID="tbRechercher" ConvertEmptyStringToNull="false" Name="recherche" Type="String" />
+        </WhereParameters>
+        </asp:EntityDataSource>
+        <asp:EntityDataSource ID="entiDataSourceCompteModifier" runat="server" 
+            ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
+            EnableFlattening="False" EntitySetName="Compte" Where='it.noCompte = @noCompte' EnableUpdate="true" >
+        <WhereParameters>
+            <asp:ControlParameter ControlID="hFieldNoCompte" Type="Int32" Name="noCompte" />
         </WhereParameters>    
     </asp:EntityDataSource>
      <asp:EntityDataSource ID="entiDataSourceMembre" runat="server"
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-        EntitySetName="Membre" Where='it.Compte.noCompte = @noCompte AND it.Nom <> "Entrez un nom"' Include="Compte" EnableFlattening="False" EnableUpdate="true">
+        EntitySetName="Membre" Where='it.Compte.noCompte = @noCompte AND it.Nom <> "Entrez un nom"'  Include="Compte" EnableFlattening="False" EnableUpdate="true">
         <WhereParameters>
             <asp:ControlParameter ControlID="hFieldNoCompte" Type="Int32" Name="noCompte" />
         </WhereParameters>

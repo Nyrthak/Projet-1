@@ -1,4 +1,43 @@
-﻿Imports Model
+﻿'Systeme: Permet de s'incrire à des activitées pour le site CSL
+'Auteurs: Lawrence Dubé et Katherine Vandal
+'Fonctionnalités:
+'       -Gérer les comptes clients
+'Intrants:
+'       le nom
+'       le prénom
+'       adresse
+'       numéro de carte de crédit
+'       date d'expiration
+'       prérequis
+'Extrants: 
+'       Liste de client
+'           action possibles
+'       Liste de membre
+'           nom
+'           prénom
+'           date de naissance
+'           parent ou enfant
+'       Modifier compte
+'           adresse courriel
+'           numéro de téléphone
+'           adresse
+'           code postale
+'           ville
+'           province
+'           pays
+'       Liste d'inscription
+'           nom
+'           prénom
+'           nom groupe
+'           nom cours
+'       prérequis
+'           nom
+'           prénom
+'           liste de prérequis
+'Dernière mise à jours: 6 novembre 2012
+
+
+Imports Model
 Partial Class prepose_gererClient
     Inherits page
 
@@ -23,7 +62,7 @@ Partial Class prepose_gererClient
     End Sub
 
     Protected Sub Page_PreInit(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreInit
-
+        verificationTypeUser(2)
     End Sub
 
     Protected Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Unload
@@ -51,6 +90,23 @@ Partial Class prepose_gererClient
         If e.CommandName = "supprimerMembre" Then
             hFieldNoCompte.Value = e.CommandArgument
             mViewActionCompte.ActiveViewIndex = 4
+        End If
+        If e.CommandName = "desactiver" Then
+            hFieldNoCompte.Value = e.CommandArgument
+            Dim noCompte As Integer = e.CommandArgument
+            Dim leCompte As Compte = (From unCompte As Compte In lecontext.Compte Where unCompte.noCompte = noCompte Select unCompte).FirstOrDefault
+            If leCompte IsNot Nothing Then
+                If leCompte.Actif = True Then
+                    leCompte.Actif = False
+                    lecontext.SaveChanges()
+                    lviewListeCompte.DataBind()
+                Else
+                    leCompte.Actif = True
+                    lecontext.SaveChanges()
+                    lviewListeCompte.DataBind()
+                End If
+            End If
+
         End If
     End Sub
 
@@ -80,6 +136,7 @@ Partial Class prepose_gererClient
             lViewCompte.UpdateItem(0, True)
             lViewCompte.EditIndex = 0
             lbMessage.Text = "Votre compte a bien été modifié."
+            lviewListeCompte.DataBind()
         End If
     End Sub
 
@@ -159,6 +216,7 @@ Partial Class prepose_gererClient
                             Dim validatorPropriétaire As CustomValidator = New CustomValidator
                             validatorPropriétaire.ErrorMessage = "Vous ne pouvez pas supprimer le propriétaire d'un compte."
                             validatorPropriétaire.IsValid = False
+                            validatorPropriétaire.ValidationGroup = "A"
                             Me.Validators.Add(validatorPropriétaire)
                         End If
                     Else
@@ -173,6 +231,8 @@ Partial Class prepose_gererClient
     Protected Sub entiDataSourceMembre_Deleted(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceChangedEventArgs) Handles entiDataSourceMembre.Deleted
         Response.Redirect("~/prepose/gererClient.aspx")
     End Sub
+
+
 
     Protected Sub lViewGererMembres_ItemUpdated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewUpdatedEventArgs) Handles lViewGererMembres.ItemUpdated
         lbMessage.Text = "Vous avez modifier le membre " & e.NewValues(1) & " " & e.NewValues(0) & "."
@@ -192,6 +252,16 @@ Partial Class prepose_gererClient
                 Me.Validators.Add(validatorNombreParent)
                 e.Cancel = True
             End If
+        End If
+    End Sub
+
+
+    Protected Sub lviewListeCompte_ItemDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewItemEventArgs) Handles lviewListeCompte.ItemDataBound
+        Dim noCompte As Integer = e.Item.DataItem.noCompte
+        Dim leCompte As Compte = (From unCompte In lecontext.Compte Where unCompte.noCompte = noCompte Select unCompte).First
+        If Not leCompte.Actif = True Then
+            CType(e.Item.FindControl("lbNomCompte"), Label).ForeColor = Drawing.Color.Gray
+            CType(e.Item.FindControl("btnDesactiver"), Button).Text = "+"
         End If
     End Sub
 End Class

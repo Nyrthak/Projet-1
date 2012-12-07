@@ -43,7 +43,7 @@
                         <asp:CalendarExtender ID="calendarExtenderDebut" runat="server" TargetControlID="tbDebutSession" PopupButtonID="imgBtnDebut" 
                             CssClass="MyCalendar" PopupPosition="Right" Format="d-MM-yyyy" >
                         </asp:CalendarExtender>
-                        <asp:TextBox ID="tbDebutSession" runat="server" Text='<%#Bind("DebutSession", "{0:dd/MM/yyyy}")%>' SkinID="tbSkin" Width="90px" MaxLength="10"></asp:TextBox>
+                        <asp:TextBox ID="tbDebutSession" runat="server" Text='<%#Bind("DebutSession", "{0:dd/MM/yyyy}")%>' ToolTip="JJ-MM-AAAA" SkinID="tbSkin" Width="90px" MaxLength="10"></asp:TextBox>
                         <asp:ImageButton ID="imgBtnDebut" ImageUrl="~/App_Themes/Default/images/btnCalendrier.png" runat="server" CausesValidation="false" />
                         <asp:RequiredFieldValidator ForeColor="Red" ValidationGroup="Edit"
                             ID="rfvDebut" runat="server" ErrorMessage="La date de début doit être spécifiée." 
@@ -69,7 +69,7 @@
                         <asp:CalendarExtender ID="calendarExtenderDebut" runat="server" TargetControlID="tbDebutSession" PopupButtonID="imgBtnDebut" 
                             CssClass="MyCalendar" PopupPosition="Right" Format="d-MM-yyyy" >
                         </asp:CalendarExtender>
-                        <asp:TextBox ID="tbDebutSession" runat="server" Text='<%#Bind("DebutSession", "{0:dd/MM/yyyy}")%>' SkinID="tbSkin" Width="90px" MaxLength="10"></asp:TextBox>
+                        <asp:TextBox ID="tbDebutSession" runat="server" Text='<%#Bind("DebutSession", "{0:dd/MM/yyyy}")%>' ToolTip="JJ-MM-AAAA" SkinID="tbSkin" Width="90px" MaxLength="10"></asp:TextBox>
                         <asp:ImageButton ID="imgBtnDebut" ImageUrl="~/App_Themes/Default/images/btnCalendrier.png" runat="server" CausesValidation="false" />
                         <asp:RequiredFieldValidator ForeColor="Red" ValidationGroup="Insert"
                             ID="rfvDebut" runat="server" ErrorMessage="La date de début doit être spécifiée." 
