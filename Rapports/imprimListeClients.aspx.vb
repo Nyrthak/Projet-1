@@ -48,6 +48,12 @@ Partial Class Rapports_imprimListeClients
                     unCompte.FindControl("tdAdresse").Visible = False
                 Next
             End If
+            If Request.QueryString("Actif") = "False" Then
+                lViewComptes.FindControl("tdTitreActif").Visible = False
+                For Each unCompte In lViewComptes.Items
+                    unCompte.FindControl("tdActif").Visible = False
+                Next
+            End If
             If Request.QueryString("CodePostal") = "False" Then
                 lViewComptes.FindControl("tdTitreCodePostal").Visible = False
                 For Each unCompte In lViewComptes.Items
