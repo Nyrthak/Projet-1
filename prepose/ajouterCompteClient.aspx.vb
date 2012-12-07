@@ -1,4 +1,4 @@
-Imports Model
+﻿Imports Model
 'Systeme: Permet de s'incrire à des activitées pour le site CSL
 'Auteurs: Lawrence Dubé et Katherine Vandal
 'Fonctionnalités:
