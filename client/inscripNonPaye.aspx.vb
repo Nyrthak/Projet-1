@@ -16,7 +16,7 @@
 Imports Model
 
 Partial Class client_inscripNonPaye
-    Inherits page
+    Inherits pageMaster
 
     Private Shared lecontext As ModelContainer = Nothing
 #Region "Page"
@@ -86,7 +86,7 @@ Partial Class client_inscripNonPaye
         End If
         If Me.IsValid Then
 
-            Dim noPaypal = doTransaction("4583279825118372", rbListeTypeCarte.SelectedItem.Text, dropDownListMois.SelectedItem.Text & dropDownListAnnee.SelectedItem.Text, tbNumeroSecuriteCarte.Text, _
+            Dim noPaypal = doTransaction(tbNumeroCartePaiement.Text, rbListeTypeCarte.SelectedItem.Text, dropDownListMois.SelectedItem.Text & dropDownListAnnee.SelectedItem.Text, tbNumeroSecuriteCarte.Text, _
                              lePaiement.Groupe.Cours.Prix * coutForfait, tbPrenomPaiement.Text, tbNomPaiement.Text, tbAdresse.Text, _
                                  tbVille.Text, dropDownListProvince.SelectedItem.Text, tbCodePostal.Text)
 

@@ -289,3 +289,21 @@ Erreur survenue le 6 décembre 2012
    à System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
    à System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
 
+Erreur survenue le 10 décembre 2012
+  System.Web.HttpUnhandledException (0x80004005): Une exception de type 'System.Web.HttpUnhandledException' a été levée. ---> System.InvalidOperationException: Databinding methods such as Eval(), XPath(), and Bind() can only be used in the context of a databound control.
+   à System.Web.UI.Page.GetDataItem()
+   à System.Web.UI.TemplateControl.Eval(String expression)
+   à inscription.page_load(Object sender, EventArgs e) dans C:\Users\Katherine\Documents\A2012\Projet I\Projet-1\connection\inscription.aspx.vb:ligne 41
+   à System.Web.UI.Control.OnLoad(EventArgs e)
+   à System.Web.UI.Control.LoadRecursive()
+   à System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   à System.Web.UI.Page.HandleError(Exception e)
+   à System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   à System.Web.UI.Page.ProcessRequest(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   à System.Web.UI.Page.ProcessRequest()
+   à System.Web.UI.Page.ProcessRequestWithNoAssert(HttpContext context)
+   à System.Web.UI.Page.ProcessRequest(HttpContext context)
+   à ASP.connection_inscription_aspx.ProcessRequest(HttpContext context)
+   à System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   à System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+

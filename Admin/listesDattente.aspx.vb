@@ -11,7 +11,7 @@
 'Dernière mise à jours: 6 novembre 2012
 Imports Model
 Partial Class Admin_listesDattente
-    Inherits page
+    Inherits pageMaster
 
 #Region "Page"
 

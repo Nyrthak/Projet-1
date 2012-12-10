@@ -12,7 +12,7 @@
 'Dernière mise à jours: 6 novembre 2012
 Imports Model
 Partial Class Admin_GererSessions
-    Inherits page
+    Inherits pageMaster
 
 #Region "Page"
     Private Shared lecontext As ModelContainer = Nothing

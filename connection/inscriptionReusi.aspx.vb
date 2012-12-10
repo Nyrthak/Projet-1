@@ -8,6 +8,6 @@
 
 'Dernière mise à jours: 6 novembre 2012
 Partial Class connection_inscriptionReusi
-    Inherits System.Web.UI.Page
+    Inherits pageMaster
 
 End Class

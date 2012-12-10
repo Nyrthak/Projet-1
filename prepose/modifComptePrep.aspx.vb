@@ -23,7 +23,7 @@
 
 Imports Model
 Partial Class prepose_modifComptePrep
-    Inherits page
+    Inherits pageMaster
     Private Shared lecontext As ModelContainer = Nothing
 #Region "Page"
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load

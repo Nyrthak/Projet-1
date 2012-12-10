@@ -1,6 +1,6 @@
 ﻿Imports Model
 Partial Class Rapports_imprimListeCours
-    Inherits System.Web.UI.Page
+    Inherits pageMaster
 
 #Region "Page"
     Private Shared lecontext As ModelContainer = Nothing

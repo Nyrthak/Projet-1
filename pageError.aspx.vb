@@ -1,5 +1,5 @@
 ﻿
 Partial Class pageError
-    Inherits System.Web.UI.Page
+    Inherits pageMaster
 
 End Class

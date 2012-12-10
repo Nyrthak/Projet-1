@@ -51,7 +51,7 @@
 
 Imports Model
 Partial Class Admin_GérerLesCours
-    Inherits page
+    Inherits pageMaster
 #Region "Page"
 
     Private Shared lecontext As ModelContainer = Nothing
@@ -136,9 +136,14 @@ Partial Class Admin_GérerLesCours
                 lecontext.Horaire.DeleteObject(unHoraire)
             Next
             lecontext.Groupe.DeleteObject(leGroupeADeleter)
-            lecontext.SaveChanges()
-            lviewGroupes.DataBind()
-            e.Cancel = True
+            Try
+                lecontext.SaveChanges()
+                lviewGroupes.DataBind()
+                e.Cancel = True
+            Catch ex As Exception
+                lblMessage.Text = traiteErreur(ex, "suppression")
+            End Try
+            
         End If
     End Sub
     Protected Sub lviewGroupes_ItemDeleted(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewDeletedEventArgs) Handles lviewGroupes.ItemDeleted
@@ -167,10 +172,15 @@ Partial Class Admin_GérerLesCours
         Dim uneDate As Date = Date.Parse("25-10-2012")
         If leGroupe.DateDebut.Date = uneDate And leGroupe.DateFin.Date = uneDate And leGroupe.DateLimiteInscription.Date = uneDate Then
             lecontext.Groupe.DeleteObject(leGroupe)
-            lecontext.SaveChanges()
-            mViewCours.ActiveViewIndex = 2
-            lviewGroupes.DataBind()
-            e.Cancel = True
+            Try
+                lecontext.SaveChanges()
+                mViewCours.ActiveViewIndex = 2
+                lviewGroupes.DataBind()
+                e.Cancel = True
+            Catch ex As Exception
+                lblMessage.Text = traiteErreur(ex, "suppression")
+            End Try
+
         End If
     End Sub
     Protected Sub lviewHoraire_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles lviewHoraire.ItemCommand
@@ -180,8 +190,13 @@ Partial Class Admin_GérerLesCours
             Dim midi As Date = Date.Parse("25-10-2012 00:00:00")
             If lHoraire.HeureDebut.TimeOfDay = midi.TimeOfDay And lHoraire.HeureFin.TimeOfDay = midi.TimeOfDay Then
                 lecontext.Horaire.DeleteObject(lHoraire)
-                lecontext.SaveChanges()
-                lviewLeGroupe.DataBind()
+                Try
+                    lecontext.SaveChanges()
+                    lviewLeGroupe.DataBind()
+                Catch ex As Exception
+                    lblMessage.Text = traiteErreur(ex, "suppression")
+                End Try
+
             End If
         End If
     End Sub
@@ -322,10 +337,15 @@ Partial Class Admin_GérerLesCours
             leGroupeAjoute.Session = laSessionPrerequis
             leCoursAjouté.Groupe.Add(leGroupeAjoute)
             lecontext.AddObject("Cours", leCoursAjouté)
-            lecontext.SaveChanges()
-            hFieldNoCours.Value = leCoursAjouté.noCours
-            lViewModifierCours.EditIndex = 0
-            mViewCours.ActiveViewIndex = 1
+            Try
+                lecontext.SaveChanges()
+                hFieldNoCours.Value = leCoursAjouté.noCours
+                lViewModifierCours.EditIndex = 0
+                mViewCours.ActiveViewIndex = 1
+            Catch ex As Exception
+                lblMessage.Text = traiteErreur(ex, "ajout")
+            End Try
+
         Else
             lblMessage.Text = messageErreur
         End If
@@ -354,10 +374,15 @@ Partial Class Admin_GérerLesCours
             leGroupeAjoute.Cours = leCours
             leGroupeAjoute.nbMaxInscrits = 0
             lecontext.AddObject("Groupe", leGroupeAjoute)
-            lecontext.SaveChanges()
-            hFieldnoGroupe2.Value = leGroupeAjoute.noGroupe
-            lviewLeGroupe.EditIndex = 0
-            mViewCours.ActiveViewIndex = 3
+            Try
+                lecontext.SaveChanges()
+                hFieldnoGroupe2.Value = leGroupeAjoute.noGroupe
+                lviewLeGroupe.EditIndex = 0
+                mViewCours.ActiveViewIndex = 3
+            Catch ex As Exception
+                lblMessage.Text = traiteErreur(ex, "ajout")
+            End Try
+
         Else
             lblMessage.Text = messageErreur
         End If
@@ -372,9 +397,14 @@ Partial Class Admin_GérerLesCours
         lHoraireAjoute.Jour = (From dl In lecontext.Jour Select dl).First
         lHoraireAjoute.Groupe = (From dl In lecontext.Groupe Where dl.noGroupe = leNoGroupe).First
         lecontext.AddObject("Horaire", lHoraireAjoute)
-        lecontext.SaveChanges()
-        lviewHoraire.DataBind()
-        lviewHoraire.EditIndex = (From dl In lecontext.Horaire Where dl.Groupe.noGroupe = leNoGroupe).Count - 1
+        Try
+            lecontext.SaveChanges()
+            lviewHoraire.DataBind()
+            lviewHoraire.EditIndex = (From dl In lecontext.Horaire Where dl.Groupe.noGroupe = leNoGroupe).Count - 1
+        Catch ex As Exception
+            lblMessage.Text = traiteErreur(ex, "ajout")
+        End Try
+
     End Sub
 
     Protected Sub lViewCours_ItemDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewItemEventArgs) Handles lViewCours.ItemDataBound
@@ -455,9 +485,14 @@ Partial Class Admin_GérerLesCours
                         lecontext.Groupe.DeleteObject(unGroupe)
                     Next
                     lecontext.Cours.DeleteObject(leCoursADeleter)
-                    lecontext.SaveChanges()
-                    lblMessage.Text = "Le cours a bien été supprimé."
-                    Response.Redirect("~/Admin/GérerLesCours.aspx")
+                    Try
+                        lecontext.SaveChanges()
+                        lblMessage.Text = "Le cours a bien été supprimé."
+                        Response.Redirect("~/Admin/GérerLesCours.aspx")
+                    Catch ex As Exception
+                        lblMessage.Text = traiteErreur(ex, "suppression")
+                    End Try
+
                 End If
             Else
                 lblMessage.Text = "Le Cours n'existe pas dans la base de données."
@@ -470,15 +505,23 @@ Partial Class Admin_GérerLesCours
                 For Each leGroupe In leCoursADesactiver.Groupe
                     leGroupe.Actif = False
                 Next
-                lecontext.SaveChanges()
-                lblMessage.Text = "Le Cours " & leCoursADesactiver.Nom & " et ses groupes ont été désactivés."
+                Try
+                    lecontext.SaveChanges()
+                    lblMessage.Text = "Le Cours " & leCoursADesactiver.Nom & " et ses groupes ont été désactivés."
+                Catch ex As Exception
+                    lblMessage.Text = traiteErreur(ex, "modification")
+                End Try
             Else
                 leCoursADesactiver.Actif = True
                 For Each leGroupe In leCoursADesactiver.Groupe
                     leGroupe.Actif = True
                 Next
-                lecontext.SaveChanges()
-                lblMessage.Text = "Le Cours " & leCoursADesactiver.Nom & " et ses groupes ont été activés."
+                Try
+                    lecontext.SaveChanges()
+                    lblMessage.Text = "Le Cours " & leCoursADesactiver.Nom & " et ses groupes ont été activés."
+                Catch ex As Exception
+                    lblMessage.Text = traiteErreur(ex, "modification")
+                End Try
             End If
             lViewCours.DataBind()
             lviewGroupes.DataBind()
@@ -511,9 +554,13 @@ Partial Class Admin_GérerLesCours
                         lecontext.Groupe.DeleteObject(unGroupe)
                     Next
                     lecontext.Cours.DeleteObject(leCoursADeleter)
-                    lecontext.SaveChanges()
-                    mViewCours.ActiveViewIndex = 0
-                    lblMessage.Text = "L'ajout a été annulé"
+                    Try
+                        lecontext.SaveChanges()
+                        mViewCours.ActiveViewIndex = 0
+                        lblMessage.Text = "L'ajout a été annulé"
+                    Catch ex As Exception
+                        lblMessage.Text = traiteErreur(ex, "suppression")
+                    End Try
                 Else
                     mViewCours.ActiveViewIndex = 0
                     lblMessage.Text = "La modification a été annulée"
@@ -540,8 +587,12 @@ Partial Class Admin_GérerLesCours
                 leGroupe.Actif = True
                 lblMessage.Text = "Le groupe " & leGroupe.noGroupe & " a été activé."
             End If
-            lecontext.SaveChanges()
-            lviewGroupes.DataBind()
+            Try
+                lecontext.SaveChanges()
+                lviewGroupes.DataBind()
+            Catch ex As Exception
+                lblMessage.Text = traiteErreur(ex, "modification")
+            End Try
         End If
     End Sub
 

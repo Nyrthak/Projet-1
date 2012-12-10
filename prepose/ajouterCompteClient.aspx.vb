@@ -21,7 +21,7 @@
 'Dernière mise à jours: 6 novembre 2012
 
 Partial Class prepose_ajouterCompteClient
-    Inherits page
+    Inherits pageMaster
     Private Shared lecontext As ModelContainer = Nothing
 
 #Region "Page"

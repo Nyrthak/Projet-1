@@ -1,6 +1,6 @@
 ﻿
 Partial Class Rapports_imprimListeClients
-    Inherits System.Web.UI.Page
+    Inherits pageMaster
 
     Protected Sub lViewComptes_ItemCreated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewItemEventArgs) Handles lViewComptes.ItemCreated
         If Not Request.QueryString("triCompte") = "" Then

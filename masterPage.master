@@ -16,10 +16,10 @@
     <div id="bigDiv">
         
         <div id="header">
-            <asp:LoginStatus ID="laginStatus" runat="server" LogoutPageUrl="Default.aspx" forecolor="Red" />
+            <asp:LoginStatus ID="laginStatus" runat="server" LogoutPageUrl="Default.aspx" CssClass="loginStatus" />
         </div>
         <div id="menu">
-            <asp:Menu ID="menuTop" runat="server" Orientation="Horizontal" DataSourceID="siteMapDataSource" >
+            <asp:Menu ID="menuTop" runat="server" Orientation="Horizontal" DataSourceID="siteMapDataSource">
             <StaticHoverStyle Width="200px"/>
             <StaticSelectedStyle Width="200px" BackColor="#537EFF" ForeColor="White" /> 
             </asp:Menu>                  

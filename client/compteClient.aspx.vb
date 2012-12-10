@@ -15,7 +15,7 @@
 'Dernière mise à jours: 6 novembre 2012
 Imports Model
 Partial Class CompteClient
-    Inherits page
+    Inherits pageMaster
     Private Shared lecontext As ModelContainer = Nothing
 
 #Region "EntityDataSource"

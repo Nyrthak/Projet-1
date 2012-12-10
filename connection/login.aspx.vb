@@ -13,7 +13,7 @@ Imports Model
 Imports System.Net.Mail
 
 Partial Class login
-    Inherits page
+    Inherits pageMaster
 
     Private Shared lecontext As ModelContainer = Nothing
 

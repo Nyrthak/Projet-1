@@ -11,7 +11,7 @@
 
 Imports Model
 Partial Class Admin_GererCategories
-    Inherits page
+    Inherits pageMaster
 
 #Region "Page"
     Private Shared lecontext As ModelContainer = Nothing

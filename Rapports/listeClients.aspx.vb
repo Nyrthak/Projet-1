@@ -1,6 +1,6 @@
 ﻿Imports Model
 Partial Class Admin_ListeClients
-    Inherits page
+    Inherits pageMaster
 #Region "Page"
     Private Shared lecontext As ModelContainer = Nothing
     Protected Sub page_load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load

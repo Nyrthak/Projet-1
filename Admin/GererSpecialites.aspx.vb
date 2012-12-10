@@ -10,7 +10,7 @@
 'Dernière mise à jours: 6 novembre 2012
 Imports Model
 Partial Class Admin_GererSpecialites
-    Inherits page
+    Inherits pageMaster
 
 #Region "Page"
     Private Shared lecontext As ModelContainer = Nothing

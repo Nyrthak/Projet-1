@@ -39,7 +39,7 @@
 
 Imports Model
 Partial Class prepose_gererClient
-    Inherits page
+    Inherits pageMaster
 
     Private Shared lecontext As ModelContainer = Nothing
 #Region "Page"

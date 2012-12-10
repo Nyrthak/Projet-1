@@ -30,7 +30,7 @@ Imports System.Windows.Forms
 Imports System.Net.Mail
 
 Partial Class inscription
-    Inherits page
+    Inherits pageMaster
     Private Shared lecontext As ModelContainer = Nothing
 
 #Region "Page"
@@ -38,7 +38,6 @@ Partial Class inscription
         If Not Session("userOnline") = "" Then
             Page.Response.Redirect("~/Default.aspx")
         End If
-
         lecontext = New ModelContainer()
 
         'Remplissage du dropdownlist annee
@@ -123,6 +122,7 @@ Partial Class inscription
                 lecontext.AddObject("Compte", compteAjoute)
                 lecontext.SaveChanges()
 
+                Dim adresseURl As String = Request.Url.Host & "/Projet-1/connection/login.aspx"
                 Dim strFrom As String = "nyrthak24@gmail.com"
                 Dim SmtpServer As New SmtpClient()
                 SmtpServer.Credentials = New Net.NetworkCredential(strFrom, "faladomi")
@@ -134,7 +134,7 @@ Partial Class inscription
                 mail.Body = "<h2>CSL - Bienvenue!.</h2><br />" &
                             "Votre email de connection: " & compteAjoute.Email & ".<br />" &
                             "Vous avez payé votre inscription de 50$ de la façon suivante : " & compteAjoute.ModePaiement &
-                            "Pour commencer à vous inscrire à une activitée, rendez vous à l'adresse suivante : <a href=''>Connection.</a>"
+                            "<br/>Pour commencer à vous inscrire à une activitée, rendez vous à l'adresse suivante : <a href='" & adresseURl & "'>Connection.</a>"
                 mail.Subject = "Nouvelle inscription"
                 SmtpServer.Send(mail)
 

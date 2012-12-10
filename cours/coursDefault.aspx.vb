@@ -37,7 +37,7 @@
 
 Imports Model
 Partial Class coursDefault
-    Inherits page
+    Inherits pageMaster
 
 #Region "Page"
     Private Shared lecontext As ModelContainer = Nothing

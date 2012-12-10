@@ -1,5 +1,5 @@
 ﻿
 Partial Class connection_inscriptionReusiPrepose
-    Inherits System.Web.UI.Page
+    Inherits pageMaster
 
 End Class

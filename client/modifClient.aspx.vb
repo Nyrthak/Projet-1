@@ -24,7 +24,7 @@
 
 Imports Model
 Partial Class client_modifClient
-    Inherits page
+    Inherits pageMaster
     Private Shared lecontext As ModelContainer = Nothing
 #Region "Page"
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
