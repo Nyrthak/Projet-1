@@ -93,7 +93,7 @@
                             <asp:textbox SkinID="tbinscription" Width="100px" id="tbDateNaissance" runat="server" Text='<%#Bind("DateNaissance" , "{0:dd-MM-yyyy}") %>' ToolTip="JJ-MM-AAAA"></asp:TextBox>
                             <asp:ImageButton ID="imgBtnCalendrier" ImageUrl="~/App_Themes/Default/images/btnCalendrier.png" runat="server" CausesValidation="false" />
                             <asp:CompareValidator runat="server" ID="test" Type="Date" ControlToValidate="tbDateNaissance" ErrorMessage="La date de naissance n'est pas du bon format (jj-mm-aaaa)" ForeColor="Red" Operator="DataTypeCheck" Display="Dynamic">*</asp:CompareValidator>
-                            <asp:CustomValidator ID="customVDateNaissance" runat="server" ValidationGroup="A" ErrorMessage="L'âge est incorrect" OnServerValidate="custom_vDateNaissance" ControlToValidate="tbDateNaissance" ForeColor="Red" Display="Dynamic">*</asp:CustomValidator>                 
+                            <asp:CustomValidator ID="customVDateNaissance" runat="server" ValidationGroup="A" ErrorMessage="L'âge d'un enfant doit etre plus petit que 18 ans." OnServerValidate="custom_vDateNaissance" ControlToValidate="tbDateNaissance" ForeColor="Red" Display="Dynamic">*</asp:CustomValidator>                 
                             <asp:RequiredFieldValidator SkinID="requisValidation" 
                                 ID="requisValidationDateNaissance" runat="server" 
                                 ErrorMessage="Votre date de naissance doit être spécifié." 
@@ -115,6 +115,8 @@
         </div>
     </asp:View>
     </asp:MultiView>
+    <br />
+        <asp:Label ID="lbMessage" runat="server" Text=""></asp:Label> 
 </div>
 <asp:EntityDataSource ID="entiDataSourceCompte" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 

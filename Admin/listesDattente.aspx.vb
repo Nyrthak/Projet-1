@@ -29,7 +29,9 @@ Partial Class Admin_listesDattente
             Return hFieldNoGroupe.Value
         End Get
     End Property
-
+    Protected Sub Page_PreInit(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreInit
+        verificationTypeUser(3)
+    End Sub
 #End Region
 
 #Region "EntityDataSource"
