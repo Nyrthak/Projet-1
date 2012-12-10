@@ -1,5 +1,41 @@
-﻿Imports Model
+﻿'Systeme: Permet de s'incrire à des activitées pour le site CSL
+'Auteurs: Lawrence Dubé et Katherine Vandal
+'Fonctionnalités:
+'       -Inscription d'un client et paiement de l'inscription
+'Intrants:
+'       Paiement
+'           Nom du détenteur
+'           Prénom du détenteur
+'           Numéro de carte de crédit
+'           date d'expiration
+'           numéro de sécurité
+'Extrants: Liste de cours
+'       Catégorie
+'       Liste de cours
+'           Nom
+'           Groupe d'âge
+'           prix
+'       Information d'un cours
+'           Nom
+'           Groupe d'âge
+'           Catégorie
+'           Prix
+'           Prérequis
+'           Description
+'       Liste des groupes
+'           Nom
+'           Date de début
+'           Date de fin
+'           Date limite d'inscrption
+'           Nombre de places
+'           Local
+'           Âge
+'           Animateur
+'           Session
+'       Horaire
+'Dernière mise à jours: 6 novembre 2012
 
+Imports Model
 Partial Class coursDefault
     Inherits page
 

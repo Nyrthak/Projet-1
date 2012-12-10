@@ -22,7 +22,7 @@
 '       le prénom du détenteur
 'Extrants: Aucun, cette page n'est qu'un formulaire
 'Dernière mise à jours: 6 novembre 2012
-'Ajout de la bonne adresse pour s'inscrire
+
 Imports System.Reflection
 Imports System.Drawing
 Imports Model
@@ -146,9 +146,6 @@ Partial Class inscription
                 Me.Validators.Add(validatorErrorPaiement)
             End If
         End If
-    End Sub
-    Protected Sub dropDownListProvince_DataBound(ByVal sender As Object, ByVal e As System.EventArgs) Handles dropDownListProvince.DataBound
-        dropDownListProvince.Items.Insert(0, "")
     End Sub
 #End Region
 #Region "Controle d'erreur"

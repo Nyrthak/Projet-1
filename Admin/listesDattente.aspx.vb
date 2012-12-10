@@ -1,4 +1,15 @@
-﻿Imports Model
+﻿'Systeme: Permet de s'incrire à des activitées pour le site CSL
+'Auteurs: Lawrence Dubé et Katherine Vandal
+'Fonctionnalités:
+'       -Action sur une liste d'attente
+'           Créer un groupe avec les membres d'une liste d'attente
+'           Enregistré si le membre veut participer au nouveau groupe
+'Intrants:
+'       le nom
+'Extrants:
+'       liste de membres       
+'Dernière mise à jours: 6 novembre 2012
+Imports Model
 Partial Class Admin_listesDattente
     Inherits page
 

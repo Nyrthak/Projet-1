@@ -1,4 +1,28 @@
-﻿Imports Model
+﻿'Systeme: Permet de s'incrire à des activitées pour le site CSL
+'Auteurs: Lawrence Dubé et Katherine Vandal
+'Fonctionnalités:
+'       -Modification d'un compte client par un client
+'Intrants:
+'       le numéro de téléphone
+'       adresse
+'       code postale
+'       ville
+'       province
+'       pays
+'       mot de passe
+'       nouveau mot de passe
+'       mot de passe de confirmation
+'Extrants: Elle affiche une liste des catégorie déjà ajouté
+'       le numéro de téléphone
+'       adresse
+'       code postale
+'       ville
+'       province
+'       pays
+'Dernière mise à jours: 6 novembre 2012
+
+
+Imports Model
 Partial Class client_modifClient
     Inherits page
     Private Shared lecontext As ModelContainer = Nothing
@@ -32,11 +56,6 @@ Partial Class client_modifClient
 
     Protected Sub lViewCompte_ItemUpdated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewUpdatedEventArgs) Handles lViewCompte.ItemUpdated
         lbMessage.Text = "Votre compte à bien été modifié."
-    End Sub
-
-
-    Protected Sub lViewCompte_ItemUpdating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewUpdateEventArgs) Handles lViewCompte.ItemUpdating
-
     End Sub
 
     Protected Sub lViewCompte_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles lViewCompte.PreRender

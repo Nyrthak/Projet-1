@@ -21,22 +21,10 @@
             <GroupTemplate><asp:PlaceHolder runat="server" ID="ItemPlaceHolder"></asp:PlaceHolder></GroupTemplate>
             <ItemTemplate></ItemTemplate>
             <EditItemTemplate>
-                       <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbCourriel" runat="server" Text="Adresse courriel"></asp:Label>
-                            </td>
-                        <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="210px" ID="tbCourriel" Text='<%# Bind("Email") %>' runat="server" MaxLength="35" ></asp:TextBox>
-                            <asp:RequiredFieldValidator SkinID="requisValidation" 
-                                ID="requisValidationCourriel" runat="server" 
-                                ErrorMessage="Votre courriel doit être spécifié." 
-                                ControlToValidate="tbCourriel" Display="Dynamic">*</asp:RequiredFieldValidator>
-                                <asp:RegularExpressionValidator ID="reguExpressionEmail" runat="server" 
-                                ErrorMessage="L'email n'est pas du bon format." ControlToValidate="tbCourriel"  
-                                ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" Display="Dynamic" ForeColor="Red">*</asp:RegularExpressionValidator> 
-                            </td>
-                    </tr>
                      <tr>
-                        <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbNumeroTelephone" runat="server" Text="Numéro de téléphone"></asp:Label>
+                        <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbNumeroTelephone" runat="server" Text="Numéro de téléphone" ></asp:Label>
                             </td>
-                        <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="100px" ID="tbNumeroTelephone" Text='<%# Bind("noTelephone") %>' runat="server"  MaxLength="10" ></asp:TextBox>
+                        <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="100px" ID="tbNumeroTelephone" Text='<%# Bind("noTelephone") %>' ToolTip="Chiffres collés : 4503782424" runat="server"  MaxLength="10" ></asp:TextBox>
                             <asp:RequiredFieldValidator SkinID="requisValidation" 
                                 ID="requisValidationNumeroTelephone" runat="server" 
                                 ErrorMessage="Votre numéro de téléphone doit être spécifié." 
@@ -57,7 +45,7 @@
                     <tr>
                         <td class="longeurPremiereColonne"><asp:Label SkinID="lbInscription" ID="lbCodePostale" runat="server" Text="Code Postal"></asp:Label>
                             </td>
-                        <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="60px" ID="tbCodePostal" Text='<%# Bind("CodePostal") %>' runat="server" MaxLength="6" ></asp:TextBox>
+                        <td class="longeurDeuxiemeColonne"><asp:TextBox SkinID="tbInscription" Width="60px" ID="tbCodePostal" Text='<%# Bind("CodePostal") %>' runat="server" MaxLength="6" ToolTip="X#X#X#" ></asp:TextBox>
                             <asp:RequiredFieldValidator SkinID="requisValidation" 
                                 ID="requisValidationCodePostal" runat="server" 
                                 ErrorMessage="Votre code postal doit être spécifié." 

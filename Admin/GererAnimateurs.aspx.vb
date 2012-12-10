@@ -14,6 +14,7 @@
 '       le code postale
 '       la ville
 '       la province
+'       spécialité
 'Extrants: Elle affiche une liste d'animateur:
 '       le nom
 '       le prénom

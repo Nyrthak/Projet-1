@@ -1,4 +1,15 @@
-﻿Imports Model
+﻿'Systeme: Permet de s'incrire à des activitées pour le site CSL
+'Auteurs: Lawrence Dubé et Katherine Vandal
+'Fonctionnalités:
+'       -Inscription d'un client et paiement de l'inscription
+'Intrants:
+'       le courriel
+'       le mot de passe
+'Extrants: Aucun, cette page n'est qu'un formulaire
+'Dernière mise à jours: 6 novembre 2012
+
+
+Imports Model
 Imports System.Net.Mail
 
 Partial Class login
@@ -11,6 +22,12 @@ Partial Class login
         loginCtrl.UserNameLabelText = "Adresse courriel:"
     End Sub
 
+    Protected Sub Page_PreInit(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreInit
+        If Session.Count > 0 Then
+            Response.Redirect("~/prepose/modifComptePrep.aspx")
+        End If
+    End Sub
+
     Protected Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Unload
         lecontext = Nothing
     End Sub
@@ -18,15 +35,20 @@ Partial Class login
     Protected Sub loginCtrl_Authenticate(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.AuthenticateEventArgs) Handles loginCtrl.Authenticate
         If (From dl In lecontext.Compte Where dl.Email = loginCtrl.UserName).Count > 0 Then
             For Each compte As Compte In (From dl In lecontext.Compte Where dl.Email = loginCtrl.UserName)
-                Dim salt = "manan"
-                If compte.motDePasseCrypté = CreatePasswordHash(loginCtrl.Password, salt) Then
-                    e.Authenticated = True
-                    Session.Add("userOnline", loginCtrl.UserName)
-                    Session.Add("userType", compte.Type)
-                    Session.Add("noCompte", compte.noCompte)
-                    Session.Timeout = 25
+                If compte.Actif = True Then
+                    Dim salt = "manan"
+                    If compte.motDePasseCrypté = CreatePasswordHash(loginCtrl.Password, salt) Then
+                        e.Authenticated = True
+                        Session.Add("userOnline", loginCtrl.UserName)
+                        Session.Add("userType", compte.Type)
+                        Session.Add("noCompte", compte.noCompte)
+                        Session.Timeout = 25
+                    Else
+                        loginCtrl.FailureText = "Le mot de passe ou l'adresse courriel n'est pas valide"
+                    End If
                 Else
-                    loginCtrl.FailureText = "Le mot de passe ou l'adresse courriel n'est pas valide"
+                    e.Authenticated = False
+                    loginCtrl.FailureText = "Votre compte est désactivé, contacter un préposé."
                 End If
             Next
         Else
@@ -78,7 +100,7 @@ Partial Class login
                     mail.Body = "<h2>CSL - Nouveau compte.</h2><br />" &
                                 "Nous avons créé automatiquement un compte pour " & leMembre.Nom & ", car il vient d'avoir 18 ans aujourd'hui. <br /> " &
                                 "Nous lui souhaitons bonne fête.<br />" &
-                                "Pour l'activé vous devez entrer en contact avec un préposé par téléphone ou en personne." &
+                                "Pour l'activé vous devez entrer en contact avec un préposé par téléphone ou en personne.<br />" &
                                 "Numéro de téléphone: (450) 111-2222 <br />" &
                                 "Adresse: 48 rue Principal, Granby, Québec <br />" &
                                 "<h2>Merci de nous faire confiance!</h2>"

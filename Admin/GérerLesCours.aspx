@@ -187,7 +187,7 @@
             </asp:DataPager>
             <div class="btnCentre">
                 <asp:Button ID="btnAjouterGroupe" runat="server" Text="Ajouter un groupe" CssClass="btnAjout" Width="140px" SkinID="btnAjoutSupprimer"/>
-                <asp:Button ID="btnRetour2" runat="server" Text="Retour" Width="80px" SkinID="btnAjoutSupprimer" />
+                <asp:Button ID="btnRetour2" runat="server" Text="Retour" Width="80px" SkinID="btnAjoutSupprimer" CausesValidation="false" />
             </div>
         </asp:View>
         <asp:View ID="viewLeGroupe" runat="server">
@@ -453,7 +453,7 @@
                 </ItemTemplate>
             </asp:ListView>  
             <div class="btnCentre">
-                <asp:Button ID="btnRetour" runat="server" Text="Retour" Width="80px" SkinID="btnAjoutSupprimer" />
+                <asp:Button ID="btnRetour" runat="server" Text="Retour" Width="80px" SkinID="btnAjoutSupprimer"  CausesValidation="false"/>
             </div>
             <asp:ValidationSummary SkinID="valiSummary" ID="valiSummaryInscription" runat="server" />
         </asp:View>

@@ -1,4 +1,24 @@
 ﻿Imports Model
+'Systeme: Permet de s'incrire à des activitées pour le site CSL
+'Auteurs: Lawrence Dubé et Katherine Vandal
+'Fonctionnalités:
+'       -Permet d'ajouter un compte client
+'Intrants:
+'       le nom
+'       le prénom
+'       adresse courriel
+'       date de naissance
+'       mot de passe
+'       confirmation de mot de passe
+'       numéro de téléphone
+'       adresse
+'       code postale
+'       ville
+'       province
+'       pays
+'       type de paiement
+'Extrants: Aucun, ce n'est qu'un formulaire
+'Dernière mise à jours: 6 novembre 2012
 
 Partial Class prepose_ajouterCompteClient
     Inherits page
@@ -25,7 +45,7 @@ Partial Class prepose_ajouterCompteClient
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         rangeValidatorDateNaissance.MinimumValue = Now.AddYears(-150).ToShortDateString
-        rangeValidatorDateNaissance.MaximumValue = Now.Date.ToShortDateString
+        rangeValidatorDateNaissance.MaximumValue = Now.AddYears(-18).ToShortDateString
         lecontext = New ModelContainer()
     End Sub
 
@@ -33,16 +53,12 @@ Partial Class prepose_ajouterCompteClient
         lecontext = Nothing
     End Sub
 
-    Protected Sub dropDownListProvince_DataBound(ByVal sender As Object, ByVal e As System.EventArgs) Handles dropDownListProvince.DataBound
-        dropDownListProvince.Items.Insert(0, "")
-    End Sub
-
     Protected Sub btnEnregistrerInscription_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnregistrerInscription.Click
 
         Dim compteur As Integer = 0
 
         Dim salt As String = "manan"
-            'Dim aCookie As New HttpCookie("online")
+        'Dim aCookie As New HttpCookie("online")
         For Each courriel As String In (From dl In lecontext.Compte Select dl.Email)
             If tbCourriel.Text = courriel Then
                 Dim validatorEmail As CustomValidator = New CustomValidator
@@ -51,13 +67,13 @@ Partial Class prepose_ajouterCompteClient
                 Me.Validators.Add(validatorEmail)
             End If
         Next
-            If tbMotDePasse.Text.Count < 6 Then
-                Dim validatorMotDePasse As CustomValidator = New CustomValidator
-                validatorMotDePasse.ErrorMessage = "Le mot de passe doit contenir plus de 5 caractères"
-                validatorMotDePasse.IsValid = False
-                Me.Validators.Add(validatorMotDePasse)
-            End If
-            
+        If tbMotDePasse.Text.Count < 6 Then
+            Dim validatorMotDePasse As CustomValidator = New CustomValidator
+            validatorMotDePasse.ErrorMessage = "Le mot de passe doit contenir plus de 5 caractères"
+            validatorMotDePasse.IsValid = False
+            Me.Validators.Add(validatorMotDePasse)
+        End If
+
         If Me.IsValid Then
             Dim hash As String = CreatePasswordHash(tbMotDePasse.Text, salt)
 
@@ -90,3 +106,4 @@ Partial Class prepose_ajouterCompteClient
         End If
     End Sub
 End Class
+>>>>>>> Ajout des commentaires

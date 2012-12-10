@@ -1,23 +1,13 @@
 ﻿'Systeme: Permet de s'incrire à des activitées pour le site CSL
 'Auteurs: Lawrence Dubé et Katherine Vandal
 'Fonctionnalités:
-'       -Ajout/suppression d'un animateur par un admin
+'       -Ajout/suppression d'un forfait par un admin
 'Intrants:
-'       le nom
-'       le prénom
-'       le courriel
-'       la date de naissance
-'       le mot de passe
-'       le mot de passe de confirmation
-'       le numéro de téléphone
-'       l'adresse
-'       le code postale
-'       la ville
-'       la province
-'Extrants: Elle affiche une liste d'animateur:
-'       le nom
-'       le prénom
-'       la date de naissance
+'       le nombre d'enfant
+'       le pourcentage de réduction
+'Extrants: Elle affiche une liste de forfait déjà ajouté
+'       le nombre d'enfant
+'       le pourcentage de réduction
 'Dernière mise à jours: 6 novembre 2012
 
 Imports Model
