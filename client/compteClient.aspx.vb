@@ -1,9 +1,24 @@
-﻿Imports Model
-
+﻿'Systeme: Permet de s'incrire à des activitées pour le site CSL
+'Auteurs: Lawrence Dubé et Katherine Vandal
+'Fonctionnalités:
+'       -Gérer son compte par un client
+'Intrants:
+'       le nom
+'       le prénom
+'       le courriel
+'       la date de naissance
+'       parent ou enfant
+'Extrants: 
+'       Liste de membre
+'           nom
+'           Date de naissance
+'Dernière mise à jours: 6 novembre 2012
+Imports Model
 Partial Class CompteClient
     Inherits page
     Private Shared lecontext As ModelContainer = Nothing
 
+#Region "EntityDataSource"
     Protected Sub dsContextCreating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextCreatingEventArgs) _
     Handles entiDataSourceMembre.ContextCreating, entiDataSourceAjouterMembre.ContextCreating
 
@@ -12,24 +27,24 @@ Partial Class CompteClient
             e.Context = lecontext
         End If
     End Sub
-
     Protected Sub dsContextDisposing(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextDisposingEventArgs) _
     Handles entiDataSourceMembre.ContextDisposing, entiDataSourceAjouterMembre.ContextDisposing
         e.Cancel = True
     End Sub
-
+#End Region
+#Region "Page"
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         lbErreur.Text = ""
         lecontext = New ModelContainer()
     End Sub
-
     Protected Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Unload
         lecontext = Nothing
     End Sub
     Protected Sub Page_PreInit(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreInit
-        verificationTypeUser(1)      
+        verificationTypeUser(1)
     End Sub
-
+#End Region
+#Region "Controle"
     Protected Sub btnAjouter_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAjouter.Click
         Dim ajouterMembre As Membre = New Membre()
         Dim noCompte As Integer = Session("noCompte")
@@ -47,7 +62,6 @@ Partial Class CompteClient
         lViewAjoutMembre.EditIndex = 0
         hiddenFieldNoMembre.Value = ajouterMembre.noMembre
     End Sub
-
     Protected Sub lViewAjoutMembre_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles lViewAjoutMembre.ItemCommand
         Dim noCompteCourant As Integer = Session("noCompte")
         If e.CommandName = "Cancel" Then
@@ -84,12 +98,10 @@ Partial Class CompteClient
             End If
         End If
     End Sub
-
     Protected Sub lViewAjoutMembre_ItemUpdated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewUpdatedEventArgs) Handles lViewAjoutMembre.ItemUpdated
         multiViewMembre.ActiveViewIndex = 0
         listViewMembres.DataBind()
     End Sub
-
     Protected Sub viewMembres_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles viewMembres.Load
         'Supprime les membre qui dont le nom est "Entrez un nom"
         If Not multiViewMembre.ActiveViewIndex = 1 Then
@@ -101,7 +113,6 @@ Partial Class CompteClient
             lecontext.SaveChanges()
         End If
     End Sub
-
     Sub custom_vDateNaissance(ByVal sender As Object, ByVal e As ServerValidateEventArgs)
         Dim dateNaissance As Date = e.Value
         If CType(lViewAjoutMembre.EditItem.FindControl("rbListeTypeMembre"), RadioButtonList).SelectedValue Then
@@ -118,4 +129,27 @@ Partial Class CompteClient
             End If
         End If
     End Sub
+#End Region
+#Region "Controle d'erreur"
+    Protected Sub entiDataSourceAjouterMembre_Updated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceChangedEventArgs) Handles entiDataSourceAjouterMembre.Updated
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "mise à jour")
+        Else
+            lbMessage.Text = "L'ajout d'un membre à bien fonctionné."
+        End If
+    End Sub
+    Protected Sub entiDataSourceCompte_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceCompte.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+    Protected Sub entiDataSourceMembre_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceMembre.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+#End Region
+
+
+
 End Class

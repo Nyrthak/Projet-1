@@ -54,6 +54,7 @@ Partial Class inscription
     Protected Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Unload
         lecontext = Nothing
     End Sub
+
 #End Region
 #Region "EntityDataSource"
     Protected Sub dsContextCreating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextCreatingEventArgs) _
@@ -132,8 +133,8 @@ Partial Class inscription
                 mail.IsBodyHtml = True
                 mail.Body = "<h2>CSL - Bienvenue!.</h2><br />" &
                             "Votre email de connection: " & compteAjoute.Email & ".<br />" &
-                            "Vous avez payer votre inscription de 50$ de la façon suivante : " & compteAjoute.ModePaiement &
-                            "Pour commencer à vous inscrire à une activitée, rendez vous à l'adresse suivante :"
+                            "Vous avez payé votre inscription de 50$ de la façon suivante : " & compteAjoute.ModePaiement &
+                            "Pour commencer à vous inscrire à une activitée, rendez vous à l'adresse suivante : <a href=''>Connection.</a>"
                 mail.Subject = "Nouvelle inscription"
                 SmtpServer.Send(mail)
 

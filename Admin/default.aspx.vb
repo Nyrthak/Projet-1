@@ -1,10 +1,46 @@
-﻿Imports Model
+﻿'Systeme: Permet de s'incrire à des activitées pour le site CSL
+'Auteurs: Lawrence Dubé et Katherine Vandal
+'Fonctionnalités:
+'       -Ajout/suppression d'un preposé
+'Intrants:
+'       le nom
+'       le prénom
+'       le courriel
+'       la date de naissance
+'       le mot de passe
+'       le mot de passe de confirmation
+'       le numéro de téléphone
+'       l'adresse
+'       le code postale
+'       la ville
+'       la province
+'       spécialité
+'Extrants: aucun
+'Dernière mise à jours: 6 novembre 2012
+Imports Model
 Partial Class Admin_ajouterComptePrepose
     Inherits page
     Private Shared lecontext As ModelContainer = Nothing
 
+#Region "Page"
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        lecontext = New ModelContainer()
+
+        rangeValidatorDateNaissance.MinimumValue = Now.AddYears(-150).ToShortDateString
+        rangeValidatorDateNaissance.MaximumValue = Now.Date.ToShortDateString
+    End Sub
+
+    Protected Sub Page_PreInit(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreInit
+        verificationTypeUser(3)
+    End Sub
+    Protected Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Unload
+        lecontext = Nothing
+    End Sub
+
+#End Region
+#Region "EntityDataSource"
     Protected Sub dsContextCreating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextCreatingEventArgs) _
-    Handles entityDataSourceProvince.ContextCreating
+   Handles entityDataSourceProvince.ContextCreating
 
         'RÉCUPÈRE LE CONTEXTE DE FACON À N'EN AVOIR QU'UN
         If Not lecontext Is Nothing Then
@@ -15,19 +51,15 @@ Partial Class Admin_ajouterComptePrepose
     Handles entityDataSourceProvince.ContextDisposing
         e.Cancel = True
     End Sub
-
-    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        lecontext = New ModelContainer()
-
-        rangeValidatorDateNaissance.MinimumValue = Now.AddYears(-150).ToShortDateString
-        rangeValidatorDateNaissance.MaximumValue = Now.Date.ToShortDateString
+#End Region
+#Region "Controle d'erreur"
+    Protected Sub entityDataSourceProvince_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entityDataSourceProvince.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
     End Sub
-
-    Protected Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Unload
-        lecontext = Nothing
-    End Sub
-
-
+#End Region
+#Region "Controle"
     Protected Sub btnEnregistrerInscription_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnregistrerInscription.Click
         Dim compteur As Integer = 0
         Dim salt As String = "manan"
@@ -80,7 +112,8 @@ Partial Class Admin_ajouterComptePrepose
 
         End If
     End Sub
-    Protected Sub dropDownListProvince_DataBound(ByVal sender As Object, ByVal e As System.EventArgs) Handles dropDownListProvince.DataBound
-        dropDownListProvince.Items.Insert(0, "")
-    End Sub
+#End Region
+
+
+
 End Class

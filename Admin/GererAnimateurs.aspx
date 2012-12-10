@@ -310,7 +310,7 @@
                 </asp:DataPager>
         </asp:View>
         </asp:MultiView>
-        <br /><asp:Label ID="lbMessage" runat="server" Text=""></asp:Label>
+        <br /><asp:Label  ID="lbMessage" runat="server" Text=""></asp:Label>
     </div>
     <asp:HiddenField ID="hFieldNoAnimateur" runat="server" />
     <asp:EntityDataSource ID="entiDataSourceAnimateurs" runat="server" 

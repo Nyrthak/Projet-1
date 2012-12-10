@@ -34,9 +34,9 @@ Partial Class prepose_ajouterCompteClient
         End If
     End Sub
 
-    'Protected Sub Page_PreInit(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreInit
-    '    verificationTypeUser(2)
-    'End Sub
+    Protected Sub Page_PreInit(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreInit
+        verificationTypeUser(2)
+    End Sub
 
     Protected Sub dsContextDisposing(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextDisposingEventArgs) _
     Handles entityDataSourceProvince.ContextDisposing
@@ -103,7 +103,7 @@ Partial Class prepose_ajouterCompteClient
             lecontext.AddObject("Compte", compteAjoute)
             lecontext.SaveChanges()
 
-            Page.Response.Redirect("~/connection/inscriptionReusi.aspx")
+            Page.Response.Redirect("~/connection/inscriptionReusiPrepose.aspx")
         End If
     End Sub
 End Class

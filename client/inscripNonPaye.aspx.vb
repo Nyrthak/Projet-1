@@ -19,29 +19,40 @@ Partial Class client_inscripNonPaye
     Inherits page
 
     Private Shared lecontext As ModelContainer = Nothing
+#Region "Page"
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         lecontext = New ModelContainer()
     End Sub
+    Protected Sub Page_PreInit(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreInit
+        verificationTypeUser(1)
+    End Sub
+    Protected Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Unload
+        lecontext = Nothing
+    End Sub
 
-    Protected Sub entiDataSourcePaiementNonPaye_ContextCreating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextCreatingEventArgs) Handles entiDataSourcePaiementNonPaye.ContextCreating
+#End Region
+#Region "Controle d'erreur"
+
+#End Region
+#Region "EntityDataSource"
+    Protected Sub entiDataSourcePaiementNonPaye_ContextCreating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextCreatingEventArgs) Handles entiDataSourcePaiementNonPaye.ContextCreating, entityDataSourceProvince.ContextCreating
         If Not lecontext Is Nothing Then
             e.Context = lecontext
         End If
     End Sub
-
-    Protected Sub entiDataSourcePaiementNonPaye_ContextDisposing(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextDisposingEventArgs) Handles entiDataSourcePaiementNonPaye.ContextDisposing
+    Protected Sub entiDataSourcePaiementNonPaye_ContextDisposing(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextDisposingEventArgs) Handles entiDataSourcePaiementNonPaye.ContextDisposing, entityDataSourceProvince.ContextDisposing
         e.Cancel = True
     End Sub
 
-
+#End Region
+#Region "Controle"
     Protected Sub lViewPaiement_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles lViewPaiement.ItemCommand
         If e.CommandName = "Payer" Then
             hFielNoPaiement.Value = e.CommandArgument
             mViewInscription.ActiveViewIndex = 1
         End If
     End Sub
-
     Protected Sub btnEnregistrerInscription_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnregistrerInscription.Click
         Dim leNoCompte As Integer = Session("noCompte")
         Dim leNoPaiement As Integer = hFielNoPaiement.Value
@@ -72,7 +83,12 @@ Partial Class client_inscripNonPaye
             If Not noPaypal = "" Then
                 lePaiement.Prix = lePrixPaiementBase * coutForfait
                 lePaiement.noPaypal = noPaypal
-                lecontext.SaveChanges()
+                Try
+                    lecontext.SaveChanges()
+                Catch ex As Exception
+                    lbMessage.Text = traiteErreur(ex, "mise à jour")
+                End Try
+
                 envoyerMailPaiementInscription(leCompte.Email, lePaiement.Groupe.Cours.Nom, lePaiement.Groupe.Nom, lePaiement.Prix, lePaiement.ModePaiement, _
                                                tbVille.Text, dropDownListProvince.SelectedItem.Text, tbCodePostal.Text, tbAdresse.Text)
                 Response.Redirect("~/paiement/paiementSucess.aspx")
@@ -85,7 +101,6 @@ Partial Class client_inscripNonPaye
         End If
 
     End Sub
-
     Protected Sub mViewInscription_ActiveViewChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles mViewInscription.ActiveViewChanged
         If mViewInscription.ActiveViewIndex = 1 Then
             'Remplissage du dropdownlist annee
@@ -97,4 +112,5 @@ Partial Class client_inscripNonPaye
             End While
         End If
     End Sub
+#End Region
 End Class

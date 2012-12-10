@@ -164,6 +164,8 @@
                 <asp:Label ID="LbNote2" runat="server" Text="**: Ce numéro de 3 chiffres se situe au dos de votre carte."></asp:Label>
             </asp:View>
         </asp:MultiView>
+        <br />
+                <asp:Label ID="lbMessage" runat="server" Text=""></asp:Label> 
     </div>
     <asp:HiddenField ID="hFielNoPaiement" runat="server" />
     <asp:EntityDataSource ID="entiDataSourcePaiementNonPaye" runat="server" 

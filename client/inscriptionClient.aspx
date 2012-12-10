@@ -43,6 +43,7 @@
             </asp:EntityDataSource>
         </ItemTemplate>
         </asp:ListView>
+                <br /><asp:Label ID="lbMessage" runat="server" Text=""></asp:Label>
 </div>
   <asp:EntityDataSource ID="entiDataSourceMembre" runat="server"
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 

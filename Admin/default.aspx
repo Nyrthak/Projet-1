@@ -143,7 +143,8 @@
                 <asp:RequiredFieldValidator SkinID="requisValidation" ID="requisValidationPays" runat="server" ErrorMessage="Le pays doit être spécifié." ControlToValidate="tbPays" Display="Dynamic">*</asp:RequiredFieldValidator>
                     </td>
             </tr>
-        </table>  
+        </table><br />
+        <asp:Label ID="lbMessage" runat="server" Text=""></asp:Label> 
         <asp:Button SkinID="btnEnregistrer" ID="btnEnregistrerInscription" runat="server" Text="S'inscrire" /><br />
          <asp:Label ID="lbNote1" runat="server" Text="*: Ce sera votre nom d'utilisateur lors de future connection. Il doit être valide pour que nous vous communiquions des informations."></asp:Label><br />
         <asp:EntityDataSource ID="entityDataSourceProvince" runat="server" 
@@ -151,5 +152,6 @@
         DefaultContainerName="ModelContainer" EntitySetName="Province" 
         EnableFlattening="False">
     </asp:EntityDataSource>
+
 </div>
 </asp:Content>
