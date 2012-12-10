@@ -67,6 +67,74 @@ Partial Class coursDefault
 #End Region
 
 #Region "Contrôle d'erreur"
+    Protected Sub entityDataSourceListeCours_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entityDataSourceListeCours.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+
+    Protected Sub entityDataSourceCategorie_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entityDataSourceCategorie.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+
+    Protected Sub entityDataSourceCours_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entityDataSourceCours.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+
+    Protected Sub entityDataSourceGroupes_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entityDataSourceGroupes.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+
+    Protected Sub entityDataSourceLeGroupe_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entityDataSourceLeGroupe.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+
+    Protected Sub entityDataSourceMembre_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entityDataSourceMembre.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+
+    Protected Sub entityDataSourceHoraire_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entityDataSourceHoraire.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+
+    Protected Sub entityDataSourcePaiements_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entityDataSourcePaiements.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+
+    Protected Sub entityDataSourceProvince_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entityDataSourceProvince.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+
+    Protected Sub entiDataSourceComptesP_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceComptesP.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+
+    Protected Sub entiDataSourceMembresP_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceMembresP.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+#End Region
+
+#Region "Contrôles"
     Protected Sub lViewCategorie_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles lViewCategorie.ItemCommand
         If e.CommandName = "ClickCatégorie" Then
             hFieldNoCategorie.Value = e.CommandArgument
@@ -188,9 +256,7 @@ Partial Class coursDefault
             End If
         End If
     End Sub
-#End Region
 
-#Region "Contrôles"
     Protected Sub btnRechercher_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnRechercher.Click
         mViewCours.ActiveViewIndex = 0
     End Sub

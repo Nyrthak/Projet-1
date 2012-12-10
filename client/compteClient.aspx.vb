@@ -138,7 +138,7 @@ Partial Class CompteClient
             lbMessage.Text = "L'ajout d'un membre à bien fonctionné."
         End If
     End Sub
-    Protected Sub entiDataSourceCompte_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceCompte.Selected
+    Protected Sub entiDataSourceAjouterMembre_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceAjouterMembre.Selected
         If e.Exception IsNot Nothing Then
             lbMessage.Text = traiteErreur(e.Exception, "sélection")
         End If

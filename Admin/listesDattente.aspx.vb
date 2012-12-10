@@ -58,6 +58,11 @@ Partial Class Admin_listesDattente
             lbMessage.Text = "L'inscription a été supprimée."
         End If
     End Sub
+    Protected Sub entiDataSourceLaListeDAttente_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceLaListeDAttente.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
 #End Region
 
 #Region "Contrôles"

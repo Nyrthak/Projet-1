@@ -44,6 +44,11 @@ Partial Class Admin_GererSessions
 #End Region
 
 #Region "Contrôle d'erreur"
+    Protected Sub entiDataSourceSessions_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceSessions.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
     Protected Sub lViewSessions_ItemDeleting(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewDeleteEventArgs) Handles lViewSessions.ItemDeleting
         Dim noSession As Integer = e.Keys(0)
         If (From unGroupe In lecontext.Groupe Where unGroupe.Session.noSession = noSession Select unGroupe).Count > 0 Then
@@ -86,5 +91,6 @@ Partial Class Admin_GererSessions
 
 #Region "Contrôles"
 #End Region
+
 
 End Class

@@ -82,9 +82,16 @@ Partial Class Admin_GererCategories
             lbMessage.Text = "La catégorie " & e.NewValues(0) & " a été modifiée."
         End If
     End Sub
+
+    Protected Sub entiDataSourcecategorie_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourcecategorie.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
 #End Region
 
 #Region "Contrôles"
 #End Region
+
 
 End Class

@@ -24,24 +24,10 @@ Partial Class prepose_ajouterCompteClient
     Inherits page
     Private Shared lecontext As ModelContainer = Nothing
 
-    Protected Sub dsContextCreating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextCreatingEventArgs) _
-    Handles entityDataSourceProvince.ContextCreating
-
-        'RÉCUPÈRE LE CONTEXTE DE FACON À N'EN AVOIR QU'UN
-        If Not lecontext Is Nothing Then
-            e.Context = lecontext
-        End If
-    End Sub
-
+#Region "Page"
     Protected Sub Page_PreInit(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreInit
         verificationTypeUser(2)
     End Sub
-
-    Protected Sub dsContextDisposing(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextDisposingEventArgs) _
-    Handles entityDataSourceProvince.ContextDisposing
-        e.Cancel = True
-    End Sub
-
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         rangeValidatorDateNaissance.MinimumValue = Now.AddYears(-150).ToShortDateString
@@ -52,7 +38,29 @@ Partial Class prepose_ajouterCompteClient
     Protected Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Unload
         lecontext = Nothing
     End Sub
+#End Region
+#Region "EntityDataSource"
+    Protected Sub dsContextCreating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextCreatingEventArgs) _
+    Handles entityDataSourceProvince.ContextCreating
 
+        'RÉCUPÈRE LE CONTEXTE DE FACON À N'EN AVOIR QU'UN
+        If Not lecontext Is Nothing Then
+            e.Context = lecontext
+        End If
+    End Sub
+    Protected Sub dsContextDisposing(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextDisposingEventArgs) _
+    Handles entityDataSourceProvince.ContextDisposing
+        e.Cancel = True
+    End Sub
+#End Region
+#Region "Controle d'erreur"
+    Protected Sub entityDataSourceProvince_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entityDataSourceProvince.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+#End Region
+#Region "Controle"
     Protected Sub btnEnregistrerInscription_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnregistrerInscription.Click
 
         Dim compteur As Integer = 0
@@ -105,5 +113,5 @@ Partial Class prepose_ajouterCompteClient
             Page.Response.Redirect("~/connection/inscriptionReusiPrepose.aspx")
         End If
     End Sub
+#End Region
 End Class
->>>>>>> Ajout des commentaires

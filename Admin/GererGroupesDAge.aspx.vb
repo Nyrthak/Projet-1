@@ -42,6 +42,12 @@ Partial Class Admin_GererGroupesDAge
 #End Region
 
 #Region "Contrôle d'erreur"
+    Protected Sub entiDataSourceGroupesDAge_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceGroupesDAge.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+
     Protected Sub lViewGroupesDAge_ItemDeleting(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewDeleteEventArgs) Handles lViewGroupesDAge.ItemDeleting
         Dim noGroupeDAge As Integer = e.Keys(0)
         If (From unCours In lecontext.Cours Where unCours.GroupeDAge.noGroupeDAge = noGroupeDAge Select unCours).Count > 0 Then
@@ -84,5 +90,4 @@ Partial Class Admin_GererGroupesDAge
 
 #Region "Contrôles"
 #End Region
-
 End Class

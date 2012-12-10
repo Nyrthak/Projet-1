@@ -42,21 +42,7 @@ Partial Class prepose_gererClient
     Inherits page
 
     Private Shared lecontext As ModelContainer = Nothing
-
-    Protected Sub dsContextCreating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextCreatingEventArgs) _
-    Handles entiDataSourceMembre.ContextCreating, entiDataSourceCompte.ContextCreating
-
-        'RÉCUPÈRE LE CONTEXTE DE FACON À N'EN AVOIR QU'UN
-        If Not lecontext Is Nothing Then
-            e.Context = lecontext
-        End If
-    End Sub
-
-    Protected Sub dsContextDisposing(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextDisposingEventArgs) _
-    Handles entiDataSourceMembre.ContextDisposing, entiDataSourceCompte.ContextDisposing
-        e.Cancel = True
-    End Sub
-
+#Region "Page"
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         lecontext = New ModelContainer()
     End Sub
@@ -68,7 +54,77 @@ Partial Class prepose_gererClient
     Protected Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Unload
         lecontext = Nothing
     End Sub
+#End Region
+#Region "EntityDataSource"
+    Protected Sub dsContextCreating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextCreatingEventArgs) _
+    Handles entiDataSourceCompte.ContextCreating, entiDataSourceCompteModifier.ContextCreating, entiDataSourceMembre.ContextCreating, entiDataSourceProvince.ContextCreating
 
+        'RÉCUPÈRE LE CONTEXTE DE FACON À N'EN AVOIR QU'UN
+        If Not lecontext Is Nothing Then
+            e.Context = lecontext
+        End If
+    End Sub
+    Protected Sub dsContextDisposing(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextDisposingEventArgs) _
+    Handles entiDataSourceCompte.ContextDisposing, entiDataSourceCompteModifier.ContextDisposing, entiDataSourceMembre.ContextDisposing, entiDataSourceProvince.ContextDisposing
+        e.Cancel = True
+    End Sub
+#End Region
+#Region "Controle d'erreur"
+    Protected Sub lViewGererMembres_ItemUpdating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewUpdateEventArgs) Handles lViewGererMembres.ItemUpdating
+        Dim noCompteCourant As String = hFieldNoCompte.Value
+        Dim noMembreCourant As Integer = e.Keys(0)
+        If e.NewValues(3) = "True" Then
+            Dim nombreParent As Integer = (From unMembre As Membre In lecontext.Membre Where (unMembre.Compte.noCompte = noCompteCourant And
+                                                                                              unMembre.Parent = True And Not unMembre.noMembre = noMembreCourant) Select unMembre).Count
+            If nombreParent >= 2 Then
+                Dim validatorNombreParent As CustomValidator = New CustomValidator
+                validatorNombreParent.ValidationGroup = "A"
+                validatorNombreParent.ErrorMessage = "Il ne peut pas y avoir plus de deux parents."
+                validatorNombreParent.IsValid = False
+                Me.Validators.Add(validatorNombreParent)
+                e.Cancel = True
+            End If
+        End If
+    End Sub
+    Protected Sub entiDataSourceMembre_Deleted(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceChangedEventArgs) Handles entiDataSourceMembre.Deleted
+        Response.Redirect("~/prepose/gererClient.aspx")
+    End Sub
+    Protected Sub lViewGererMembres_ItemUpdated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewUpdatedEventArgs) Handles lViewGererMembres.ItemUpdated
+        lbMessage.Text = "Vous avez modifier le membre " & e.NewValues(1) & " " & e.NewValues(0) & "."
+    End Sub
+    Protected Sub entiDataSourceCompte_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceCompte.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+
+    Protected Sub entiDataSourceCompteModifier_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceCompteModifier.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+
+    Protected Sub entiDataSourceMembre_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceMembre.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+
+    Protected Sub entiDataSourceMembre_Updated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceChangedEventArgs) Handles entiDataSourceMembre.Updated
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "mise à jour")
+        Else
+            lbMessage.Text = "La modification d'un membre à bien fonctionnée."
+        End If
+    End Sub
+
+    Protected Sub entiDataSourceProvince_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceProvince.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+#End Region
+#Region "Controle"
     Protected Sub lviewListeCompte_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles lviewListeCompte.ItemCommand
         If e.CommandName = "inscription" Then
             lviewCompte.DataBind()
@@ -109,18 +165,15 @@ Partial Class prepose_gererClient
 
         End If
     End Sub
-
     Protected Sub btnRetour_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnRetourInscription.Click, btnRetourPrerequis.Click, _
         btnRetourModifier.Click, btnRetourGererMembre.Click
         lbMessage.Text = ""
         mViewActionCompte.ActiveViewIndex = 0
     End Sub
-
     Protected Sub btnAnnuler_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAnnuler.Click
         multiViewModiCompte.ActiveViewIndex = 0
         lbMessage.Text = ""
     End Sub
-
     Protected Sub btnEnregistrer_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnregistrer.Click
         Dim noCompteCourant As String = hFieldNoCompte.Value
         For Each courriel As String In (From unCompte In lecontext.Compte Where unCompte.noCompte <> noCompteCourant Select unCompte.Email)
@@ -139,11 +192,9 @@ Partial Class prepose_gererClient
             lviewListeCompte.DataBind()
         End If
     End Sub
-
     Protected Sub btnModiMotDePasse_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnModiMotDePasse.Click
         multiViewModiCompte.ActiveViewIndex = 1
     End Sub
-
     Protected Sub btnEnregistrerPW_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnregistrerPW.Click
         Dim salt = "manan"
         Dim noCompte As String = hFieldNoCompte.Value
@@ -168,16 +219,13 @@ Partial Class prepose_gererClient
             lecontext.SaveChanges()
         End If
     End Sub
-
     Protected Sub deletePaiement(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceChangedEventArgs)
         Response.Redirect("~/prepose/gererClient.aspx")
     End Sub
-
     Protected Sub ajoutePaiement()
         lViewCompte.DataBind()
         Response.Redirect("~/prepose/gererClient.aspx")
     End Sub
-
     Protected Sub deletingPaiement(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceChangingEventArgs)
         Dim leNoPaiement As Integer = CType(e.Entity, Paiement).noPaiement
         Dim lePaiement As Paiement = (From unPaiement In lecontext.Paiement Where unPaiement.noPaiement = leNoPaiement Select unPaiement).FirstOrDefault
@@ -197,7 +245,6 @@ Partial Class prepose_gererClient
 
         End If
     End Sub
-
     Protected Sub lViewGererMembres_ItemCommand(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewCommandEventArgs) Handles lViewGererMembres.ItemCommand
         If e.CommandName = "Supprimer" Then
             Dim noMembreASupprimer As Integer = e.CommandArgument
@@ -227,35 +274,6 @@ Partial Class prepose_gererClient
         End If
 
     End Sub
-
-    Protected Sub entiDataSourceMembre_Deleted(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceChangedEventArgs) Handles entiDataSourceMembre.Deleted
-        Response.Redirect("~/prepose/gererClient.aspx")
-    End Sub
-
-
-
-    Protected Sub lViewGererMembres_ItemUpdated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewUpdatedEventArgs) Handles lViewGererMembres.ItemUpdated
-        lbMessage.Text = "Vous avez modifier le membre " & e.NewValues(1) & " " & e.NewValues(0) & "."
-    End Sub
-
-    Protected Sub lViewGererMembres_ItemUpdating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewUpdateEventArgs) Handles lViewGererMembres.ItemUpdating
-        Dim noCompteCourant As String = hFieldNoCompte.Value
-        Dim noMembreCourant As Integer = e.Keys(0)
-        If e.NewValues(3) = "True" Then
-            Dim nombreParent As Integer = (From unMembre As Membre In lecontext.Membre Where (unMembre.Compte.noCompte = noCompteCourant And
-                                                                                              unMembre.Parent = True And Not unMembre.noMembre = noMembreCourant) Select unMembre).Count
-            If nombreParent >= 2 Then
-                Dim validatorNombreParent As CustomValidator = New CustomValidator
-                validatorNombreParent.ValidationGroup = "A"
-                validatorNombreParent.ErrorMessage = "Il ne peut pas y avoir plus de deux parents."
-                validatorNombreParent.IsValid = False
-                Me.Validators.Add(validatorNombreParent)
-                e.Cancel = True
-            End If
-        End If
-    End Sub
-
-
     Protected Sub lviewListeCompte_ItemDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewItemEventArgs) Handles lviewListeCompte.ItemDataBound
         Dim noCompte As Integer = e.Item.DataItem.noCompte
         Dim leCompte As Compte = (From unCompte In lecontext.Compte Where unCompte.noCompte = noCompte Select unCompte).First
@@ -264,4 +282,5 @@ Partial Class prepose_gererClient
             CType(e.Item.FindControl("btnDesactiver"), Button).Text = "+"
         End If
     End Sub
+#End Region
 End Class

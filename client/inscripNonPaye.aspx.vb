@@ -33,7 +33,17 @@ Partial Class client_inscripNonPaye
 
 #End Region
 #Region "Controle d'erreur"
+    Protected Sub entiDataSourcePaiementNonPaye_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourcePaiementNonPaye.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
 
+    Protected Sub entityDataSourceProvince_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entityDataSourceProvince.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
 #End Region
 #Region "EntityDataSource"
     Protected Sub entiDataSourcePaiementNonPaye_ContextCreating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextCreatingEventArgs) Handles entiDataSourcePaiementNonPaye.ContextCreating, entityDataSourceProvince.ContextCreating

@@ -54,14 +54,6 @@ Partial Class Admin_GererAnimateurs
 #End Region
 
 #Region "Contrôle d'erreur"
-
-    Protected Sub lViewAnimateurs_ItemDeleted(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewDeletedEventArgs) Handles lViewAnimateurs.ItemDeleted
-        If e.Exception IsNot Nothing Then
-            lbMessage.Text = traiteErreur(e.Exception, "suppression")
-        Else
-            lbMessage.Text = "L'animateur a été supprimé."
-        End If
-    End Sub
     Protected Sub lViewAnimateurs_ItemInserted(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewInsertedEventArgs) Handles lViewAnimateurs.ItemInserted
         If e.Exception IsNot Nothing Then
             lbMessage.Text = traiteErreur(e.Exception, "insertion")
@@ -138,6 +130,24 @@ Partial Class Admin_GererAnimateurs
             traiteErreur(e.Exception, "sélection")
         End If
     End Sub
+
+    Protected Sub entiDataSourceAnimateurs_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceAnimateurs.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+
+    Protected Sub entiDataSourceSpecialite_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceSpecialite.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+
+    Protected Sub entiDataSourceSpecialites_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceSpecialites.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
 #End Region
 
 #Region "Contrôles"
@@ -158,6 +168,4 @@ Partial Class Admin_GererAnimateurs
         lbMessage.Text = ""
     End Sub
 #End Region
-
-
 End Class

@@ -42,6 +42,11 @@ Partial Class Admin_GererSpecialites
 #End Region
 
 #Region "Contrôle d'erreur"
+    Protected Sub entiDataSourceSpecialites_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceSpecialites.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
     Protected Sub lViewSpecialites_ItemDeleting(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewDeleteEventArgs) Handles lViewSpecialites.ItemDeleting
         Dim noSpecialite As Integer = e.Keys(0)
         If (From uneSpecAnimateur In lecontext.SpécialitéAnimateur Where uneSpecAnimateur.Specialite.noSpecialite = noSpecialite Select uneSpecAnimateur).Count > 0 Then
@@ -84,5 +89,4 @@ Partial Class Admin_GererSpecialites
 
 #Region "Contrôles"
 #End Region
-
 End Class

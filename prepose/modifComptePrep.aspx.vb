@@ -25,7 +25,21 @@ Imports Model
 Partial Class prepose_modifComptePrep
     Inherits page
     Private Shared lecontext As ModelContainer = Nothing
+#Region "Page"
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        lecontext = New ModelContainer()
+        lbMessage.Text = ""
+    End Sub
 
+    Protected Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Unload
+        lecontext = Nothing
+    End Sub
+
+    Protected Sub Page_PreInit(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreInit
+        verificationTypeUser(2)
+    End Sub
+#End Region
+#Region "EntityDataSource"
     Protected Sub dsContextCreating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextCreatingEventArgs) _
     Handles entiDataSourceProvince.ContextCreating, entiDataSourceCompte.ContextCreating
 
@@ -39,33 +53,34 @@ Partial Class prepose_modifComptePrep
     Handles entiDataSourceProvince.ContextDisposing, entiDataSourceCompte.ContextDisposing
         e.Cancel = True
     End Sub
-
-    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        lecontext = New ModelContainer()
-        lbMessage.Text = ""
-    End Sub
-
-    Protected Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Unload
-        lecontext = Nothing
-    End Sub
-
-    Protected Sub Page_PreInit(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreInit
-        verificationTypeUser(2)
-    End Sub
-
+#End Region
+#Region "Controle d'erreur"
     Protected Sub lViewCompte_ItemUpdated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewUpdatedEventArgs) Handles lViewCompte.ItemUpdated
         lbMessage.Text = "Votre compte à bien été modifié."
     End Sub
-
-    Protected Sub lViewCompte_ItemUpdating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewUpdateEventArgs) Handles lViewCompte.ItemUpdating
-        
+    Protected Sub entiDataSourceProvince_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceProvince.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
     End Sub
-
+    Protected Sub entiDataSourceCompte_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceCompte.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+    Protected Sub entiDataSourceCompte_Updated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceChangedEventArgs) Handles entiDataSourceCompte.Updated
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "mise à jour")
+        Else
+            lbMessage.Text = "La modification d'un compte à bien fonctionnée."
+        End If
+    End Sub
+#End Region
+#Region "Controle"
     Protected Sub lViewCompte_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles lViewCompte.PreRender
         CType(lViewCompte.Items(0).FindControl("dropDownListProvince"), DropDownList).Items.Insert(0, "")
     End Sub
-
-    Protected Sub btnEnregistrer_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnregistrer.Click 
+    Protected Sub btnEnregistrer_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnregistrer.Click
         Dim noCompte As String = Session("noCompte")
         For Each courriel As String In (From dl In lecontext.Compte Where dl.noCompte <> noCompte Select dl.Email)
             If CType(lViewCompte.Items(0).FindControl("tbCourriel"), TextBox).Text = courriel Then
@@ -80,11 +95,9 @@ Partial Class prepose_modifComptePrep
             lViewCompte.EditIndex = 0
         End If
     End Sub
-
     Protected Sub btnModiMotDePasse_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnModiMotDePasse.Click
         multiViewModiCompte.ActiveViewIndex = 1
     End Sub
-
     Protected Sub btnEnregistrerPW_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnregistrerPW.Click
         Dim salt = "manan"
         Dim noCompte As String = Session("noCompte")
@@ -106,8 +119,8 @@ Partial Class prepose_modifComptePrep
             lecontext.SaveChanges()
         End If
     End Sub
-
     Protected Sub btnAnnuler_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAnnuler.Click
         multiViewModiCompte.ActiveViewIndex = 0
     End Sub
+#End Region
 End Class

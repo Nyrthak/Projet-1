@@ -118,11 +118,6 @@
     <br />
         <asp:Label ID="lbMessage" runat="server" Text=""></asp:Label> 
 </div>
-<asp:EntityDataSource ID="entiDataSourceCompte" runat="server" 
-        ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
-        EntitySetName="Compte">
-</asp:EntityDataSource>
-
 <asp:EntityDataSource ID="entiDataSourceAjouterMembre" runat="server" 
         ConnectionString="name=ModelContainer" DefaultContainerName="ModelContainer" 
         EntitySetName="Membre" Where="it.noMembre = @noMembre" Include="Compte" EnableUpdate="true" EnableFlattening="false">      

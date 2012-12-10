@@ -89,6 +89,12 @@ Partial Class Admin_GérerLesCours
 #End Region
 
 #Region "Contrôle d'erreur"
+
+    Protected Sub entiDataSourceCours_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceCours.Selected
+        If e.Exception IsNot Nothing Then
+            lblMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
     Protected Sub entiDataSourceCours_Updated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceChangedEventArgs) Handles entiDataSourceCours.Updated
         Dim leNoCours As Integer = hFieldNoCours.Value
     End Sub
@@ -196,6 +202,65 @@ Partial Class Admin_GérerLesCours
             e.ExceptionHandled = True
         Else
             lblMessage.Text = "L'Horaire a été modifié."
+        End If
+    End Sub
+    Protected Sub entiDataSourceAnimateur_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceAnimateur.Selected
+        If e.Exception IsNot Nothing Then
+            lblMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+
+    Protected Sub entiDataSourceCategorie_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceCategorie.Selected
+        If e.Exception IsNot Nothing Then
+            lblMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+
+    Protected Sub entiDataSourceGroupeDAge_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceGroupeDAge.Selected
+        If e.Exception IsNot Nothing Then
+            lblMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+
+    Protected Sub entiDataSourceGroupes_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceGroupes.Selected
+        If e.Exception IsNot Nothing Then
+            lblMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+
+    Protected Sub entiDataSourceHoraire_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceHoraire.Selected
+        If e.Exception IsNot Nothing Then
+            lblMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+
+    Protected Sub entiDataSourceJour_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceJour.Selected
+        If e.Exception IsNot Nothing Then
+            lblMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+
+    Protected Sub entiDataSourceLeGroupe_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceLeGroupe.Selected
+        If e.Exception IsNot Nothing Then
+            lblMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+
+    Protected Sub entiDataSourcePrerequis_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourcePrerequis.Selected
+        If e.Exception IsNot Nothing Then
+            lblMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+
+    Protected Sub entiDataSourceSession_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceSession.Selected
+        If e.Exception IsNot Nothing Then
+            lblMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
+
+    Protected Sub entityDataSourcePaiements_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entityDataSourcePaiements.Selected
+        If e.Exception IsNot Nothing Then
+            lblMessage.Text = traiteErreur(e.Exception, "sélection")
         End If
     End Sub
 

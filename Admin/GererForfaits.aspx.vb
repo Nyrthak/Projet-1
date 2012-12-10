@@ -72,6 +72,12 @@ Partial Class Admin_GererForfaits
             lblMessage.Text = "Le forfait " & e.NewValues(0) & " inscrits a été modifié."
         End If
     End Sub
+
+    Protected Sub entiDataSourceForfaits_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceForfaits.Selected
+        If e.Exception IsNot Nothing Then
+            lblMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
+    End Sub
 #End Region
 
 #Region "Contrôles"

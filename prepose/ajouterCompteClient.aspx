@@ -162,65 +162,9 @@
             <asp:ListItem>Comptant</asp:ListItem>
             <asp:ListItem>Chèque</asp:ListItem>
         </asp:RadioButtonList>  
-        <%--<table class="style1">
-            <tr>
-                <td class="longeurPremiereColonne"><asp:Label skinid="lbInscription" ID="lbNumeroCartePaiement" runat="server" Text="Numéro de la carte"></asp:Label>
-                </td>
-                <td><asp:TextBox SkinID="tbInscription" ID="tbNumeroCartePaiement" Text="" runat="server"></asp:TextBox>
-                <asp:RequiredFieldValidator SkinID="requisValidation" 
-                        ID="requisValidationNumeroCartePaiement" runat="server" 
-                        ErrorMessage="Votre numéro de carte doit être spécifié." 
-                        ControlToValidate="tbNumeroCartePaiement" Display="Dynamic">*</asp:RequiredFieldValidator>
-                    </td>
-            </tr>
-            <tr>
-                <td class="longeurPremiereColonne"><asp:Label skinid="lbInscription" ID="lbNumeroSecurite" runat="server" Text="Numéro de sécurité**"></asp:Label>
-                    </td>
-                <td>
-                   <asp:TextBox SkinID="tbInscription" Width="30px" ID="tbNumeroSecuriteCarte" runat="server" MaxLength="3" ></asp:TextBox>
-                   <asp:RequiredFieldValidator SkinID="requisValidation" ID="requisValidationNumeroSecurite" runat="server" ErrorMessage="Votre numéro de sécurité doit être spécifié." ControlToValidate="tbNumeroSecuriteCarte" Display="Dynamic">*</asp:RequiredFieldValidator>
-                   </td>                      
-            </tr>
-            <tr>
-                <td class="longeurPremiereColonne"><asp:Label skinid="lbInscription" ID="lbDateExpirationCarte" runat="server" Text="Date d'expiration"></asp:Label>
-                    </td>
-                <td>
-                    <asp:DropDownList skinid="dropDownListDateExpiration" Width="50px" ID="dropDownListMois"  runat="server" >
-                        <asp:ListItem></asp:ListItem>
-                        <asp:ListItem>1</asp:ListItem>
-                        <asp:ListItem>2</asp:ListItem>
-                        <asp:ListItem>3</asp:ListItem>
-                        <asp:ListItem>4</asp:ListItem>
-                        <asp:ListItem>5</asp:ListItem>
-                        <asp:ListItem>6</asp:ListItem>
-                        <asp:ListItem>7</asp:ListItem>
-                        <asp:ListItem>8</asp:ListItem>
-                        <asp:ListItem>9</asp:ListItem>
-                        <asp:ListItem>10</asp:ListItem>
-                        <asp:ListItem>11</asp:ListItem>
-                        <asp:ListItem>12</asp:ListItem>
-                    </asp:DropDownList>
-                    <asp:RequiredFieldValidator SkinID="requisValidation" ID="requisValidationDateExpirationMois" runat="server" 
-                        ErrorMessage="Le mois de la date d'expiration de votre carte de crédit doit être spécifié." ControlToValidate="dropDownListMois" Display="Dynamic">*</asp:RequiredFieldValidator>
-                    <asp:DropDownList skinid="dropDownListDateExpiration" Width="70px" ID="dropDownListAnnee" runat="server">
-                    </asp:DropDownList>
-                    <asp:RequiredFieldValidator SkinID="requisValidation" ID="requisValidationDateExpirationAnnee" runat="server" 
-                        ErrorMessage="L'année de la date d'expiration de votre carte de crédit doit être spécifié." ControlToValidate="dropDownListAnnee" Display="Dynamic">*</asp:RequiredFieldValidator>
-                </td>
-            </tr>
-            <tr>
-                <td class="longeurPremiereColonne"><asp:Label skinid="lbInscription" ID="lbNomPaiement" runat="server" Text="Nom du détenteur"></asp:Label>
-                    </td>
-                <td>
-                    <asp:TextBox SkinID="tbInscription" Width="210px" ID="tbNomPaiement" runat="server" MaxLength="40"></asp:TextBox>
-                        <asp:RequiredFieldValidator SkinID="requisValidation" ID="requisValidationNomDétenteur" runat="server" ErrorMessage="Le nom du détenteur doit être spécifié." ControlToValidate="tbNomPaiement" Display="Dynamic">*</asp:RequiredFieldValidator>
-                </td>
-            </tr>
-        </table>
---%>
-
         <asp:Button SkinID="btnEnregistrer" ID="btnEnregistrerInscription" runat="server" Text="S'inscrire" /><br />
-         <asp:Label ID="lbNote1" runat="server" Text="*: Ce sera votre nom d'utilisateur lors de future connection. Il doit être valide pour que nous vous communiquions des informations."></asp:Label><br />
+        <asp:Label ID="lbNote1" runat="server" Text="*: Ce sera votre nom d'utilisateur lors de future connection. Il doit être valide pour que nous vous communiquions des informations."></asp:Label><br />
+        <asp:Label ID="lbMessage" runat="server" Text=""></asp:Label>
 </div>         
         
         <asp:EntityDataSource ID="entityDataSourceProvince" runat="server" 

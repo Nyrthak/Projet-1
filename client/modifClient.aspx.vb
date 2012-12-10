@@ -26,7 +26,22 @@ Imports Model
 Partial Class client_modifClient
     Inherits page
     Private Shared lecontext As ModelContainer = Nothing
+#Region "Page"
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        lecontext = New ModelContainer()
+        lbMessage.Text = ""
+    End Sub
 
+    Protected Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Unload
+        lecontext = Nothing
+    End Sub
+
+    Protected Sub Page_PreInit(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreInit
+        verificationTypeUser(1)
+    End Sub
+#End Region
+
+#Region "EntityDataSource"
     Protected Sub dsContextCreating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceContextCreatingEventArgs) _
     Handles entiDataSourceCompte.ContextCreating, entiDataSourceProvince.ContextCreating
 
@@ -40,26 +55,37 @@ Partial Class client_modifClient
     Handles entiDataSourceProvince.ContextDisposing, entiDataSourceCompte.ContextDisposing
         e.Cancel = True
     End Sub
+#End Region
 
-    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        lecontext = New ModelContainer()
-        lbMessage.Text = ""
+#Region "Controle d'erreur"
+    Protected Sub entiDataSourceCompte_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceCompte.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
     End Sub
 
-    Protected Sub Page_Unload(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Unload
-        lecontext = Nothing
+    Protected Sub entiDataSourceCompte_Updated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceChangedEventArgs) Handles entiDataSourceCompte.Updated
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "mise à jour")
+        Else
+            lbMessage.Text = "Votre compte à bien été modifié."
+        End If
     End Sub
 
-    Protected Sub Page_PreInit(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreInit
-        verificationTypeUser(1)
+    Protected Sub entiDataSourceProvince_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.EntityDataSourceSelectedEventArgs) Handles entiDataSourceProvince.Selected
+        If e.Exception IsNot Nothing Then
+            lbMessage.Text = traiteErreur(e.Exception, "sélection")
+        End If
     End Sub
+#End Region
 
-    Protected Sub lViewCompte_ItemUpdated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ListViewUpdatedEventArgs) Handles lViewCompte.ItemUpdated
-        lbMessage.Text = "Votre compte à bien été modifié."
-    End Sub
-
+#Region "Controle"
     Protected Sub lViewCompte_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles lViewCompte.PreRender
         CType(lViewCompte.Items(0).FindControl("dropDownListProvince"), DropDownList).Items.Insert(0, "")
+    End Sub
+
+    Protected Sub btnModiMotDePasse_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnModiMotDePasse.Click
+        multiViewModiCompte.ActiveViewIndex = 1
     End Sub
 
     Protected Sub btnEnregistrer_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnregistrer.Click
@@ -68,10 +94,6 @@ Partial Class client_modifClient
             lViewCompte.UpdateItem(0, True)
             lViewCompte.EditIndex = 0
         End If
-    End Sub
-
-    Protected Sub btnModiMotDePasse_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnModiMotDePasse.Click
-        multiViewModiCompte.ActiveViewIndex = 1
     End Sub
 
     Protected Sub btnEnregistrerPW_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnregistrerPW.Click
@@ -99,5 +121,5 @@ Partial Class client_modifClient
     Protected Sub btnAnnuler_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAnnuler.Click
         multiViewModiCompte.ActiveViewIndex = 0
     End Sub
-
+#End Region
 End Class
